@@ -2,7 +2,8 @@
 public class helloworld {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		//Simple test to get github working with multiple computers using the hello world program 
 		System.out.println("Hello World");
 	}
 
