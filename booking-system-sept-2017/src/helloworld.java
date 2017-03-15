@@ -6,5 +6,8 @@ public class helloworld
 		System.out.println("Hello World, from Zach. I want to commit");
 		System.out.println("Hello world, from Lohgan. This is a test");
 		System.out.println("Hello world, from Lohgan. This is a test from the test branch to test contributions");
+		System.out.println("Another test from Lohgan");
+
 	}
+	
 }
