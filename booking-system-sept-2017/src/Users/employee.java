@@ -13,13 +13,14 @@ public class employee
 	boolean avaSaturday;
 	boolean avaSunday;
 	
+	//creates a new employee with ID, and name
 	public employee(String employeeID, String firstName, String lastName) 
 	{
 		setEmployeeID(employeeID);
 		setFirstName(firstName);
 		setLastName(lastName);
 	}
-
+	
 	private void  setEmployeeID(String employeeID)
 	{
 		this.employeeID = employeeID;
@@ -32,6 +33,7 @@ public class employee
 	{
 		this.lastName = lastName;
 	}
+	//sets all available days for the employee 
 	public void setAllAvailabily(boolean monday, boolean tuesday, boolean wednesday, boolean thursday,
 								boolean friday, boolean saturday, boolean sunday)
 	{
@@ -45,6 +47,7 @@ public class employee
 		this.avaSunday = sunday;
 		
 	}
+	//sets individual available days
 	public void setAvaMonday(boolean monday)
 	{
 		this.avaMonday = monday;
@@ -74,7 +77,7 @@ public class employee
 		this.avaSunday = sunday;
 	}
 	
-	
+	//returns each of the employee's attributes
  	public String getEmployeeID()
 	{
 		return employeeID;

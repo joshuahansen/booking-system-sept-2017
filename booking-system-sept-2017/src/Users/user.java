@@ -8,6 +8,7 @@ public abstract class user {
 	private String username;
 	private String password;
 	
+	//user super constructor. All common attributes
 	public user(String firstName, String lastName, String address, String contactNumber,
 					String username, String password)
 	{
@@ -18,7 +19,7 @@ public abstract class user {
 		setUsername(username);
 		setPassword(password);
 	}
-
+//setters for user attributes
 	private void setFirstName(String firstName)
 	{
 		this.firstName = firstName;
@@ -43,7 +44,7 @@ public abstract class user {
 	{
 		this.password = password;
 	}
-
+	//getters for user attributes
 	public String getFirstName()
 	{
 		return firstName;

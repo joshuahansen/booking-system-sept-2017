@@ -3,7 +3,7 @@ package Users;
 import java.util.ArrayList;
 
 public class init_users {
-
+	//pass in Array List of type customer and assign new customer objects to array
 	public void init_customers(ArrayList<customer> customers)
 	{
 		customer c1 = new customer("Bob", "Marley", "1 High Street Melbourne", "97342356",
@@ -17,7 +17,7 @@ public class init_users {
 		customers.add(c2);
 		customers.add(c3);
 	}
-	
+	//pass in Array List of type business and assign business objects to array
 	public void init_businesses(ArrayList<business> businesses)
 	{
 		business b1 = new business("St. George’s Hospital", "Henry", "Gray", "Blackshaw Road Melbourne", 
