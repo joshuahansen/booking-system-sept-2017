@@ -105,5 +105,3 @@ public class registration {
 		
 		return true;
 	}
-}
-
