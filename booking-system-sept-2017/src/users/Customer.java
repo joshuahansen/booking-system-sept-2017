@@ -1,8 +1,8 @@
-package Users;
+package users;
 
-public class customer extends user {
+public class Customer extends User {
 	//constructor for customer
-	public customer(String firstName, String lastName, String address, String contactNumber,
+	public Customer(String firstName, String lastName, String address, String contactNumber,
 					String username, String password)
 	{
 		super(firstName, lastName, address, contactNumber, username, password);

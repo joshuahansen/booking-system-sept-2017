@@ -1,10 +1,10 @@
-package Users;
+package users;
 
-public class business extends user
+public class Business extends User
 {
 	private String businessName;
 	//constructor for business
-	public business(String businessName, String firstName, String lastName, String address, 
+	public Business(String businessName, String firstName, String lastName, String address, 
 					String contactNumber, String username, String password) 
 	{
 		super(firstName, lastName, address, contactNumber, username, password);
