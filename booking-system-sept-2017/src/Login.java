@@ -1,61 +1,51 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import Users.*;
 
 public class Login 
 {
 	private String username = new String();
 	private String password = new String();
 	
-	public Login(String username, String password)
-	{
-		this.username = username;
-		this.password = password;
-	}
+//	public Login(String username, String password)
+//	{
+//		this.username = username;
+//		this.password = password;
+//	}
+//	
+//	public String getUsername()
+//	{
+//		return this.username;
+//	}
+//	
+//	public void setUsername(String username)
+//	{
+//		this.username = username;
+//	}
+//	
+//	public String getPassword()
+//	{
+//		return this.password;
+//	}
+//	
+//	public void setPassword(String password)
+//	{
+//		this.password = password;
+//	}
 	
-	public String getUsername()
+	public void getUsernamePassword(Scanner userInput)
 	{
-		return this.username;
-	}
-	
-	public void setUsername(String username)
-	{
-		this.username = username;
-	}
-	
-	public String getPassword()
-	{
-		return this.password;
-	}
-	
-	public void setPassword(String password)
-	{
-		this.password = password;
-	}
-	
-	public Login getUsernamePassword()
-	{
-		Scanner userInput = new Scanner(System.in);
-		
-		String username = new String();
-		String password = new String();
-		
 		System.out.println("\n");
 		System.out.println("--- Register ---");
 		System.out.println("\n");
 		
 		System.out.print("Username: ");
-		username = userInput.next();
+		this.username = userInput.next();
 		System.out.print("Password: ");
-		password = userInput.next();
-		
-		Login login = new Login(username, password);
-		
-		userInput.close();
-		
-		return login;
+		this.password = userInput.next();
 	}
 	
-	public int login(ArrayList<Customer> customers, ArrayList<Business> businesses, Login login)
+	public int login(ArrayList<customer> customers, ArrayList<business> businesses)
 	{
 		int customersLength = customers.size();
 		int businessesLength = businesses.size();
@@ -63,58 +53,75 @@ public class Login
 		int counter = 0;
 		
 		boolean usernameFound = false;
-		boolean passwordFound = false;
-		boolean isCustomer = false;
-		boolean isBusiness = false;
 		
-		String username = login.getUsername();
-		String password = login.getPassword();
+		String username = this.username;
+		String password = this.password;
 		
-		for (counter = 0; counter < customersLength; counter++)
+		if (username.charAt(0) == 'c')
 		{
-			if ((customers.get(counter)).equals(username))
+			for (counter = 0; counter < customersLength; counter++)
 			{
-				usernameFound = true;
+				String customerUsername = (customers.get(counter)).getUsername();
 				
-				isCustomer = true;
-				
-				usernameIndex = counter;
-				
-				break;
-			}
-		}
-		
-		for (counter = 0; counter < businessesLength; counter++)
-		{
-			if (usernameFound == false)
-			{
-				if ((businesses.get(counter)).equals(username))
+				if (customerUsername.equals(username))
 				{
 					usernameFound = true;
-					
-					isBusiness = true;
 					
 					usernameIndex = counter;
 					
 					break;
 				}
 			}
-			else
+		}
+		else if (username.charAt(0) == 'b')
+		{
+			for (counter = 0; counter < businessesLength; counter++)
 			{
-				break;
+				String businessUsername = (businesses.get(counter)).getUsername();
+				
+				if (businessUsername.equals(username))
+				{
+					usernameFound = true;
+					
+					usernameIndex = counter;
+					
+					break;
+				}
 			}
 		}
-		
-		// check password against usernameIndex
-		
-		if (isCustomer == true && passwordFound == true)
+		else
 		{
-			return 1;
+			return 0;
 		}
 		
-		if (isBusiness == true && passwordFound == true)
+		if (usernameFound == true)
 		{
-			return 2;
+			if (username.charAt(0) == 'c')
+			{
+				String correctPassword = (customers.get(usernameIndex)).getPassword();
+				
+				if (password.equals(correctPassword))
+				{
+					return 1;
+				}
+			}
+			else if (username.charAt(0) == 'b')
+			{
+				String correctPassword = (businesses.get(usernameIndex)).getPassword();
+				
+				if (password.equals(correctPassword))
+				{
+					return 2;
+				}
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			return 0;
 		}
 		
 		return 0;
