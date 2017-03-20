@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Users.business;
-import Users.customer;
+import users.Business;
+import users.Customer;
 
-public class registration {
+public class Registration {
 
 	private Scanner keyboard = new Scanner(System.in);
 	
@@ -66,7 +66,7 @@ public class registration {
 		this.password = keyboard.next();	
 	}
 	
-	public boolean registerNewCust(ArrayList<customer> cust, ArrayList<business> busi) {
+	public boolean registerNewCust(ArrayList<Customer> cust, ArrayList<Business> busi) {
 		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
 		 *If one of the inputs is invalid, the function will return false, causing this function 
 		 * to return false and send the user back to registration.
@@ -75,13 +75,13 @@ public class registration {
 			return false;
 		}	
 		//If all input is valid, the new customer is created, and then added to the array list.
-		customer newCust = new customer(firstName, lastName, address, phone, username, password);
+		Customer newCust = new Customer(firstName, lastName, address, phone, username, password);
 		cust.add(newCust);
 		
 		return true;		
 	}
 	
-	private boolean checkValid(ArrayList<customer> cust, ArrayList<business> busi) {
+	private boolean checkValid(ArrayList<Customer> cust, ArrayList<Business> busi) {
 		/*This runs through the customer and the business array list and compares the username of each index to the username 
 		 * entered by the user, and if it matches with an already existing username, it will return false
 		 */		

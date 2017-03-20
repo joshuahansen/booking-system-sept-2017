@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import Users.*;
+
+import users.*;
 
 public class Login 
 {
@@ -45,7 +46,7 @@ public class Login
 		this.password = userInput.next();
 	}
 	
-	public int login(ArrayList<customer> customers, ArrayList<business> businesses)
+	public int login(ArrayList<Customer> customers, ArrayList<Business> businesses)
 	{
 		int customersLength = customers.size();
 		int businessesLength = businesses.size();

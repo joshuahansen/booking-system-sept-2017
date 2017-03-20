@@ -1,6 +1,6 @@
-package Users;
+package users;
 
-public class employee
+public class Employee
 {
 	private String employeeID;
 	private String firstName;
@@ -14,7 +14,7 @@ public class employee
 	boolean avaSunday;
 	
 	//creates a new employee with ID, and name
-	public employee(String employeeID, String firstName, String lastName) 
+	public Employee(String employeeID, String firstName, String lastName) 
 	{
 		setEmployeeID(employeeID);
 		setFirstName(firstName);

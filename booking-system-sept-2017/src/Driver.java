@@ -1,24 +1,21 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import Users.*;
 
-import Users.business;
-import Users.customer;
-import Users.init_users;
+import users.*;
 
-public class driver {
+public class Driver {
 
 	public static void main(String[] args) {
 		//create array lists for booking system
-		ArrayList<customer> customers = new ArrayList<>();
-		ArrayList<business> businesses = new ArrayList<>();
+		ArrayList<Customer> customers = new ArrayList<>();
+		ArrayList<Business> businesses = new ArrayList<>();
 		
 		Scanner userInput = new Scanner(System.in);
 		
 		Login login = new Login();
 		
 		//create new init_users object
-		init_users users = new init_users();
+		InitUsers users = new InitUsers();
 		//initialize both arrays
 		users.init_customers(customers);
 		users.init_businesses(businesses);
