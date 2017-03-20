@@ -49,7 +49,7 @@ public class Driver {
 
 		//calls menu
 		Menu sys = new Menu();
-		sys.menu_input();
+		sys.menuInput();
 
 
 		userInput.close();
