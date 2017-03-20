@@ -28,7 +28,7 @@ public class driver {
 		System.out.println("Address: " + businesses.get(0).getAddress());
 		
 		System.out.println("");
-		/*
+		
 		System.out.print("Number of tests: ");
 		
 		int testInput = userInput.nextInt();
@@ -44,7 +44,7 @@ public class driver {
 			int returnValue = login.login(customers, businesses);
 			System.out.println("returnValue = " + returnValue);
 			System.out.println("End Test " + (testCounter + 1));
-		}*/
+		}
 		
 		//calls menu
 		Menu sys = new Menu();
