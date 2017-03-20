@@ -1,6 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import Users.*;
+import users.*;
 
 
 public class Menu {
@@ -9,16 +9,16 @@ public class Menu {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private void Menu() {
+	private void menuDisplay() {
 		System.out.println("\nWelcome to the Booking System.\n");
 		System.out.println("1. Login");
 		System.out.println("2. Register");
 		System.out.print("\nPlease enter your choice: ");
 	}
 	
-	public void menu_input() {
+	public void menuInput() {
 	//create objects for functions
-	registration register = new registration();
+	Registration register = new Registration();
 	Login login = new Login();
 	
 	Scanner key_Input = new Scanner(System.in);
@@ -27,7 +27,7 @@ public class Menu {
 	
 	do {
 		cond = false;
-		Menu();
+		menuDisplay();
 	try {
 		input = key_Input.nextInt();
 	
