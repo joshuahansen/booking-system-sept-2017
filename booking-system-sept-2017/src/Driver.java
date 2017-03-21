@@ -9,13 +9,16 @@ public class Driver {
 		//create array lists for booking system
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
+
 		
 		Scanner userInput = new Scanner(System.in);
 		
 		Login login = new Login();
 		
 		//create new init_users object
+
 		InitUsers users = new InitUsers();
+
 		//initialize both arrays
 		users.init_customers(customers);
 		users.init_businesses(businesses);
@@ -25,6 +28,7 @@ public class Driver {
 		System.out.println("Address: " + businesses.get(0).getAddress());
 		
 		System.out.println("");
+
 		System.out.print("Number of tests: ");
 		
 		int testInput = userInput.nextInt();
@@ -42,6 +46,12 @@ public class Driver {
 			System.out.println("End Test " + (testCounter + 1));
 		}
 		
+
+		//calls menu
+		Menu sys = new Menu();
+		sys.menuInput(userInput, customers, businesses);
+
+
 		userInput.close();
 	}
 }
