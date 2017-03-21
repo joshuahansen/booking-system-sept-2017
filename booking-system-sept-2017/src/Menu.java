@@ -39,8 +39,19 @@ public class Menu {
 			login.login(customers, businesses);
 			break;
 		case 2:
-			register.getValues();
-			register.registerNewCust(customers, businesses);
+			while (cond == false) {
+				register.getValues();
+				if (register.registerNewCust(customers, businesses)) {
+					//code for when register is successful(returns true)
+					//messages should be in functions?
+					System.out.println("Your account has been created!");
+					cond = true;
+				} else {
+					//code for when register is unsuccessful(returns false)
+					//messages should be in functions?
+					System.out.println("Please re-enter your details.");
+				}
+			}
 			break;
 		default:
 			System.out.println("Invalid Input try again.");
