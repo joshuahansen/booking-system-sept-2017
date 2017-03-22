@@ -8,7 +8,7 @@ public class Login
 {
 	private String username = new String();
 	private String password = new String();
-	
+
 	public Login()
 	{
 		// default constructor
@@ -23,18 +23,18 @@ public class Login
 	public String getUsername()
 	{
 		return this.username;
-	}
-	
+  }
+  
 	private void setUsername(String username)
 	{
 		this.username = username;
 	}
-	
+
 	public String getPassword()
 	{
 		return this.password;
 	}
-	
+  
 	private void setPassword(String password)
 	{
 		this.password = password;
