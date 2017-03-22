@@ -10,14 +10,14 @@ import users.*;
 public class InitUsersTest {
 
 	@Test
-	public void InitCustomertest() {
+	public void InitCustomerTest() {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		InitUsers initUser = new InitUsers();
 		assertEquals(true, initUser.init_customers(customers));
 	}
 	
 	@Test
-	public void initBusinesses() {
+	public void initBusinessesTest() {
 		ArrayList<Business> businesses = new ArrayList<Business>();
 		InitUsers initUser = new InitUsers();
 		assertEquals(true, initUser.init_businesses(businesses));
