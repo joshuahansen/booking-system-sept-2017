@@ -23,7 +23,7 @@ public class Driver {
 		users.init_customers(customers);
 		users.init_businesses(businesses);
 		
-		//quick  random test to make sure arrays have elements
+		/* quick random test to make sure arrays have elements
 		System.out.println("First Name: " + customers.get(0).getFirstName());
 		System.out.println("Address: " + businesses.get(0).getAddress());
 		
@@ -44,8 +44,8 @@ public class Driver {
 			int returnValue = login.login(customers, businesses);
 			System.out.println("returnValue = " + returnValue);
 			System.out.println("End Test " + (testCounter + 1));
-		}
-		
+		}x
+		*/
 
 		//calls menu
 		Menu sys = new Menu();
