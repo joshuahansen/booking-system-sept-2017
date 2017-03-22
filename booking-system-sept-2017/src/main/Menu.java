@@ -37,8 +37,14 @@ public class Menu {
 		switch (input) {
 		case 1: 
 			login.getUsernamePassword(userInput);
-			login.login(customers, businesses);
-			System.out.println("Login Successful");
+			if(login.login(customers, businesses) == 0)
+			{
+				System.out.println("Login Fail");
+			}
+			else
+			{
+				System.out.println("Login Successful");
+			}
 			break;
 		case 2:
 			while (cond == false) {
