@@ -1,3 +1,4 @@
+package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,31 +9,42 @@ public class Login
 	private String username = new String();
 	private String password = new String();
 	
-//	public Login(String username, String password)
-//	{
-//		this.username = username;
-//		this.password = password;
-//	}
-//	
-//	public String getUsername()
-//	{
-//		return this.username;
-//	}
-//	
-//	public void setUsername(String username)
-//	{
-//		this.username = username;
-//	}
-//	
-//	public String getPassword()
-//	{
-//		return this.password;
-//	}
-//	
-//	public void setPassword(String password)
-//	{
-//		this.password = password;
-//	}
+	public Login()
+	{
+		// default constructor
+	}
+	
+	public Login(String username, String password)
+	{
+		this.username = username;
+		this.password = password;
+	}
+	
+	public String getUsername()
+	{
+		return this.username;
+	}
+	
+	private void setUsername(String username)
+	{
+		this.username = username;
+	}
+	
+	public String getPassword()
+	{
+		return this.password;
+	}
+	
+	private void setPassword(String password)
+	{
+		this.password = password;
+	}
+	
+	public void setUsernamePassword(String username, String password)
+	{
+		setUsername(username);
+		setPassword(password);
+	}
 	
 	public void getUsernamePassword(Scanner userInput)
 	{
