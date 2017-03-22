@@ -37,6 +37,7 @@ public class Menu {
 		case 1: 
 			login.getUsernamePassword(userInput);
 			login.login(customers, businesses);
+			System.out.println("Login Successful");
 			break;
 		case 2:
 			while (cond == false) {
