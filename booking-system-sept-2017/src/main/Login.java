@@ -49,7 +49,7 @@ public class Login
 	public void getUsernamePassword(Scanner userInput)
 	{
 		System.out.println("\n");
-		System.out.println("--- Register ---");
+		System.out.println("--- Login ---");
 		System.out.println("\n");
 		
 		System.out.print("Username: ");
