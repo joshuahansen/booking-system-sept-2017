@@ -1,8 +1,13 @@
 package users;
 
+import java.util.ArrayList;
+
 public class Business extends User
 {
 	private String businessName;
+	ArrayList<Employee> employees = new ArrayList<Employee>();
+	ArrayList<String> availibleTimes = new ArrayList<String>();
+	
 	//constructor for business
 	public Business(String businessName, String firstName, String lastName, String address, 
 					String contactNumber, String username, String password) 

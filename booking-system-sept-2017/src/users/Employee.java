@@ -1,5 +1,7 @@
 package users;
 
+import java.util.ArrayList;
+
 public class Employee
 {
 	private String employeeID;
@@ -12,6 +14,8 @@ public class Employee
 	boolean avaFriday;
 	boolean avaSaturday;
 	boolean avaSunday;
+	
+	ArrayList<String> availibleTimes = new ArrayList<String>();
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 
