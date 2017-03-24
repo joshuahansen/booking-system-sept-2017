@@ -70,6 +70,11 @@ public class Login
 		String username = this.username;
 		String password = this.password;
 		
+		if (username.equals("") || password.equals(""))
+		{
+			return 0;
+		}
+		
 		if (username.charAt(0) == 'c')
 		{
 			for (counter = 0; counter < customersLength; counter++)
