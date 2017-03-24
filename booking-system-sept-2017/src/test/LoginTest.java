@@ -55,7 +55,7 @@ public class LoginTest
 	}
 	
 	@Test
-	public void loginFailTest()
+	public void incorrectPasswordTest()
 	{
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
@@ -67,6 +67,69 @@ public class LoginTest
 		
 		String username = c1.getUsername();
 		String password = "c_bMarley";
+		
+		Login loginTest = new Login(username, password);
+		
+		loginTest.login(customers, businesses);
+		
+		assertEquals(0, loginTest.login(customers, businesses));
+	}
+	
+	@Test
+	public void incorrectUsernameTest()
+	{
+		ArrayList<Customer> customers = new ArrayList<>();
+		ArrayList<Business> businesses = new ArrayList<>();
+		
+		Customer c1 = new Customer("Bob", "Marley", "1 High Street Melbourne", "97342356",
+				"c_bMarley", "bMarley");
+		
+		customers.add(c1);
+		
+		String username = "bMarley";
+		String password = c1.getPassword();
+		
+		Login loginTest = new Login(username, password);
+		
+		loginTest.login(customers, businesses);
+		
+		assertEquals(0, loginTest.login(customers, businesses));
+	}
+	
+	@Test
+	public void passwordNullTest()
+	{
+		ArrayList<Customer> customers = new ArrayList<>();
+		ArrayList<Business> businesses = new ArrayList<>();
+		
+		Customer c1 = new Customer("Bob", "Marley", "1 High Street Melbourne", "97342356",
+				"c_bMarley", "bMarley");
+		
+		customers.add(c1);
+		
+		String username = c1.getUsername();
+		String password = "";
+		
+		Login loginTest = new Login(username, password);
+		
+		loginTest.login(customers, businesses);
+		
+		assertEquals(0, loginTest.login(customers, businesses));
+	}
+	
+	@Test
+	public void usernameNullTest()
+	{
+		ArrayList<Customer> customers = new ArrayList<>();
+		ArrayList<Business> businesses = new ArrayList<>();
+		
+		Customer c1 = new Customer("Bob", "Marley", "1 High Street Melbourne", "97342356",
+				"c_bMarley", "bMarley");
+		
+		customers.add(c1);
+		
+		String username = "";
+		String password = c1.getPassword();
 		
 		Login loginTest = new Login(username, password);
 		
