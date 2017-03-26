@@ -8,28 +8,33 @@ public class Login
 {
 	private String username = new String();
 	private String password = new String();
+
+	public Login()
+	{
+		// default constructor
+	}
 	
-//	public Login(String username, String password)
-//	{
-//		this.username = username;
-//		this.password = password;
-//	}
-//	
-//	public String getUsername()
-//	{
-//		return this.username;
-//	}
-//	
+	public Login(String username, String password)
+	{
+		this.username = username;
+		this.password = password;
+	}
+	
+	public String getUsername()
+	{
+		return this.username;
+  }
+  
 	private void setUsername(String username)
 	{
 		this.username = username;
 	}
-//	
-//	public String getPassword()
-//	{
-//		return this.password;
-//	}
-//	
+
+	public String getPassword()
+	{
+		return this.password;
+	}
+  
 	private void setPassword(String password)
 	{
 		this.password = password;
@@ -44,7 +49,7 @@ public class Login
 	public void getUsernamePassword(Scanner userInput)
 	{
 		System.out.println("\n");
-		System.out.println("--- Register ---");
+		System.out.println("--- Login ---");
 		System.out.println("\n");
 		
 		System.out.print("Username: ");
@@ -64,6 +69,11 @@ public class Login
 		
 		String username = this.username;
 		String password = this.password;
+		
+		if (username.equals("") || password.equals(""))
+		{
+			return 0;
+		}
 		
 		if (username.charAt(0) == 'c')
 		{
