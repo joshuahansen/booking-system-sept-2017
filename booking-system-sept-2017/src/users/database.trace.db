@@ -1,0 +1,53 @@
+2017-03-25 20:10:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CUSTOMERS" not found; SQL statement:
+drop table customers [42102-194]
+2017-03-25 20:10:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "BUSINESSES" not found; SQL statement:
+drop table businesses [42102-194]
+2017-03-25 20:10:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMPLOYEES" not found; SQL statement:
+drop table employees [42102-194]
+2017-03-25 20:10:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMP_AVAIL" not found; SQL statement:
+drop table emp_avail [42102-194]
+2017-03-25 21:12:14 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "CUSTOMERS" already exists; SQL statement:
+/*  Data Definition */
+ 
+CREATE TABLE CUSTOMERS
+        (CUST_UNAME     VARCHAR(40) NOT NULL,
+        CUST_FNAME      VARCHAR(40)     ,
+		CUST_LNAME		VARCHAR(40)		,
+		CUST_ADDRESS    VARCHAR(40)     ,
+        CUST_PHONE      VARCHAR(40)     ,
+		CUST_PASSWORD	VARCHAR(40)		,
+        PRIMARY KEY(CUST_UNAME)
+        ) [42101-194]
+2017-03-25 21:12:14 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "BUSINESSES" already exists; SQL statement:
+CREATE TABLE BUSINESSES
+        (BUS_UNAME     	VARCHAR(40)	NOT NULL,
+        BUS_FNAME      	VARCHAR(40)     ,
+		BUS_LNAME		VARCHAR(40)		,
+        BUS_ADDRESS    	VARCHAR(40)     ,
+        BUS_PHONE      	VARCHAR(40)     ,
+        PRIMARY KEY(BUS_UNAME)
+        ) [42101-194]
+2017-03-25 21:12:14 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMPLOYEES" already exists; SQL statement:
+CREATE TABLE EMPLOYEES
+		(EMP_ID			VARCHAR(40) NOT NULL,
+		EMP_FNAME		VARCHAR(40)		,
+		EMP_LNAME		VARCHAR(40)		,
+		PRIMARY KEY(EMP_ID)
+		) [42101-194]
+2017-03-25 21:12:14 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMP_AVAIL" already exists; SQL statement:
+CREATE TABLE EMP_AVAIL
+		(
+		EMP_ID			VARCHAR(40)	NOT NULL,
+		AVAIL_DAY		VARCHAR(40)		,
+		AVAIL_HOURS		INTEGER			,
+		PRIMARY KEY(EMP_ID, AVAIL_DAY, AVAIL_HOURS)		,
+		FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES(EMP_ID)
+		) [42101-194]
