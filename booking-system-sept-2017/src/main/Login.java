@@ -75,17 +75,15 @@ public class Login
 		int businessesLength = businesses.size();
 		int counter = 0;
 		
-		boolean usernameFound = false;
-		
 		String username = this.username;
 		String password = this.password;
+		String correctPassword = new String();
 		
 		if (username.equals("") || password.equals(""))
 		{
 			return 0;
 		}
-		
-		if (username.charAt(0) == 'c')
+		else
 		{
 			for (counter = 0; counter < customersLength; counter++)
 			{
@@ -93,65 +91,41 @@ public class Login
 				
 				if (customerUsername.equals(username))
 				{
-					usernameFound = true;
-					
 					this.userPosition = counter;
 					
-					break;
+					correctPassword = (customers.get(this.userPosition)).getPassword();
+					
+					if (password.equals(correctPassword))
+					{
+						return 1;
+					}
+					else
+					{
+						return 0;
+					}
 				}
 			}
-		}
-		else if (username.charAt(0) == 'b')
-		{
+			
 			for (counter = 0; counter < businessesLength; counter++)
 			{
 				String businessUsername = (businesses.get(counter)).getUsername();
 				
 				if (businessUsername.equals(username))
 				{
-					usernameFound = true;
-					
 					this.userPosition = counter;
 					
-					break;
+					correctPassword = (businesses.get(this.userPosition)).getPassword();
+					
+					if (password.equals(correctPassword))
+					{
+						return 2;
+					}
+					else
+					{
+						return 0;
+					}
 				}
 			}
-		}
-		else
-		{
-			return 0;
-		}
-		
-		if (usernameFound == true)
-		{
-			if (username.charAt(0) == 'c')
-			{
-				String correctPassword = (customers.get(this.userPosition)).getPassword();
-				
-				if (password.equals(correctPassword))
-				{
-					return 1;
-				}
-			}
-			else if (username.charAt(0) == 'b')
-			{
-				String correctPassword = (businesses.get(this.userPosition)).getPassword();
-				
-				if (password.equals(correctPassword))
-				{
-					return 2;
-				}
-			}
-			else
-			{
-				this.userPosition = 0;
-				
-				return 0;
-			}
-		}
-		else
-		{
-			return 0;
 		}
 		
 		return 0;
