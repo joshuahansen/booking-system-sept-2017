@@ -91,9 +91,9 @@ public class Login
 				
 				if (customerUsername.equals(username))
 				{
-					this.userPosition = counter;
+					setUserPosition(counter);
 					
-					correctPassword = (customers.get(this.userPosition)).getPassword();
+					correctPassword = (customers.get(getUserPosition())).getPassword();
 					
 					if (password.equals(correctPassword))
 					{
@@ -112,9 +112,9 @@ public class Login
 				
 				if (businessUsername.equals(username))
 				{
-					this.userPosition = counter;
+					setUserPosition(counter);
 					
-					correctPassword = (businesses.get(this.userPosition)).getPassword();
+					correctPassword = (businesses.get(getUserPosition())).getPassword();
 					
 					if (password.equals(correctPassword))
 					{
