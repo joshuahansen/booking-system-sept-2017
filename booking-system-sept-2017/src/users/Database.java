@@ -32,23 +32,12 @@ public class Database {
 		return connection;
 	}
 	
-	public void initDatabaseDefault(Connection connection)
+	public void initDatabase(Connection connection)
 	{
+		clearTables(connection);
 		try{
 			Statement stmt = connection.createStatement();
 			
-//			String sql = "drop table customers";
-//			stmt.executeUpdate(sql);
-//			
-//			sql = "drop table businesses";
-//			stmt.executeUpdate(sql);
-//			
-//			sql = "drop table employees";
-//			stmt.executeUpdate(sql);
-//			
-//			sql = "drop table emp_avail";
-//			stmt.executeUpdate(sql);
-//			
 			String sql = "CREATE TABLE CUSTOMERS " +
 			        "(CUST_UNAME     	VARCHAR(40) NOT NULL," +
 			        " CUST_FNAME 		VARCHAR(40)     ," +
@@ -88,21 +77,55 @@ public class Database {
 		
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO CUSTOMERS VALUES('bMarley', 'Bob', 'Marley', '1 High Street Melbourne', '0423256754', 'bMarley')";
-			stmt.executeUpdate(sql);
-			
-			sql = "INSERT INTO CUSTOMERS VALUES('c_VickiV', 'Vicki', 'Vale', '23 Batman Street Melbourne', '34232865', 'VickiV')";
-			stmt.executeUpdate(sql);
-			
-			sql = "INSERT INTO CUSTOMERS VALUES('c_jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
-			stmt.executeUpdate(sql);
-			
-			sql = "INSERT INTO BUSINESSES VALUES('_StGeorges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
-			stmt.executeUpdate(sql);
-			
 		}catch(SQLException e)
 		{
 			System.out.println("Database cannot be initialised");
+		}
+		defaultValues(connection);
+	}
+	
+	public void clearTables(Connection connection)
+	{
+		try{
+			Statement stmt = connection.createStatement();
+			
+			String sql = "drop table customers";
+			stmt.executeUpdate(sql);
+			
+			sql = "drop table businesses";
+			stmt.executeUpdate(sql);
+			
+			sql = "drop table employees";
+			stmt.executeUpdate(sql);
+			
+			sql = "drop table emp_avail";
+			stmt.executeUpdate(sql);
+		}catch(SQLException e)
+		{
+			System.out.println("Can not delete tables");
+		}
+	}
+	
+	public void defaultValues(Connection connection)
+	{
+		try{
+			Statement stmt = connection.createStatement();
+			String sql;
+			
+			sql = "INSERT INTO CUSTOMERS VALUES('bMarley', 'Bob', 'Marley', '1 High Street Melbourne', '0423256754', 'bMarley')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO CUSTOMERS VALUES('VickiV', 'Vicki', 'Vale', '23 Batman Street Melbourne', '34232865', 'VickiV')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BUSINESSES VALUES('St Georges Hospitle', 'StGeorges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
+			stmt.executeUpdate(sql);
+		}catch (SQLException e)
+		{
+			System.out.println("Database values set to default");
 		}
 	}
 	
