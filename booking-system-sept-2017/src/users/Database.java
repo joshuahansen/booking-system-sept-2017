@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Database {
 
 	
-	public Connection ConnectDatabase()
+	public Connection connectDatabase()
 	{
 		Connection connection = null;
 		try{
