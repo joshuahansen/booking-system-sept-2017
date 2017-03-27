@@ -41,7 +41,7 @@ public class Login
 		this.password = password;
 	}
 	
-	private int getUserPosition()
+	public int getUserPosition()
 	{
 		return this.userPosition;
 	}

@@ -1,6 +1,7 @@
 package main;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ import users.*;
 
 public class Driver {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		//create array lists for booking system
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
@@ -18,7 +19,14 @@ public class Driver {
 		Database database = new Database();
 		
 		Connection connection = database.ConnectDatabase();
-		database.readDB(connection, customers);
+		if(database.readCustDB(connection, customers) == true)
+		{
+			System.out.println("Customer Database loaded");
+		}
+		if(database.readBusDB(connection, businesses) == true)
+		{
+			System.out.println("Business Database loaded");
+		}
 		
 		
 		Login login = new Login();
@@ -57,12 +65,17 @@ public class Driver {
 		
 		//calls menu
 		Menu sys = new Menu();
+		
 		sys.menuInput(userInput, customers, businesses);
+		
 		if(connection != null)
-			{
-			connection.close();
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println("ERROR: Can Not Disconnect Database");
 			}
-
+		}
 		userInput.close();
 
 	}

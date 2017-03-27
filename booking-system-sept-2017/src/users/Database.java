@@ -30,13 +30,15 @@ public class Database {
 		return connection;
 	}
 	
-	public void readDB(Connection connection, ArrayList<Customer> customers) throws Exception
+	public boolean readCustDB(Connection connection, ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;
 		Customer newCust;
 		
-		resultSet = connection.createStatement().executeQuery("SELECT * FROM CUSTOMERS");
-		resultSet.next();
+		try {
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM CUSTOMERS");
+		
+			resultSet.next();
 		
 		do
 		{
@@ -53,10 +55,45 @@ public class Database {
 			customers.add(newCust);
 		}while(resultSet.next());
 		
-		 System.out.println(customers.get(0).getUsername() + " " + customers.get(0).getPassword());
-		 System.out.println(customers.get(1).getUsername() + " " + customers.get(1).getPassword());
-		 System.out.println(customers.get(2).getUsername() + " " + customers.get(2).getPassword());
+		return true;
+	}catch (SQLException e) {
+		System.out.println("Unable to load Customer Database");
+		return false;
 	}
-
+	
+	
+	}
+	
+	public boolean readBusDB(Connection connection, ArrayList<Business> businesses)
+	{
+		ResultSet resultSet = null;
+		Business newBus;
+		
+		try{
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
+			resultSet.next();
+			
+			do
+			{
+				System.out.println(resultSet);
+				
+				String bName = resultSet.getString("BUS_BNAME");
+				String username = resultSet.getString("BUS_UNAME");
+				String fName = resultSet.getString("BUS_FNAME");
+				String lName = resultSet.getString("BUS_LNAME");
+				String address = resultSet.getString("BUS_ADDRESS");
+				String phone = resultSet.getString("BUS_PHONE");
+				String password = resultSet.getString("BUS_PASSWORD");
+	
+				newBus = new Business(bName, fName, lName, address, phone, username, password);
+				businesses.add(newBus);
+			}while(resultSet.next());
+			
+			return true;
+		}catch (SQLException e) {
+			System.out.println("Unable to load Business Database");
+			return false;
+		}
+	}
 }
 
