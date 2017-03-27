@@ -19,6 +19,10 @@ public class Driver {
 		Database database = new Database();
 		
 		Connection connection = database.connectDatabase();
+//		while(connection == null)
+//		{
+//			connection = database.connectDatabase();
+//		}
 		if(database.readCustDB(connection, customers) == true)
 		{
 			System.out.println("Customer Database loaded");
