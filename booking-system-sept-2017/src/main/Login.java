@@ -8,6 +8,7 @@ public class Login
 {
 	private String username = new String();
 	private String password = new String();
+	private int userPosition = 0;
 
 	public Login()
 	{
@@ -40,6 +41,16 @@ public class Login
 		this.password = password;
 	}
 	
+	private int getUserPosition()
+	{
+		return this.userPosition;
+	}
+	
+	private void setUserPosition(int userPosition)
+	{
+		this.userPosition = userPosition;
+	}
+	
 	public void setUsernamePassword(String username, String password)
 	{
 		setUsername(username);
@@ -62,7 +73,6 @@ public class Login
 	{
 		int customersLength = customers.size();
 		int businessesLength = businesses.size();
-		int usernameIndex = 0;
 		int counter = 0;
 		
 		boolean usernameFound = false;
@@ -85,7 +95,7 @@ public class Login
 				{
 					usernameFound = true;
 					
-					usernameIndex = counter;
+					this.userPosition = counter;
 					
 					break;
 				}
@@ -101,7 +111,7 @@ public class Login
 				{
 					usernameFound = true;
 					
-					usernameIndex = counter;
+					this.userPosition = counter;
 					
 					break;
 				}
@@ -116,7 +126,7 @@ public class Login
 		{
 			if (username.charAt(0) == 'c')
 			{
-				String correctPassword = (customers.get(usernameIndex)).getPassword();
+				String correctPassword = (customers.get(this.userPosition)).getPassword();
 				
 				if (password.equals(correctPassword))
 				{
@@ -125,7 +135,7 @@ public class Login
 			}
 			else if (username.charAt(0) == 'b')
 			{
-				String correctPassword = (businesses.get(usernameIndex)).getPassword();
+				String correctPassword = (businesses.get(this.userPosition)).getPassword();
 				
 				if (password.equals(correctPassword))
 				{
@@ -134,6 +144,8 @@ public class Login
 			}
 			else
 			{
+				this.userPosition = 0;
+				
 				return 0;
 			}
 		}
