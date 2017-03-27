@@ -1,34 +1,30 @@
 package test;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import users.*;
+import main.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import users.*;
 
-
-public class InitUsersTest {
+public class DatabaseTest {
 	ArrayList<Customer> customers;
-	InitUsers initUser;
 	ArrayList<Business> businesses;
+	Database database;
 	
 	@Before
 	public void setup()
 	{
 		customers = new ArrayList<Customer>();
 		businesses = new ArrayList<Business>();
-		initUser = new InitUsers();
-	}
-
-	@Test
-	public void initCustomerTest() {
-		assertTrue(initUser.init_customers(customers));
 	}
 	
+
 	@Test
-	public void initBusinessesTest() {
-		assertTrue(initUser.init_businesses(businesses));
+	public void databaseConnect() {
+		assertEquals(null, database.connectDatabase());
 	}
 
 }
