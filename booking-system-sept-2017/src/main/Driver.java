@@ -68,6 +68,8 @@ public class Driver {
 		
 		sys.menuInput(userInput, customers, businesses);
 		
+		database.writeCustDB(connection, customers);
+		
 		if(connection != null)
 		{
 			try {

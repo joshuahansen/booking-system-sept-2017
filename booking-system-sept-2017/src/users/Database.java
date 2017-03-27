@@ -1,6 +1,6 @@
 package users;
 
-import java.beans.Statement;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,6 +25,7 @@ public class Database {
 			System.exit(0);
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not load database");
+			System.exit(0);
 		}
 		
 		return connection;
@@ -38,9 +39,7 @@ public class Database {
 		try {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM CUSTOMERS");
 		
-			resultSet.next();
-		
-		do
+		while(resultSet.next())		
 		{
 			System.out.println(resultSet);
 			
@@ -53,7 +52,7 @@ public class Database {
 
 			newCust = new Customer(fName, lName, address, phone, username, password);
 			customers.add(newCust);
-		}while(resultSet.next());
+		}
 		
 		return true;
 	}catch (SQLException e) {
@@ -71,9 +70,7 @@ public class Database {
 		
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
-			resultSet.next();
-			
-			do
+			while(resultSet.next())
 			{
 				System.out.println(resultSet);
 				
@@ -87,7 +84,7 @@ public class Database {
 	
 				newBus = new Business(bName, fName, lName, address, phone, username, password);
 				businesses.add(newBus);
-			}while(resultSet.next());
+			}
 			
 			return true;
 		}catch (SQLException e) {
@@ -95,5 +92,47 @@ public class Database {
 			return false;
 		}
 	}
+
+	public void writeCustDB(Connection connection, ArrayList<Customer> customers)
+	{
+		Statement stmt = null;
+			
+		for(int i = 0; i < customers.size(); i++)
+		{
+			try{
+				String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, i) +")";
+			    stmt = connection.createStatement();
+			    stmt.executeUpdate(sql);
+			}catch (SQLException ex) {
+				System.out.println("Customer record already exists. No changes were made.");
+			}
+		}
+	}
+	
+	public void writeNewCustToDB(Connection connection, ArrayList<Customer> customers, int position)
+	{
+		Statement stmt = null;
+			
+			try{
+				String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, position) +")";
+			    stmt = connection.createStatement();
+			    stmt.executeUpdate(sql);
+			}catch (SQLException ex) {
+				System.out.println("Customer record already exists. No changes were made.");
+			}
+	}
+	
+	private String custToString(ArrayList<Customer> customers, int position)
+	{
+		String uName = customers.get(position).getUsername();
+		String fName = customers.get(position).getFirstName();
+		String lName = customers.get(position).getLastName();
+		String address = customers.get(position).getAddress();
+		String phone = customers.get(position).getContactNumber();
+		String password = customers.get(position).getPassword();
+		
+		return "'"+ uName + "', '" + fName + "', '" + lName + "', '" + address + "', '" + phone + "', '" + password + "'";
+	}
+
 }
 
