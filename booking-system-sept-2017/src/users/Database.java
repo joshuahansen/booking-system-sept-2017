@@ -14,11 +14,12 @@ public class Database {
 	{
 		Connection connection = null;
 		try{
-			Class.forName("org.h2.Driver");
-			String url = "jdbc:h2:./database;IFEXISTS=TRUE";
+			Class.forName("org.sqlite.JDBC");
+			String url = "jdbc:sqlite:./database.db";
 			String user = "sa";
 			String password = "";
 			connection = DriverManager.getConnection(url,user,password);
+			System.out.println("Connected to database");
 			
 		}catch(ClassNotFoundException ex){
 			System.out.println("ERROR: Class not found: " + ex.getMessage());
@@ -31,7 +32,104 @@ public class Database {
 		return connection;
 	}
 	
-	public boolean readCustDB(Connection connection, ArrayList<Customer> customers)
+	public void initDatabase(Connection connection)
+	{
+		clearTables(connection);
+		try{
+			Statement stmt = connection.createStatement();
+			
+			String sql = "CREATE TABLE CUSTOMERS " +
+			        "(CUST_UNAME     	VARCHAR(40) NOT NULL," +
+			        " CUST_FNAME 		VARCHAR(40)     ," +
+			        " CUST_LNAME		VARCHAR(40)		," +
+			        " CUST_ADDRESS    	VARCHAR(40)     ," +
+			        " CUST_PHONE      	VARCHAR(40)     ," +
+			        " CUST_PASSWORD		VARCHAR(40)		," +
+			        " PRIMARY KEY(CUST_UNAME))";
+			stmt.executeUpdate(sql);
+			
+			sql = "CREATE TABLE BUSINESSES " +
+					" (BUS_UNAME     	VARCHAR(40)	NOT NULL," +
+			        " BUS_BNAME			VARCHAR(40)		," +
+			        " BUS_FNAME      	VARCHAR(40)     ," +
+			        " BUS_LNAME			VARCHAR(40)		," +
+			        " BUS_ADDRESS    	VARCHAR(40)     ," +
+			        " BUS_PHONE      	VARCHAR(40)     ," +
+			        " BUS_PASSWORD		VARCHAR(40)		," +
+			        " PRIMARY KEY(BUS_UNAME))";
+			
+			stmt.executeUpdate(sql);
+			
+			sql = "CREATE TABLE EMPLOYEES " +
+					"(EMP_ID		VARCHAR(40) NOT NULL," +
+					" EMP_FNAME		VARCHAR(40)		," +
+					" EMP_LNAME		VARCHAR(40)		," +
+					" PRIMARY KEY(EMP_ID))";
+			
+			stmt.executeUpdate(sql);
+			
+			sql = "CREATE TABLE EMP_AVAIL " +
+					"(EMP_ID		VARCHAR(40)	NOT NULL," +
+					" AVAIL_DAY		VARCHAR(40)		," +
+					" AVAIL_HOURS	INTEGER			," +
+					" PRIMARY KEY(EMP_ID, AVAIL_DAY, AVAIL_HOURS)		," +
+					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES(EMP_ID))";
+		
+			stmt.executeUpdate(sql);
+			
+		}catch(SQLException e)
+		{
+			System.out.println("Database cannot be initialised");
+		}
+		defaultValues(connection);
+	}
+	
+	public void clearTables(Connection connection)
+	{
+		try{
+			Statement stmt = connection.createStatement();
+			
+			String sql = "drop table customers";
+			stmt.executeUpdate(sql);
+			
+			sql = "drop table businesses";
+			stmt.executeUpdate(sql);
+			
+			sql = "drop table employees";
+			stmt.executeUpdate(sql);
+			
+			sql = "drop table emp_avail";
+			stmt.executeUpdate(sql);
+		}catch(SQLException e)
+		{
+			System.out.println("Can not delete tables");
+		}
+	}
+	
+	public void defaultValues(Connection connection)
+	{
+		try{
+			Statement stmt = connection.createStatement();
+			String sql;
+			
+			sql = "INSERT INTO CUSTOMERS VALUES('bMarley', 'Bob', 'Marley', '1 High Street Melbourne', '0423256754', 'bMarley')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO CUSTOMERS VALUES('VickiV', 'Vicki', 'Vale', '23 Batman Street Melbourne', '34232865', 'VickiV')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BUSINESSES VALUES('St Georges Hospitle', 'StGeorges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
+			stmt.executeUpdate(sql);
+		}catch (SQLException e)
+		{
+			System.out.println("Database values set to default");
+		}
+	}
+	
+	public boolean readCustDB(ArrayList<Customer> customers, Connection connection)
 	{
 		ResultSet resultSet = null;
 		Customer newCust;
@@ -53,21 +151,20 @@ public class Database {
 			newCust = new Customer(fName, lName, address, phone, username, password);
 			customers.add(newCust);
 		}
-		
 		return true;
-	}catch (SQLException e) {
-		System.out.println("Unable to load Customer Database");
-		return false;
+		
+		}catch (SQLException e) {
+			System.out.println("Unable to load Customer Database");
+			return false;
+		}
 	}
 	
-	
-	}
-	
-	public boolean readBusDB(Connection connection, ArrayList<Business> businesses)
+	public boolean readBusDB(ArrayList<Business> businesses, Connection connection)
 	{
 		ResultSet resultSet = null;
 		Business newBus;
-		
+	
+				
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
 			while(resultSet.next())
@@ -85,7 +182,6 @@ public class Database {
 				newBus = new Business(bName, fName, lName, address, phone, username, password);
 				businesses.add(newBus);
 			}
-			
 			return true;
 		}catch (SQLException e) {
 			System.out.println("Unable to load Business Database");
@@ -93,33 +189,33 @@ public class Database {
 		}
 	}
 
-	public void writeCustDB(Connection connection, ArrayList<Customer> customers)
+	public void writeCustDB(ArrayList<Customer> customers, Connection connection)
 	{
-		Statement stmt = null;
+		
 			
 		for(int i = 0; i < customers.size(); i++)
 		{
 			try{
 				String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, i) +")";
-			    stmt = connection.createStatement();
+			    Statement stmt = connection.createStatement();
 			    stmt.executeUpdate(sql);
+			    
 			}catch (SQLException ex) {
 				System.out.println("Customer record already exists. No changes were made.");
 			}
 		}
 	}
 	
-	public void writeNewCustToDB(Connection connection, ArrayList<Customer> customers, int position)
+	public void writeNewCustToDB(ArrayList<Customer> customers, int position, Connection connection)
 	{
-		Statement stmt = null;
-			
-			try{
-				String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, position) +")";
-			    stmt = connection.createStatement();
-			    stmt.executeUpdate(sql);
-			}catch (SQLException ex) {
-				System.out.println("Customer record already exists. No changes were made.");
-			}
+		try{
+			String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, position) +")";
+		    Statement stmt = connection.createStatement();
+		    stmt.executeUpdate(sql);
+
+		}catch (SQLException ex) {
+			System.out.println("Customer record already exists. No changes were made.");
+		}
 	}
 	
 	private String custToString(ArrayList<Customer> customers, int position)

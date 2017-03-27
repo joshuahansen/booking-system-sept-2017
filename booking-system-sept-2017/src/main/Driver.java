@@ -1,6 +1,6 @@
 package main;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,22 +18,22 @@ public class Driver {
 		
 		Database database = new Database();
 		
+		
 		Connection connection = database.connectDatabase();
-//		while(connection == null)
-//		{
-//			connection = database.connectDatabase();
-//		}
-		if(database.readCustDB(connection, customers) == true)
+		
+//		database.initDatabase(connection);
+		
+		if(database.readCustDB(customers, connection) == true)
 		{
 			System.out.println("Customer Database loaded");
 		}
-		if(database.readBusDB(connection, businesses) == true)
+		if(database.readBusDB(businesses, connection) == true)
 		{
 			System.out.println("Business Database loaded");
 		}
 		
 		
-		Login login = new Login();
+//		Login login = new Login();
 		
 		//create new init_users object
 
@@ -72,16 +72,15 @@ public class Driver {
 		
 		sys.menuInput(userInput, customers, businesses);
 		
-		database.writeCustDB(connection, customers);
-		
-		if(connection != null)
+		database.writeCustDB(customers, connection);
+	
+		try{
+			connection.close();
+		}catch (SQLException e)
 		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("ERROR: Can Not Disconnect Database");
-			}
+			System.out.println("Can not close connection");
 		}
+		
 		userInput.close();
 
 	}
