@@ -26,7 +26,7 @@ public class RegistrationTest {
 		
 		System.out.println("\nregisterNewCustTest:");
 
-		reg.setValues("John", "Smith", "21 Test Drive", "97235334", "jsmith", "pass123");
+		reg.setValues("John", "Smith", "21 Test Drive", "97235334", "jsmith", "pass123", customers, businesses);
 		assertEquals(true, reg.registerNewCust(customers, businesses));
 	}
 
@@ -42,8 +42,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidUniqueUsernameTest:");
 		
-		reg.setValues("Bill", "Marley", "22 Test Drive", "97235234", "c_bMarley", "bMarley");
-		assertEquals(false, reg.registerNewCust(customers, businesses));
+		assertEquals(false, reg.setValues("Bill", "Marley", "22 Test Drive", "97235234", "c_bMarley", "bMarley", customers, businesses));
 
 	}
 	
@@ -55,8 +54,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidPasswordTest:");
 
-		reg.setValues("Jimmy", "Taylor", "23 Test Drive", "97922356", "jtaylor", "pass");
-		assertEquals(false, reg.registerNewCust(customers, businesses));
+		assertEquals(false, reg.setValues("Jimmy", "Taylor", "23 Test Drive", "97922356", "jtaylor", "pass", customers, businesses));
 	}
 	
 	@Test
@@ -67,8 +65,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidUsernameTest:");
 		
-		reg.setValues("Kim", "Web", "24 Test Drive", "97112356", "Ki", "P@ssW0rd");
-		assertEquals(false, reg.registerNewCust(customers, businesses));
+		assertEquals(false, reg.setValues("Kim", "Web", "24 Test Drive", "97112356", "Ki", "P@ssW0rd", customers, businesses));
 	}
 	
 	@Test
@@ -79,8 +76,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidNameTest:");
 		
-		reg.setValues("", "", "25 Test Drive", "92562356", "Blank", "ilovecats");
-		assertEquals(false, reg.registerNewCust(customers, businesses));
+		assertEquals(false, reg.setValues("", "", "25 Test Drive", "92562356", "Blank", "ilovecats", customers, businesses));
 	}
 	
 	@Test
@@ -91,8 +87,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidPhoneTest:");
 		
-		reg.setValues("Harry", "Klein", "26 Test Drive", "953", "hklein", "pword1234");
-		assertEquals(false, reg.registerNewCust(customers, businesses));
+		assertEquals(false, reg.setValues("Harry", "Klein", "26 Test Drive", "953", "hklein", "pword1234", customers, businesses));
 	}
 	
 	//Below are the tests for the functions for adding a new employee to the system
@@ -104,7 +99,7 @@ public class RegistrationTest {
 		
 		System.out.println("\naddNewEmployee:");
 
-		reg.setEmployeeValues("e00001", "John", "Smith");
+		reg.setEmployeeValues("e00001", "John", "Smith", employees);
 		assertEquals(true, reg.addNewEmployee(employees));
 	}
 
@@ -118,7 +113,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidIDTest:");
 		
-		reg.setEmployeeValues("e00001", "Bill", "George");
+		reg.setEmployeeValues("e00001", "Bill", "George", employees);
 		assertEquals(true, reg.addNewEmployee(employees));
 
 	}
@@ -130,7 +125,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidNameTest:");
 		
-		reg.setEmployeeValues("e00002", "", "Smith");
+		reg.setEmployeeValues("e00002", "", "Smith", employees);
 		assertEquals(true, reg.addNewEmployee(employees));
 
 	}
@@ -142,7 +137,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidNameTest:");
 		
-		reg.setEmployeeValues("e00002", "Jim", "");
+		reg.setEmployeeValues("e00002", "Jim", "", employees);
 		assertEquals(true, reg.addNewEmployee(employees));
 
 	}
