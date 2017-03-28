@@ -18,20 +18,27 @@ public class Driver {
 		
 		Database database = new Database();
 		
-		
-		Connection connection = database.connectDatabase();
-		
-//		database.initDatabase(connection);
-		
-		if(database.readCustDB(customers, connection) == true)
+		if(database.connectDatabase() == true)
 		{
-			System.out.println("Customer Database loaded");
-		}
-		if(database.readBusDB(businesses, connection) == true)
-		{
-			System.out.println("Business Database loaded");
-		}
 		
+	//		database.initDatabase(database.getConnection());
+			
+			if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
+			{
+				System.out.println("Customer Database loaded");
+				System.out.println("Business Database loaded");
+			}
+			else
+			{
+				database.initDatabase(database.getConnection());
+				if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
+				{
+					System.out.println("Customer Database loaded");
+					System.out.println("Business Database loaded");
+				}
+			}
+			
+		}
 		
 //		Login login = new Login();
 		
@@ -81,15 +88,9 @@ public class Driver {
 		
 		sys.menuInput(userInput, customers, businesses);
 		
-		database.writeCustDB(customers, connection);
+		database.writeCustDB(customers, database.getConnection());
 	
-		try{
-			connection.close();
-		}catch (SQLException e)
-		{
-			System.out.println("Can not close connection");
-		}
-		
+		database.closeConnection();
 		userInput.close();
 
 	}
