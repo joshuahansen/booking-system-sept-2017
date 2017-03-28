@@ -36,6 +36,13 @@ public class Registration {
 		this.username = username;
 		this.password = password;	
 	}
+	
+	public void setEmployeeValues(String employeeID, String firstName, String lastName) {
+			
+		this.employeeID = employeeID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	//This function is used while the program is running on the command line
 	public boolean getUserValues(ArrayList<Customer> cust, ArrayList<Business> busi) {
@@ -173,7 +180,7 @@ public class Registration {
 		return true;
 	}
 	
-	public boolean getEmployeeValues() {
+	public boolean getEmployeeValues(ArrayList<Employee> empl) {
 			
 		boolean valid = false;
 		System.out.println("\n--- Add Employee ---\n");
@@ -183,7 +190,9 @@ public class Registration {
 			//prompts the user to enter the employee's id and assigns it to the employeeID variable
 			System.out.print("Enter Employee ID: ");
 			this.employeeID = keyboard.nextLine();
-			valid = true; 
+			if(validEmployeeID(empl)) {
+				valid = true; 
+			}
 		}
 		
 		while(valid == false) {
@@ -310,4 +319,20 @@ public class Registration {
 		return true;		
 	}
 	
+	private boolean validEmployeeID(ArrayList<Employee> empl) {
+
+		for(int i = 0; i < empl.size(); i++) {	
+				if(this.employeeID.equals(empl.get(i).getEmployeeID())) {					
+					System.out.println("\nUsername already exists!");
+					return false;
+				}
+		}
+		
+		//Validates the id length
+		if(this.employeeID.length() < 4) {
+			System.out.println("\nUsername length must be at least 4 characters!");
+			return false;
+		}
+		return true;
+	}
 }
