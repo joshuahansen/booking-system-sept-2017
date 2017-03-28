@@ -49,6 +49,7 @@ public class Menu {
 				
 				//SIMULATING
 				int service;
+				
 				System.out.println("1. Workout");
 				System.out.println("2. Dance Class");
 				System.out.println("3. Consulation");
@@ -62,6 +63,7 @@ public class Menu {
 			break;
 		case 2:
 				register.getUserValues(customers, businesses);
+				
 				if (register.registerNewCust(customers, businesses)) {
 					//code for when register is successful(returns true)
 				} else {
@@ -80,11 +82,6 @@ public class Menu {
 	}}
  	while (cond == false); 
 	
-	}
-
-	public void menuInput(int userInput) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
