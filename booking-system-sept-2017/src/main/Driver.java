@@ -68,6 +68,10 @@ public class Driver {
 		*/
 		
 		//calls menu
+		int service;
+		service = userInput.nextInt();
+		ViewBusiAvail v = new ViewBusiAvail();
+		v.viewAvailabilities(customers, businesses, service);
 		Menu sys = new Menu();
 		
 		sys.menuInput(userInput, customers, businesses);
