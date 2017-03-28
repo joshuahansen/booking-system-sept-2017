@@ -63,7 +63,6 @@ public class Menu {
 			break;
 		case 2:
 				register.getUserValues(customers, businesses);
-				
 				if (register.registerNewCust(customers, businesses)) {
 					//code for when register is successful(returns true)
 				} else {
