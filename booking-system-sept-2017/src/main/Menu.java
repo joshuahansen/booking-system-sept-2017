@@ -48,7 +48,7 @@ public class Menu {
 			break;
 		case 2:
 			while (cond == false) {
-				register.getValues();
+				register.getUserValues(customers, businesses);
 				if (register.registerNewCust(customers, businesses)) {
 					//code for when register is successful(returns true)
 					//messages should be in functions?

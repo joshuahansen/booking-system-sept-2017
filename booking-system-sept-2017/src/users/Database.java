@@ -47,7 +47,6 @@ public class Database {
 	public boolean initDatabase(Connection connection)
 	{
 		try{
-			clearTables(connection);
 			Statement stmt = connection.createStatement();
 			
 			String sql = "CREATE TABLE CUSTOMERS " +
@@ -88,7 +87,6 @@ public class Database {
 					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES(EMP_ID))";
 		
 			stmt.executeUpdate(sql);
-			defaultValues(connection);
 			
 			System.out.println("Database Initialised");
 			return true;

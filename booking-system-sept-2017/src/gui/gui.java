@@ -98,7 +98,9 @@ public class gui {
 			}
 			else
 			{
+				database.clearTables(database.getConnection());
 				database.initDatabase(database.getConnection());
+				database.defaultValues(database.getConnection());
 				if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
 				{
 					System.out.println("Customer Database loaded");
@@ -638,7 +640,7 @@ public class gui {
 				if(password.equals(confPassword))
 				{
 					Registration reg = new Registration();
-					reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password);
+					reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password,customers, businesses);
 					if(reg.registerNewCust(customers, businesses) == true)
 					{
 						setAllVisibleFalse();

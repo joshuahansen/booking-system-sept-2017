@@ -21,17 +21,13 @@ public class DatabaseTest {
 	{
 		customers = new ArrayList<Customer>();
 		businesses = new ArrayList<Business>();
+		database = new Database();
+		database.connectDatabase();
 	}
 	
 	@Test
 	public void databaseConnection() {
 		assertTrue(database.connectDatabase());
-	}
-	
-	@Before
-	public void loadedDatabaseSetup()
-	{
-		database.connectDatabase();
 	}
 	
 	@Test
@@ -49,12 +45,14 @@ public class DatabaseTest {
 	@Test
 	public void defaultValuesTest()
 	{
+		database.initDatabase(database.getConnection());
 		assertTrue(database.defaultValues(database.getConnection()));
 	}
 
 	@Test
 	public void readCustDBTest()
 	{
+		database.initDatabase(database.getConnection());
 		assertTrue(database.readCustDB(customers, database.getConnection()));
 	}
 }
