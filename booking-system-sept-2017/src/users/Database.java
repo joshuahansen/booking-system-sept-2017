@@ -8,11 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Database {
-
+	private Connection connection = null;
+	private String custSQL;
 	
-	public Connection connectDatabase()
+	public Connection getConnection()
 	{
-		Connection connection = null;
+		return connection;
+	}
+	
+	public String getCustSQL()
+	{
+		return custSQL;
+	}
+	
+
+	public boolean connectDatabase()
+	{
 		try{
 			Class.forName("org.sqlite.JDBC");
 			String url = "jdbc:sqlite:./database.db";
@@ -20,22 +31,23 @@ public class Database {
 			String password = "";
 			connection = DriverManager.getConnection(url,user,password);
 			System.out.println("Connected to database");
+			return true;
 			
 		}catch(ClassNotFoundException ex){
 			System.out.println("ERROR: Class not found: " + ex.getMessage());
-			System.exit(0);
+//			System.exit(0);
+			return false;
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not load database");
-			System.exit(0);
+//			System.exit(0);
+			return false;
 		}
-		
-		return connection;
 	}
 	
-	public void initDatabase(Connection connection)
+	public boolean initDatabase(Connection connection)
 	{
-		clearTables(connection);
 		try{
+			clearTables(connection);
 			Statement stmt = connection.createStatement();
 			
 			String sql = "CREATE TABLE CUSTOMERS " +
@@ -76,15 +88,19 @@ public class Database {
 					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES(EMP_ID))";
 		
 			stmt.executeUpdate(sql);
+			defaultValues(connection);
+			
+			System.out.println("Database Initialised");
+			return true;
 			
 		}catch(SQLException e)
 		{
 			System.out.println("Database cannot be initialised");
+			return false;
 		}
-		defaultValues(connection);
 	}
 	
-	public void clearTables(Connection connection)
+	public boolean clearTables(Connection connection)
 	{
 		try{
 			Statement stmt = connection.createStatement();
@@ -100,13 +116,18 @@ public class Database {
 			
 			sql = "drop table emp_avail";
 			stmt.executeUpdate(sql);
+			
+			System.out.println("Database tables cleared");
+			return true;
+			
 		}catch(SQLException e)
 		{
 			System.out.println("Can not delete tables");
+			return false;
 		}
 	}
 	
-	public void defaultValues(Connection connection)
+	public boolean defaultValues(Connection connection)
 	{
 		try{
 			Statement stmt = connection.createStatement();
@@ -123,9 +144,15 @@ public class Database {
 			
 			sql = "INSERT INTO BUSINESSES VALUES('St Georges Hospitle', 'StGeorges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
 			stmt.executeUpdate(sql);
+			
+			System.out.println("Database set to defualt values");
+			return true;
+			
 		}catch (SQLException e)
 		{
-			System.out.println("Database values set to default");
+			System.out.println("Could not set database values to default");
+			
+			return false;
 		}
 	}
 	
@@ -164,7 +191,6 @@ public class Database {
 		ResultSet resultSet = null;
 		Business newBus;
 	
-				
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
 			while(resultSet.next())
@@ -190,9 +216,7 @@ public class Database {
 	}
 
 	public void writeCustDB(ArrayList<Customer> customers, Connection connection)
-	{
-		
-			
+	{		
 		for(int i = 0; i < customers.size(); i++)
 		{
 			try{
@@ -206,19 +230,24 @@ public class Database {
 		}
 	}
 	
-	public void writeNewCustToDB(ArrayList<Customer> customers, int position, Connection connection)
+	public boolean writeNewCustToDB(Connection connection)
 	{
+		System.out.println(getCustSQL());
 		try{
-			String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, position) +")";
+			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
 		    Statement stmt = connection.createStatement();
 		    stmt.executeUpdate(sql);
+		    System.out.println("Customer added to database");
+		    return true;
 
 		}catch (SQLException ex) {
 			System.out.println("Customer record already exists. No changes were made.");
+			
+			return false;
 		}
 	}
 	
-	private String custToString(ArrayList<Customer> customers, int position)
+	public boolean custToString(ArrayList<Customer> customers, int position)
 	{
 		String uName = customers.get(position).getUsername();
 		String fName = customers.get(position).getFirstName();
@@ -227,8 +256,21 @@ public class Database {
 		String phone = customers.get(position).getContactNumber();
 		String password = customers.get(position).getPassword();
 		
-		return "'"+ uName + "', '" + fName + "', '" + lName + "', '" + address + "', '" + phone + "', '" + password + "'";
+		this.custSQL = "'"+ uName + "', '" + fName + "', '" + lName + "', '" + address + "', '" + phone + "', '" + password + "'";
+		
+		return true;
 	}
 
+	public boolean closeConnection()
+	{
+		try{
+			connection.close();
+			return true;
+		}catch (SQLException e)
+		{
+			System.out.println("Can not close connection");
+			return false;
+		}
+	}
 }
 
