@@ -9,6 +9,7 @@ import org.junit.Test;
 import main.Registration;
 import users.Business;
 import users.Customer;
+import users.Employee;
 
 public class RegistrationTest {
 
@@ -90,7 +91,60 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidPhoneTest:");
 		
-		reg.setValues("Harry", "Klein", "26 Test Drive", "9573", "hklein", "pword1234");
+		reg.setValues("Harry", "Klein", "26 Test Drive", "953", "hklein", "pword1234");
 		assertEquals(false, reg.registerNewCust(customers, businesses));
 	}
+	
+	//Below are the tests for the functions for adding a new employee to the system
+	
+	@Test
+	public void addNewEmployeeTest() {
+		Registration reg = new Registration();
+		ArrayList<Employee> employees = new ArrayList<>();
+		
+		System.out.println("\naddNewEmployee:");
+
+		reg.setEmployeeValues("e00001", "John", "Smith");
+		assertEquals(true, reg.addNewEmployee(employees));
+	}
+
+	@Test
+	public void invalidIDTest() {
+		Registration reg = new Registration();
+		ArrayList<Employee> employees = new ArrayList<>();
+		
+		Employee c1 = new Employee("e00001", "John", "Smith");
+		employees.add(c1);
+		
+		System.out.println("\ninvalidIDTest:");
+		
+		reg.setEmployeeValues("e00001", "Bill", "George");
+		assertEquals(true, reg.addNewEmployee(employees));
+
+	}
+	
+	@Test
+	public void invalidFirstNameTest() {
+		Registration reg = new Registration();
+		ArrayList<Employee> employees = new ArrayList<>();
+		
+		System.out.println("\ninvalidNameTest:");
+		
+		reg.setEmployeeValues("e00002", "", "Smith");
+		assertEquals(true, reg.addNewEmployee(employees));
+
+	}
+	
+	@Test
+	public void invalidLastNameTest() {
+		Registration reg = new Registration();
+		ArrayList<Employee> employees = new ArrayList<>();
+		
+		System.out.println("\ninvalidNameTest:");
+		
+		reg.setEmployeeValues("e00002", "Jim", "");
+		assertEquals(true, reg.addNewEmployee(employees));
+
+	}
+	
 }
