@@ -26,22 +26,59 @@ public class Registration {
 	private boolean avaSunday;
 	
 	//This function will be used for when GUI is implemented, to replace the getValues function
-	public void setValues(String firstName, String lastName, String address,
-			String phone, String username, String password) {
+	public boolean setValues(String firstName, String lastName, String address,
+			String phone, String username, String password, ArrayList<Customer> cust, ArrayList<Business> busi) {
 			
 		this.firstName = firstName;
+		if(!validFirstName()) {
+			 return false; 
+		}
+		
 		this.lastName = lastName;
+		if(!validLastName()) {
+			 return false; 
+		}
+		
 		this.address = address;
+		
 		this.phone = phone;
+		if(!validPhone()) {
+			 return false; 
+		}
+		
 		this.username = username;
-		this.password = password;	
+		if(!validUsername(cust, busi)) {
+			 return false; 
+		}
+		
+		this.password = password;
+		if(!validPassword()) {
+			 return false; 
+		}
+		
+		
+		return true;
 	}
 	
-	public void setEmployeeValues(String employeeID, String firstName, String lastName) {
+	public boolean setEmployeeValues(String employeeID, String firstName, String lastName,
+			ArrayList<Employee> empl) {
 			
 		this.employeeID = employeeID;
+		if(!validEmployeeID(empl)) {
+			 return false; 
+		}
+		
 		this.firstName = firstName;
+		if(!validFirstName()) {
+			 return false; 
+		}
+		
 		this.lastName = lastName;
+		if(!validLastName()) {
+			 return false; 
+		}
+		
+		return true;
 	}
 
 	//This function is used while the program is running on the command line
