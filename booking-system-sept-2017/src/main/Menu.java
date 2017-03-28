@@ -44,11 +44,22 @@ public class Menu {
 			else
 			{
 				System.out.println("Login Successful");
+				
+				//SIMULATING
+				int service;
+				System.out.println("1. Workout");
+				System.out.println("2. Dance Class");
+				System.out.println("3. Consulation");
+				System.out.print("Enter service to view:");
+				service = userInput.nextInt();
+				ViewBusiAvail v = new ViewBusiAvail();
+				v.viewAvailabilities(customers, businesses, service);
+				//END OF SIM
 			}
 			break;
 		case 2:
 			while (cond == false) {
-				register.getValues();
+				register.getUserValues(customers, businesses);
 				if (register.registerNewCust(customers, businesses)) {
 					//code for when register is successful(returns true)
 					//messages should be in functions?
@@ -77,11 +88,7 @@ public class Menu {
  	while (cond == true); 
 	
 	}
-	/* @Override
-	public String toString() {
-		return "[" + firstName + lastName + address + phone + username + password + "]";
-	}
-	 */
+	
 }
 
 
