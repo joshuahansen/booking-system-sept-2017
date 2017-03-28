@@ -86,29 +86,31 @@ public class gui {
 
 		Database database = new Database();
 		
-		Connection connection = database.connectDatabase();
-		
-		database.initDatabase(connection);
-		
-		if(database.readCustDB(customers, connection) == true && database.readBusDB(businesses, connection) == true)
+		if(database.connectDatabase() == true)
 		{
-			System.out.println("Customer Database loaded");
-			System.out.println("Business Database loaded");
-		}
-		else
-		{
-			database.initDatabase(connection);
-			if(database.readCustDB(customers, connection) == true && database.readBusDB(businesses, connection) == true)
+		
+	//		database.initDatabase(database.getConnection());
+			
+			if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
 			{
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
+			}
+			else
+			{
+				database.initDatabase(database.getConnection());
+				if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
+				{
+					System.out.println("Customer Database loaded");
+					System.out.println("Business Database loaded");
+				}
 			}
 		}
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					gui window = new gui(customers, businesses, connection);
+					gui window = new gui(customers, businesses, database.getConnection(), database);
 					window.frmBookingSystem.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -130,14 +132,14 @@ public class gui {
 	/**
 	 * Create the application.
 	 */
-	public gui(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection) {
-		initialize(customers, businesses, connection);
+	public gui(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
+		initialize(customers, businesses, connection, database);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection) {
+	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
 		frmBookingSystem = new JFrame();
 		frmBookingSystem.setResizable(false);
 		frmBookingSystem.getContentPane().setBackground(new Color(204, 204, 204));
@@ -641,9 +643,9 @@ public class gui {
 					{
 						setAllVisibleFalse();
 						loginPanel.setVisible(true);
-						Database database = new Database();
 						
-						database.writeNewCustToDB(customers, customers.size()-1, connection);
+						database.custToString(customers, customers.size()-1);
+						database.writeNewCustToDB(connection);
 					}
 					else
 					{
