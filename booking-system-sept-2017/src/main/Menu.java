@@ -36,6 +36,7 @@ public class Menu {
 	
 		switch (input) {
 		case 1: 
+	
 			login.getUsernamePassword(userInput);
 			if(login.login(customers, businesses) == 0)
 			{
@@ -44,6 +45,7 @@ public class Menu {
 			else
 			{
 				System.out.println("Login Successful");
+				cond = true;
 				
 				//SIMULATING
 				int service;
@@ -56,26 +58,18 @@ public class Menu {
 				v.viewAvailabilities(customers, businesses, service);
 				//END OF SIM
 			}
+		
 			break;
 		case 2:
-			while (cond == false) {
 				register.getUserValues(customers, businesses);
 				if (register.registerNewCust(customers, businesses)) {
 					//code for when register is successful(returns true)
-					//messages should be in functions?
-					System.out.println("Your account has been created!");
-					cond = true;
 				} else {
 					//code for when register is unsuccessful(returns false)
-					//messages should be in functions?
-					System.out.println("Please re-enter your details.");
 				}
-			}
 			break;
 		default:
 			System.out.println("Invalid Input try again.");
-			//set condition to true to continue the loop
-			cond = true;
 			break;
 		} 
 	} catch (InputMismatchException e) {
@@ -83,10 +77,14 @@ public class Menu {
 		System.out.println("Please enter a numerical value.");
 		// clears buffer
 		userInput.nextLine();
-		cond = true;
 	}}
- 	while (cond == true); 
+ 	while (cond == false); 
 	
+	}
+
+	public void menuInput(int userInput) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
