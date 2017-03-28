@@ -8,7 +8,9 @@ public class ViewBusiAvail {
 	
 	private String[] services = {"WORKOUT", "YOGA CLASS", "CONSULATION"};
 	private String[] weekDay = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-	private String[][] serviceTime = new String[8][5];
+	private int TABLE_HEIGHT = 8;
+	private int TABLE_WIDTH = 5;
+	private String[][] serviceTime = new String[TABLE_HEIGHT][TABLE_WIDTH];
     private String notAvailable = "XXXXXXXXXXX";
 	
     public ViewBusiAvail() {
@@ -29,12 +31,12 @@ public class ViewBusiAvail {
 	void printTable(int service) {
 		
 		//updates user on which service times is being viewed.
-		System.out.println("VIEWING TIMES FOR: " + services[service]);
+		System.out.println("VIEWING TIMES FOR" + services[service] + ":");
 		printBorder();
 		System.out.print("     ");
 		
 		//prints the weekday label heads
-		for (int counter = 0; counter < 5; counter++) {
+		for (int counter = 0; counter < TABLE_WIDTH; counter++) {
 			System.out.print(weekDay[counter]);
 			
 			//space between each weekday
@@ -45,10 +47,10 @@ public class ViewBusiAvail {
 		printBorder();
 		
 		//prints the times for each weekday
-		for (int row = 0; row < 8; row++) {
+		for (int row = 0; row < TABLE_HEIGHT; row++) {
 			System.out.print("| ");
 			
-			for (int col = 0; col < 5; col++) {
+			for (int col = 0; col < TABLE_WIDTH; col++) {
 				System.out.print(serviceTime[row][col]);
 				System.out.print(" | ");
 			}
@@ -62,8 +64,8 @@ public class ViewBusiAvail {
 	void initServiceTable(int service) {
 		
 		//initialises the default values for all array elements
-		for (int col = 0; col < 5; col++) {
-			for (int row = 0; row < 8; row++) {
+		for (int col = 0; col < TABLE_WIDTH; col++) {
+			for (int row = 0; row < TABLE_HEIGHT; row++) {
 				
 				serviceTime[0][col] = " 9:00-10:00";
 					
