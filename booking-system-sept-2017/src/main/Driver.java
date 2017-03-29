@@ -13,6 +13,7 @@ public class Driver {
 		//create array lists for booking system
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
+
 		String url = "jdbc:sqlite:./database.db";
 		
 		Scanner userInput = new Scanner(System.in);
