@@ -22,11 +22,10 @@ public class Database {
 	}
 	
 
-	public boolean connectDatabase()
+	public boolean connectDatabase(String url)
 	{
 		try{
 			Class.forName("org.sqlite.JDBC");
-			String url = "jdbc:sqlite:./database.db";
 			String user = "sa";
 			String password = "";
 			connection = DriverManager.getConnection(url,user,password);
@@ -230,7 +229,6 @@ public class Database {
 	
 	public boolean writeNewCustToDB(Connection connection)
 	{
-		System.out.println(getCustSQL());
 		try{
 			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
 		    Statement stmt = connection.createStatement();
