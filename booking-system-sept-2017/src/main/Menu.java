@@ -20,8 +20,10 @@ public class Menu
 	private void printCustomerMenu()
 	{
 		printMenuLineSingle(15);
+		System.out.println("");
 		System.out.println("Customer Menu");
 		printMenuLineSingle(15);
+		System.out.println("");
 		System.out.println("1. View Booking Timetable");
 		System.out.println("2. Logout");
 	}
@@ -29,8 +31,10 @@ public class Menu
 	private void printBusinessMenu()
 	{
 		printMenuLineSingle(15);
+		System.out.println("");
 		System.out.println("Business Menu");
 		printMenuLineSingle(15);
+		System.out.println("");
 		System.out.println("1. View Booking Timetable");
 		System.out.println("2. Add Employee");
 		System.out.println("3. Remove Employee");
@@ -160,24 +164,20 @@ public class Menu
 	{
 		int counter = 0;
 		
-		System.out.println("");
 		for (counter = 0; counter < numberOfLines; counter++)
 		{
 			System.out.print("-");
 		}
-		System.out.println("");
 	}
 	
 	private void printMenuLineDouble(int numberOfLines)
 	{
 		int counter = 0;
 		
-		System.out.println("");
 		for (counter = 0; counter < numberOfLines; counter++)
 		{
 			System.out.print("=");
 		}
-		System.out.println("");
 	}
 }
 
