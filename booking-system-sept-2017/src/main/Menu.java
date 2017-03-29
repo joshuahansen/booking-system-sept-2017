@@ -107,6 +107,8 @@ public class Menu
 					
 					printBusinessMenu();
 					
+					input = userInput.nextInt();
+					
 					if (input == 1)
 					{
 						//SIMULATING

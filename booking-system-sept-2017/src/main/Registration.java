@@ -232,6 +232,8 @@ public class Registration {
 			}
 		}
 		
+		valid = false;
+
 		while(valid == false) {
 			System.out.print("Enter First Name: ");
 			//prompts the user to enter the employees first name and assigns it to the first name variable
