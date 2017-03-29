@@ -160,20 +160,24 @@ public class Menu
 	{
 		int counter = 0;
 		
+		System.out.println("");
 		for (counter = 0; counter < numberOfLines; counter++)
 		{
 			System.out.print("-");
 		}
+		System.out.println("");
 	}
 	
 	private void printMenuLineDouble(int numberOfLines)
 	{
 		int counter = 0;
 		
+		System.out.println("");
 		for (counter = 0; counter < numberOfLines; counter++)
 		{
 			System.out.print("=");
 		}
+		System.out.println("");
 	}
 }
 
