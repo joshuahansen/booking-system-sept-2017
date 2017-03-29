@@ -13,6 +13,7 @@ public class Driver {
 		//create array lists for booking system
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
+		ArrayList<Employee> employees = new ArrayList<>();
 
 		String url = "jdbc:sqlite:./database.db";
 		
@@ -81,7 +82,7 @@ public class Driver {
 		//calls menu
 		Menu sys = new Menu();
 		
-		sys.menuInput(userInput, customers, businesses);
+		sys.menuInput(userInput, customers, businesses, employees);
 		
 		database.writeCustDB(customers, database.getConnection());
 	

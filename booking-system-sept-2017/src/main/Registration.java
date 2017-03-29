@@ -346,7 +346,7 @@ public class Registration {
 	} 
 	
 	public boolean addNewEmployee(ArrayList<Employee> empl) {
-		
+		getEmployeeValues(empl);
 		//If all input is valid, the new employee is added, and then added to the array list.
 		Employee newEmpl = new Employee(employeeID, firstName, lastName);
 		newEmpl.setAllAvailabily(avaMonday, avaTuesday, avaWednesday, avaThursday, avaFriday, avaSaturday, avaSunday);
