@@ -76,4 +76,10 @@ public class DatabaseTest {
 		database.defaultValues(database.getConnection());
 		assertTrue(database.readEmplDB(employees, database.getConnection()));
 	}
+	
+	@Test
+	public void readEmplAvailDB()
+	{
+		
+	}
 }
