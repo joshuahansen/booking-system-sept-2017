@@ -32,7 +32,16 @@ public class Driver {
 			{
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
-				System.out.println(businesses.get(0).getUsername() + " " + businesses.get(0).getPassword());
+				if(database.readEmplDB(employees, database.getConnection()) && database.readAvailablityTimes(employees, database.getConnection()))
+				{
+					System.out.println("Employee Database loaded");
+					System.out.println("Employee availible times loaded");
+				}
+				else
+				{
+					System.out.println("Can not load employee database");
+					System.out.println("Can not load employee availibilities");
+				}
 			}
 			else
 			{
@@ -43,6 +52,16 @@ public class Driver {
 				{
 					System.out.println("Customer Database loaded");
 					System.out.println("Business Database loaded");
+					if(database.readEmplDB(employees, database.getConnection()) && database.readAvailablityTimes(employees, database.getConnection()))
+					{
+						System.out.println("Employee Database loaded");
+						System.out.println("Employee availible times loaded");
+					}
+					else
+					{
+						System.out.println("Can not load employee database");
+						System.out.println("Can not load employee availibilities");
+					}
 				}
 			}
 			

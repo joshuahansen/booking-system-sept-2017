@@ -1,6 +1,5 @@
 package users;
 
-import java.util.ArrayList;
 
 public class Employee
 {
@@ -15,7 +14,9 @@ public class Employee
 	boolean avaSaturday;
 	boolean avaSunday;
 	
-	ArrayList<String> availibleTimes = new ArrayList<String>();
+//	ArrayList<String> availibleTimes = new ArrayList<String>();
+	
+	boolean availibleTimes[][] = new boolean[10][7];
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 
@@ -51,6 +52,7 @@ public class Employee
 		this.avaSunday = sunday;
 		
 	}
+	
 	//sets individual available days
 	public void setAvaMonday(boolean monday)
 	{
@@ -94,6 +96,7 @@ public class Employee
 	{
 		return lastName;
 	}
+	
 	public boolean getAvaMonday()
 	{
 		return avaMonday;
@@ -121,5 +124,23 @@ public class Employee
 	public boolean getAvaSunday()
 	{
 		return avaSunday;
+	}
+	
+	public boolean setAvailibleTime(int timeslot, int day)
+	{
+		if(availibleTimes[timeslot][day] != true)
+		{
+			availibleTimes[timeslot][day] = true;
+		}
+		return true;
+	}
+	
+	public boolean removeAvailibleTime(int timeslot, int day)
+	{
+		if(availibleTimes[timeslot][day] != false)
+		{
+			availibleTimes[timeslot][day] = false;
+		}
+		return true;
 	}
 }
