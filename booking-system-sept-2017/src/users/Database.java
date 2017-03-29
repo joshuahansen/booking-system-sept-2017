@@ -139,7 +139,7 @@ public class Database {
 			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESSES VALUES('St Georges Hospitle', 'StGeorges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
+			sql = "INSERT INTO BUSINESSES VALUES('StGeorges','St Georges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database set to defualt values");

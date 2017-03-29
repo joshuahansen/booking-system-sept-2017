@@ -24,12 +24,15 @@ public class Driver {
 		if(database.connectDatabase(url) == true)
 		{
 		
-	//		database.initDatabase(database.getConnection());
+//			database.clearTables(database.getConnection());
+//			database.initDatabase(database.getConnection());
+//			database.defaultValues(database.getConnection());
 			
 			if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
 			{
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
+				System.out.println(businesses.get(0).getUsername() + " " + businesses.get(0).getPassword());
 			}
 			else
 			{
