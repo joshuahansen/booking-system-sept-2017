@@ -78,6 +78,8 @@ public class gui {
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
 		
+		String url = "jdbc:sqlite:./database.db";
+		
 		//create new init_users object
 //		InitUsers users = new InitUsers();
 		//initialize both arrays
@@ -86,7 +88,7 @@ public class gui {
 
 		Database database = new Database();
 		
-		if(database.connectDatabase() == true)
+		if(database.connectDatabase(url) == true)
 		{
 		
 	//		database.initDatabase(database.getConnection());

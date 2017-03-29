@@ -15,6 +15,7 @@ public class DatabaseTest {
 	ArrayList<Customer> customers;
 	ArrayList<Business> businesses;
 	Database database;
+	String url = "jdbc:sqlite:./databaseTest.db";
 	
 	@Before
 	public void setup()
@@ -22,12 +23,12 @@ public class DatabaseTest {
 		customers = new ArrayList<Customer>();
 		businesses = new ArrayList<Business>();
 		database = new Database();
-		database.connectDatabase();
+		database.connectDatabase(url);
 	}
 	
 	@Test
 	public void databaseConnection() {
-		assertTrue(database.connectDatabase());
+		assertTrue(database.connectDatabase(url));
 	}
 	
 	@Test
@@ -39,6 +40,7 @@ public class DatabaseTest {
 	@Test
 	public void initDatabaseTest()
 	{
+		database.clearTables(database.getConnection());
 		assertTrue(database.initDatabase(database.getConnection()));
 	}
 	
@@ -53,6 +55,15 @@ public class DatabaseTest {
 	public void readCustDBTest()
 	{
 		database.initDatabase(database.getConnection());
+		database.defaultValues(database.getConnection());
 		assertTrue(database.readCustDB(customers, database.getConnection()));
+	}
+	
+	@Test
+	public void readBusDBTest()
+	{
+		database.initDatabase(database.getConnection());
+		database.defaultValues(database.getConnection());
+		assertTrue(database.readBusDB(businesses, database.getConnection()));
 	}
 }
