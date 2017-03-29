@@ -78,6 +78,8 @@ public class gui {
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
 		
+		String url = "jdbc:sqlite:./database.db";
+		
 		//create new init_users object
 //		InitUsers users = new InitUsers();
 		//initialize both arrays
@@ -86,7 +88,7 @@ public class gui {
 
 		Database database = new Database();
 		
-		if(database.connectDatabase() == true)
+		if(database.connectDatabase(url) == true)
 		{
 		
 	//		database.initDatabase(database.getConnection());
@@ -98,7 +100,9 @@ public class gui {
 			}
 			else
 			{
+				database.clearTables(database.getConnection());
 				database.initDatabase(database.getConnection());
+				database.defaultValues(database.getConnection());
 				if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
 				{
 					System.out.println("Customer Database loaded");
@@ -638,7 +642,7 @@ public class gui {
 				if(password.equals(confPassword))
 				{
 					Registration reg = new Registration();
-					reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password);
+					reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password,customers, businesses);
 					if(reg.registerNewCust(customers, businesses) == true)
 					{
 						setAllVisibleFalse();

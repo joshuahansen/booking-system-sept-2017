@@ -14,12 +14,14 @@ public class Driver {
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
 		ArrayList<Employee> employees = new ArrayList<>();
+
+		String url = "jdbc:sqlite:./database.db";
 		
 		Scanner userInput = new Scanner(System.in);
 		
 		Database database = new Database();
 		
-		if(database.connectDatabase() == true)
+		if(database.connectDatabase(url) == true)
 		{
 		
 	//		database.initDatabase(database.getConnection());
@@ -31,7 +33,9 @@ public class Driver {
 			}
 			else
 			{
+				database.clearTables(database.getConnection());
 				database.initDatabase(database.getConnection());
+				database.defaultValues(database.getConnection());
 				if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
 				{
 					System.out.println("Customer Database loaded");
