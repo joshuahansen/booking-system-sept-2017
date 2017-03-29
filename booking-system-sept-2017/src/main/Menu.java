@@ -37,7 +37,7 @@ public class Menu
 		System.out.println("4. Logout");
 	}
 	
-	public void menuInput(Scanner userInput, ArrayList<Customer> customers, ArrayList<Business> businesses) 
+	public void menuInput(Scanner userInput, ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees) 
 	{
 		//create objects for functions
 		//Scanner keyInput = new Scanner(System.in);
@@ -72,6 +72,28 @@ public class Menu
 					cond = true;
 					
 					printCustomerMenu();
+					
+					input = userInput.nextInt();
+					
+					if (input == 1)
+					{
+						//SIMULATING
+						int service;
+						
+						System.out.println("1. Workout");
+						System.out.println("2. Dance Class");
+						System.out.println("3. Consulation");
+						System.out.print("Enter service to view:");
+						service = userInput.nextInt();
+						ViewBusiAvail v = new ViewBusiAvail();
+						v.viewAvailabilities(customers, businesses, service);
+						//END OF SIM
+					}
+					else if (input == 2)
+					{
+						cond = false;
+						break;
+					}
 				}
 				else if (loginReturnValue == 2)
 				{
@@ -81,17 +103,35 @@ public class Menu
 					
 					printBusinessMenu();
 					
-					//SIMULATING
-//					int service;
-//					
-//					System.out.println("1. Workout");
-//					System.out.println("2. Dance Class");
-//					System.out.println("3. Consulation");
-//					System.out.print("Enter service to view:");
-//					service = userInput.nextInt();
-//					ViewBusiAvail v = new ViewBusiAvail();
-//					v.viewAvailabilities(customers, businesses, service);
-//					//END OF SIM
+					if (input == 1)
+					{
+						//SIMULATING
+						int service;
+						
+						System.out.println("1. Workout");
+						System.out.println("2. Dance Class");
+						System.out.println("3. Consulation");
+						System.out.print("Enter service to view:");
+						service = userInput.nextInt();
+						ViewBusiAvail v = new ViewBusiAvail();
+						v.viewAvailabilities(customers, businesses, service);
+						//END OF SIM
+					}
+					else if (input == 2)
+					{
+						register.addNewEmployee(employees);
+					}
+					else if (input == 3)
+					{
+						System.out.println("Under construction.");
+						cond = false;
+						break;
+					}
+					else if (input == 4)
+					{
+						cond = false;
+						break;
+					}
 				}
 				break;
 			case 2:
