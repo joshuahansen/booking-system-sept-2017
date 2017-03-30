@@ -93,6 +93,7 @@ public class Database {
 					"(EMP_ID		VARCHAR(40)	NOT NULL," +
 					" AVAIL_DAY		INT NOT NULL		," +
 					" TIMESLOT		INT	NOT NULL		," +
+					" BOOKED		VARCHAR(40)			," +
 					" PRIMARY KEY(EMP_ID, AVAIL_DAY, TIMESLOT)" +
 					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES (EMP_ID))";
 		
@@ -156,13 +157,13 @@ public class Database {
 			sql= "INSERT INTO EMPLOYEES VALUES('0001', 'Harry', 'Jones')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '0')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '0', 'no')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1', 'no')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'yes')";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database set to defualt values");
@@ -274,12 +275,13 @@ public class Database {
 				String employeeID = resultSet.getString("EMP_ID");
 				int timeslot = resultSet.getInt("TIMESLOT");
 				int day = resultSet.getInt("AVAIL_DAY");
+				String booked = resultSet.getString("BOOKED");
 				
 				for(int i = 0; i < employees.size(); i++)
 				{
 					if(employees.get(i).getEmployeeID().equals(employeeID))
 					{
-						employees.get(i).setAvailibleTime(timeslot, day);
+						employees.get(i).setAvailibleTime(timeslot, day, booked);
 						break;
 					}
 				}
@@ -337,10 +339,11 @@ public class Database {
 			    {
 			    	for(int day = 0; day < employees.get(i).availibleTimes[timeslot].length; day++)
 			    	{
-			    		if(employees.get(i).availibleTimes[timeslot][day] == true)
+			    		int booked = employees.get(i).availibleTimes[timeslot][day];
+			    		if(booked == 1 || booked == 2)
 			    		{
 			    			try{
-			    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot);
+			    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot, booked);
 							sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
 						    stmt.executeUpdate(sql);
 			    			}catch (SQLException e)
@@ -384,9 +387,19 @@ public class Database {
 		return true;
 	}
 
-	public boolean emplAvailToString(String emplID, int day, int timeslot)
+	public boolean emplAvailToString(String emplID, int day, int timeslot, int booked)
 	{
-		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot;
+		String isBooked;
+		if(booked == 2)
+		{
+			isBooked = "yes";
+		}
+		else
+		{
+			isBooked = "no";
+		}
+			
+		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot + ", '" + isBooked + "'";
 		return true;
 	}
 	

@@ -24,9 +24,9 @@ public class Driver {
 		if(database.connectDatabase(url) == true)
 		{
 		
-//			database.clearTables(database.getConnection());
-//			database.initDatabase(database.getConnection());
-//			database.defaultValues(database.getConnection());
+			database.clearTables(database.getConnection());
+			database.initDatabase(database.getConnection());
+			database.defaultValues(database.getConnection());
 			
 			if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
 			{

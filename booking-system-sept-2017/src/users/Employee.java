@@ -16,7 +16,9 @@ public class Employee
 	
 //	ArrayList<String> availibleTimes = new ArrayList<String>();
 	
-	boolean availibleTimes[][] = new boolean[10][5];
+	int availibleTimes[][] = new int[10][5];
+	//available for booking = 1
+	//already booked = 2
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 
@@ -52,36 +54,7 @@ public class Employee
 		this.avaSunday = sunday;
 		
 	}
-	
-	//sets individual available days
-	public void setAvaMonday(boolean monday)
-	{
-		this.avaMonday = monday;
-	}
-	public void setAvaTuesday(boolean tuesday)
-	{
-		this.avaTuesday = tuesday;
-	}
-	public void setAvaWednesday(boolean wednesday)
-	{
-		this.avaWednesday = wednesday;
-	}
-	public void setAvaThursday(boolean thursday)
-	{
-		this.avaThursday = thursday;
-	}
-	public void setAvaFriday(boolean friday)
-	{
-		this.avaFriday = friday;
-	}
-	public void setAvaSaturday(boolean saturday)
-	{
-		this.avaSaturday = saturday;
-	}
-	public void setAvaSunday(boolean sunday)
-	{
-		this.avaSunday = sunday;
-	}
+
 	
 	//returns each of the employee's attributes
  	public String getEmployeeID()
@@ -97,50 +70,22 @@ public class Employee
 		return lastName;
 	}
 	
-	public boolean getAvaMonday()
+	public boolean setAvailibleTime(int timeslot, int day, String booked)
 	{
-		return avaMonday;
-	}
-	public boolean getAvaTuesday()
-	{
-		return avaTuesday;
-	}
-	public boolean getAvaWednesday()
-	{
-		return avaWednesday;
-	}
-	public boolean getAvaThursday()
-	{
-		return avaThursday;
-	}
-	public boolean getAvaFriday()
-	{
-		return avaFriday;
-	}
-	public boolean getAvaSaturday()
-	{
-		return avaSaturday;
-	}
-	public boolean getAvaSunday()
-	{
-		return avaSunday;
-	}
-	
-	public boolean setAvailibleTime(int timeslot, int day)
-	{
-		if(availibleTimes[timeslot][day] != true)
+		if(booked.equalsIgnoreCase("yes"))
 		{
-			availibleTimes[timeslot][day] = true;
+			availibleTimes[timeslot][day] = 2;
+		}
+		else if(booked.equalsIgnoreCase("no"))
+		{
+			availibleTimes[timeslot][day] = 1;
 		}
 		return true;
 	}
 	
 	public boolean removeAvailibleTime(int timeslot, int day)
 	{
-		if(availibleTimes[timeslot][day] != false)
-		{
-			availibleTimes[timeslot][day] = false;
-		}
+		availibleTimes[timeslot][day] = 0;
 		return true;
 	}
 }
