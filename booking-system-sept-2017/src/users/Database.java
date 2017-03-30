@@ -281,7 +281,7 @@ public class Database {
 				{
 					if(employees.get(i).getEmployeeID().equals(employeeID))
 					{
-						employees.get(i).setAvailibleTime(timeslot, day, booked);
+						employees.get(i).setAvailableTime(timeslot, day, booked);
 						break;
 					}
 				}
@@ -335,11 +335,11 @@ public class Database {
 			try{
 				String sql;
 				Statement stmt = connection.createStatement();
-			    for(int timeslot = 0; timeslot < employees.get(i).availibleTimes.length; timeslot++)
+			    for(int timeslot = 0; timeslot < employees.get(i).availableTimes.length; timeslot++)
 			    {
-			    	for(int day = 0; day < employees.get(i).availibleTimes[timeslot].length; day++)
+			    	for(int day = 0; day < employees.get(i).availableTimes[timeslot].length; day++)
 			    	{
-			    		int booked = employees.get(i).availibleTimes[timeslot][day];
+			    		int booked = employees.get(i).availableTimes[timeslot][day];
 			    		if(booked == 1 || booked == 2)
 			    		{
 			    			try{

@@ -16,7 +16,7 @@ public class Employee
 	
 //	ArrayList<String> availibleTimes = new ArrayList<String>();
 	
-	int availibleTimes[][] = new int[10][5];
+	int availableTimes[][] = new int[10][5];
 	//available for booking = 1
 	//already booked = 2
 	
@@ -70,22 +70,28 @@ public class Employee
 		return lastName;
 	}
 	
-	public boolean setAvailibleTime(int timeslot, int day, String booked)
+	public boolean setAvailableTime(int timeslot, int day, String booked)
 	{
 		if(booked.equalsIgnoreCase("yes"))
 		{
-			availibleTimes[timeslot][day] = 2;
+			availableTimes[timeslot][day] = 2;
 		}
 		else if(booked.equalsIgnoreCase("no"))
 		{
-			availibleTimes[timeslot][day] = 1;
+			availableTimes[timeslot][day] = 1;
 		}
 		return true;
 	}
 	
 	public boolean removeAvailibleTime(int timeslot, int day)
 	{
-		availibleTimes[timeslot][day] = 0;
+		availableTimes[timeslot][day] = 0;
+		return true;
+	}
+	
+	public boolean removeBooking(int timeslot, int day)
+	{
+		availableTimes[timeslot][day] = 1;
 		return true;
 	}
 }
