@@ -16,7 +16,7 @@ public class Employee
 	
 //	ArrayList<String> availibleTimes = new ArrayList<String>();
 	
-	boolean availibleTimes[][] = new boolean[10][7];
+	boolean availibleTimes[][] = new boolean[10][5];
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 

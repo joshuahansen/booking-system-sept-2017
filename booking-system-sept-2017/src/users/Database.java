@@ -10,8 +10,10 @@ import java.util.ArrayList;
 public class Database {
 	private Connection connection = null;
 	private String custSQL;
+	private String emplSQL;
+	private String emplAvailSQL;
 	
-	public Connection getConnection()
+ 	public Connection getConnection()
 	{
 		return connection;
 	}
@@ -21,6 +23,15 @@ public class Database {
 		return custSQL;
 	}
 	
+	public String getEmplSQL()
+	{
+		return emplSQL;
+	}
+	
+	public String getEmplAvailSQL()
+	{
+		return emplAvailSQL;
+	}
 
 	public boolean connectDatabase(String url)
 	{
@@ -110,9 +121,9 @@ public class Database {
 			
 			sql = "drop table employees";
 			stmt.executeUpdate(sql);
-//			
-//			sql = "drop table emp_avail";
-//			stmt.executeUpdate(sql);
+			
+			sql = "drop table emp_avail";
+			stmt.executeUpdate(sql);
 			
 			System.out.println("Database tables cleared");
 			return true;
@@ -287,7 +298,8 @@ public class Database {
 		for(int i = 0; i < customers.size(); i++)
 		{
 			try{
-				String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, i) +")";
+				custToString(customers, i);
+				String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
 			    Statement stmt = connection.createStatement();
 			    stmt.executeUpdate(sql);
 			    
@@ -297,9 +309,10 @@ public class Database {
 		}
 	}
 	
-	public boolean writeNewCustToDB(Connection connection)
+	public boolean writeNewCustToDB(ArrayList<Customer> customers, int position, Connection connection)
 	{
 		try{
+			custToString(customers, position);
 			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
 		    Statement stmt = connection.createStatement();
 		    stmt.executeUpdate(sql);
@@ -311,6 +324,42 @@ public class Database {
 			
 			return false;
 		}
+	}
+	
+	public boolean writeEmplToDB(ArrayList<Employee> employees , Connection connection)
+	{
+		for(int i = 0; i < employees.size(); i++)
+		{
+			try{
+				String sql;
+				Statement stmt = connection.createStatement();
+			    for(int timeslot = 0; timeslot < employees.get(i).availibleTimes.length; timeslot++)
+			    {
+			    	System.out.println("timeslot " + timeslot);
+			    	for(int day = 0; day < employees.get(i).availibleTimes[timeslot].length; day++)
+			    	{
+			    		System.out.println("day " + day);
+			    		if(employees.get(i).availibleTimes[timeslot][day] == true)
+			    		{
+			    			try{
+			    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot);
+							sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
+						    stmt.executeUpdate(sql);
+			    			}catch (SQLException e)
+			    			{
+			    				System.out.println("Employee already availible that timeslot");
+			    			}
+			    		}
+			    	}
+			    }
+				sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
+			    stmt.executeUpdate(sql);
+			    
+			}catch (SQLException ex) {
+				System.out.println("Employee record already exists. No changes were made.");
+			}
+		}
+		return true;
 	}
 	
 	public boolean custToString(ArrayList<Customer> customers, int position)
@@ -326,7 +375,23 @@ public class Database {
 		
 		return true;
 	}
+	
+	public boolean emplToString(ArrayList<Employee> employees, int position)
+	{
+		String empID = employees.get(position).getEmployeeID();
+		String fName = employees.get(position).getFirstName();
+		String lName = employees.get(position).getLastName();
+		
+		this.emplSQL = "'" + empID + ", '" + fName + "', '" + lName + "'"; 
+		return true;
+	}
 
+	public boolean emplAvailToString(String emplID, int day, int timeslot)
+	{
+		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot;
+		return true;
+	}
+	
 	public boolean closeConnection()
 	{
 		try{

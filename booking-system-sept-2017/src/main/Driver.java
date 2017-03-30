@@ -107,6 +107,7 @@ public class Driver {
 		sys.menuInput(userInput, customers, businesses, employees);
 		
 		database.writeCustDB(customers, database.getConnection());
+		database.writeEmplToDB(employees, database.getConnection());
 	
 		database.closeConnection();
 		userInput.close();

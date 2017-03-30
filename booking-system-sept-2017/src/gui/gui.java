@@ -669,7 +669,7 @@ public class gui {
 						loginPanel.setVisible(true);
 						
 						database.custToString(customers, customers.size()-1);
-						database.writeNewCustToDB(connection);
+						database.writeNewCustToDB(customers, customers.size()-1, connection);
 					}
 					else
 					{
