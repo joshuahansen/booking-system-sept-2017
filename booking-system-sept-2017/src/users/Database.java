@@ -335,10 +335,8 @@ public class Database {
 				Statement stmt = connection.createStatement();
 			    for(int timeslot = 0; timeslot < employees.get(i).availibleTimes.length; timeslot++)
 			    {
-			    	System.out.println("timeslot " + timeslot);
 			    	for(int day = 0; day < employees.get(i).availibleTimes[timeslot].length; day++)
 			    	{
-			    		System.out.println("day " + day);
 			    		if(employees.get(i).availibleTimes[timeslot][day] == true)
 			    		{
 			    			try{
