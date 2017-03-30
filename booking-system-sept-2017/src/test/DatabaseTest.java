@@ -14,6 +14,7 @@ import org.junit.Test;
 public class DatabaseTest {
 	ArrayList<Customer> customers;
 	ArrayList<Business> businesses;
+	ArrayList<Employee> employees;
 	Database database;
 	String url = "jdbc:sqlite:./databaseTest.db";
 	
@@ -22,6 +23,7 @@ public class DatabaseTest {
 	{
 		customers = new ArrayList<Customer>();
 		businesses = new ArrayList<Business>();
+		employees = new ArrayList<Employee>();
 		database = new Database();
 		database.connectDatabase(url);
 	}
@@ -65,5 +67,19 @@ public class DatabaseTest {
 		database.initDatabase(database.getConnection());
 		database.defaultValues(database.getConnection());
 		assertTrue(database.readBusDB(businesses, database.getConnection()));
+	}
+	
+	@Test
+	public void readEmplyeeDB()
+	{
+		database.initDatabase(database.getConnection());
+		database.defaultValues(database.getConnection());
+		assertTrue(database.readEmplDB(employees, database.getConnection()));
+	}
+	
+	@Test
+	public void readEmplAvailDB()
+	{
+		
 	}
 }

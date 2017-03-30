@@ -232,6 +232,8 @@ public class Registration {
 			}
 		}
 		
+		valid = false;
+
 		while(valid == false) {
 			System.out.print("Enter First Name: ");
 			//prompts the user to enter the employees first name and assigns it to the first name variable
@@ -256,7 +258,8 @@ public class Registration {
 		System.out.println("Availiable Mondays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		
+		selection = keyboard.nextInt();
+
 		switch(selection) {
 			case 1: avaMonday = true;
 			break;
@@ -265,11 +268,11 @@ public class Registration {
 		}
 		
 		selection = 0;
-		
 		System.out.println("\nAvailiable Tuesdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		
+		selection = keyboard.nextInt();
+
 		switch(selection) {
 			case 1: avaTuesday = true;
 			break;
@@ -278,11 +281,12 @@ public class Registration {
 		}
 
 		selection = 0;
-		
+
 		System.out.println("\nAvailiable Wednesdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		
+		selection = keyboard.nextInt();
+
 		switch(selection) {
 			case 1: avaWednesday = true;
 			break;
@@ -295,7 +299,8 @@ public class Registration {
 		System.out.println("\nAvailiable Thursdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		
+		selection = keyboard.nextInt();
+
 		switch(selection) {
 			case 1: avaThursday = true;
 			break;
@@ -308,7 +313,8 @@ public class Registration {
 		System.out.println("\nAvailiable Fridays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		
+		selection = keyboard.nextInt();
+
 		switch(selection) {
 			case 1: avaFriday = true;
 			break;
@@ -321,7 +327,8 @@ public class Registration {
 		System.out.println("\nAvailiable Saturdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		
+		selection = keyboard.nextInt();
+
 		switch(selection) {
 			case 1: avaSaturday = true;
 			break;
@@ -334,7 +341,8 @@ public class Registration {
 		System.out.println("\nAvailiable Sundays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		
+		selection = keyboard.nextInt();
+
 		switch(selection) {
 			case 1: avaSunday = true;
 			break;

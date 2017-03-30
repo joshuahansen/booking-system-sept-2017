@@ -10,8 +10,10 @@ import java.util.ArrayList;
 public class Database {
 	private Connection connection = null;
 	private String custSQL;
+	private String emplSQL;
+	private String emplAvailSQL;
 	
-	public Connection getConnection()
+ 	public Connection getConnection()
 	{
 		return connection;
 	}
@@ -21,6 +23,15 @@ public class Database {
 		return custSQL;
 	}
 	
+	public String getEmplSQL()
+	{
+		return emplSQL;
+	}
+	
+	public String getEmplAvailSQL()
+	{
+		return emplAvailSQL;
+	}
 
 	public boolean connectDatabase(String url)
 	{
@@ -80,10 +91,10 @@ public class Database {
 			
 			sql = "CREATE TABLE EMP_AVAIL " +
 					"(EMP_ID		VARCHAR(40)	NOT NULL," +
-					" AVAIL_DAY		VARCHAR(40)		," +
-					" AVAIL_HOURS	INTEGER			," +
-					" PRIMARY KEY(EMP_ID, AVAIL_DAY, AVAIL_HOURS)		," +
-					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES(EMP_ID))";
+					" AVAIL_DAY		INT NOT NULL		," +
+					" TIMESLOT		INT	NOT NULL		," +
+					" PRIMARY KEY(EMP_ID, AVAIL_DAY, TIMESLOT)" +
+					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES (EMP_ID))";
 		
 			stmt.executeUpdate(sql);
 			
@@ -140,6 +151,18 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BUSINESSES VALUES('StGeorges','St Georges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
+			stmt.executeUpdate(sql);
+			
+			sql= "INSERT INTO EMPLOYEES VALUES('0001', 'Harry', 'Jones')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '0')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2')";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database set to defualt values");
@@ -211,13 +234,72 @@ public class Database {
 			return false;
 		}
 	}
+	
+	public boolean readEmplDB(ArrayList<Employee> employees, Connection connection)
+	{
+		ResultSet resultSet = null;
+		Employee newEmpl;
+		
+		try{
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMPLOYEES");
+			while(resultSet.next())
+			{
+				System.out.println(resultSet);
+				
+				String employeeID = resultSet.getString("EMP_ID");
+				String fName = resultSet.getString("EMP_FNAME");
+				String lName = resultSet.getString("EMP_LNAME");
+				
+				newEmpl = new Employee(employeeID, fName, lName);
+				employees.add(newEmpl);
+			}
+			return true;
+		}catch (SQLException e)
+		{
+			System.out.println("Unable to load Employees");
+			return false;
+		}
+	}
+	
+	public boolean readAvailablityTimes(ArrayList<Employee> employees, Connection connection)
+	{
+		ResultSet resultSet = null;
+		
+		try{
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMP_AVAIL");
+			while(resultSet.next())
+			{
+				System.out.println(resultSet);
+				
+				String employeeID = resultSet.getString("EMP_ID");
+				int timeslot = resultSet.getInt("TIMESLOT");
+				int day = resultSet.getInt("AVAIL_DAY");
+				
+				for(int i = 0; i < employees.size(); i++)
+				{
+					if(employees.get(i).getEmployeeID().equals(employeeID))
+					{
+						employees.get(i).setAvailibleTime(timeslot, day);
+						break;
+					}
+				}
+			}
+			return true;
+				
+		}catch (SQLException e)
+		{
+			System.out.println("Unable to load employee availible times");
+			return false;
+		}
+	}
 
-	public void writeCustDB(ArrayList<Customer> customers, Connection connection)
+ 	public void writeCustDB(ArrayList<Customer> customers, Connection connection)
 	{		
 		for(int i = 0; i < customers.size(); i++)
 		{
 			try{
-				String sql = "INSERT INTO CUSTOMERS VALUES(" + custToString(customers, i) +")";
+				custToString(customers, i);
+				String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
 			    Statement stmt = connection.createStatement();
 			    stmt.executeUpdate(sql);
 			    
@@ -227,9 +309,10 @@ public class Database {
 		}
 	}
 	
-	public boolean writeNewCustToDB(Connection connection)
+	public boolean writeNewCustToDB(ArrayList<Customer> customers, int position, Connection connection)
 	{
 		try{
+			custToString(customers, position);
 			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
 		    Statement stmt = connection.createStatement();
 		    stmt.executeUpdate(sql);
@@ -241,6 +324,40 @@ public class Database {
 			
 			return false;
 		}
+	}
+	
+	public boolean writeEmplToDB(ArrayList<Employee> employees , Connection connection)
+	{
+		for(int i = 0; i < employees.size(); i++)
+		{
+			try{
+				String sql;
+				Statement stmt = connection.createStatement();
+			    for(int timeslot = 0; timeslot < employees.get(i).availibleTimes.length; timeslot++)
+			    {
+			    	for(int day = 0; day < employees.get(i).availibleTimes[timeslot].length; day++)
+			    	{
+			    		if(employees.get(i).availibleTimes[timeslot][day] == true)
+			    		{
+			    			try{
+			    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot);
+							sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
+						    stmt.executeUpdate(sql);
+			    			}catch (SQLException e)
+			    			{
+			    				System.out.println("Employee already availible that timeslot");
+			    			}
+			    		}
+			    	}
+			    }
+				sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
+			    stmt.executeUpdate(sql);
+			    
+			}catch (SQLException ex) {
+				System.out.println("Employee record already exists. No changes were made.");
+			}
+		}
+		return true;
 	}
 	
 	public boolean custToString(ArrayList<Customer> customers, int position)
@@ -256,7 +373,23 @@ public class Database {
 		
 		return true;
 	}
+	
+	public boolean emplToString(ArrayList<Employee> employees, int position)
+	{
+		String empID = employees.get(position).getEmployeeID();
+		String fName = employees.get(position).getFirstName();
+		String lName = employees.get(position).getLastName();
+		
+		this.emplSQL = "'" + empID + ", '" + fName + "', '" + lName + "'"; 
+		return true;
+	}
 
+	public boolean emplAvailToString(String emplID, int day, int timeslot)
+	{
+		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot;
+		return true;
+	}
+	
 	public boolean closeConnection()
 	{
 		try{
