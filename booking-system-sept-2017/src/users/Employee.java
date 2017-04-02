@@ -94,4 +94,9 @@ public class Employee
 		availableTimes[timeslot][day] = 1;
 		return true;
 	}
+	
+	public int getAvailableTime(int timeslot, int day)
+	{
+		return availableTimes[timeslot][day];
+	}
 }

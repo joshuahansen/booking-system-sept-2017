@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
@@ -140,7 +141,7 @@ public class gui {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					gui window = new gui(customers, businesses, database.getConnection(), database);
+					gui window = new gui(customers, businesses, employees, database.getConnection(), database);
 					window.frmBookingSystem.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -162,14 +163,14 @@ public class gui {
 	/**
 	 * Create the application.
 	 */
-	public gui(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
-		initialize(customers, businesses, connection, database);
+	public gui(ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees, Connection connection, Database database) {
+		initialize(customers, businesses, employees, connection, database);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
+	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees, Connection connection, Database database) {
 		frmBookingSystem = new JFrame();
 		frmBookingSystem.setResizable(false);
 		frmBookingSystem.getContentPane().setBackground(new Color(204, 204, 204));
@@ -257,7 +258,6 @@ public class gui {
 						public void actionPerformed(ActionEvent e) {
 							setAllVisibleFalse();
 							businessMenuPanel.setVisible(true);
-							employeeAvailiblity();
 							employeeAvailabilityLP.setVisible(true);
 						}
 					});
@@ -265,9 +265,45 @@ public class gui {
 					btnEmployeeAvailability.setBounds(904, 428, 160, 80);
 					businessMenuPanel.add(btnEmployeeAvailability);
 					
+					int timeslots = 10;
+					int days = 5;
+					int x = 110;
+					int y = 150;
+					
 					employeeAvailabilityLP = new JLayeredPane();
 					employeeAvailabilityLP.setBounds(0, 0, 800, 691);
 					businessMenuPanel.add(employeeAvailabilityLP);
+					
+					JButton button[][]=new JButton[timeslots][days];
+					for(int timeslot = 0; timeslot < button.length; timeslot++)
+					{
+						for(int day = 0; day < button[timeslot].length; day++)
+						{
+							button[timeslot][day] = new JButton();
+							int empPos = 0;
+							int availTime = employees.get(empPos).getAvailableTime(timeslot, day);
+							if(availTime == 1)
+							{
+							button[timeslot][day].setText("Available");
+							}
+							else if(availTime == 2)
+							{
+								button[timeslot][day].setText("Booked");
+							}
+							else
+							{
+								button[timeslot][day].setText("Not Available");
+							}
+							button[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
+							button[timeslot][day].setBounds(x, y, 130, 40);
+							button[timeslot][day].addActionListener(new AvailTimesActionListener(timeslot, day, button) {
+							});
+							employeeAvailabilityLP.add(button[timeslot][day]);
+							x = x+135;
+						}
+						x = 110;
+						y = y+45;
+					}			
 					
 					businessDetailsLP = new JLayeredPane();
 					businessDetailsLP.setBounds(0, 0, 800, 691);
@@ -875,351 +911,351 @@ public class gui {
 //		lblErrorMsg.setText("");
 //	}
 	
-	private void employeeAvailiblity()
-	{	
-		JLabel lblEmployeeAvailability = new JLabel("Employee Availability");
-		lblEmployeeAvailability.setForeground(new Color(30, 144, 255));
-		lblEmployeeAvailability.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmployeeAvailability.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-		lblEmployeeAvailability.setBounds(50, 0, 700, 100);
-		employeeAvailabilityLP.add(lblEmployeeAvailability);
-		
-		JLabel lblMonday = new JLabel("Monday");
-		lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMonday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblMonday.setBounds(125, 100, 120, 20);
-		employeeAvailabilityLP.add(lblMonday);
-		
-		JLabel lblTuesday = new JLabel("Tuesday");
-		lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTuesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTuesday.setBounds(260, 100, 120, 20);
-		employeeAvailabilityLP.add(lblTuesday);
-		
-		JLabel lblWednesday = new JLabel("Wednesday");
-		lblWednesday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWednesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblWednesday.setBounds(395, 100, 120, 20);
-		employeeAvailabilityLP.add(lblWednesday);
-		
-		JLabel lblThursday = new JLabel("Thursday");
-		lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblThursday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblThursday.setBounds(530, 100, 120, 20);
-		employeeAvailabilityLP.add(lblThursday);
-		
-		JLabel lblFriday = new JLabel("Friday");
-		lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFriday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFriday.setBounds(665, 100, 120, 20);
-		employeeAvailabilityLP.add(lblFriday);
-		
-		JLabel lblTimeslot1 = new JLabel("8am - 9am");
-		lblTimeslot1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTimeslot1.setBounds(10, 135, 90, 20);
-		employeeAvailabilityLP.add(lblTimeslot1);
-		
-		JLabel lblTimeslot2 = new JLabel("9am - 10am");
-		lblTimeslot2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTimeslot2.setBounds(10, 185, 100, 20);
-		employeeAvailabilityLP.add(lblTimeslot2);
-		
-		JLabel lblTimeslot3 = new JLabel("10am - 11am");
-		lblTimeslot3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTimeslot3.setBounds(10, 235, 100, 20);
-		employeeAvailabilityLP.add(lblTimeslot3);
-		
-		JLabel lblTimeslot4 = new JLabel("11am - 12pm");
-		lblTimeslot4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTimeslot4.setBounds(10, 285, 100, 20);
-		employeeAvailabilityLP.add(lblTimeslot4);
-		
-		JLabel lblTimeslot5 = new JLabel("12pm - 1pm");
-		lblTimeslot5.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTimeslot5.setBounds(10, 335, 100, 20);
-		employeeAvailabilityLP.add(lblTimeslot5);
-		
-		JLabel lblTimeslot6 = new JLabel("1pm - 2pm");
-		lblTimeslot6.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTimeslot6.setBounds(10, 385, 100, 20);
-		employeeAvailabilityLP.add(lblTimeslot6);
-		
-		JLabel lblTimeslot7 = new JLabel("2pm - 3pm");
-		lblTimeslot7.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTimeslot7.setBounds(10, 435, 100, 20);
-		employeeAvailabilityLP.add(lblTimeslot7);
-		
-		JLabel lblpmpm = new JLabel("3pm - 4pm");
-		lblpmpm.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblpmpm.setBounds(10, 485, 100, 20);
-		employeeAvailabilityLP.add(lblpmpm);
-		
-		JLabel lblpmpm_1 = new JLabel("4pm - 5pm");
-		lblpmpm_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblpmpm_1.setBounds(10, 535, 100, 20);
-		employeeAvailabilityLP.add(lblpmpm_1);
-		
-		JLabel lblpmpm_2 = new JLabel("5pm - 6pm");
-		lblpmpm_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblpmpm_2.setBounds(10, 585, 100, 20);
-		employeeAvailabilityLP.add(lblpmpm_2);
-		
-		JRadioButton rdbtnNotAvailable = new JRadioButton("Not Available");
-		rdbtnNotAvailable.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable.setSelected(true);
-		rdbtnNotAvailable.setBounds(125, 135, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Not Available");
-		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNewRadioButton.setBounds(260, 135, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnNotAvailable_1 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_1.setBounds(395, 135, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_1);
-		
-		JRadioButton rdbtnNotAvailable_2 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_2.setBounds(530, 135, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_2);
-		
-		JRadioButton rdbtnNotAvailable_3 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_3.setBounds(665, 135, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_3);
-		
-		JRadioButton rdbtnNotAvailable_4 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_4.setBounds(125, 185, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_4);
-		
-		JRadioButton rdbtnNotAvailable_5 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_5.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_5.setBounds(260, 185, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_5);
-		
-		JRadioButton rdbtnNotAvailable_6 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_6.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_6.setBounds(395, 185, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_6);
-		
-		JRadioButton rdbtnNotAvailable_7 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_7.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_7.setBounds(530, 185, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_7);
-		
-		JRadioButton rdbtnNotAvailable_8 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_8.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_8.setBounds(665, 185, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_8);
-		
-		JRadioButton rdbtnNotAvailable_9 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_9.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_9.setBounds(125, 235, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_9);
-		
-		JRadioButton rdbtnNotAvailable_10 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_10.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_10.setBounds(260, 235, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_10);
-		
-		JRadioButton rdbtnNotAvailable_11 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_11.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_11.setBounds(395, 235, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_11);
-		
-		JRadioButton rdbtnNotAvailable_12 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_12.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_12.setBounds(530, 235, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_12);
-		
-		JRadioButton rdbtnNotAvailable_13 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_13.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_13.setBounds(665, 235, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_13);
-		
-		JRadioButton rdbtnNotAvailable_14 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_14.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_14.setBounds(125, 285, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_14);
-		
-		JRadioButton rdbtnNotAvailable_15 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_15.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_15.setBounds(260, 285, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_15);
-		
-		JRadioButton rdbtnNotAvailable_16 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_16.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_16.setBounds(395, 285, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_16);
-		
-		JRadioButton rdbtnNotAvailable_17 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_17.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_17.setBounds(530, 285, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_17);
-		
-		JRadioButton rdbtnNotAvailable_18 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_18.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_18.setBounds(665, 285, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_18);
-		
-		JRadioButton rdbtnNotAvailable_19 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_19.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_19.setBounds(125, 335, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_19);
-		
-		JRadioButton rdbtnNotAvailable_20 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_20.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_20.setBounds(260, 335, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_20);
-		
-		JRadioButton rdbtnNotAvailible_21 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_21.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_21.setBounds(395, 335, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_21);
-		
-		JRadioButton rdbtnNotAvailible_22 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_22.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_22.setBounds(530, 335, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_22);
-		
-		JRadioButton rdbtnNotAvailible_23 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_23.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_23.setBounds(665, 335, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_23);
-		
-		JRadioButton rdbtnNotAvailible_24 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_24.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_24.setBounds(125, 385, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_24);
-		
-		JRadioButton rdbtnNotAvailible_25 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_25.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_25.setBounds(260, 385, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_25);
-		
-		JRadioButton rdbtnNotAvailible_26 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_26.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_26.setBounds(395, 385, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_26);
-		
-		JRadioButton rdbtnNotAvailible_27 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_27.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_27.setBounds(530, 385, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_27);
-		
-		JRadioButton rdbtnNotAvailible_28 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_28.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_28.setBounds(665, 385, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_28);
-		
-		JRadioButton rdbtnNotAvailible_29 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_29.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_29.setBounds(125, 435, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_29);
-		
-		JRadioButton rdbtnNotAvailible_30 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_30.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_30.setBounds(260, 435, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_30);
-		
-		JRadioButton rdbtnNotAvailible_31 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_31.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_31.setBounds(395, 435, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_31);
-		
-		JRadioButton rdbtnNotAvailible_32 = new JRadioButton("Not Availible");
-		rdbtnNotAvailible_32.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailible_32.setBounds(530, 435, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailible_32);
-		
-		JRadioButton rdbtnNotAvailable_33 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_33.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_33.setBounds(665, 435, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_33);
-		
-		JRadioButton rdbtnNotAvailable_34 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_34.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_34.setBounds(125, 485, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_34);
-		
-		JRadioButton rdbtnNotAvailable_35 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_35.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_35.setBounds(260, 485, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_35);
-		
-		JRadioButton rdbtnNotAvailable_36 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_36.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_36.setBounds(395, 485, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_36);
-		
-		JRadioButton rdbtnNotAvailable_37 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_37.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_37.setBounds(530, 485, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_37);
-		
-		JRadioButton rdbtnNotAvailable_38 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_38.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_38.setBounds(665, 485, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_38);
-		
-		JRadioButton rdbtnNotAvailable_39 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_39.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_39.setBounds(125, 535, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_39);
-		
-		JRadioButton rdbtnNotAvailable_40 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_40.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_40.setBounds(260, 535, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_40);
-		
-		JRadioButton rdbtnNotAvailable_41 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_41.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_41.setBounds(395, 535, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_41);
-		
-		JRadioButton rdbtnNotAvailable_42 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_42.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_42.setBounds(530, 535, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_42);
-		
-		JRadioButton rdbtnNotAvailable_43 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_43.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_43.setBounds(665, 535, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_43);
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Not Available");
-		rdbtnNewRadioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNewRadioButton_1.setBounds(125, 585, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNewRadioButton_1);
-		
-		JRadioButton rdbtnNotAvailable_44 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_44.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_44.setBounds(260, 585, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_44);
-		
-		JRadioButton rdbtnNotAvailable_45 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_45.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_45.setBounds(395, 585, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_45);
-		
-		JRadioButton rdbtnNotAvailable_46 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_46.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_46.setBounds(530, 585, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_46);
-		
-		JRadioButton rdbtnNotAvailable_47 = new JRadioButton("Not Available");
-		rdbtnNotAvailable_47.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		rdbtnNotAvailable_47.setBounds(665, 585, 120, 20);
-		employeeAvailabilityLP.add(rdbtnNotAvailable_47);
-		
-		JButton btnChangeAvailability = new JButton("Change Availability");
-		btnChangeAvailability.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnChangeAvailability.setBounds(280, 620, 180, 60);
-		employeeAvailabilityLP.add(btnChangeAvailability);
-	}
+//	private void employeeAvailiblity()
+//	{	
+//		JLabel lblEmployeeAvailability = new JLabel("Employee Availability");
+//		lblEmployeeAvailability.setForeground(new Color(30, 144, 255));
+//		lblEmployeeAvailability.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblEmployeeAvailability.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
+//		lblEmployeeAvailability.setBounds(50, 0, 700, 100);
+//		employeeAvailabilityLP.add(lblEmployeeAvailability);
+//		
+//		JLabel lblMonday = new JLabel("Monday");
+//		lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblMonday.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblMonday.setBounds(125, 100, 120, 20);
+//		employeeAvailabilityLP.add(lblMonday);
+//		
+//		JLabel lblTuesday = new JLabel("Tuesday");
+//		lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblTuesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblTuesday.setBounds(260, 100, 120, 20);
+//		employeeAvailabilityLP.add(lblTuesday);
+//		
+//		JLabel lblWednesday = new JLabel("Wednesday");
+//		lblWednesday.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblWednesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblWednesday.setBounds(395, 100, 120, 20);
+//		employeeAvailabilityLP.add(lblWednesday);
+//		
+//		JLabel lblThursday = new JLabel("Thursday");
+//		lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblThursday.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblThursday.setBounds(530, 100, 120, 20);
+//		employeeAvailabilityLP.add(lblThursday);
+//		
+//		JLabel lblFriday = new JLabel("Friday");
+//		lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblFriday.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblFriday.setBounds(665, 100, 120, 20);
+//		employeeAvailabilityLP.add(lblFriday);
+//		
+//		JLabel lblTimeslot1 = new JLabel("8am - 9am");
+//		lblTimeslot1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblTimeslot1.setBounds(10, 135, 90, 20);
+//		employeeAvailabilityLP.add(lblTimeslot1);
+//		
+//		JLabel lblTimeslot2 = new JLabel("9am - 10am");
+//		lblTimeslot2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblTimeslot2.setBounds(10, 185, 100, 20);
+//		employeeAvailabilityLP.add(lblTimeslot2);
+//		
+//		JLabel lblTimeslot3 = new JLabel("10am - 11am");
+//		lblTimeslot3.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblTimeslot3.setBounds(10, 235, 100, 20);
+//		employeeAvailabilityLP.add(lblTimeslot3);
+//		
+//		JLabel lblTimeslot4 = new JLabel("11am - 12pm");
+//		lblTimeslot4.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblTimeslot4.setBounds(10, 285, 100, 20);
+//		employeeAvailabilityLP.add(lblTimeslot4);
+//		
+//		JLabel lblTimeslot5 = new JLabel("12pm - 1pm");
+//		lblTimeslot5.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblTimeslot5.setBounds(10, 335, 100, 20);
+//		employeeAvailabilityLP.add(lblTimeslot5);
+//		
+//		JLabel lblTimeslot6 = new JLabel("1pm - 2pm");
+//		lblTimeslot6.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblTimeslot6.setBounds(10, 385, 100, 20);
+//		employeeAvailabilityLP.add(lblTimeslot6);
+//		
+//		JLabel lblTimeslot7 = new JLabel("2pm - 3pm");
+//		lblTimeslot7.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblTimeslot7.setBounds(10, 435, 100, 20);
+//		employeeAvailabilityLP.add(lblTimeslot7);
+//		
+//		JLabel lblpmpm = new JLabel("3pm - 4pm");
+//		lblpmpm.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblpmpm.setBounds(10, 485, 100, 20);
+//		employeeAvailabilityLP.add(lblpmpm);
+//		
+//		JLabel lblpmpm_1 = new JLabel("4pm - 5pm");
+//		lblpmpm_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblpmpm_1.setBounds(10, 535, 100, 20);
+//		employeeAvailabilityLP.add(lblpmpm_1);
+//		
+//		JLabel lblpmpm_2 = new JLabel("5pm - 6pm");
+//		lblpmpm_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		lblpmpm_2.setBounds(10, 585, 100, 20);
+//		employeeAvailabilityLP.add(lblpmpm_2);
+//		
+//		JRadioButton rdbtnNotAvailable = new JRadioButton("Not Available");
+//		rdbtnNotAvailable.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable.setSelected(true);
+//		rdbtnNotAvailable.setBounds(125, 135, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable);
+//		
+//		JRadioButton rdbtnNewRadioButton = new JRadioButton("Not Available");
+//		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNewRadioButton.setBounds(260, 135, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNewRadioButton);
+//		
+//		JRadioButton rdbtnNotAvailable_1 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_1.setBounds(395, 135, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_1);
+//		
+//		JRadioButton rdbtnNotAvailable_2 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_2.setBounds(530, 135, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_2);
+//		
+//		JRadioButton rdbtnNotAvailable_3 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_3.setBounds(665, 135, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_3);
+//		
+//		JRadioButton rdbtnNotAvailable_4 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_4.setBounds(125, 185, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_4);
+//		
+//		JRadioButton rdbtnNotAvailable_5 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_5.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_5.setBounds(260, 185, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_5);
+//		
+//		JRadioButton rdbtnNotAvailable_6 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_6.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_6.setBounds(395, 185, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_6);
+//		
+//		JRadioButton rdbtnNotAvailable_7 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_7.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_7.setBounds(530, 185, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_7);
+//		
+//		JRadioButton rdbtnNotAvailable_8 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_8.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_8.setBounds(665, 185, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_8);
+//		
+//		JRadioButton rdbtnNotAvailable_9 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_9.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_9.setBounds(125, 235, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_9);
+//		
+//		JRadioButton rdbtnNotAvailable_10 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_10.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_10.setBounds(260, 235, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_10);
+//		
+//		JRadioButton rdbtnNotAvailable_11 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_11.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_11.setBounds(395, 235, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_11);
+//		
+//		JRadioButton rdbtnNotAvailable_12 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_12.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_12.setBounds(530, 235, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_12);
+//		
+//		JRadioButton rdbtnNotAvailable_13 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_13.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_13.setBounds(665, 235, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_13);
+//		
+//		JRadioButton rdbtnNotAvailable_14 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_14.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_14.setBounds(125, 285, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_14);
+//		
+//		JRadioButton rdbtnNotAvailable_15 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_15.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_15.setBounds(260, 285, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_15);
+//		
+//		JRadioButton rdbtnNotAvailable_16 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_16.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_16.setBounds(395, 285, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_16);
+//		
+//		JRadioButton rdbtnNotAvailable_17 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_17.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_17.setBounds(530, 285, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_17);
+//		
+//		JRadioButton rdbtnNotAvailable_18 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_18.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_18.setBounds(665, 285, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_18);
+//		
+//		JRadioButton rdbtnNotAvailable_19 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_19.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_19.setBounds(125, 335, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_19);
+//		
+//		JRadioButton rdbtnNotAvailable_20 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_20.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_20.setBounds(260, 335, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_20);
+//		
+//		JRadioButton rdbtnNotAvailible_21 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_21.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_21.setBounds(395, 335, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_21);
+//		
+//		JRadioButton rdbtnNotAvailible_22 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_22.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_22.setBounds(530, 335, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_22);
+//		
+//		JRadioButton rdbtnNotAvailible_23 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_23.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_23.setBounds(665, 335, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_23);
+//		
+//		JRadioButton rdbtnNotAvailible_24 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_24.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_24.setBounds(125, 385, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_24);
+//		
+//		JRadioButton rdbtnNotAvailible_25 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_25.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_25.setBounds(260, 385, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_25);
+//		
+//		JRadioButton rdbtnNotAvailible_26 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_26.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_26.setBounds(395, 385, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_26);
+//		
+//		JRadioButton rdbtnNotAvailible_27 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_27.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_27.setBounds(530, 385, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_27);
+//		
+//		JRadioButton rdbtnNotAvailible_28 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_28.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_28.setBounds(665, 385, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_28);
+//		
+//		JRadioButton rdbtnNotAvailible_29 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_29.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_29.setBounds(125, 435, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_29);
+//		
+//		JRadioButton rdbtnNotAvailible_30 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_30.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_30.setBounds(260, 435, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_30);
+//		
+//		JRadioButton rdbtnNotAvailible_31 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_31.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_31.setBounds(395, 435, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_31);
+//		
+//		JRadioButton rdbtnNotAvailible_32 = new JRadioButton("Not Availible");
+//		rdbtnNotAvailible_32.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailible_32.setBounds(530, 435, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailible_32);
+//		
+//		JRadioButton rdbtnNotAvailable_33 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_33.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_33.setBounds(665, 435, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_33);
+//		
+//		JRadioButton rdbtnNotAvailable_34 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_34.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_34.setBounds(125, 485, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_34);
+//		
+//		JRadioButton rdbtnNotAvailable_35 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_35.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_35.setBounds(260, 485, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_35);
+//		
+//		JRadioButton rdbtnNotAvailable_36 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_36.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_36.setBounds(395, 485, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_36);
+//		
+//		JRadioButton rdbtnNotAvailable_37 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_37.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_37.setBounds(530, 485, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_37);
+//		
+//		JRadioButton rdbtnNotAvailable_38 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_38.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_38.setBounds(665, 485, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_38);
+//		
+//		JRadioButton rdbtnNotAvailable_39 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_39.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_39.setBounds(125, 535, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_39);
+//		
+//		JRadioButton rdbtnNotAvailable_40 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_40.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_40.setBounds(260, 535, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_40);
+//		
+//		JRadioButton rdbtnNotAvailable_41 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_41.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_41.setBounds(395, 535, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_41);
+//		
+//		JRadioButton rdbtnNotAvailable_42 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_42.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_42.setBounds(530, 535, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_42);
+//		
+//		JRadioButton rdbtnNotAvailable_43 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_43.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_43.setBounds(665, 535, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_43);
+//		
+//		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Not Available");
+//		rdbtnNewRadioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNewRadioButton_1.setBounds(125, 585, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNewRadioButton_1);
+//		
+//		JRadioButton rdbtnNotAvailable_44 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_44.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_44.setBounds(260, 585, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_44);
+//		
+//		JRadioButton rdbtnNotAvailable_45 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_45.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_45.setBounds(395, 585, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_45);
+//		
+//		JRadioButton rdbtnNotAvailable_46 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_46.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_46.setBounds(530, 585, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_46);
+//		
+//		JRadioButton rdbtnNotAvailable_47 = new JRadioButton("Not Available");
+//		rdbtnNotAvailable_47.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		rdbtnNotAvailable_47.setBounds(665, 585, 120, 20);
+//		employeeAvailabilityLP.add(rdbtnNotAvailable_47);
+//		
+//		JButton btnChangeAvailability = new JButton("Change Availability");
+//		btnChangeAvailability.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		btnChangeAvailability.setBounds(280, 620, 180, 60);
+//		employeeAvailabilityLP.add(btnChangeAvailability);
+//	}
 	
 	
  	private class SwingAction extends AbstractAction {
