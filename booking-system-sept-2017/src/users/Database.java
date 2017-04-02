@@ -54,7 +54,7 @@ public class Database {
 		}
 	}
 	
-	public boolean initDatabase(Connection connection)
+	public boolean initDatabase()
 	{
 		try{
 			Statement stmt = connection.createStatement();
@@ -109,7 +109,7 @@ public class Database {
 		}
 	}
 	
-	public boolean clearTables(Connection connection)
+	public boolean clearTables()
 	{
 		try{
 			Statement stmt = connection.createStatement();
@@ -136,7 +136,7 @@ public class Database {
 		}
 	}
 	
-	public boolean defaultValues(Connection connection)
+	public boolean defaultValues()
 	{
 		try{
 			Statement stmt = connection.createStatement();
@@ -177,7 +177,7 @@ public class Database {
 		}
 	}
 	
-	public boolean readCustDB(ArrayList<Customer> customers, Connection connection)
+	public boolean readCustDB(ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;
 		Customer newCust;
@@ -207,7 +207,7 @@ public class Database {
 		}
 	}
 	
-	public boolean readBusDB(ArrayList<Business> businesses, Connection connection)
+	public boolean readBusDB(ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Business newBus;
@@ -236,7 +236,7 @@ public class Database {
 		}
 	}
 	
-	public boolean readEmplDB(ArrayList<Employee> employees, Connection connection)
+	public boolean readEmplDB(ArrayList<Employee> employees)
 	{
 		ResultSet resultSet = null;
 		Employee newEmpl;
@@ -262,7 +262,7 @@ public class Database {
 		}
 	}
 	
-	public boolean readAvailablityTimes(ArrayList<Employee> employees, Connection connection)
+	public boolean readAvailablityTimes(ArrayList<Employee> employees)
 	{
 		ResultSet resultSet = null;
 		
@@ -295,7 +295,7 @@ public class Database {
 		}
 	}
 
- 	public void writeCustDB(ArrayList<Customer> customers, Connection connection)
+ 	public void writeCustDB(ArrayList<Customer> customers)
 	{		
 		for(int i = 0; i < customers.size(); i++)
 		{
@@ -311,7 +311,7 @@ public class Database {
 		}
 	}
 	
-	public boolean writeNewCustToDB(ArrayList<Customer> customers, int position, Connection connection)
+	public boolean writeNewCustToDB(ArrayList<Customer> customers, int position)
 	{
 		try{
 			custToString(customers, position);
@@ -328,7 +328,7 @@ public class Database {
 		}
 	}
 	
-	public boolean writeEmplToDB(ArrayList<Employee> employees , Connection connection)
+	public boolean writeEmplToDB(ArrayList<Employee> employees)
 	{
 		for(int i = 0; i < employees.size(); i++)
 		{
@@ -413,6 +413,22 @@ public class Database {
 			System.out.println("Can not close connection");
 			return false;
 		}
+	}
+	
+	public boolean deleteAllRecords(String table)
+	{
+		try{
+			Statement stmt = connection.createStatement();
+			
+			String sql = "DELETE FROM " + table;
+			stmt.executeUpdate(sql);
+
+		}catch (SQLException e)
+		{
+			System.out.println("Unable to clear records from " + table + " table.");
+			
+		}
+		return true;
 	}
 }
 
