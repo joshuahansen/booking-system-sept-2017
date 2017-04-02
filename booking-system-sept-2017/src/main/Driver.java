@@ -24,15 +24,15 @@ public class Driver {
 		if(database.connectDatabase(url) == true)
 		{
 		
-			database.clearTables(database.getConnection());
-			database.initDatabase(database.getConnection());
-			database.defaultValues(database.getConnection());
+//			database.clearTables();
+//			database.initDatabase();
+//			database.defaultValues();
 			
-			if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
+			if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
 			{
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
-				if(database.readEmplDB(employees, database.getConnection()) && database.readAvailablityTimes(employees, database.getConnection()))
+				if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
 				{
 					System.out.println("Employee Database loaded");
 					System.out.println("Employee availible times loaded");
@@ -45,14 +45,14 @@ public class Driver {
 			}
 			else
 			{
-				database.clearTables(database.getConnection());
-				database.initDatabase(database.getConnection());
-				database.defaultValues(database.getConnection());
-				if(database.readCustDB(customers, database.getConnection()) == true && database.readBusDB(businesses, database.getConnection()) == true)
+				database.clearTables();
+				database.initDatabase();
+				database.defaultValues();
+				if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
 				{
 					System.out.println("Customer Database loaded");
 					System.out.println("Business Database loaded");
-					if(database.readEmplDB(employees, database.getConnection()) && database.readAvailablityTimes(employees, database.getConnection()))
+					if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
 					{
 						System.out.println("Employee Database loaded");
 						System.out.println("Employee availible times loaded");
@@ -106,8 +106,8 @@ public class Driver {
 		
 		sys.menuInput(userInput, customers, businesses, employees);
 		
-		database.writeCustDB(customers, database.getConnection());
-		database.writeEmplToDB(employees, database.getConnection());
+		database.writeCustDB(customers);
+		database.writeEmplToDB(employees);
 	
 		database.closeConnection();
 		userInput.close();

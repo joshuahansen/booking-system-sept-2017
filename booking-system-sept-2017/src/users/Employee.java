@@ -70,6 +70,11 @@ public class Employee
 		return lastName;
 	}
 	
+	public String getName()
+	{
+		return firstName + " " + lastName;
+	}
+	
 	public boolean setAvailableTime(int timeslot, int day, String booked)
 	{
 		if(booked.equalsIgnoreCase("yes"))
@@ -93,5 +98,10 @@ public class Employee
 	{
 		availableTimes[timeslot][day] = 1;
 		return true;
+	}
+	
+	public int getAvailableTime(int timeslot, int day)
+	{
+		return availableTimes[timeslot][day];
 	}
 }

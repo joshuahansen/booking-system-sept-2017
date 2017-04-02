@@ -36,45 +36,45 @@ public class DatabaseTest {
 	@Test
 	public void clearTablesTest()
 	{
-		assertTrue(database.clearTables(database.getConnection()));
+		assertTrue(database.clearTables());
 	}
 	
 	@Test
 	public void initDatabaseTest()
 	{
-		database.clearTables(database.getConnection());
-		assertTrue(database.initDatabase(database.getConnection()));
+		database.clearTables();
+		assertTrue(database.initDatabase());
 	}
 	
 	@Test
 	public void defaultValuesTest()
 	{
-		database.initDatabase(database.getConnection());
-		assertTrue(database.defaultValues(database.getConnection()));
+		database.initDatabase();
+		assertTrue(database.defaultValues());
 	}
 
 	@Test
 	public void readCustDBTest()
 	{
-		database.initDatabase(database.getConnection());
-		database.defaultValues(database.getConnection());
-		assertTrue(database.readCustDB(customers, database.getConnection()));
+		database.initDatabase();
+		database.defaultValues();
+		assertTrue(database.readCustDB(customers));
 	}
 	
 	@Test
 	public void readBusDBTest()
 	{
-		database.initDatabase(database.getConnection());
-		database.defaultValues(database.getConnection());
-		assertTrue(database.readBusDB(businesses, database.getConnection()));
+		database.initDatabase();
+		database.defaultValues();
+		assertTrue(database.readBusDB(businesses));
 	}
 	
 	@Test
 	public void readEmplyeeDB()
 	{
-		database.initDatabase(database.getConnection());
-		database.defaultValues(database.getConnection());
-		assertTrue(database.readEmplDB(employees, database.getConnection()));
+		database.initDatabase();
+		database.defaultValues();
+		assertTrue(database.readEmplDB(employees));
 	}
 	
 	@Test
