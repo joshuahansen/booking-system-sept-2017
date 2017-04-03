@@ -73,8 +73,11 @@ public class Gui {
 	private JLayeredPane bookingSummaryLP;
 	private JLayeredPane employeeAvailabilityLP;
 	private JLayeredPane custSelectEmployeeLP;
+	private JLayeredPane busSelectEmployeeLP;
 	private final Action action = new SwingAction();
 	private int userPos;
+	private int empPos = 0;
+	
 //	public static final int INFORMATION_MESSAGE;
 //	public static final int YES_NO_OPTION = 0;
 	
@@ -265,7 +268,7 @@ public class Gui {
 						public void actionPerformed(ActionEvent e) {
 							setAllVisibleFalse();
 							businessMenuPanel.setVisible(true);
-							employeeAvailabilityLP.setVisible(true);
+							busSelectEmployeeLP.setVisible(true);
 						}
 					});
 					btnEmployeeAvailability.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -373,7 +376,6 @@ public class Gui {
 					optionPane.setBounds(262, 232, 262, 90);
 					employeeAvailabilityLP.add(optionPane);
 					
-					int employeeNo = 0;
 					
 					JButton button[][]=new JButton[timeslots][days];
 					for(int timeslot = 0; timeslot < button.length; timeslot++)
@@ -381,7 +383,7 @@ public class Gui {
 						for(int day = 0; day < button[timeslot].length; day++)
 						{
 							button[timeslot][day] = new JButton();
-							int empPos = 0;
+		
 							int availTime = employees.get(empPos).getAvailableTime(timeslot, day);
 							if(availTime == 1)
 							{
@@ -397,7 +399,7 @@ public class Gui {
 							}
 							button[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
 							button[timeslot][day].setBounds(x, y, 130, 40);
-							button[timeslot][day].addActionListener(new AvailTimesActionListener(timeslot, day, button, optionPane, employees, employeeNo) {
+							button[timeslot][day].addActionListener(new AvailTimesActionListener(timeslot, day, button, optionPane, employees, empPos) {
 							});
 							employeeAvailabilityLP.add(button[timeslot][day]);
 							x = x+135;
@@ -970,7 +972,6 @@ public class Gui {
 					for(int day = 0; day < button[timeslot].length; day++)
 					{
 						bookingButton[timeslot][day] = new JButton();
-						int empPos = 0;
 						int availTime = employees.get(empPos).getAvailableTime(timeslot, day);
 						if(availTime == 1)
 						{
@@ -986,7 +987,7 @@ public class Gui {
 						}
 						bookingButton[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
 						bookingButton[timeslot][day].setBounds(x, y, 130, 40);
-						bookingButton[timeslot][day].addActionListener(new BookingActionListener(timeslot, day, button, bookingOptionPane, employees, employeeNo) {
+						bookingButton[timeslot][day].addActionListener(new BookingActionListener(timeslot, day, button, bookingOptionPane, employees, empPos) {
 						});
 						availableTimesLP.add(bookingButton[timeslot][day]);
 						x = x+135;
@@ -1085,7 +1086,7 @@ public class Gui {
 				custSelectEmployeeLP.setBounds(0, 0, 800, 691);
 				custMenuPanel.add(custSelectEmployeeLP);
 				
-				JLabel lblSelectEmployee = new JLabel("Select an Employee");
+				JLabel lblSelectEmployee = new JLabel("Select a Personal Trainer");
 				lblSelectEmployee.setBounds(50, 0, 700, 150);
 				lblSelectEmployee.setHorizontalAlignment(SwingConstants.CENTER);
 				lblSelectEmployee.setForeground(new Color(30, 144, 255));
@@ -1101,9 +1102,8 @@ public class Gui {
 					
 					employeeButton[emplNo].setFont(new Font("Tahoma", Font.PLAIN, 16));
 					employeeButton[emplNo].setBounds(x, y, 180, 80);
-					employeeButton[emplNo].addActionListener(new SelectEmployeeActionListener(employeeButton, emplNo, custMenuPanel, availableTimesLP, custSelectEmployeeLP) {
-					});
 					custSelectEmployeeLP.add(employeeButton[emplNo]);
+					
 					x = x+185;
 					if(emplNo == 2 || emplNo == 5 || emplNo == 8 || emplNo == 11) 
 					{
@@ -1111,6 +1111,8 @@ public class Gui {
 						y = y+85;
 					}
 					
+					employeeButton[emplNo].addActionListener(new SelectEmployeeActionListener(employeeButton, emplNo, custMenuPanel, availableTimesLP, custSelectEmployeeLP) {
+					});
 				}
 	
 				btnAvailableTimes.addActionListener(new ActionListener() {
@@ -1129,6 +1131,44 @@ public class Gui {
 						frmBookingSystem.setTitle("Booking System - Login");
 					}
 				});
+				
+				x = 110;
+				y = 150;
+				
+				busSelectEmployeeLP = new JLayeredPane();
+				busSelectEmployeeLP.setBounds(0, 0, 800, 691);
+				businessMenuPanel.add(busSelectEmployeeLP);
+				
+				JLabel lblBusSelectEmployee = new JLabel("Select an Employee");
+				lblBusSelectEmployee.setBounds(50, 0, 700, 150);
+				lblBusSelectEmployee.setHorizontalAlignment(SwingConstants.CENTER);
+				lblBusSelectEmployee.setForeground(new Color(30, 144, 255));
+				lblBusSelectEmployee.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
+				busSelectEmployeeLP.add(lblBusSelectEmployee);
+				
+				JButton busEmployeeButton[] = new JButton[employees.size()];
+				for(int emplNo = 0; emplNo < busEmployeeButton.length; emplNo++)
+				{
+					busEmployeeButton[emplNo] = new JButton();
+
+					busEmployeeButton[emplNo].setText(employees.get(emplNo).getName());
+					
+					busEmployeeButton[emplNo].setFont(new Font("Tahoma", Font.PLAIN, 16));
+					busEmployeeButton[emplNo].setBounds(x, y, 180, 80);
+					busSelectEmployeeLP.add(busEmployeeButton[emplNo]);
+					
+					x = x+185;
+					if(emplNo == 2 || emplNo == 5 || emplNo == 8 || emplNo == 11) 
+					{
+						x = 110;
+						y = y+85;
+					}
+					
+					busEmployeeButton[emplNo].addActionListener(new BusSelectEmployeeActionListener(busEmployeeButton, emplNo, businessMenuPanel, employeeAvailabilityLP, busSelectEmployeeLP) {			
+					
+					});
+				}
+	
 	
 				//set all pages visibility to false
 				setAllVisibleFalse();
@@ -1149,21 +1189,14 @@ public class Gui {
 		bookingSummaryLP.setVisible(false);
 		employeeAvailabilityLP.setVisible(false);
 		custSelectEmployeeLP.setVisible(false);
+		busSelectEmployeeLP.setVisible(false);
 	}
 	private void setTextNull()
 	{
 		loginUsernameText.setText("");
 		loginPasswordText.setText("");		
 	}
-//	private void resetErrorMsg()
-//	{
-//		lblUsernameError.setText("");
-//		lblfNameError.setText("");
-//		lbllNameError.setText("");
-//		lblAddressError.setText("");
-//		lblPhoneError.setText("");
-//		lblErrorMsg.setText("");
-//	}	
+
 	
  	private class SwingAction extends AbstractAction {
 		public SwingAction() {
