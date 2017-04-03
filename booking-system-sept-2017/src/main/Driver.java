@@ -70,7 +70,7 @@ public class Driver {
 			
 		}
 		
-		menu.menuDriver(userInput, login, registration, customers, businesses);
+		menu.menuDriver(userInput, login, registration, customers, businesses, employees);
 		
 		database.writeCustDB(customers);
 		database.writeEmplToDB(employees);
