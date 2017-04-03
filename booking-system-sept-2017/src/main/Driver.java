@@ -9,17 +9,20 @@ import users.*;
 
 public class Driver {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		//create array lists for booking system
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
 		ArrayList<Employee> employees = new ArrayList<>();
+		
+		Menu menu = new Menu();
+		Login login = new Login();
+		Registration registration = new Registration();
+		Database database = new Database();
+		Scanner userInput = new Scanner(System.in);
 
 		String url = "jdbc:sqlite:./database.db";
-		
-		Scanner userInput = new Scanner(System.in);
-		
-		Database database = new Database();
 		
 		if(database.connectDatabase(url) == true)
 		{
@@ -55,56 +58,19 @@ public class Driver {
 					if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
 					{
 						System.out.println("Employee Database loaded");
-						System.out.println("Employee availible times loaded");
+						System.out.println("Employee availible times loaded\n");
 					}
 					else
 					{
 						System.out.println("Can not load employee database");
-						System.out.println("Can not load employee availibilities");
+						System.out.println("Can not load employee availibilities\n");
 					}
 				}
 			}
 			
 		}
 		
-//		Login login = new Login();
-		
-		//create new init_users object
-
-//		InitUsers users = new InitUsers();
-
-		//initialize both arrays
-//		users.init_customers(customers);
-//		users.init_businesses(businesses);
-		
-		/* quick random test to make sure arrays have elements
-		System.out.println("First Name: " + customers.get(0).getFirstName());
-		System.out.println("Address: " + businesses.get(0).getAddress());
-		
-		System.out.println("");
-
-		System.out.print("Number of tests: ");
-		
-		int testInput = userInput.nextInt();
-		
-		int testCounter = 0;
-		
-		System.out.println("Running " + testInput + " test(s).");
-		
-		for (testCounter = 0; testCounter <= testInput; testCounter++)
-		{
-			System.out.println("Begin Test " + (testCounter + 1));
-			login.getUsernamePassword(userInput);
-			int returnValue = login.login(customers, businesses);
-			System.out.println("returnValue = " + returnValue);
-			System.out.println("End Test " + (testCounter + 1));
-		}x
-		*/
-		
-		//calls menu
-		Menu sys = new Menu();
-		
-		sys.menuInput(userInput, customers, businesses, employees);
+		menu.menuDriver(userInput, login, registration, customers, businesses, employees);
 		
 		database.writeCustDB(customers);
 		database.writeEmplToDB(employees);

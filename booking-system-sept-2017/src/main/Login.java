@@ -26,7 +26,7 @@ public class Login
 		return this.username;
   }
   
-	private void setUsername(String username)
+	public void setUsername(String username)
 	{
 		this.username = username;
 	}
@@ -36,7 +36,7 @@ public class Login
 		return this.password;
 	}
   
-	private void setPassword(String password)
+	public void setPassword(String password)
 	{
 		this.password = password;
 	}
@@ -46,7 +46,7 @@ public class Login
 		return this.userPosition;
 	}
 	
-	private void setUserPosition(int userPosition)
+	public void setUserPosition(int userPosition)
 	{
 		this.userPosition = userPosition;
 	}
@@ -59,9 +59,7 @@ public class Login
 	
 	public void getUsernamePassword(Scanner userInput)
 	{
-		System.out.println("\n");
-		System.out.println("--- Login ---");
-		System.out.println("\n");
+		System.out.println("\n--- Login ---\n");
 		
 		System.out.print("Username: ");
 		this.username = userInput.next();

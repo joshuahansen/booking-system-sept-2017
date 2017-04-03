@@ -7,8 +7,6 @@ import users.Customer;
 import users.Employee;
 
 public class Registration {
-
-	private Scanner keyboard = new Scanner(System.in);
 	
 	private String firstName;
 	private String lastName;
@@ -82,7 +80,7 @@ public class Registration {
 	}
 
 	//This function is used while the program is running on the command line
-	public boolean getUserValues(ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean getUserValues(Scanner userInput, ArrayList<Customer> cust, ArrayList<Business> busi) {
 		
 		boolean valid = false;
 		System.out.println("\n--- Register ---\n");
@@ -90,7 +88,7 @@ public class Registration {
 		while(valid == false) {
 			System.out.print("Enter First Name: ");
 			//prompts the user to enter their first name and assigns it to the first name variable
-			this.firstName = keyboard.nextLine();
+			this.firstName = userInput.nextLine();
 			if(validFirstName()) {
 				valid = true; 
 			}
@@ -99,7 +97,7 @@ public class Registration {
 		while(valid == false) {
 			//prompts the user to enter their last name and assigns it to the last name variable
 			System.out.print("Enter Last Name: ");
-			this.lastName = keyboard.nextLine();
+			this.lastName = userInput.nextLine();
 			if(validLastName()) {
 				valid = true; 
 			}
@@ -108,14 +106,14 @@ public class Registration {
 		while(valid == false) {
 			//prompts the user to enter their username and assigns it to the username variable
 			System.out.print("Enter Address: ");
-			this.address = keyboard.nextLine();
+			this.address = userInput.nextLine();
 			valid = true; 
 		}
 		valid = false;
 		while(valid == false) {
 			//prompts the user to enter their password and assigns it to the password variable
 			System.out.print("Enter Phone Number (Minimum 8 characters): ");
-			this.phone = keyboard.nextLine();
+			this.phone = userInput.nextLine();
 			if(validPhone()) {
 				valid = true; 
 			}
@@ -124,7 +122,7 @@ public class Registration {
 		while(valid == false) {
 			//prompts the user to enter their username and assigns it to the username variable
 			System.out.print("Enter Username (Minimum 4 characters): ");
-			this.username = keyboard.nextLine();
+			this.username = userInput.nextLine();
 			if(validUsername(cust, busi)) {
 				valid = true; 
 			}
@@ -133,7 +131,7 @@ public class Registration {
 		while(valid == false) {
 			//prompts the user to enter their password and assigns it to the password variable
 			System.out.print("Enter Password (Minimum 6 characters): ");
-			this.password = keyboard.nextLine();
+			this.password = userInput.nextLine();
 			if(validPassword()) {
 				valid = true; 
 			}
@@ -217,7 +215,7 @@ public class Registration {
 		return true;
 	}
 	
-	public boolean getEmployeeValues(ArrayList<Employee> empl) {
+	public boolean getEmployeeValues(Scanner userInput, ArrayList<Employee> empl) {
 			
 		boolean valid = false;
 		System.out.println("\n--- Add Employee ---\n");
@@ -226,7 +224,7 @@ public class Registration {
 		while(valid == false) {
 			//prompts the user to enter the employee's id and assigns it to the employeeID variable
 			System.out.print("Enter Employee ID: ");
-			this.employeeID = keyboard.nextLine();
+			this.employeeID = userInput.nextLine();
 			if(validEmployeeID(empl)) {
 				valid = true; 
 			}
@@ -237,7 +235,7 @@ public class Registration {
 		while(valid == false) {
 			System.out.print("Enter First Name: ");
 			//prompts the user to enter the employees first name and assigns it to the first name variable
-			this.firstName = keyboard.nextLine();
+			this.firstName = userInput.nextLine();
 			if(validFirstName()) {
 				valid = true; 
 			}
@@ -246,7 +244,7 @@ public class Registration {
 		while(valid == false) {
 			//prompts the user to enter the employee last name and assigns it to the last name variable
 			System.out.print("Enter Last Name: ");
-			this.lastName = keyboard.nextLine();
+			this.lastName = userInput.nextLine();
 			if(validLastName()) {
 				valid = true; 
 			}
@@ -258,7 +256,7 @@ public class Registration {
 		System.out.println("Availiable Mondays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		selection = keyboard.nextInt();
+		selection = userInput.nextInt();
 
 		switch(selection) {
 			case 1: avaMonday = true;
@@ -271,7 +269,7 @@ public class Registration {
 		System.out.println("\nAvailiable Tuesdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		selection = keyboard.nextInt();
+		selection = userInput.nextInt();
 
 		switch(selection) {
 			case 1: avaTuesday = true;
@@ -285,7 +283,7 @@ public class Registration {
 		System.out.println("\nAvailiable Wednesdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		selection = keyboard.nextInt();
+		selection = userInput.nextInt();
 
 		switch(selection) {
 			case 1: avaWednesday = true;
@@ -299,7 +297,7 @@ public class Registration {
 		System.out.println("\nAvailiable Thursdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		selection = keyboard.nextInt();
+		selection = userInput.nextInt();
 
 		switch(selection) {
 			case 1: avaThursday = true;
@@ -313,7 +311,7 @@ public class Registration {
 		System.out.println("\nAvailiable Fridays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		selection = keyboard.nextInt();
+		selection = userInput.nextInt();
 
 		switch(selection) {
 			case 1: avaFriday = true;
@@ -327,7 +325,7 @@ public class Registration {
 		System.out.println("\nAvailiable Saturdays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		selection = keyboard.nextInt();
+		selection = userInput.nextInt();
 
 		switch(selection) {
 			case 1: avaSaturday = true;
@@ -341,7 +339,7 @@ public class Registration {
 		System.out.println("\nAvailiable Sundays?");
 		System.out.println("	1. Yes");
 		System.out.println("	2. No");
-		selection = keyboard.nextInt();
+		selection = userInput.nextInt();
 
 		switch(selection) {
 			case 1: avaSunday = true;
@@ -353,8 +351,8 @@ public class Registration {
 		return true;
 	} 
 	
-	public boolean addNewEmployee(ArrayList<Employee> empl) {
-		getEmployeeValues(empl);
+	public boolean addNewEmployee(Scanner userInput, ArrayList<Employee> empl) {
+		getEmployeeValues(userInput, empl);
 		//If all input is valid, the new employee is added, and then added to the array list.
 		Employee newEmpl = new Employee(employeeID, firstName, lastName);
 		newEmpl.setAllAvailabily(avaMonday, avaTuesday, avaWednesday, avaThursday, avaFriday, avaSaturday, avaSunday);
