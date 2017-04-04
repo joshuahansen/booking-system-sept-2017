@@ -12,25 +12,33 @@ import javax.swing.JPanel;
 import users.Employee;
 
 public class BusSelectEmployeeActionListener implements ActionListener {
-	int employeeNo;
+	int emplPos;
 	JButton[] button;
 	JLayeredPane employeeAvailabilityLP;
 	JLayeredPane busSelectEmployeeLP;
 	JPanel businessMenuPanel;
+	ArrayList<Employee> employees;
+	DisplayEmployeeAvailability displayAvail ;
 
 	
-	BusSelectEmployeeActionListener(JButton[] button, int employeeNo, JPanel businessMenuPanel, JLayeredPane employeeAvailabilityLP, JLayeredPane busSelectEmployeeLP)
+	BusSelectEmployeeActionListener(JButton[] button, int emplPos, JPanel businessMenuPanel, JLayeredPane employeeAvailabilityLP, JLayeredPane busSelectEmployeeLP, ArrayList<Employee> employees, DisplayEmployeeAvailability displayAvail)
 	{
 		this.button = button;
-		this.employeeNo = employeeNo;
+		this.emplPos = emplPos;
 		this.businessMenuPanel = businessMenuPanel;
 		this.employeeAvailabilityLP = employeeAvailabilityLP;
 		this.busSelectEmployeeLP = busSelectEmployeeLP;	
+		this.employees = employees;
+		this.displayAvail = displayAvail;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		busSelectEmployeeLP.setVisible(false);
 		businessMenuPanel.setVisible(true);
-		employeeAvailabilityLP.setVisible(true);
+		employeeAvailabilityLP.setVisible(true); 
+		employeeAvailabilityLP.revalidate();
+		displayAvail.layout(employeeAvailabilityLP);
+		displayAvail.displayBusEmployeeAvailability(employees, emplPos,  employeeAvailabilityLP, businessMenuPanel);
+		
 	}
 }

@@ -10,14 +10,13 @@ import javax.swing.JOptionPane;
 import users.Employee;
 
 public class BookingActionListener implements ActionListener {
+	
 	int timeslot;
 	int day;
 	int employeeNo;
 	JButton[][] button;
 	JOptionPane optionPane;
 	ArrayList<Employee> employees;
-	
-
 	
 	BookingActionListener(int timeslot, int day, JButton[][] button, JOptionPane optionPane, ArrayList<Employee> employees, int employeeNo)
 	{

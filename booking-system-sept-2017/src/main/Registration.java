@@ -378,4 +378,13 @@ public class Registration {
 		}
 		return true;
 	}
+
+	public boolean addNewEmployeeGui(ArrayList<Employee> empl) {
+		//If all input is valid, the new employee is added, and then added to the array list.
+		Employee newEmpl = new Employee(employeeID, firstName, lastName);
+		empl.add(newEmpl);
+		
+		System.out.println("\nEmployee Added! Success!");
+		return true;		
+	}
 }
