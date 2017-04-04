@@ -2,6 +2,7 @@ package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,8 @@ import users.Employee;
 
 public class RegistrationTest {
 
+	Scanner userInput = new Scanner(System.in);
+	
 	@Before
 	public void setUp() throws Exception {
 			
@@ -100,7 +103,7 @@ public class RegistrationTest {
 		System.out.println("\naddNewEmployee:");
 
 		reg.setEmployeeValues("e00001", "John", "Smith", employees);
-		assertEquals(true, reg.addNewEmployee(employees));
+		assertEquals(true, reg.addNewEmployee(userInput, employees));
 	}
 
 	@Test
@@ -114,7 +117,7 @@ public class RegistrationTest {
 		System.out.println("\ninvalidIDTest:");
 		
 		reg.setEmployeeValues("e00001", "Bill", "George", employees);
-		assertEquals(true, reg.addNewEmployee(employees));
+		assertEquals(true, reg.addNewEmployee(userInput, employees));
 
 	}
 	
@@ -126,7 +129,7 @@ public class RegistrationTest {
 		System.out.println("\ninvalidNameTest:");
 		
 		reg.setEmployeeValues("e00002", "", "Smith", employees);
-		assertEquals(true, reg.addNewEmployee(employees));
+		assertEquals(true, reg.addNewEmployee(userInput, employees));
 
 	}
 	
@@ -138,7 +141,7 @@ public class RegistrationTest {
 		System.out.println("\ninvalidNameTest:");
 		
 		reg.setEmployeeValues("e00002", "Jim", "", employees);
-		assertEquals(true, reg.addNewEmployee(employees));
+		assertEquals(true, reg.addNewEmployee(userInput, employees));
 
 	}
 	
