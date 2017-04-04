@@ -23,6 +23,8 @@ public class Registration {
 	private boolean avaSaturday;
 	private boolean avaSunday;
 	
+	String days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+	
 	//This function will be used for when GUI is implemented, to replace the getValues function
 	public boolean setValues(String firstName, String lastName, String address,
 			String phone, String username, String password, ArrayList<Customer> cust, ArrayList<Business> busi) {
@@ -140,11 +142,15 @@ public class Registration {
 		return true;
 	}
 	
-	public boolean registerNewCust(ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean registerNewCust(ArrayList<Customer> cust, ArrayList<Business> busi, String firstName, String lastName, String address, String phone, String username, String password) {
 		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
 		 *If one of the inputs is invalid, the function will return false, causing this function 
 		 * to return false and send the user back to registration.
 		 */
+		
+		if(!validUsername(cust, busi) || !validPassword() || !validPhone() || !validFirstName() || !validLastName()) {
+			return false;
+		}
 		
 		//If all input is valid, the new customer is created, and then added to the array list.
 		Customer newCust = new Customer(firstName, lastName, address, phone, username, password);
@@ -249,104 +255,6 @@ public class Registration {
 				valid = true; 
 			}
 		}
-		
-		int selection = 0;
-
-		System.out.println("\n--- Add Employee ---\n");
-		System.out.println("Availiable Mondays?");
-		System.out.println("	1. Yes");
-		System.out.println("	2. No");
-		selection = userInput.nextInt();
-
-		switch(selection) {
-			case 1: avaMonday = true;
-			break;
-			case 2: avaMonday = false;
-			break;
-		}
-		
-		selection = 0;
-		System.out.println("\nAvailiable Tuesdays?");
-		System.out.println("	1. Yes");
-		System.out.println("	2. No");
-		selection = userInput.nextInt();
-
-		switch(selection) {
-			case 1: avaTuesday = true;
-			break;
-			case 2: avaTuesday = false;
-			break;
-		}
-
-		selection = 0;
-
-		System.out.println("\nAvailiable Wednesdays?");
-		System.out.println("	1. Yes");
-		System.out.println("	2. No");
-		selection = userInput.nextInt();
-
-		switch(selection) {
-			case 1: avaWednesday = true;
-			break;
-			case 2: avaWednesday = false;
-			break;
-		}
-
-		selection = 0;
-		
-		System.out.println("\nAvailiable Thursdays?");
-		System.out.println("	1. Yes");
-		System.out.println("	2. No");
-		selection = userInput.nextInt();
-
-		switch(selection) {
-			case 1: avaThursday = true;
-			break;
-			case 2: avaThursday = false;
-			break;
-		}
-
-		selection = 0;
-		
-		System.out.println("\nAvailiable Fridays?");
-		System.out.println("	1. Yes");
-		System.out.println("	2. No");
-		selection = userInput.nextInt();
-
-		switch(selection) {
-			case 1: avaFriday = true;
-			break;
-			case 2: avaFriday = false;
-			break;
-		}
-
-		selection = 0;
-		
-		System.out.println("\nAvailiable Saturdays?");
-		System.out.println("	1. Yes");
-		System.out.println("	2. No");
-		selection = userInput.nextInt();
-
-		switch(selection) {
-			case 1: avaSaturday = true;
-			break;
-			case 2: avaSaturday = false;
-			break;
-		}
-
-		selection = 0;
-		
-		System.out.println("\nAvailiable Sundays?");
-		System.out.println("	1. Yes");
-		System.out.println("	2. No");
-		selection = userInput.nextInt();
-
-		switch(selection) {
-			case 1: avaSunday = true;
-			break;
-			case 2: avaSunday = false;
-			break;
-		}
 
 		return true;
 	} 
@@ -355,9 +263,92 @@ public class Registration {
 		getEmployeeValues(userInput, empl);
 		//If all input is valid, the new employee is added, and then added to the array list.
 		Employee newEmpl = new Employee(employeeID, firstName, lastName);
-		newEmpl.setAllAvailabily(avaMonday, avaTuesday, avaWednesday, avaThursday, avaFriday, avaSaturday, avaSunday);
-		empl.add(newEmpl);
 		
+		int selection = 0;
+		
+		for(int i = 0; i < days.length; i++) {
+
+			System.out.println("Availiable" + days[i] + "?");
+
+			System.out.println("	1. Yes");
+			System.out.println("	2. No");
+
+			selection = userInput.nextInt();
+			boolean availDay = false;
+
+			switch(selection) {
+				case 1: availDay = true;
+				break;
+				case 2: availDay = false;
+				break;
+			}
+
+			selection = 0;
+
+			if(availDay == true) {
+
+				System.out.println("Availiable Mornings?");
+
+				System.out.println("	1. Yes");
+				System.out.println("	2. No");
+
+				switch(selection) {
+					case 1: 
+						newEmpl.setAvailableTime(0, i, "no");
+						newEmpl.setAvailableTime(1, i, "no");
+						newEmpl.setAvailableTime(2, i, "no");
+						newEmpl.setAvailableTime(3, i, "no");
+						break;
+					case 2: 
+						break;
+				}
+
+				selection = 0;
+
+				System.out.println("Availiable Midday?");
+
+				System.out.println("	1. Yes");
+				System.out.println("	2. No");
+
+				switch(selection) {
+					case 1: 
+						newEmpl.setAvailableTime(4, i, "no");
+						newEmpl.setAvailableTime(5, i, "no");
+						newEmpl.setAvailableTime(6, i, "no");
+						break;
+					case 2: 
+						break;
+					
+				}
+
+				selection = 0;
+
+				System.out.println("Availiable Afternoon?");
+
+
+				System.out.println("	1. Yes");
+				System.out.println("	2. No");
+
+				switch(selection) {
+					case 1: 
+						newEmpl.setAvailableTime(7, i, "no");
+						newEmpl.setAvailableTime(8, i, "no");
+						newEmpl.setAvailableTime(9, i, "no");
+						break;
+					case 2: 
+						break;
+				}
+
+			}
+			
+			else {
+				break;
+			}
+			
+		}
+		
+		empl.add(newEmpl);
+			
 		System.out.println("\nEmployee Added! Success!");
 		return true;		
 	}
