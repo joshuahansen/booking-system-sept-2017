@@ -142,15 +142,25 @@ public class Registration {
 		return true;
 	}
 	
-	public boolean registerNewCust(ArrayList<Customer> cust, ArrayList<Business> busi, String firstName, String lastName, String address, String phone, String username, String password) {
+	public boolean registerNewCust(ArrayList<Customer> cust, ArrayList<Business> busi) {
 		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
 		 *If one of the inputs is invalid, the function will return false, causing this function 
 		 * to return false and send the user back to registration.
 		 */
 		
-		if(!validUsername(cust, busi) || !validPassword() || !validPhone() || !validFirstName() || !validLastName()) {
-			return false;
-		}
+		//If all input is valid, the new customer is created, and then added to the array list.
+		Customer newCust = new Customer(firstName, lastName, address, phone, username, password);
+		cust.add(newCust);
+		
+		System.out.println("\nRegistration success!");
+		return true;		
+	}
+	
+	public boolean registerNewCustGUI(ArrayList<Customer> cust, ArrayList<Business> busi, String firstName, String lastName, String address, String phone, String username, String password) {
+		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
+		 *If one of the inputs is invalid, the function will return false, causing this function 
+		 * to return false and send the user back to registration.
+		 */
 		
 		//If all input is valid, the new customer is created, and then added to the array list.
 		Customer newCust = new Customer(firstName, lastName, address, phone, username, password);
