@@ -15,13 +15,6 @@ public class Registration {
 	private String address;
 	private String phone; 
 	private String employeeID;
-	private boolean avaMonday;
-	private boolean avaTuesday;
-	private boolean avaWednesday;
-	private boolean avaThursday;
-	private boolean avaFriday;
-	private boolean avaSaturday;
-	private boolean avaSunday;
 	
 	String days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 	
