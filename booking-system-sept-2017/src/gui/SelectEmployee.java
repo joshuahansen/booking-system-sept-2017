@@ -39,6 +39,8 @@ public class SelectEmployee {
 			employeeButton[emplNo].setFont(new Font("Tahoma", Font.PLAIN, 16));
 			employeeButton[emplNo].setBounds(x, y, 180, 80);
 			custSelectEmployeeLP.add(employeeButton[emplNo]);
+			custSelectEmployeeLP.revalidate();
+			custSelectEmployeeLP.repaint();
 			
 			x = x+185;
 			if(emplNo == 2 || emplNo == 5 || emplNo == 8 || emplNo == 11) 
@@ -74,6 +76,8 @@ public class SelectEmployee {
 			busEmployeeButton[emplNo].setFont(new Font("Tahoma", Font.PLAIN, 16));
 			busEmployeeButton[emplNo].setBounds(x, y, 180, 80);
 			busSelectEmployeeLP.add(busEmployeeButton[emplNo]);
+			busSelectEmployeeLP.revalidate();
+			busSelectEmployeeLP.repaint();
 			
 			x = x+185;
 			if(emplNo == 2 || emplNo == 5 || emplNo == 8 || emplNo == 11) 

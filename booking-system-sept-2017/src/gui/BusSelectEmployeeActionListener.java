@@ -36,9 +36,10 @@ public class BusSelectEmployeeActionListener implements ActionListener {
 		busSelectEmployeeLP.setVisible(false);
 		businessMenuPanel.setVisible(true);
 		employeeAvailabilityLP.setVisible(true); 
-		employeeAvailabilityLP.revalidate();
 		displayAvail.layout(employeeAvailabilityLP);
 		displayAvail.displayBusEmployeeAvailability(employees, emplPos,  employeeAvailabilityLP, businessMenuPanel);
+		employeeAvailabilityLP.revalidate();
+		employeeAvailabilityLP.repaint();
 		
 	}
 }

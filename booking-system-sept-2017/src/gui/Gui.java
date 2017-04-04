@@ -265,17 +265,17 @@ public class Gui {
 					btnAddEmployee.setBounds(904, 188, 160, 80);
 					businessMenuPanel.add(btnAddEmployee);
 					
-					JButton btnOpenHours = new JButton("Open Hours");
-					btnOpenHours.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					btnOpenHours.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							setAllVisibleFalse();
-							businessMenuPanel.setVisible(true);
-							addOpenHoursLP.setVisible(true);
-						}
-					});
-					btnOpenHours.setBounds(904, 268, 160, 80);
-					businessMenuPanel.add(btnOpenHours);
+//					JButton btnOpenHours = new JButton("Open Hours");
+//					btnOpenHours.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//					btnOpenHours.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {
+//							setAllVisibleFalse();
+//							businessMenuPanel.setVisible(true);
+//							addOpenHoursLP.setVisible(true);
+//						}
+//					});
+//					btnOpenHours.setBounds(904, 268, 160, 80);
+//					businessMenuPanel.add(btnOpenHours);
 					
 					JButton btnBookingSummary = new JButton("Booking Summary");
 					btnBookingSummary.addActionListener(new ActionListener() {
@@ -308,7 +308,7 @@ public class Gui {
 						}
 					});
 					btnEmployeeAvailability.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					btnEmployeeAvailability.setBounds(904, 428, 160, 80);
+					btnEmployeeAvailability.setBounds(904, 268, 160, 80);
 					businessMenuPanel.add(btnEmployeeAvailability);
 						
 					employeeAvailabilityLP = new JLayeredPane();
@@ -319,68 +319,16 @@ public class Gui {
 					addEmployeeLP.setBounds(0, 0, 800, 691);
 					businessMenuPanel.add(addEmployeeLP);
 					
-//					JLabel lblAddEmployee = new JLabel("Add Employee");
-//					lblAddEmployee.setHorizontalAlignment(SwingConstants.CENTER);
-//					lblAddEmployee.setForeground(new Color(30, 144, 255));
-//					lblAddEmployee.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-//					lblAddEmployee.setBounds(50, 0, 700, 150);
-//					addEmployeeLP.add(lblAddEmployee);
+//					addOpenHoursLP = new JLayeredPane();
+//					addOpenHoursLP.setBounds(0, 0, 800, 691);
+//					businessMenuPanel.add(addOpenHoursLP);
 //					
-//					JLabel lblEmployeeNumber = new JLabel("Employee Number:");
-//					lblEmployeeNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					lblEmployeeNumber.setBounds(100, 150, 150, 40);
-//					addEmployeeLP.add(lblEmployeeNumber);
-//					
-//					EmployeeNumberData = new JTextField();
-//					EmployeeNumberData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					EmployeeNumberData.setBounds(300, 150, 300, 40);
-//					addEmployeeLP.add(EmployeeNumberData);
-//					EmployeeNumberData.setColumns(10);
-//					
-//					JLabel lblEmployeeFName = new JLabel("First Name:");
-//					lblEmployeeFName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					lblEmployeeFName.setBounds(100, 240, 150, 40);
-//					addEmployeeLP.add(lblEmployeeFName);
-//					
-//					EmployeeNameData = new JTextField();
-//					EmployeeNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					EmployeeNameData.setText("");
-//					EmployeeNameData.setBounds(300, 240, 300, 40);
-//					addEmployeeLP.add(EmployeeNameData);
-//					EmployeeNameData.setColumns(10);
-//					
-//					JLabel lblEmployeeLName = new JLabel("Last Name:");
-//					lblEmployeeLName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					lblEmployeeLName.setBounds(100, 330, 150, 40);
-//					addEmployeeLP.add(lblEmployeeLName);
-//					
-//					EmployeeLNameData = new JTextField();
-//					EmployeeLNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					EmployeeLNameData.setText("");
-//					EmployeeLNameData.setBounds(300, 330, 300, 40);
-//					addEmployeeLP.add(EmployeeLNameData);
-//					EmployeeLNameData.setColumns(10);
-//					
-//					JButton btnCancel_1 = new JButton("Cancel");
-//					btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					btnCancel_1.setBounds(200, 500, 130, 50);
-//					addEmployeeLP.add(btnCancel_1);
-//					
-//					JButton btnConfirm_1 = new JButton("Confirm");
-//					btnConfirm_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//					btnConfirm_1.setBounds(550, 500, 130, 50);
-//					addEmployeeLP.add(btnConfirm_1);
-					
-					addOpenHoursLP = new JLayeredPane();
-					addOpenHoursLP.setBounds(0, 0, 800, 691);
-					businessMenuPanel.add(addOpenHoursLP);
-					
-					JLabel lblOpenHours = new JLabel("Open Hours");
-					lblOpenHours.setHorizontalAlignment(SwingConstants.CENTER);
-					lblOpenHours.setForeground(new Color(30, 144, 255));
-					lblOpenHours.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-					lblOpenHours.setBounds(50, 0, 700, 150);
-					addOpenHoursLP.add(lblOpenHours);
+//					JLabel lblOpenHours = new JLabel("Open Hours");
+//					lblOpenHours.setHorizontalAlignment(SwingConstants.CENTER);
+//					lblOpenHours.setForeground(new Color(30, 144, 255));
+//					lblOpenHours.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
+//					lblOpenHours.setBounds(50, 0, 700, 150);
+//					addOpenHoursLP.add(lblOpenHours);
 					
 					bookingSummaryLP = new JLayeredPane();
 					bookingSummaryLP.setBounds(0, 0, 800, 691);
@@ -770,6 +718,8 @@ public class Gui {
 						custMenuPanel.setVisible(true);
 						selection.selectPersonalTrainer(custSelectEmployeeLP, availableTimesLP, custMenuPanel, employees, displayAvail);
 						custSelectEmployeeLP.setVisible(true);
+						custSelectEmployeeLP.revalidate();
+						custSelectEmployeeLP.repaint();
 					}
 				});
 
@@ -803,7 +753,7 @@ public class Gui {
 		businessMenuPanel.setVisible(false);
 		businessDetailsLP.setVisible(false);
 		addEmployeeLP.setVisible(false);
-		addOpenHoursLP.setVisible(false);
+//		addOpenHoursLP.setVisible(false);
 		bookingSummaryLP.setVisible(false);
 		employeeAvailabilityLP.setVisible(false);
 		custSelectEmployeeLP.setVisible(false);

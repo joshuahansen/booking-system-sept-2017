@@ -22,6 +22,7 @@ public class DisplayEmployeeAvailability {
 	
 	public void displayBusEmployeeAvailability(ArrayList<Employee> employees, int emplPos, JLayeredPane employeeAvailabilityLP, JPanel businessMenuPanel)
 	{
+		System.out.println("Employee position: " + emplPos);
 		x = 110;
 		y = 150;
 		JLabel lblEmployeeAvailability = new JLabel("Employee Availability");
@@ -45,6 +46,7 @@ public class DisplayEmployeeAvailability {
 				button[timeslot][day] = new JButton();
 
 				int availTime = employees.get(emplPos).getAvailableTime(timeslot, day);
+				System.out.println("available time " + availTime);
 				if(availTime == 1)
 				{
 				button[timeslot][day].setText("Available");
@@ -63,6 +65,8 @@ public class DisplayEmployeeAvailability {
 				});
 				employeeAvailabilityLP.add(button[timeslot][day]);
 				x = x+135;
+				employeeAvailabilityLP.revalidate();
+				employeeAvailabilityLP.repaint();
 			}
 			x = 110;
 			y = y+45;
@@ -73,7 +77,7 @@ public class DisplayEmployeeAvailability {
 	{	
 		x = 110;
 		y = 150;
-		
+		System.out.println("Employee position: " + emplPos);
 		JLabel lblAvailableTimes = new JLabel("Available Times");
 		lblAvailableTimes.setBounds(50, 0, 700, 150);
 		availableTimesLP.add(lblAvailableTimes);
@@ -94,6 +98,7 @@ public class DisplayEmployeeAvailability {
 			{
 				bookingButton[timeslot][day] = new JButton();
 				int availTime = employees.get(emplPos).getAvailableTime(timeslot, day);
+				System.out.println("available time " + availTime);
 				if(availTime == 1)
 				{
 				bookingButton[timeslot][day].setText("Available");
@@ -112,6 +117,11 @@ public class DisplayEmployeeAvailability {
 				bookingButton[timeslot][day].addActionListener(new BookingActionListener(timeslot, day, bookingButton, bookingOptionPane, employees, emplPos) {
 				});
 				availableTimesLP.add(bookingButton[timeslot][day]);
+				availableTimesLP.revalidate();
+				availableTimesLP.repaint();
+				bookingButton[timeslot][day].revalidate();
+				bookingButton[timeslot][day].repaint();
+				
 				x = x+135;
 			}
 			x = 110;
