@@ -268,7 +268,7 @@ public class Registration {
 		
 		int selection = 0;
 		
-		for(int i = 0; i < days.length; i++) {
+		for(int i = 0; i <= days.length; i++) {
 
 			System.out.println("Availiable " + days[i] + "?");
 
