@@ -268,7 +268,7 @@ public class Registration {
 		
 		int selection = 0;
 		
-		for(int i = 0; i < days.length; i++) {
+		for(int i = 0; i <= days.length; i++) {
 
 			System.out.println("Availiable " + days[i] + "?");
 
@@ -289,7 +289,7 @@ public class Registration {
 
 			if(availDay == true) {
 
-				System.out.println("Availiable Mornings?");
+				System.out.println("\nAvailiable Mornings?");
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
@@ -309,7 +309,7 @@ public class Registration {
 
 				selection = 0;
 
-				System.out.println("Availiable Midday?");
+				System.out.println("\nAvailiable Midday?");
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
@@ -329,7 +329,7 @@ public class Registration {
 
 				selection = 0;
 
-				System.out.println("Availiable Afternoon?");
+				System.out.println("\nAvailiable Afternoon?");
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
@@ -375,5 +375,14 @@ public class Registration {
 			return false;
 		}
 		return true;
+	}
+
+	public boolean addNewEmployeeGui(ArrayList<Employee> empl) {
+		//If all input is valid, the new employee is added, and then added to the array list.
+		Employee newEmpl = new Employee(employeeID, firstName, lastName);
+		empl.add(newEmpl);
+		
+		System.out.println("\nEmployee Added! Success!");
+		return true;		
 	}
 }

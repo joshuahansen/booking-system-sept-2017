@@ -343,9 +343,9 @@ public class Database {
 			    		if(booked == 1 || booked == 2)
 			    		{
 			    			try{
-			    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot, booked);
-							sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
-						    stmt.executeUpdate(sql);
+				    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot, booked);
+								sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
+							    stmt.executeUpdate(sql);
 			    			}catch (SQLException e)
 			    			{
 			    				System.out.println("Employee already availible that timeslot");
@@ -353,6 +353,7 @@ public class Database {
 			    		}
 			    	}
 			    }
+			    emplToString(employees, i);
 				sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
 			    stmt.executeUpdate(sql);
 			    
@@ -383,7 +384,7 @@ public class Database {
 		String fName = employees.get(position).getFirstName();
 		String lName = employees.get(position).getLastName();
 		
-		this.emplSQL = "'" + empID + ", '" + fName + "', '" + lName + "'"; 
+		this.emplSQL = "'" + empID + "', '" + fName + "', '" + lName + "'"; 
 		return true;
 	}
 

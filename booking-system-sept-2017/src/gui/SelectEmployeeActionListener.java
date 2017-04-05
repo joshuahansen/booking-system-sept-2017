@@ -12,27 +12,30 @@ import javax.swing.JPanel;
 import users.Employee;
 
 public class SelectEmployeeActionListener implements ActionListener {
-	int employeeNo;
+	int emplPos;
 	JButton[] button;
 	JLayeredPane availableTimesLP;
 	JLayeredPane custSelectEmployeeLP;
 	JPanel custMenuPanel;
-
+	DisplayEmployeeAvailability displayAvail;
+	ArrayList<Employee> employees;
 	
-	SelectEmployeeActionListener(JButton[] button, int employeeNo, JPanel custMenuPanel, JLayeredPane availableTimesLP, JLayeredPane custSelectEmployeeLP)
+	SelectEmployeeActionListener(JButton[] button, int emplPos, JPanel custMenuPanel, JLayeredPane availableTimesLP, JLayeredPane custSelectEmployeeLP, ArrayList<Employee> employees, DisplayEmployeeAvailability displayAvail)
 	{
 		this.button = button;
-		this.employeeNo = employeeNo;
+		this.emplPos = emplPos;
 		this.custMenuPanel = custMenuPanel;
 		this.availableTimesLP = availableTimesLP;
 		this.custSelectEmployeeLP = custSelectEmployeeLP;
-		
+		this.employees = employees;
+		this.displayAvail = displayAvail;
 	}
-	
 	public void actionPerformed(ActionEvent e) {
 		custSelectEmployeeLP.setVisible(false);
 		custMenuPanel.setVisible(true);
 		availableTimesLP.setVisible(true);
+		displayAvail.layout(availableTimesLP);
+		displayAvail.displayEmployeeAvailability(employees, emplPos, availableTimesLP, custMenuPanel);
 
 	}
 }
