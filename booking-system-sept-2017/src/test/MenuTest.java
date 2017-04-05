@@ -9,7 +9,6 @@ import users.Employee;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,8 +76,6 @@ public class MenuTest
 		
 		Scanner userInput = new Scanner(System.in);
 		
-		Login login = new Login();
-		
 		Registration registration = new Registration();
 		
 		Menu menuTest = new Menu();
@@ -96,8 +93,6 @@ public class MenuTest
 		ArrayList<Employee> employees = new ArrayList<>();
 		
 		Scanner userInput = new Scanner(System.in);
-		
-		Login login = new Login();
 		
 		Registration registration = new Registration();
 		
