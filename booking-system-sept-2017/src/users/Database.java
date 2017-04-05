@@ -33,6 +33,7 @@ public class Database {
 		return emplAvailSQL;
 	}
 
+	//connect to the database. return false if unable to connect
 	public boolean connectDatabase(String url)
 	{
 		try{
@@ -45,15 +46,14 @@ public class Database {
 			
 		}catch(ClassNotFoundException ex){
 			System.out.println("ERROR: Class not found: " + ex.getMessage());
-//			System.exit(0);
 			return false;
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not load database");
-//			System.exit(0);
 			return false;
 		}
 	}
 	
+	//initialize database tables if there is no database found
 	public boolean initDatabase()
 	{
 		try{
@@ -109,6 +109,7 @@ public class Database {
 		}
 	}
 	
+	//clear old database tables. return true when clears or false if unable to clear
 	public boolean clearTables()
 	{
 		try{
@@ -136,6 +137,7 @@ public class Database {
 		}
 	}
 	
+	//populate a new database with some default values
 	public boolean defaultValues()
 	{
 		try{
@@ -151,7 +153,7 @@ public class Database {
 			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESSES VALUES('StGeorges','St Georges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
+			sql = "INSERT INTO BUSINESSES VALUES('fit4purpose','Fit for Purpose', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'superfit')";
 			stmt.executeUpdate(sql);
 			
 			sql= "INSERT INTO EMPLOYEES VALUES('0001', 'Harry', 'Jones')";
@@ -177,6 +179,7 @@ public class Database {
 		}
 	}
 	
+	//read data from CUSTOMER table into customer array
 	public boolean readCustDB(ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;
@@ -205,6 +208,7 @@ public class Database {
 		}
 	}
 	
+	//read data from BUSINESS table into business array
 	public boolean readBusDB(ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
@@ -232,6 +236,7 @@ public class Database {
 		}
 	}
 	
+	//read data from EMPLOYEE table into employee array
 	public boolean readEmplDB(ArrayList<Employee> employees)
 	{
 		ResultSet resultSet = null;
@@ -256,6 +261,7 @@ public class Database {
 		}
 	}
 	
+	//read data from EMP_AVAIL table into correct employee availabilities array
 	public boolean readAvailablityTimes(ArrayList<Employee> employees)
 	{
 		ResultSet resultSet = null;
@@ -287,6 +293,7 @@ public class Database {
 		}
 	}
 
+	//write whole customer array to the database
  	public void writeCustDB(ArrayList<Customer> customers)
 	{		
 		for(int i = 0; i < customers.size(); i++)
@@ -303,6 +310,7 @@ public class Database {
 		}
 	}
 	
+ 	//only write last customer in array (New Customer) into database
 	public boolean writeNewCustToDB(ArrayList<Customer> customers, int position)
 	{
 		try{
@@ -320,6 +328,7 @@ public class Database {
 		}
 	}
 	
+	//write employee array into database including available times array
 	public boolean writeEmplToDB(ArrayList<Employee> employees)
 	{
 		for(int i = 0; i < employees.size(); i++)
@@ -356,6 +365,7 @@ public class Database {
 		return true;
 	}
 	
+	//convert objects to strings for SQL commands
 	public boolean custToString(ArrayList<Customer> customers, int position)
 	{
 		String uName = customers.get(position).getUsername();
@@ -396,6 +406,7 @@ public class Database {
 		return true;
 	}
 	
+	//close connection to the database
 	public boolean closeConnection()
 	{
 		try{
@@ -408,6 +419,7 @@ public class Database {
 		}
 	}
 	
+	//delete all records in a specified table keeping table 
 	public boolean deleteAllRecords(String table)
 	{
 		try{

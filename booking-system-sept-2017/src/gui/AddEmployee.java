@@ -22,6 +22,7 @@ public class AddEmployee {
 
 	public void addEmployee(JLayeredPane addEmployeeLP, Registration register, ArrayList<Employee> employees)
 	{
+		addEmployeeLP.removeAll();
 		JLabel lblAddEmployee = new JLabel("Add Employee");
 		lblAddEmployee.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddEmployee.setForeground(new Color(30, 144, 255));
@@ -91,5 +92,7 @@ public class AddEmployee {
 				addEmployeeLP.setVisible(false);
 			}
 		});
+		addEmployeeLP.revalidate();
+		addEmployeeLP.repaint();
 	}
 }
