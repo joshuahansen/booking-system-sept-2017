@@ -10,7 +10,7 @@ public class Menu
 		// default constructor
 	}
 	
-	public void menuDriver(Scanner userInput, Login login, Registration registration, 
+	public boolean menuDriver(Scanner userInput, Login login, Registration registration, 
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -65,9 +65,11 @@ public class Menu
 				}
 			}
 		}
+		
+		return true;
 	}
 	
-	public void customerMenu(Scanner userInput, Registration registration,  
+	public boolean customerMenu(Scanner userInput, Registration registration,  
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -97,9 +99,11 @@ public class Menu
 				}
 			}
 		}
+		
+		return true;
 	}
 	
-	public void businessMenu(Scanner userInput, Registration registration, 
+	public boolean businessMenu(Scanner userInput, Registration registration, 
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -119,6 +123,7 @@ public class Menu
 				}
 				case 2:
 				{
+					registration.getEmployeeValues(userInput, employees);
 					registration.addNewEmployee(userInput, employees);
 					break;
 				}
@@ -134,9 +139,11 @@ public class Menu
 				}
 			}
 		}
+		
+		return true;
 	}
 	
-	public void printMainMenu() 
+	public boolean printMainMenu() 
 	{
 		printMenuLineDouble(30);
 		System.out.println("Welcome to the Booking System.");
@@ -145,9 +152,11 @@ public class Menu
 		System.out.println("2. Register");
 		System.out.println("3. Exit");
 		System.out.print("\nPlease enter your choice: ");
+		
+		return true;
 	}
 	
-	public void printCustomerMenu()
+	public boolean printCustomerMenu()
 	{
 		printMenuLineSingle(15);
 		System.out.println("Customer Menu");
@@ -155,9 +164,11 @@ public class Menu
 		System.out.println("1. View Booking Timetable");
 		System.out.println("2. Logout");
 		System.out.print("\nPlease enter your choice: ");
+		
+		return true;
 	}
 	
-	public void printBusinessMenu()
+	public boolean printBusinessMenu()
 	{
 		printMenuLineSingle(15);
 		System.out.println("Business Menu");
@@ -166,9 +177,11 @@ public class Menu
 		System.out.println("2. Add Employee");
 		System.out.println("3. Logout");
 		System.out.print("\nPlease enter your choice: ");
+		
+		return true;
 	}
 	
-	public void printAvailabilities(Scanner userInput, ArrayList<Customer> customers, 
+	public boolean printAvailabilities(Scanner userInput, ArrayList<Customer> customers, 
 			ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -189,9 +202,11 @@ public class Menu
 				System.out.println("\nInvalid user input. Please try again.");
 			}
 		}
+		
+		return true;
 	}
 	
-	public void printMenuLineSingle(int numberOfLines)
+	public boolean printMenuLineSingle(int numberOfLines)
 	{
 		int counter = 0;
 		
@@ -201,9 +216,11 @@ public class Menu
 		}
 		
 		System.out.println("");
+		
+		return true;
 	}
 	
-	public void printMenuLineDouble(int numberOfLines)
+	public boolean printMenuLineDouble(int numberOfLines)
 	{
 		int counter = 0;
 		
@@ -213,6 +230,8 @@ public class Menu
 		}
 		
 		System.out.println("");
+		
+		return true;
 	}
 }
 
