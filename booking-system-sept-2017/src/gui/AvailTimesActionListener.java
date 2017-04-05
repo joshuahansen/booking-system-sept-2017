@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class AvailTimesActionListener implements ActionListener {
 		if(buttonText.equals("Not Available"))
 		{
 			button[timeslot][day].setText("Available");
+			button[timeslot][day].setForeground(Color.BLACK);
+			button[timeslot][day].setBackground(Color.lightGray);
 			employees.get(employeeNo).setAvailableTime(timeslot, day, "no");
 	
 		}
@@ -45,11 +48,15 @@ public class AvailTimesActionListener implements ActionListener {
 			{
 				button[timeslot][day].setText("Available");
 				employees.get(employeeNo).removeBooking(timeslot, day);
+				button[timeslot][day].setBackground(Color.lightGray);
+				button[timeslot][day].setForeground(Color.BLACK);
 			}
 		}
 		else
 		{
 			button[timeslot][day].setText("Not Available");
+			button[timeslot][day].setForeground(Color.LIGHT_GRAY);
+			button[timeslot][day].setBackground(Color.lightGray);
 			employees.get(employeeNo).removeAvailibleTime(timeslot, day);
 		}
 	}

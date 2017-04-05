@@ -49,14 +49,20 @@ public class DisplayEmployeeAvailability {
 				if(availTime == 1)
 				{
 				button[timeslot][day].setText("Available");
+				button[timeslot][day].setBackground(Color.lightGray);
+				
 				}
 				else if(availTime == 2)
 				{
 					button[timeslot][day].setText("Booked");
+					button[timeslot][day].setBackground(Color.BLACK);
+					button[timeslot][day].setForeground(Color.WHITE);
 				}
 				else
 				{
 					button[timeslot][day].setText("Not Available");
+					button[timeslot][day].setForeground(Color.LIGHT_GRAY);
+					button[timeslot][day].setBackground(Color.lightGray);
 				}
 				button[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
 				button[timeslot][day].setBounds(x, y, 130, 40);
@@ -99,14 +105,19 @@ public class DisplayEmployeeAvailability {
 				if(availTime == 1)
 				{
 				bookingButton[timeslot][day].setText("Available");
+				bookingButton[timeslot][day].setBackground(Color.lightGray);
 				}
 				else if(availTime == 2)
 				{
 					bookingButton[timeslot][day].setText("Booked");
+					bookingButton[timeslot][day].setBackground(Color.BLACK);
+					bookingButton[timeslot][day].setForeground(Color.WHITE);
 				}
 				else
 				{
 					bookingButton[timeslot][day].setText("Not Available");
+					bookingButton[timeslot][day].setForeground(Color.LIGHT_GRAY);
+					bookingButton[timeslot][day].setBackground(Color.lightGray);
 				}
 				bookingButton[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
 				bookingButton[timeslot][day].setBounds(x, y, 130, 40);
