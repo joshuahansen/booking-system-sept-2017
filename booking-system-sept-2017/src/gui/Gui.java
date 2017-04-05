@@ -69,9 +69,9 @@ public class Gui {
 	private JPanel businessMenuPanel;
 	private JLayeredPane customerDetailsLP;
 	private JLayeredPane availableTimesLP;
+	private JLayeredPane custHomeLP;
 	private JLayeredPane businessDetailsLP;
 	private JLayeredPane addEmployeeLP;
-	private JLayeredPane addOpenHoursLP;
 	private JLayeredPane bookingSummaryLP;
 	private JLayeredPane employeeAvailabilityLP;
 	private JLayeredPane custSelectEmployeeLP;
@@ -117,6 +117,7 @@ public class Gui {
 //		users.init_businesses(businesses);
 
 		Database database = new Database();
+
 		if(database.connectDatabase(url) == true)
 		{
 		
@@ -248,6 +249,7 @@ public class Gui {
 						{
 							setAllVisibleFalse();
 							custMenuPanel.setVisible(true);
+							custHomeLP.setVisible(true);
 							frmBookingSystem.setTitle("Booking System - Customer Menu");
 						}
 						else if(login == 2)
@@ -555,6 +557,10 @@ public class Gui {
 		custMenuPanel.add(availableTimesLP);
 		availableTimesLP.setLayout(null);	
 		
+		custHomeLP = new JLayeredPane();
+		custHomeLP.setBounds(0, 0, 800, 691);
+		custMenuPanel.add(custHomeLP);
+		
 		customerDetailsLP = new JLayeredPane();
 		customerDetailsLP.setBounds(0, 0, 800, 691);
 		customerDetailsLP.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -571,6 +577,13 @@ public class Gui {
 		custMenuPanel.add(btnAvailableTimes);
 		btnAvailableTimes.setFont(new Font("Tahoma", Font.PLAIN, 18));
 	
+		JLabel lblCompany = new JLabel("Fit For Purpose");
+		lblCompany.setForeground(new Color(30, 144, 255));
+		lblCompany.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCompany.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
+		lblCompany.setBounds(50, 0, 700, 100);
+		custHomeLP.add(lblCompany);
+		
 		JButton btnViewCustomer = new JButton("Vew Details");
 		btnViewCustomer.setBounds(904, 110, 160, 80);
 		custMenuPanel.add(btnViewCustomer);
@@ -728,6 +741,7 @@ public class Gui {
 		loginPanel.setVisible(false);
 		registerPanel.setVisible(false);
 		custMenuPanel.setVisible(false);
+		custHomeLP.setVisible(false);
 		customerDetailsLP.setVisible(false);
 		availableTimesLP.setVisible(false);
 		businessMenuPanel.setVisible(false);

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import users.Employee;
 
+//action for changing availability when logged in as a business
 public class AvailTimesActionListener implements ActionListener {
 	
 	int timeslot;
@@ -19,6 +20,7 @@ public class AvailTimesActionListener implements ActionListener {
 	JOptionPane optionPane;
 	ArrayList<Employee> employees;
 	
+	//constructor for new action listener
 	AvailTimesActionListener(int timeslot, int day, JButton[][] button, JOptionPane optionPane, ArrayList<Employee> employees, int employeeNo)
 	{
 		this.timeslot = timeslot;
@@ -29,6 +31,7 @@ public class AvailTimesActionListener implements ActionListener {
 		this.button = button;
 	}
 	
+	//action performed when availability button is selected
 	public void actionPerformed(ActionEvent e) {
 		String buttonText =  button[timeslot][day].getText();
 		if(buttonText.equals("Not Available"))
