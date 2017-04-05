@@ -102,8 +102,7 @@ public class RegistrationTest {
 		
 		System.out.println("\naddNewEmployee:");
 
-		reg.setEmployeeValues("e00001", "John", "Smith", employees);
-		assertEquals(true, reg.addNewEmployee(userInput, employees));
+		assertEquals(true, reg.setEmployeeValues("e00001", "John", "Smith", employees));
 	}
 
 	@Test
@@ -116,8 +115,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidIDTest:");
 		
-		reg.setEmployeeValues("e00001", "Bill", "George", employees);
-		assertEquals(true, reg.addNewEmployee(userInput, employees));
+		assertEquals(false, reg.setEmployeeValues("e00001", "Bill", "George", employees));
 
 	}
 	
@@ -128,8 +126,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidNameTest:");
 		
-		reg.setEmployeeValues("e00002", "", "Smith", employees);
-		assertEquals(true, reg.addNewEmployee(userInput, employees));
+		assertEquals(false, reg.setEmployeeValues("e00002", "", "Smith", employees));
 
 	}
 	
@@ -140,8 +137,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidNameTest:");
 		
-		reg.setEmployeeValues("e00002", "Jim", "", employees);
-		assertEquals(true, reg.addNewEmployee(userInput, employees));
+		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "", employees));
 
 	}
 	

@@ -263,7 +263,6 @@ public class Registration {
 	} 
 	
 	public boolean addNewEmployee(Scanner userInput, ArrayList<Employee> empl) {
-		getEmployeeValues(userInput, empl);
 		//If all input is valid, the new employee is added, and then added to the array list.
 		Employee newEmpl = new Employee(employeeID, firstName, lastName);
 		
@@ -365,7 +364,7 @@ public class Registration {
 
 		for(int i = 0; i < empl.size(); i++) {	
 				if(this.employeeID.equals(empl.get(i).getEmployeeID())) {					
-					System.out.println("\nUsername already exists!");
+					System.out.println("\nID already exists!");
 					return false;
 				}
 		}
