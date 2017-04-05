@@ -172,13 +172,16 @@ public class Menu
 			ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
+		ViewBusiAvail table = new ViewBusiAvail();
 		
 		while (menuInput != 1)
 		{
-			// viewing availabilities
+			
+			table.viewAvailabilities(customers, businesses);
 			
 			System.out.println("\n1. Exit");
 			System.out.print("\nPlease enter your choice: ");
+			menuInput = userInput.nextInt();
 			
 			if (menuInput == 1)
 			{
