@@ -483,12 +483,6 @@ public class Gui {
 		passwordConfirmText.setBounds(325, 530, 350, 40);
 		registerPanel.add(passwordConfirmText);
 		
-		JLabel lblPasswordMatchError = new JLabel("");
-		lblPasswordMatchError.setBounds(675, 530, 350, 40);
-		registerPanel.add(lblPasswordMatchError);
-		lblPasswordMatchError.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblPasswordMatchError.setForeground(Color.red);
-		
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 24));
 		btnConfirm.addActionListener(new ActionListener() {
@@ -497,9 +491,9 @@ public class Gui {
 				String confPassword = new String(passwordConfirmText.getPassword());
 				if(password.equals(confPassword))
 				{
-					reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password,customers, businesses);
-					if(reg.registerNewCust(customers, businesses) == true)
+					if(reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password,customers, businesses) == true)
 					{
+						reg.registerNewCust(customers, businesses);
 						setAllVisibleFalse();
 						loginPanel.setVisible(true);
 						
@@ -517,7 +511,11 @@ public class Gui {
 				}
 				else
 				{
-					lblPasswordMatchError.setText("Passwords do not match.");
+					JOptionPane PassMatchErrorPane = new JOptionPane();
+					PassMatchErrorPane.setVisible(false);
+					PassMatchErrorPane.setBounds(150, 150, 262, 90);
+					registerPanel.add(PassMatchErrorPane);
+					JOptionPane.showMessageDialog(PassMatchErrorPane, "Passwords do not match. Please Try Again.", "Alert", JOptionPane.ERROR_MESSAGE);
 					passwordText.setText("");
 					passwordConfirmText.setText("");
 				}
