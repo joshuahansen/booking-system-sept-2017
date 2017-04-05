@@ -271,11 +271,11 @@ public class Registration {
 		
 		for(int i = 0; i < days.length; i++) {
 
-			System.out.println("Availiable" + days[i] + "?");
+			System.out.println("Availiable " + days[i] + "?");
 
 			System.out.println("	1. Yes");
-			System.out.println("	2. No");
-
+			System.out.println("	2. No\n");
+			System.out.print("Enter your choice: ");
 			selection = userInput.nextInt();
 			boolean availDay = false;
 
@@ -294,7 +294,9 @@ public class Registration {
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
-
+				System.out.print("Enter your choice: ");
+				selection = userInput.nextInt();
+				
 				switch(selection) {
 					case 1: 
 						newEmpl.setAvailableTime(0, i, "no");
@@ -312,7 +314,9 @@ public class Registration {
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
-
+				System.out.print("Enter your choice: ");
+				selection = userInput.nextInt();
+				
 				switch(selection) {
 					case 1: 
 						newEmpl.setAvailableTime(4, i, "no");
@@ -328,10 +332,11 @@ public class Registration {
 
 				System.out.println("Availiable Afternoon?");
 
-
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
-
+				System.out.print("Enter your choice: ");
+				selection = userInput.nextInt();
+				
 				switch(selection) {
 					case 1: 
 						newEmpl.setAvailableTime(7, i, "no");
