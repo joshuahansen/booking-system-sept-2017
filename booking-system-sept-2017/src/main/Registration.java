@@ -289,7 +289,7 @@ public class Registration {
 
 			if(availDay == true) {
 
-				System.out.println("Availiable Mornings?");
+				System.out.println("\nAvailiable Mornings?");
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
@@ -309,7 +309,7 @@ public class Registration {
 
 				selection = 0;
 
-				System.out.println("Availiable Midday?");
+				System.out.println("\nAvailiable Midday?");
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
@@ -329,7 +329,7 @@ public class Registration {
 
 				selection = 0;
 
-				System.out.println("Availiable Afternoon?");
+				System.out.println("\nAvailiable Afternoon?");
 
 				System.out.println("	1. Yes");
 				System.out.println("	2. No");
