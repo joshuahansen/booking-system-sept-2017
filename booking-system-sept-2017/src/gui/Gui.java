@@ -211,8 +211,8 @@ public class Gui {
 		
 			
 		UserDetails userDetails = new UserDetails();
-		SelectEmployee selection = new SelectEmployee();
-		DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
+		//SelectEmployee selection = new SelectEmployee();
+		//DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
 		AddEmployee addEmployee = new AddEmployee();
 		Registration reg = new Registration();
 		
@@ -590,8 +590,12 @@ public class Gui {
 			public void actionPerformed(ActionEvent arg0) {
 				setAllVisibleFalse();
 				custMenuPanel.setVisible(true);
+				SelectEmployee selection = new SelectEmployee();
+				DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
 				selection.selectPersonalTrainer(custSelectEmployeeLP, availableTimesLP, custMenuPanel, employees, displayAvail);
 				custSelectEmployeeLP.setVisible(true);
+				custSelectEmployeeLP.revalidate();
+				custSelectEmployeeLP.repaint();
 			}
 		});
 
@@ -696,8 +700,12 @@ public class Gui {
 				public void actionPerformed(ActionEvent e) {
 					setAllVisibleFalse();
 					businessMenuPanel.setVisible(true);
+					SelectEmployee selection = new SelectEmployee();
+					DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
 					selection.selectEmployee(busSelectEmployeeLP, employeeAvailabilityLP, businessMenuPanel, employees, displayAvail);
 					busSelectEmployeeLP.setVisible(true);
+					busSelectEmployeeLP.revalidate();
+					busSelectEmployeeLP.repaint();
 				}
 			});
 			btnEmployeeAvailability.setFont(new Font("Tahoma", Font.PLAIN, 18));
