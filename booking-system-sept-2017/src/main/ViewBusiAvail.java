@@ -73,7 +73,7 @@ public class ViewBusiAvail {
 					
 				serviceTime[4][col] = "13:00-14:00";
 					
-		     	serviceTime[5][col] = "14:00-15:00";
+		     		serviceTime[5][col] = "14:00-15:00";
 					
 				serviceTime[6][col] = "15:00-16:00";
 					
