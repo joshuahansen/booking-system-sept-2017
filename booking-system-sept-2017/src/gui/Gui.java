@@ -32,6 +32,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import main.Login;
 import main.Registration;
@@ -48,6 +49,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class Gui {
 
@@ -77,6 +79,9 @@ public class Gui {
 	private final Action action = new SwingAction();
 	private int userPos;
 	private int empPos = 0;
+//	private JTextField EmployeeNumberData;
+//	private JTextField EmployeeNameData;
+//	private JTextField EmployeeLNameData;
 	
 //	public static final int INFORMATION_MESSAGE;
 //	public static final int YES_NO_OPTION = 0;
@@ -86,6 +91,18 @@ public class Gui {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
+		
 		//create array lists for booking system
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
@@ -191,336 +208,17 @@ public class Gui {
 		Image userImg = new ImageIcon(this.getClass().getResource("/user.png")).getImage();
 		Image timeImg = new ImageIcon(this.getClass().getResource("/time.png")).getImage();
 		Image logoutImg = new ImageIcon(this.getClass().getResource("/logout.png")).getImage();
-//		Image homeImg = new ImageIcon(this.getClass().getResource("/home.png")).getImage();
 		
 			
-			businessMenuPanel = new JPanel();
-			businessMenuPanel.setBounds(0, 0, 1074, 691);
-			frmBookingSystem.getContentPane().add(businessMenuPanel);
-			businessMenuPanel.setLayout(null);
-			
-					JButton busBtnLogout = new JButton("Logout");
-					busBtnLogout.setIcon(new ImageIcon(logoutImg));
-					busBtnLogout.setFont(new Font("Tahoma", Font.BOLD, 24));
-					busBtnLogout.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							database.deleteAllRecords("EMP_AVAIL");
-							database.writeEmplToDB(employees);
-							setAllVisibleFalse();
-							setTextNull();
-							loginPanel.setVisible(true);
-							frmBookingSystem.setTitle("Booking System - Login");
-						}
-					});
-					busBtnLogout.setBounds(904, 10, 160, 40);
-					businessMenuPanel.add(busBtnLogout);
-					
-					JButton btnViewDetails = new JButton("View Details");
-					btnViewDetails.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							setAllVisibleFalse();
-							businessMenuPanel.setVisible(true);
-							businessDetailsLP.setVisible(true);
-						}
-					});
-					btnViewDetails.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					btnViewDetails.setBounds(904, 108, 160, 80);
-					businessMenuPanel.add(btnViewDetails);
-					
-					JButton btnAddEmployee = new JButton("Add Employee");
-					btnAddEmployee.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							setAllVisibleFalse();
-							businessMenuPanel.setVisible(true);
-							addEmployeeLP.setVisible(true);
-						}
-					});
-					btnAddEmployee.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					btnAddEmployee.setBounds(904, 188, 160, 80);
-					businessMenuPanel.add(btnAddEmployee);
-					
-					JButton btnOpenHours = new JButton("Open Hours");
-					btnOpenHours.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					btnOpenHours.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							setAllVisibleFalse();
-							businessMenuPanel.setVisible(true);
-							addOpenHoursLP.setVisible(true);
-						}
-					});
-					btnOpenHours.setBounds(904, 268, 160, 80);
-					businessMenuPanel.add(btnOpenHours);
-					
-					JButton btnBookingSummary = new JButton("Booking Summary");
-					btnBookingSummary.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							setAllVisibleFalse();
-							businessMenuPanel.setVisible(true);
-							bookingSummaryLP.setVisible(true);
-						}
-					});
-					btnBookingSummary.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					btnBookingSummary.setBounds(904, 348, 160, 80);
-					businessMenuPanel.add(btnBookingSummary);
-					
-					JButton btnEmployeeAvailability = new JButton("Employee Availability");
-					btnEmployeeAvailability.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							setAllVisibleFalse();
-							businessMenuPanel.setVisible(true);
-							busSelectEmployeeLP.setVisible(true);
-						}
-					});
-					btnEmployeeAvailability.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					btnEmployeeAvailability.setBounds(904, 428, 160, 80);
-					businessMenuPanel.add(btnEmployeeAvailability);
-					
-					int timeslots = 10;
-					int days = 5;
-					int x = 110;
-					int y = 150;
-					
-					employeeAvailabilityLP = new JLayeredPane();
-					employeeAvailabilityLP.setBounds(0, 0, 800, 691);
-					businessMenuPanel.add(employeeAvailabilityLP);
-					
-					JLabel lblEmployeeAvailability = new JLabel("Employee Availability");
-					lblEmployeeAvailability.setForeground(new Color(30, 144, 255));
-					lblEmployeeAvailability.setHorizontalAlignment(SwingConstants.CENTER);
-					lblEmployeeAvailability.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-					lblEmployeeAvailability.setBounds(50, 0, 700, 100);
-					employeeAvailabilityLP.add(lblEmployeeAvailability);
-					
-					JLabel lblMonday = new JLabel("Monday");
-					lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
-					lblMonday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblMonday.setBounds(110, 120, 120, 20);
-					employeeAvailabilityLP.add(lblMonday);
-					
-					JLabel lblTuesday = new JLabel("Tuesday");
-					lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
-					lblTuesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblTuesday.setBounds(245, 120, 120, 20);
-					employeeAvailabilityLP.add(lblTuesday);
-					
-					JLabel lblWednesday = new JLabel("Wednesday");
-					lblWednesday.setHorizontalAlignment(SwingConstants.CENTER);
-					lblWednesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblWednesday.setBounds(380, 120, 120, 20);
-					employeeAvailabilityLP.add(lblWednesday);
-					
-					JLabel lblThursday = new JLabel("Thursday");
-					lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
-					lblThursday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblThursday.setBounds(515, 120, 120, 20);
-					employeeAvailabilityLP.add(lblThursday);
-					
-					JLabel lblFriday = new JLabel("Friday");
-					lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
-					lblFriday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblFriday.setBounds(650, 120, 120, 20);
-					employeeAvailabilityLP.add(lblFriday);
-					
-					JLabel lblTimeslot1 = new JLabel("8am - 9am");
-					lblTimeslot1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblTimeslot1.setBounds(10, 155, 90, 20);
-					employeeAvailabilityLP.add(lblTimeslot1);
-					
-					JLabel lblTimeslot2 = new JLabel("9am - 10am");
-					lblTimeslot2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblTimeslot2.setBounds(10, 200, 100, 20);
-					employeeAvailabilityLP.add(lblTimeslot2);
-					
-					JLabel lblTimeslot3 = new JLabel("10am - 11am");
-					lblTimeslot3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblTimeslot3.setBounds(10, 245, 100, 20);
-					employeeAvailabilityLP.add(lblTimeslot3);
-					
-					JLabel lblTimeslot4 = new JLabel("11am - 12pm");
-					lblTimeslot4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblTimeslot4.setBounds(10, 290, 100, 20);
-					employeeAvailabilityLP.add(lblTimeslot4);
-					
-					JLabel lblTimeslot5 = new JLabel("12pm - 1pm");
-					lblTimeslot5.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblTimeslot5.setBounds(10, 335, 100, 20);
-					employeeAvailabilityLP.add(lblTimeslot5);
-					
-					JLabel lblTimeslot6 = new JLabel("1pm - 2pm");
-					lblTimeslot6.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblTimeslot6.setBounds(10, 380, 100, 20);
-					employeeAvailabilityLP.add(lblTimeslot6);
-					
-					JLabel lblTimeslot7 = new JLabel("2pm - 3pm");
-					lblTimeslot7.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblTimeslot7.setBounds(10, 425, 100, 20);
-					employeeAvailabilityLP.add(lblTimeslot7);
-					
-					JLabel lblpmpm = new JLabel("3pm - 4pm");
-					lblpmpm.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblpmpm.setBounds(10, 470, 100, 20);
-					employeeAvailabilityLP.add(lblpmpm);
-					
-					JLabel lblpmpm_1 = new JLabel("4pm - 5pm");
-					lblpmpm_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblpmpm_1.setBounds(10, 515, 100, 20);
-					employeeAvailabilityLP.add(lblpmpm_1);
-					
-					JLabel lblpmpm_2 = new JLabel("5pm - 6pm");
-					lblpmpm_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-					lblpmpm_2.setBounds(10, 560, 100, 20);
-					employeeAvailabilityLP.add(lblpmpm_2);
-					
-					JOptionPane optionPane = new JOptionPane();
-					optionPane.setVisible(false);
-					optionPane.setBounds(262, 232, 262, 90);
-					employeeAvailabilityLP.add(optionPane);
-					
-					
-					JButton button[][]=new JButton[timeslots][days];
-					for(int timeslot = 0; timeslot < button.length; timeslot++)
-					{
-						for(int day = 0; day < button[timeslot].length; day++)
-						{
-							button[timeslot][day] = new JButton();
+		UserDetails userDetails = new UserDetails();
+		//SelectEmployee selection = new SelectEmployee();
+		//DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
+		AddEmployee addEmployee = new AddEmployee();
+		Registration reg = new Registration();
 		
-							int availTime = employees.get(empPos).getAvailableTime(timeslot, day);
-							if(availTime == 1)
-							{
-							button[timeslot][day].setText("Available");
-							}
-							else if(availTime == 2)
-							{
-								button[timeslot][day].setText("Booked");
-							}
-							else
-							{
-								button[timeslot][day].setText("Not Available");
-							}
-							button[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
-							button[timeslot][day].setBounds(x, y, 130, 40);
-							button[timeslot][day].addActionListener(new AvailTimesActionListener(timeslot, day, button, optionPane, employees, empPos) {
-							});
-							employeeAvailabilityLP.add(button[timeslot][day]);
-							x = x+135;
-						}
-						x = 110;
-						y = y+45;
-					}			
-					
-					businessDetailsLP = new JLayeredPane();
-					businessDetailsLP.setBounds(0, 0, 800, 691);
-					businessMenuPanel.add(businessDetailsLP);
-					
-					JLabel lblBusinessDetails = new JLabel("Business Details");
-					lblBusinessDetails.setHorizontalAlignment(SwingConstants.CENTER);
-					lblBusinessDetails.setForeground(new Color(30, 144, 255));
-					lblBusinessDetails.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-					lblBusinessDetails.setBounds(50, 0, 700, 150);
-					businessDetailsLP.add(lblBusinessDetails);
-					
-					JLabel lblBusinessName = new JLabel("Business Name:");
-					lblBusinessName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessName.setBounds(150, 170, 150, 40);
-					businessDetailsLP.add(lblBusinessName);
-					
-					JLabel lblBusinessNameData = new JLabel("");
-					lblBusinessNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessNameData.setBounds(300, 170, 300, 40);
-					businessDetailsLP.add(lblBusinessNameData);
-					lblBusinessNameData.setText(businesses.get(userPos).getBusinessName());
-					
-					JLabel lblBusinessFirstName = new JLabel("First Name:");
-					lblBusinessFirstName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessFirstName.setBounds(150, 210, 150, 40);
-					businessDetailsLP.add(lblBusinessFirstName);
-					
-					JLabel lblBusinessFirstNameData = new JLabel("");
-					lblBusinessFirstNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessFirstNameData.setBounds(300, 210, 300, 40);
-					businessDetailsLP.add(lblBusinessFirstNameData);
-					lblBusinessFirstNameData.setText(businesses.get(userPos).getFirstName());
-					
-					JLabel lblBusinessLastName = new JLabel("Last Name:");
-					lblBusinessLastName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessLastName.setBounds(150, 250, 150, 40);
-					businessDetailsLP.add(lblBusinessLastName);
-					
-					JLabel lblBusinessLastNameData = new JLabel("");
-					lblBusinessLastNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessLastNameData.setBounds(300, 250, 300, 40);
-					businessDetailsLP.add(lblBusinessLastNameData);
-					lblBusinessLastNameData.setText(businesses.get(userPos).getLastName());
-					
-					JLabel lblBusinessUsername = new JLabel("Username:");
-					lblBusinessUsername.setBounds(150, 290, 150, 40);
-					businessDetailsLP.add(lblBusinessUsername);
-					lblBusinessUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					
-					JLabel lblBusinessUsernameData = new JLabel("");
-					lblBusinessUsernameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessUsernameData.setBounds(300, 290, 300, 40);
-					businessDetailsLP.add(lblBusinessUsernameData);
-					lblBusinessUsernameData.setText(businesses.get(userPos).getUsername());
-					
-					JLabel lblBusinessAddress = new JLabel("Address:");
-					lblBusinessAddress.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessAddress.setBounds(150, 330, 150, 40);
-					businessDetailsLP.add(lblBusinessAddress);
-					
-					JLabel lblBusinessAddressData = new JLabel("");
-					lblBusinessAddressData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessAddressData.setBounds(300, 330, 300, 40);
-					businessDetailsLP.add(lblBusinessAddressData);
-					lblBusinessAddressData.setText(businesses.get(userPos).getAddress());
-					
-					JLabel lblBusinessContactNumber = new JLabel("Contact Number:");
-					lblBusinessContactNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessContactNumber.setBounds(150, 370, 150, 40);
-					businessDetailsLP.add(lblBusinessContactNumber);
-					
-					JLabel lblBusinessContactNumberData = new JLabel("");
-					lblBusinessContactNumberData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					lblBusinessContactNumberData.setBounds(300, 370, 300, 40);
-					businessDetailsLP.add(lblBusinessContactNumberData);
-					lblBusinessContactNumberData.setText(businesses.get(userPos).getContactNumber());
-					
-					addEmployeeLP = new JLayeredPane();
-					addEmployeeLP.setBounds(0, 0, 800, 691);
-					businessMenuPanel.add(addEmployeeLP);
-					
-					JLabel lblAddEmployee = new JLabel("Add Employee");
-					lblAddEmployee.setHorizontalAlignment(SwingConstants.CENTER);
-					lblAddEmployee.setForeground(new Color(30, 144, 255));
-					lblAddEmployee.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-					lblAddEmployee.setBounds(50, 0, 700, 150);
-					addEmployeeLP.add(lblAddEmployee);
-					
-					addOpenHoursLP = new JLayeredPane();
-					addOpenHoursLP.setBounds(0, 0, 800, 691);
-					businessMenuPanel.add(addOpenHoursLP);
-					
-					JLabel lblOpenHours = new JLabel("Open Hours");
-					lblOpenHours.setHorizontalAlignment(SwingConstants.CENTER);
-					lblOpenHours.setForeground(new Color(30, 144, 255));
-					lblOpenHours.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-					lblOpenHours.setBounds(50, 0, 700, 150);
-					addOpenHoursLP.add(lblOpenHours);
-					
-					bookingSummaryLP = new JLayeredPane();
-					bookingSummaryLP.setBounds(0, 0, 800, 691);
-					businessMenuPanel.add(bookingSummaryLP);
-					
-					JLabel lblBookingSummary = new JLabel("Booking Summary");
-					lblBookingSummary.setForeground(new Color(30, 144, 255));
-					lblBookingSummary.setHorizontalAlignment(SwingConstants.CENTER);
-					lblBookingSummary.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-					lblBookingSummary.setBounds(50, 0, 700, 150);
-					bookingSummaryLP.add(lblBookingSummary);
 		
-		//set all pages visibility to false
-//		setAllVisibleFalse();
 
+		//Login panel
 			loginPanel = new JPanel();
 			loginPanel.setBounds(0, 0, 1074, 691);
 			frmBookingSystem.getContentPane().add(loginPanel);
@@ -633,7 +331,7 @@ public class Gui {
 			loginPanel.add(label);
 			label.setIcon(new ImageIcon(timeImg));
 		
-		
+	//Register panel and elements
 		registerPanel = new JPanel();
 		registerPanel.setBounds(0, 0, 1074, 691);
 		frmBookingSystem.getContentPane().add(registerPanel);
@@ -799,7 +497,6 @@ public class Gui {
 				String confPassword = new String(passwordConfirmText.getPassword());
 				if(password.equals(confPassword))
 				{
-					Registration reg = new Registration();
 					reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password,customers, businesses);
 					if(reg.registerNewCust(customers, businesses) == true)
 					{
@@ -848,331 +545,184 @@ public class Gui {
 		btnCancel.setBounds(325, 598, 130, 40);
 		registerPanel.add(btnCancel);
 		
+		
+	//Customer Menu panel and elements
 		custMenuPanel = new JPanel();
 		custMenuPanel.setBounds(0, 0, 1074, 691);
 		frmBookingSystem.getContentPane().add(custMenuPanel);
 		custMenuPanel.setLayout(null);
+	
+		availableTimesLP = new JLayeredPane();
+		availableTimesLP.setBounds(0, 0, 800, 691);
+		custMenuPanel.add(availableTimesLP);
+		availableTimesLP.setLayout(null);	
 		
+		customerDetailsLP = new JLayeredPane();
+		customerDetailsLP.setBounds(0, 0, 800, 691);
+		customerDetailsLP.setAlignmentX(Component.LEFT_ALIGNMENT);
+		custMenuPanel.add(customerDetailsLP);
+		customerDetailsLP.setLayout(null);
+		userDetails.customerDetails(customerDetailsLP);
+		
+		custSelectEmployeeLP = new JLayeredPane();
+		custSelectEmployeeLP.setBounds(0, 0, 800, 691);
+		custMenuPanel.add(custSelectEmployeeLP);
+		
+		JButton btnAvailableTimes = new JButton("Available Times");
+		btnAvailableTimes.setBounds(904, 190, 160, 80);
+		custMenuPanel.add(btnAvailableTimes);
+		btnAvailableTimes.setFont(new Font("Tahoma", Font.PLAIN, 18));
+	
+		JButton btnViewCustomer = new JButton("Vew Details");
+		btnViewCustomer.setBounds(904, 110, 160, 80);
+		custMenuPanel.add(btnViewCustomer);
+		btnViewCustomer.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnViewCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setAllVisibleFalse();
+				userDetails.loadCustomerDetails(customers, userPos);
+				custMenuPanel.setVisible(true);
+				customerDetailsLP.setVisible(true);
+			}
+		});
+
+		btnAvailableTimes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setAllVisibleFalse();
+				custMenuPanel.setVisible(true);
+				SelectEmployee selection = new SelectEmployee();
+				DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
+				selection.selectPersonalTrainer(custSelectEmployeeLP, availableTimesLP, custMenuPanel, employees, displayAvail);
+				custSelectEmployeeLP.setVisible(true);
+				custSelectEmployeeLP.revalidate();
+				custSelectEmployeeLP.repaint();
+			}
+		});
+
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setBounds(904, 10, 160, 40);
 		custMenuPanel.add(btnLogout);
 		btnLogout.setIcon(new ImageIcon(logoutImg));
 		btnLogout.setFont(new Font("Tahoma", Font.BOLD, 24));
-				
-				
-				JButton btnAvailableTimes = new JButton("Available Times");
-				btnAvailableTimes.setBounds(904, 190, 160, 80);
-				custMenuPanel.add(btnAvailableTimes);
-				btnAvailableTimes.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-				
-				availableTimesLP = new JLayeredPane();
-				availableTimesLP.setBounds(0, 0, 800, 691);
-				custMenuPanel.add(availableTimesLP);
-				availableTimesLP.setLayout(null);				
-				
-				JLabel lblAvailableTimes = new JLabel("Available Times");
-				lblAvailableTimes.setBounds(50, 0, 700, 150);
-				availableTimesLP.add(lblAvailableTimes);
-				lblAvailableTimes.setHorizontalAlignment(SwingConstants.CENTER);
-				lblAvailableTimes.setForeground(new Color(30, 144, 255));
-				lblAvailableTimes.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-				
-				x = 110;
-				y = 150;
-				
-				JLabel lblCustMonday = new JLabel("Monday");
-				lblCustMonday.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCustMonday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				lblCustMonday.setBounds(110, 120, 120, 20);
-				availableTimesLP.add(lblCustMonday);
-				
-				JLabel lblCustTuesday = new JLabel("Tuesday");
-				lblCustTuesday.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCustTuesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				lblCustTuesday.setBounds(245, 120, 120, 20);
-				availableTimesLP.add(lblCustTuesday);
-				
-				JLabel lblCustWednesday = new JLabel("Wednesday");
-				lblCustWednesday.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCustWednesday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				lblCustWednesday.setBounds(380, 120, 120, 20);
-				availableTimesLP.add(lblCustWednesday);
-				
-				JLabel lblCustThursday = new JLabel("Thursday");
-				lblCustThursday.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCustThursday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				lblCustThursday.setBounds(515, 120, 120, 20);
-				availableTimesLP.add(lblCustThursday);
-				
-				JLabel lblCustFriday = new JLabel("Friday");
-				lblCustFriday.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCustFriday.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				lblCustFriday.setBounds(650, 120, 120, 20);
-				availableTimesLP.add(lblCustFriday);
-				
-				JLabel lblCustTimeslot1 = new JLabel("8am - 9am");
-				lblCustTimeslot1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot1.setBounds(10, 155, 90, 20);
-				availableTimesLP.add(lblCustTimeslot1);
-				
-				JLabel lblCustTimeslot2 = new JLabel("9am - 10am");
-				lblCustTimeslot2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot2.setBounds(10, 200, 100, 20);
-				availableTimesLP.add(lblCustTimeslot2);
-				
-				JLabel lblCustTimeslot3 = new JLabel("10am - 11am");
-				lblCustTimeslot3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot3.setBounds(10, 245, 100, 20);
-				availableTimesLP.add(lblCustTimeslot3);
-				
-				JLabel lblCustTimeslot4 = new JLabel("11am - 12pm");
-				lblCustTimeslot4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot4.setBounds(10, 290, 100, 20);
-				availableTimesLP.add(lblCustTimeslot4);
-				
-				JLabel lblCustTimeslot5 = new JLabel("12pm - 1pm");
-				lblCustTimeslot5.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot5.setBounds(10, 335, 100, 20);
-				availableTimesLP.add(lblCustTimeslot5);
-				
-				JLabel lblCustTimeslot6 = new JLabel("1pm - 2pm");
-				lblCustTimeslot6.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot6.setBounds(10, 380, 100, 20);
-				availableTimesLP.add(lblCustTimeslot6);
-				
-				JLabel lblCustTimeslot7 = new JLabel("2pm - 3pm");
-				lblCustTimeslot7.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot7.setBounds(10, 425, 100, 20);
-				availableTimesLP.add(lblCustTimeslot7);
-				
-				JLabel lblCustTimeslot8 = new JLabel("3pm - 4pm");
-				lblCustTimeslot8.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot8.setBounds(10, 470, 100, 20);
-				availableTimesLP.add(lblCustTimeslot8);
-				
-				JLabel lblCustTimeslot9 = new JLabel("4pm - 5pm");
-				lblCustTimeslot9.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot9.setBounds(10, 515, 100, 20);
-				availableTimesLP.add(lblCustTimeslot9);
-				
-				JLabel lblCustTimeslot10 = new JLabel("5pm - 6pm");
-				lblCustTimeslot10.setFont(new Font("Tahoma", Font.PLAIN, 17));
-				lblCustTimeslot10.setBounds(10, 560, 100, 20);
-				availableTimesLP.add(lblCustTimeslot10);
-				
-				JOptionPane bookingOptionPane = new JOptionPane();
-				bookingOptionPane.setVisible(false);
-				bookingOptionPane.setBounds(262, 232, 262, 90);
-				availableTimesLP.add(bookingOptionPane);
-				
-				JButton bookingButton[][]=new JButton[timeslots][days];
-				for(int timeslot = 0; timeslot < button.length; timeslot++)
-				{
-					for(int day = 0; day < button[timeslot].length; day++)
-					{
-						bookingButton[timeslot][day] = new JButton();
-						int availTime = employees.get(empPos).getAvailableTime(timeslot, day);
-						if(availTime == 1)
-						{
-						bookingButton[timeslot][day].setText("Available");
-						}
-						else if(availTime == 2)
-						{
-							bookingButton[timeslot][day].setText("Booked");
-						}
-						else
-						{
-							bookingButton[timeslot][day].setText("Not Available");
-						}
-						bookingButton[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
-						bookingButton[timeslot][day].setBounds(x, y, 130, 40);
-						bookingButton[timeslot][day].addActionListener(new BookingActionListener(timeslot, day, button, bookingOptionPane, employees, empPos) {
-						});
-						availableTimesLP.add(bookingButton[timeslot][day]);
-						x = x+135;
-					}
-					x = 110;
-					y = y+45;
-				}	
-				
-				customerDetailsLP = new JLayeredPane();
-				customerDetailsLP.setBounds(0, 0, 800, 691);
-				customerDetailsLP.setAlignmentX(Component.LEFT_ALIGNMENT);
-				custMenuPanel.add(customerDetailsLP);
-				customerDetailsLP.setLayout(null);
-				
-				JLabel lblCustomerDetails = new JLabel("Customer Details");
-				lblCustomerDetails.setBounds(50, 0, 700, 150);
-				lblCustomerDetails.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCustomerDetails.setForeground(new Color(30, 144, 255));
-				lblCustomerDetails.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-				customerDetailsLP.add(lblCustomerDetails);
-				
-				JLabel lblCustomerFirstName = new JLabel("First Name:");
-				lblCustomerFirstName.setBounds(150, 170, 150, 40);
-				lblCustomerFirstName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerFirstName);
-				
-				JLabel lblCustomerFirstNameData = new JLabel("");
-				lblCustomerFirstNameData.setBounds(300, 170, 300, 40);
-				lblCustomerFirstNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerFirstNameData);
-				
-				
-				JLabel lblCustomerLastName = new JLabel("Last Name:");
-				lblCustomerLastName.setBounds(150, 210, 150, 40);
-				lblCustomerLastName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerLastName);
-				
-				JLabel lblCustomerLastNameData = new JLabel("");
-				lblCustomerLastNameData.setBounds(300, 210, 300, 40);
-				lblCustomerLastNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerLastNameData);
-				
-				
-				JLabel lblCustomerUsername = new JLabel("Username:");
-				lblCustomerUsername.setBounds(150, 250, 150, 40);
-				lblCustomerUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerUsername);
-				
-				JLabel lblCustomerUserNameData = new JLabel("");
-				lblCustomerUserNameData.setBounds(300, 250, 300, 40);
-				lblCustomerUserNameData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerUserNameData);
-				
-				JLabel lblCustomerAddress = new JLabel("Address:");
-				lblCustomerAddress.setBounds(150, 290, 150, 40);
-				lblCustomerAddress.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerAddress);
-				
-				JLabel lblCustomerAddressData = new JLabel("");
-				lblCustomerAddressData.setBounds(300, 290, 300, 40);
-				lblCustomerAddressData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerAddressData);
-				
-				
-				JLabel lblCustomerContactNumber = new JLabel("Contact Number:");
-				lblCustomerContactNumber.setBounds(150, 330, 150, 40);
-				lblCustomerContactNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerContactNumber);
-				
-				JLabel lblCustomerContactNumberData = new JLabel("");
-				lblCustomerContactNumberData.setBounds(300, 330, 300, 40);
-				lblCustomerContactNumberData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				customerDetailsLP.add(lblCustomerContactNumberData);
-				
-				JButton btnViewCustomer = new JButton("Vew Details");
-				btnViewCustomer.setBounds(904, 110, 160, 80);
-				custMenuPanel.add(btnViewCustomer);
-				btnViewCustomer.setFont(new Font("Tahoma", Font.PLAIN, 18));
-				btnViewCustomer.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						lblCustomerFirstNameData.setText(customers.get(userPos).getFirstName());
-						lblCustomerLastNameData.setText(customers.get(userPos).getLastName());
-						lblCustomerUserNameData.setText(customers.get(userPos).getUsername());
-						lblCustomerAddressData.setText(customers.get(userPos).getAddress());
-						lblCustomerContactNumberData.setText(customers.get(userPos).getContactNumber());
-						setAllVisibleFalse();
-						custMenuPanel.setVisible(true);
-						customerDetailsLP.setVisible(true);
-					}
-				});
-				
-				x = 110;
-				y = 150;
-				
-				custSelectEmployeeLP = new JLayeredPane();
-				custSelectEmployeeLP.setBounds(0, 0, 800, 691);
-				custMenuPanel.add(custSelectEmployeeLP);
-				
-				JLabel lblSelectEmployee = new JLabel("Select a Personal Trainer");
-				lblSelectEmployee.setBounds(50, 0, 700, 150);
-				lblSelectEmployee.setHorizontalAlignment(SwingConstants.CENTER);
-				lblSelectEmployee.setForeground(new Color(30, 144, 255));
-				lblSelectEmployee.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-				custSelectEmployeeLP.add(lblSelectEmployee);
-				
-				JButton employeeButton[] = new JButton[employees.size()];
-				for(int emplNo = 0; emplNo < employeeButton.length; emplNo++)
-				{
-					employeeButton[emplNo] = new JButton();
-
-					employeeButton[emplNo].setText(employees.get(emplNo).getName());
-					
-					employeeButton[emplNo].setFont(new Font("Tahoma", Font.PLAIN, 16));
-					employeeButton[emplNo].setBounds(x, y, 180, 80);
-					custSelectEmployeeLP.add(employeeButton[emplNo]);
-					
-					x = x+185;
-					if(emplNo == 2 || emplNo == 5 || emplNo == 8 || emplNo == 11) 
-					{
-						x = 110;
-						y = y+85;
-					}
-					
-					employeeButton[emplNo].addActionListener(new SelectEmployeeActionListener(employeeButton, emplNo, custMenuPanel, availableTimesLP, custSelectEmployeeLP) {
-					});
-				}
-	
-				btnAvailableTimes.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						setAllVisibleFalse();
-						custMenuPanel.setVisible(true);
-						custSelectEmployeeLP.setVisible(true);
-					}
-				});
-
-				btnLogout.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						setAllVisibleFalse();
-						loginPanel.setVisible(true);
-						setTextNull();
-						frmBookingSystem.setTitle("Booking System - Login");
-					}
-				});
-				
-				x = 110;
-				y = 150;
-				
-				busSelectEmployeeLP = new JLayeredPane();
-				busSelectEmployeeLP.setBounds(0, 0, 800, 691);
-				businessMenuPanel.add(busSelectEmployeeLP);
-				
-				JLabel lblBusSelectEmployee = new JLabel("Select an Employee");
-				lblBusSelectEmployee.setBounds(50, 0, 700, 150);
-				lblBusSelectEmployee.setHorizontalAlignment(SwingConstants.CENTER);
-				lblBusSelectEmployee.setForeground(new Color(30, 144, 255));
-				lblBusSelectEmployee.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
-				busSelectEmployeeLP.add(lblBusSelectEmployee);
-				
-				JButton busEmployeeButton[] = new JButton[employees.size()];
-				for(int emplNo = 0; emplNo < busEmployeeButton.length; emplNo++)
-				{
-					busEmployeeButton[emplNo] = new JButton();
-
-					busEmployeeButton[emplNo].setText(employees.get(emplNo).getName());
-					
-					busEmployeeButton[emplNo].setFont(new Font("Tahoma", Font.PLAIN, 16));
-					busEmployeeButton[emplNo].setBounds(x, y, 180, 80);
-					busSelectEmployeeLP.add(busEmployeeButton[emplNo]);
-					
-					x = x+185;
-					if(emplNo == 2 || emplNo == 5 || emplNo == 8 || emplNo == 11) 
-					{
-						x = 110;
-						y = y+85;
-					}
-					
-					busEmployeeButton[emplNo].addActionListener(new BusSelectEmployeeActionListener(busEmployeeButton, emplNo, businessMenuPanel, employeeAvailabilityLP, busSelectEmployeeLP) {			
-					
-					});
-				}
-	
-	
-				//set all pages visibility to false
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				setAllVisibleFalse();
 				loginPanel.setVisible(true);
+				setTextNull();
+				frmBookingSystem.setTitle("Booking System - Login");
+			}
+		});
+				
+			
+//	Business menu and panels
+		businessMenuPanel = new JPanel();
+		businessMenuPanel.setBounds(0, 0, 1074, 691);
+		frmBookingSystem.getContentPane().add(businessMenuPanel);
+		businessMenuPanel.setLayout(null);
+		
+		busSelectEmployeeLP = new JLayeredPane();
+		busSelectEmployeeLP.setBounds(0, 0, 800, 691);
+		businessMenuPanel.add(busSelectEmployeeLP);
+		
+		businessDetailsLP = new JLayeredPane();
+		businessDetailsLP.setBounds(0, 0, 800, 691);
+		businessMenuPanel.add(businessDetailsLP);
+		userDetails.businessDetails(businessDetailsLP);
+		
+		employeeAvailabilityLP = new JLayeredPane();
+		employeeAvailabilityLP.setBounds(0, 0, 800, 691);
+		businessMenuPanel.add(employeeAvailabilityLP);
+		
+		addEmployeeLP = new JLayeredPane();
+		addEmployeeLP.setBounds(0, 0, 800, 691);
+		businessMenuPanel.add(addEmployeeLP);
+		
+		bookingSummaryLP = new JLayeredPane();
+		bookingSummaryLP.setBounds(0, 0, 800, 691);
+		businessMenuPanel.add(bookingSummaryLP);
+		
+			JButton busBtnLogout = new JButton("Logout");
+			busBtnLogout.setIcon(new ImageIcon(logoutImg));
+			busBtnLogout.setFont(new Font("Tahoma", Font.BOLD, 24));
+			busBtnLogout.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					database.deleteAllRecords("EMP_AVAIL");
+					database.writeEmplToDB(employees);
+					setAllVisibleFalse();
+					setTextNull();
+					loginPanel.setVisible(true);
+					frmBookingSystem.setTitle("Booking System - Login");
+				}
+			});
+			busBtnLogout.setBounds(904, 10, 160, 40);
+			businessMenuPanel.add(busBtnLogout);
+			
+			JButton btnViewDetails = new JButton("View Details");
+			btnViewDetails.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setAllVisibleFalse();
+					userDetails.loadBusinessDetails(businesses, userPos);
+					businessMenuPanel.setVisible(true);
+					businessDetailsLP.setVisible(true);
+				}
+			});
+			btnViewDetails.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			btnViewDetails.setBounds(904, 108, 160, 80);
+			businessMenuPanel.add(btnViewDetails);
+			
+			JButton btnAddEmployee = new JButton("Add Employee");
+			btnAddEmployee.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setAllVisibleFalse();
+					addEmployee.addEmployee(addEmployeeLP, reg, employees);
+					businessMenuPanel.setVisible(true);
+					addEmployeeLP.setVisible(true);
+				}
+			});
+			btnAddEmployee.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			btnAddEmployee.setBounds(904, 188, 160, 80);
+			businessMenuPanel.add(btnAddEmployee);
+			
+			JButton btnBookingSummary = new JButton("Booking Summary");
+			btnBookingSummary.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setAllVisibleFalse();
+					businessMenuPanel.setVisible(true);
+					bookingSummaryLP.setVisible(true);
+				}
+			});
+			btnBookingSummary.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			btnBookingSummary.setBounds(904, 348, 160, 80);
+			businessMenuPanel.add(btnBookingSummary);
+			
+			JButton btnEmployeeAvailability = new JButton("Employee Availability");
+			btnEmployeeAvailability.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setAllVisibleFalse();
+					businessMenuPanel.setVisible(true);
+					SelectEmployee selection = new SelectEmployee();
+					DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
+					selection.selectEmployee(busSelectEmployeeLP, employeeAvailabilityLP, businessMenuPanel, employees, displayAvail);
+					busSelectEmployeeLP.setVisible(true);
+					busSelectEmployeeLP.revalidate();
+					busSelectEmployeeLP.repaint();
+				}
+			});
+			btnEmployeeAvailability.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			btnEmployeeAvailability.setBounds(904, 268, 160, 80);
+			businessMenuPanel.add(btnEmployeeAvailability);
+			
+			JLabel lblBookingSummary = new JLabel("Booking Summary");
+			lblBookingSummary.setForeground(new Color(30, 144, 255));
+			lblBookingSummary.setHorizontalAlignment(SwingConstants.CENTER);
+			lblBookingSummary.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
+			lblBookingSummary.setBounds(50, 0, 700, 150);
+			bookingSummaryLP.add(lblBookingSummary);
+	
+	
+		//set all pages visibility to false
+		setAllVisibleFalse();
+		loginPanel.setVisible(true);
 	}
 
 	private void setAllVisibleFalse()
@@ -1185,7 +735,6 @@ public class Gui {
 		businessMenuPanel.setVisible(false);
 		businessDetailsLP.setVisible(false);
 		addEmployeeLP.setVisible(false);
-		addOpenHoursLP.setVisible(false);
 		bookingSummaryLP.setVisible(false);
 		employeeAvailabilityLP.setVisible(false);
 		custSelectEmployeeLP.setVisible(false);
@@ -1197,6 +746,7 @@ public class Gui {
 		loginPasswordText.setText("");		
 	}
 
+	
 	
  	private class SwingAction extends AbstractAction {
 		public SwingAction() {
