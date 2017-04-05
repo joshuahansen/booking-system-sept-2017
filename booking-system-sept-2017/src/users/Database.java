@@ -186,9 +186,7 @@ public class Database {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM CUSTOMERS");
 		
 		while(resultSet.next())		
-		{
-			System.out.println(resultSet);
-			
+		{			
 			String username = resultSet.getString("CUST_UNAME");
 			String fName = resultSet.getString("CUST_FNAME");
 			String lName = resultSet.getString("CUST_LNAME");
@@ -215,9 +213,7 @@ public class Database {
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
 			while(resultSet.next())
-			{
-				System.out.println(resultSet);
-				
+			{				
 				String bName = resultSet.getString("BUS_BNAME");
 				String username = resultSet.getString("BUS_UNAME");
 				String fName = resultSet.getString("BUS_FNAME");
@@ -245,8 +241,6 @@ public class Database {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMPLOYEES");
 			while(resultSet.next())
 			{
-				System.out.println(resultSet);
-				
 				String employeeID = resultSet.getString("EMP_ID");
 				String fName = resultSet.getString("EMP_FNAME");
 				String lName = resultSet.getString("EMP_LNAME");
@@ -270,8 +264,6 @@ public class Database {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMP_AVAIL");
 			while(resultSet.next())
 			{
-				System.out.println(resultSet);
-				
 				String employeeID = resultSet.getString("EMP_ID");
 				int timeslot = resultSet.getInt("TIMESLOT");
 				int day = resultSet.getInt("AVAIL_DAY");
