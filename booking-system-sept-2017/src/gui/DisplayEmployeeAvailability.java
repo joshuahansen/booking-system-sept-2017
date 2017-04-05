@@ -65,8 +65,6 @@ public class DisplayEmployeeAvailability {
 				});
 				employeeAvailabilityLP.add(button[timeslot][day]);
 				x = x+135;
-				employeeAvailabilityLP.revalidate();
-				employeeAvailabilityLP.repaint();
 			}
 			x = 110;
 			y = y+45;
@@ -92,8 +90,7 @@ public class DisplayEmployeeAvailability {
 		
 		JButton bookingButton[][]=new JButton[timeslots][days];
 		for(int timeslot = 0; timeslot < bookingButton.length; timeslot++)
-		{
-			
+		{	
 			for(int day = 0; day < bookingButton[timeslot].length; day++)
 			{
 				bookingButton[timeslot][day] = new JButton();
@@ -113,14 +110,11 @@ public class DisplayEmployeeAvailability {
 				}
 				bookingButton[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
 				bookingButton[timeslot][day].setBounds(x, y, 130, 40);
-				
+	
 				bookingButton[timeslot][day].addActionListener(new BookingActionListener(timeslot, day, bookingButton, bookingOptionPane, employees, emplPos) {
 				});
+				
 				availableTimesLP.add(bookingButton[timeslot][day]);
-				availableTimesLP.revalidate();
-				availableTimesLP.repaint();
-				bookingButton[timeslot][day].revalidate();
-				bookingButton[timeslot][day].repaint();
 				
 				x = x+135;
 			}

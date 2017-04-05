@@ -114,7 +114,6 @@ public class UserDetails {
 	
 	public void customerDetails(JLayeredPane customerDetailsLP)
 	{
-
 		lblCustomerDetails = new JLabel("Customer Details");
 		lblCustomerDetails.setBounds(50, 0, 700, 150);
 		lblCustomerDetails.setHorizontalAlignment(SwingConstants.CENTER);
@@ -171,7 +170,6 @@ public class UserDetails {
 		lblCustomerContactNumberData.setBounds(300, 330, 300, 40);
 		lblCustomerContactNumberData.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		customerDetailsLP.add(lblCustomerContactNumberData);
-		
 	}
 	
 	public void loadCustomerDetails(ArrayList<Customer> customers, int userPos)

@@ -18,7 +18,7 @@ public class BusSelectEmployeeActionListener implements ActionListener {
 	JLayeredPane busSelectEmployeeLP;
 	JPanel businessMenuPanel;
 	ArrayList<Employee> employees;
-	DisplayEmployeeAvailability displayAvail ;
+	DisplayEmployeeAvailability displayAvail;
 
 	
 	BusSelectEmployeeActionListener(JButton[] button, int emplPos, JPanel businessMenuPanel, JLayeredPane employeeAvailabilityLP, JLayeredPane busSelectEmployeeLP, ArrayList<Employee> employees, DisplayEmployeeAvailability displayAvail)
@@ -37,9 +37,6 @@ public class BusSelectEmployeeActionListener implements ActionListener {
 		businessMenuPanel.setVisible(true);
 		employeeAvailabilityLP.setVisible(true); 
 		displayAvail.layout(employeeAvailabilityLP);
-		displayAvail.displayBusEmployeeAvailability(employees, emplPos,  employeeAvailabilityLP, businessMenuPanel);
-		employeeAvailabilityLP.revalidate();
-		employeeAvailabilityLP.repaint();
-		
+		displayAvail.displayBusEmployeeAvailability(employees, emplPos,  employeeAvailabilityLP, businessMenuPanel);	
 	}
 }
