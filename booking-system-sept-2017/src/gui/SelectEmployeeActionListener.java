@@ -37,6 +37,7 @@ public class SelectEmployeeActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		custSelectEmployeeLP.setVisible(false);
 		custMenuPanel.setVisible(true);
+		availableTimesLP.removeAll();
 		availableTimesLP.setVisible(true);
 		availableTimesLP.revalidate();
 		availableTimesLP.repaint();
