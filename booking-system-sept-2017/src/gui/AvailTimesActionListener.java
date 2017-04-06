@@ -33,6 +33,7 @@ public class AvailTimesActionListener implements ActionListener {
 	
 	//action performed when availability button is selected
 	public void actionPerformed(ActionEvent e) {
+		//get current button setting (i.e text) and changes it according to possible values
 		String buttonText =  button[timeslot][day].getText();
 		if(buttonText.equals("Not Available"))
 		{
@@ -44,6 +45,7 @@ public class AvailTimesActionListener implements ActionListener {
 		}
 		else if(buttonText.equals("Booked"))
 		{
+			//creates pop up confirmation window to confirm the deletion of a booking
 			int confirmResult = JOptionPane.showInternalConfirmDialog(optionPane,
 					"Are you sure you want to cancel the booking", "Confirmation",
 		             JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -64,4 +66,3 @@ public class AvailTimesActionListener implements ActionListener {
 		}
 	}
 }
-
