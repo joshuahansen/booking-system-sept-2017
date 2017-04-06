@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import users.Employee;
-
+//action listener for selecting the employee if user is a customer
 public class SelectEmployeeActionListener implements ActionListener {
 	int emplPos;
 	JButton[] button;
@@ -33,8 +33,10 @@ public class SelectEmployeeActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		custSelectEmployeeLP.setVisible(false);
 		custMenuPanel.setVisible(true);
+		//remove all elements from available times panel
 		availableTimesLP.removeAll();
 		availableTimesLP.setVisible(true);
+		//re-add new labels and buttons to the available times panel 
 		displayAvail.layout(availableTimesLP);
 		displayAvail.displayEmployeeAvailability(employees, emplPos, availableTimesLP, custMenuPanel);
 

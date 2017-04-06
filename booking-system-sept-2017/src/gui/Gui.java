@@ -117,18 +117,15 @@ public class Gui {
 //		users.init_businesses(businesses);
 
 		Database database = new Database();
-
+		/*only try loading database if a connection is established */
 		if(database.connectDatabase(url) == true)
-		{
-		
-//			database.clearTables();
-//			database.initDatabase();
-//			database.defaultValues();
-			
+		{		
+			/*Try reading from database tables customers and businesses*/
 			if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
 			{
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
+				/*read employee availabilities only if customers and businesses are loaded correctly*/
 				if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
 				{
 					System.out.println("Employee Database loaded");
@@ -142,6 +139,7 @@ public class Gui {
 			}
 			else
 			{
+				/*if database doesn't exist initialize new database with default values and read database into arrays*/
 				database.clearTables();
 				database.initDatabase();
 				database.defaultValues();
@@ -212,14 +210,14 @@ public class Gui {
 		
 			
 		UserDetails userDetails = new UserDetails();
-		//SelectEmployee selection = new SelectEmployee();
-		//DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
 		AddEmployee addEmployee = new AddEmployee();
 		Registration reg = new Registration();
 		
 		
 
 		//Login panel
+		/* all elements for the login panel, labels buttons images and text fields
+		 */
 			loginPanel = new JPanel();
 			loginPanel.setBounds(0, 0, 1074, 691);
 			frmBookingSystem.getContentPane().add(loginPanel);
@@ -230,6 +228,7 @@ public class Gui {
 			loginErrorPane.setBounds(150, 150, 262, 90);
 			loginPanel.add(loginErrorPane);
 			
+			//set action listener for the login button, verify user details with customer and business arrays
 			JButton btnLogin = new JButton("Login");
 			btnLogin.setBounds(450, 450, 140, 40);
 			loginPanel.add(btnLogin);
@@ -260,6 +259,7 @@ public class Gui {
 						}
 						else
 						{
+							//pop up for when username and passwords fail
 							JOptionPane.showMessageDialog(loginErrorPane, "Username or Password incorrect. Please Try Again.", "Alert", JOptionPane.ERROR_MESSAGE);
 						}
 					}
@@ -334,6 +334,7 @@ public class Gui {
 			label.setIcon(new ImageIcon(timeImg));
 		
 	//Register panel and elements
+			/*populate register panel with labels, buttons and text fields*/
 		registerPanel = new JPanel();
 		registerPanel.setBounds(0, 0, 1074, 691);
 		frmBookingSystem.getContentPane().add(registerPanel);

@@ -11,12 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import users.Employee;
-
+//class to print employee button for each employee in the array
 public class SelectEmployee {
 
 	private int x;
 	private int y;
 	
+	//creates buttons for each employee and displays them for the customer
 	public void selectPersonalTrainer(JLayeredPane custSelectEmployeeLP, JLayeredPane availableTimesLP, JPanel custMenuPanel, ArrayList<Employee> employees, DisplayEmployeeAvailability displayAvail)
 	{
 		x = 110;
@@ -41,6 +42,7 @@ public class SelectEmployee {
 			custSelectEmployeeLP.add(employeeButton[emplNo]);
 			
 			x = x+185;
+			//puts button on next line to display all employees
 			if(emplNo == 2 || emplNo == 5 || emplNo == 8 || emplNo == 11) 
 			{
 				x = 110;
@@ -51,7 +53,7 @@ public class SelectEmployee {
 			});;
 		}
 	}
-
+	//creates buttons for each employee and displays them for the business user
 	public void selectEmployee(JLayeredPane busSelectEmployeeLP, JLayeredPane employeeAvailabilityLP, JPanel businessMenuPanel, ArrayList<Employee> employees, DisplayEmployeeAvailability displayAvail)
 	{
 		x = 110;

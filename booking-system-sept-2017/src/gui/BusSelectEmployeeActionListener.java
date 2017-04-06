@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import users.Employee;
 
+// class for when a business selects an employee
 public class BusSelectEmployeeActionListener implements ActionListener {
 	int emplPos;
 	JButton[] button;
@@ -20,7 +21,7 @@ public class BusSelectEmployeeActionListener implements ActionListener {
 	ArrayList<Employee> employees;
 	DisplayEmployeeAvailability displayAvail;
 
-	
+	//constructor for action listener
 	BusSelectEmployeeActionListener(JButton[] button, int emplPos, JPanel businessMenuPanel, JLayeredPane employeeAvailabilityLP, JLayeredPane busSelectEmployeeLP, ArrayList<Employee> employees, DisplayEmployeeAvailability displayAvail)
 	{
 		this.button = button;
@@ -32,11 +33,14 @@ public class BusSelectEmployeeActionListener implements ActionListener {
 		this.displayAvail = displayAvail;
 	}
 	
+	//action performed when the employee button is selected
 	public void actionPerformed(ActionEvent e) {
 		busSelectEmployeeLP.setVisible(false);
 		businessMenuPanel.setVisible(true);
+		//remove all old employee availability buttons
 		employeeAvailabilityLP.removeAll();
 		employeeAvailabilityLP.setVisible(true); 
+		//re-populate employee availability panel with correct employee availability buttons
 		displayAvail.layout(employeeAvailabilityLP);
 		displayAvail.displayBusEmployeeAvailability(employees, emplPos,  employeeAvailabilityLP, businessMenuPanel);	
 	}

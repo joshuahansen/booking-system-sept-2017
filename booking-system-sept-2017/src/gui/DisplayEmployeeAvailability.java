@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import users.Employee;
 
+//class for printing employee availability buttons to panel
 public class DisplayEmployeeAvailability {
 
 	private int timeslots = 10;
@@ -20,6 +21,7 @@ public class DisplayEmployeeAvailability {
 	private int x;
 	private int y;
 	
+	//display employee availability buttons for the business
 	public void displayBusEmployeeAvailability(ArrayList<Employee> employees, int emplPos, JLayeredPane employeeAvailabilityLP, JPanel businessMenuPanel)
 	{
 		x = 110;
@@ -36,7 +38,7 @@ public class DisplayEmployeeAvailability {
 		optionPane.setBounds(262, 232, 262, 90);
 		employeeAvailabilityLP.add(optionPane);
 		
-		
+		//print a 2D array of buttons with correct employee availability labels
 		JButton button[][]=new JButton[timeslots][days];
 		for(int timeslot = 0; timeslot < button.length; timeslot++)
 		{
@@ -74,10 +76,11 @@ public class DisplayEmployeeAvailability {
 			x = 110;
 			y = y+45;
 		}	
+		//refresh buttons at runtime
 		employeeAvailabilityLP.revalidate();
 		employeeAvailabilityLP.repaint();
 	}
-
+//	display employee availability buttons for the customer
 	public void displayEmployeeAvailability(ArrayList<Employee> employees, int emplPos, JLayeredPane availableTimesLP, JPanel custMenuPanel)
 	{	
 		x = 110;
@@ -132,10 +135,12 @@ public class DisplayEmployeeAvailability {
 			x = 110;
 			y = y+45;
 		}
+		//refresh buttons at run time
 		availableTimesLP.revalidate();
 		availableTimesLP.repaint();
 	}
 	
+	//labels for rows and columns for the button array
 	public void layout(JLayeredPane dayTimes)
 	{
 		JLabel lblCustMonday = new JLabel("Monday");

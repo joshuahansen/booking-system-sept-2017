@@ -11,6 +11,7 @@ import users.*;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class DatabaseTest {
 	ArrayList<Customer> customers;
 	ArrayList<Business> businesses;

@@ -6,12 +6,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//database class has all methods needed for program to interact with the database
 public class Database {
 	private Connection connection = null;
 	private String custSQL;
 	private String emplSQL;
 	private String emplAvailSQL;
+	
 	
  	public Connection getConnection()
 	{
@@ -56,9 +57,11 @@ public class Database {
 	//initialize database tables if there is no database found
 	public boolean initDatabase()
 	{
+		//try creating tables return true if successful
 		try{
 			Statement stmt = connection.createStatement();
 			
+			//Customer table using username as the primary key
 			String sql = "CREATE TABLE CUSTOMERS " +
 			        "(CUST_UNAME     	VARCHAR(40) NOT NULL," +
 			        " CUST_FNAME 		VARCHAR(40)     ," +
@@ -69,6 +72,7 @@ public class Database {
 			        " PRIMARY KEY(CUST_UNAME))";
 			stmt.executeUpdate(sql);
 			
+			//Business table using business username as the primary key
 			sql = "CREATE TABLE BUSINESSES " +
 					" (BUS_UNAME     	VARCHAR(40)	NOT NULL," +
 			        " BUS_BNAME			VARCHAR(40)		," +
@@ -81,6 +85,7 @@ public class Database {
 			
 			stmt.executeUpdate(sql);
 			
+			//EMployee table using employee ID as the primary key
 			sql = "CREATE TABLE EMPLOYEES " +
 					"(EMP_ID		VARCHAR(40) NOT NULL," +
 					" EMP_FNAME		VARCHAR(40)		," +
@@ -89,6 +94,8 @@ public class Database {
 			
 			stmt.executeUpdate(sql);
 			
+			//Employee availability table using employee ID, available day and timeslot as the primary key
+			//Employee ID is a foreign key
 			sql = "CREATE TABLE EMP_AVAIL " +
 					"(EMP_ID		VARCHAR(40)	NOT NULL," +
 					" AVAIL_DAY		INT NOT NULL		," +
@@ -104,6 +111,7 @@ public class Database {
 			
 		}catch(SQLException e)
 		{
+			//Catch any SQL exceptions, print message and return false 
 			System.out.println("Database cannot be initialised");
 			return false;
 		}
@@ -187,7 +195,8 @@ public class Database {
 		
 		try {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM CUSTOMERS");
-		
+			
+			//read one row at a time adding customers to array. loop until no rows left
 		while(resultSet.next())		
 		{			
 			String username = resultSet.getString("CUST_UNAME");
@@ -214,6 +223,7 @@ public class Database {
 		ResultSet resultSet = null;
 		Business newBus;
 	
+		//read one row from business table create new business object. loop until table has no new rows
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
 			while(resultSet.next())
@@ -266,6 +276,8 @@ public class Database {
 	{
 		ResultSet resultSet = null;
 		
+		/*read availability from table. match employee ID in employee array to ID from emp_avail and 
+		 * add availability to employees array*/
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMP_AVAIL");
 			while(resultSet.next())

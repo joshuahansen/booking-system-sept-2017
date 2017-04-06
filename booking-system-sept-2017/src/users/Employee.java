@@ -14,11 +14,7 @@ public class Employee
 	boolean avaSaturday;
 	boolean avaSunday;
 	
-//	ArrayList<String> availibleTimes = new ArrayList<String>();
-	
 	int availableTimes[][] = new int[10][5];
-	//available for booking = 1
-	//already booked = 2
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 
@@ -75,6 +71,7 @@ public class Employee
 		return firstName + " " + lastName;
 	}
 	
+	//Sets time to available given the timeslot, day and if it's booked or not
 	public boolean setAvailableTime(int timeslot, int day, String booked)
 	{
 		if(booked.equalsIgnoreCase("yes"))
@@ -88,18 +85,25 @@ public class Employee
 		return true;
 	}
 	
+	//remove available time from employee availability array
 	public boolean removeAvailibleTime(int timeslot, int day)
 	{
 		availableTimes[timeslot][day] = 0;
 		return true;
 	}
 	
+	//remove booking from employee availability array at given timeslot and day
 	public boolean removeBooking(int timeslot, int day)
 	{
 		availableTimes[timeslot][day] = 1;
 		return true;
 	}
 	
+	/*return value of a given sport in the employee availability array
+	 * 0 for not available
+	 * 1 for available
+	 * 2 for booked
+	 */
 	public int getAvailableTime(int timeslot, int day)
 	{
 		return availableTimes[timeslot][day];

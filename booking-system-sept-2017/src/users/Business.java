@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Business extends User
 {
 	private String businessName;
+	/* Each business has an array of employees */
 	ArrayList<Employee> employees = new ArrayList<Employee>();
 	ArrayList<String> availibleTimes = new ArrayList<String>();
 	
