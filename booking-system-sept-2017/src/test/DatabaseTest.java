@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import users.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +38,7 @@ public class DatabaseTest {
 	@Test
 	public void clearTablesTest()
 	{
+		database.initDatabase();
 		assertTrue(database.clearTables());
 	}
 	
@@ -81,6 +83,47 @@ public class DatabaseTest {
 	@Test
 	public void readEmplAvailDB()
 	{
+		database.initDatabase();
+		database.defaultValues();
+		assertTrue(database.readAvailablityTimes(employees));
+	}
+
+	@Test
+	public void writeNewCustToDBTest()
+	{
+		database.initDatabase();
+		Customer newCust = new Customer("test", "dummy", "ANCAP PO Box 4041 Manuka ACT 2603", "62320232", "ancapdummy", "crashtest");
+		customers.add(newCust);
+		int position = customers.size()-1;
 		
+		assertTrue(database.writeNewCustToDB(customers, position));
+	}
+	
+	@Test
+	public void writeEmplToDB()
+	{
+		database.initDatabase();
+		Employee newEmp = new Employee("0001", "Buster", "Mythbusters");
+		employees.add(newEmp);
+		
+		assertTrue(database.writeEmplToDB(employees));
+	}
+	
+	@Test
+	public void deleteAllRecordsTest()
+	{
+		database.initDatabase();
+		database.defaultValues();
+		String table = "CUSTOMERS";
+		
+		assertTrue(database.deleteAllRecords(table));
+		
+	}
+	
+	@After
+	public void closeDatabase()
+	{
+		database.clearTables();
+		database.closeConnection();
 	}
 }
