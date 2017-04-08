@@ -1,6 +1,10 @@
 package main;
 
+import java.time.LocalDate;
 import java.util.Date;
+
+import users.Customer;
+import users.Employee;
 
 public class Booking {
 	
@@ -8,15 +12,19 @@ public class Booking {
 	private Boolean completed;
 	private int day;
 	private int timeslot;
-	private Date date;
+	private LocalDate date;
+	private Customer customer;
+	private Employee employee;
 
-	public Booking(String bookingID, int day, int timeslot, Date date, Boolean completed) 
+	public Booking(String bookingID, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
 	{
 		setBookingID(bookingID);
 		setDay(day);
 		setTimeslot(timeslot);
 		setDate(date);
 		setCompleted(completed);
+		setCustomer(customer);
+		setEmployee(employee);
 	}
 	
 	private void setBookingID(String bookingID)
@@ -29,7 +37,7 @@ public class Booking {
 		this.day = day;
 	}
 	
-	private void setDate(Date date)
+	private void setDate(LocalDate date)
 	{
 		this.date = date;
 	}
@@ -44,7 +52,17 @@ public class Booking {
 		this.timeslot = timeslot;
 	}
 	
-	public Date getDate()
+	private void setCustomer(Customer customer)
+	{
+		this.customer = customer;
+	}
+	
+	private void setEmployee(Employee employee)
+	{
+		this.employee = employee;
+	}
+	
+	public LocalDate getDate()
 	{
 		return this.date;
 	}
@@ -67,6 +85,102 @@ public class Booking {
 	public int getTimeslot()
 	{
 		return timeslot;
+	}
+	
+	public String getCustomerName()
+	{
+		String name = customer.getFirstName() + " " + customer.getLastName(); 
+		
+		return name;
+	}
+	
+	public String getEmployeeName()
+	{
+		String name = employee.getFirstName() + " " + employee.getLastName();
+		
+		return name;
+	}
+	
+	public String getCustUsername()
+	{
+		return customer.getUsername();
+	}
+	
+ 	public String getDayAsString()
+	{
+		String stringDay;
+		if(day == 0)
+		{
+			stringDay = "Monday";
+		}
+		else if( day == 1)
+		{
+			stringDay = "Tuesday";
+		}
+		else if(day == 2)
+		{
+			stringDay = "Wednesday";
+		}
+		else if(day == 3)
+		{
+			stringDay = "Thursday";
+		}
+		else
+		{
+			stringDay = "Friday";
+		}
+		return stringDay;
+	}
+	
+	public String getTimeslotAsString()
+	{
+		String stringTimeslot;
+		if(timeslot == 0)
+		{
+			stringTimeslot = "8am - 9am";
+		}
+		else if(timeslot == 1)
+		{
+			stringTimeslot = "9am - 10am";
+		}
+		else if(timeslot == 2)
+		{
+			stringTimeslot = "10am - 11am";
+		}
+		else if(timeslot == 3)
+		{
+			stringTimeslot = "11am - 12pm";
+		}
+		else if(timeslot == 4)
+		{
+			stringTimeslot = "12pm - 1pm";
+		}
+		else if(timeslot == 5)
+		{
+			stringTimeslot = "1pm - 2pm";
+		}
+		else if(timeslot == 6)
+		{
+			stringTimeslot = "2pm - 3pm";
+		}
+		else if(timeslot == 7)
+		{
+			stringTimeslot = "3pm - 4pm";
+		}
+		else if(timeslot == 8)
+		{
+			stringTimeslot = "4pm - 5pm";
+		}
+		else
+		{
+			stringTimeslot = "5pm - 6pm";
+		}
+		return stringTimeslot;
+	}
+	
+	public String toString()
+	{
+		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + getDayAsString() + "\t" + getTimeslotAsString() + "\t" + getEmployeeName();
 	}
 	
 }

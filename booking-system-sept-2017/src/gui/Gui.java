@@ -29,11 +29,14 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import main.Booking;
 import main.Login;
 import main.Registration;
 
@@ -50,6 +53,8 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Gui {
 
@@ -73,6 +78,7 @@ public class Gui {
 	private JLayeredPane businessDetailsLP;
 	private JLayeredPane addEmployeeLP;
 	private JLayeredPane bookingSummaryLP;
+	private JLayeredPane custBookingSummaryLP;
 	private JLayeredPane employeeAvailabilityLP;
 	private JLayeredPane custSelectEmployeeLP;
 	private JLayeredPane busSelectEmployeeLP;
@@ -161,6 +167,13 @@ public class Gui {
 			}
 			
 		}
+		LocalDate today = LocalDate.now();
+		Booking newBooking = new Booking("001", 1, 2, today, true, customers.get(0), employees.get(0));
+		businesses.get(0).bookings.add(newBooking);
+		newBooking = new Booking("002", 3, 5, today, true, customers.get(1), employees.get(0));
+		businesses.get(0).bookings.add(newBooking);
+		newBooking = new Booking("003", 4, 3, today, true, customers.get(0), employees.get(0));
+		businesses.get(0).bookings.add(newBooking);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -573,6 +586,11 @@ public class Gui {
 		custSelectEmployeeLP.setBounds(0, 0, 800, 691);
 		custMenuPanel.add(custSelectEmployeeLP);
 		
+		custBookingSummaryLP = new JLayeredPane();
+		custBookingSummaryLP.setBounds(0, 0, 800, 691);
+		custMenuPanel.add(custBookingSummaryLP);
+		
+		
 		JButton btnAvailableTimes = new JButton("Available Times");
 		btnAvailableTimes.setBounds(904, 190, 160, 80);
 		custMenuPanel.add(btnAvailableTimes);
@@ -610,6 +628,36 @@ public class Gui {
 				custSelectEmployeeLP.repaint();
 			}
 		});
+		
+		JTextArea custBookings = new JTextArea();
+		custBookings.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		custBookings.setBounds(25, 150, 750, 500);
+		custBookings.setEditable(false);
+//		bookingSummaryLP.add(custBookings);
+		JScrollPane custBookingsScrollPane = new JScrollPane(custBookings);
+		custBookingsScrollPane.setBounds(10, 150, 790, 530);
+		custBookingSummaryLP.add(custBookingsScrollPane);
+		
+		JButton btnCustBookingSummary = new JButton("Booking Summary");
+		btnCustBookingSummary.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setAllVisibleFalse();
+				custMenuPanel.setVisible(true);
+				custBookingSummaryLP.setVisible(true);
+				String bookingText = "Booking ID\t" + "Date\t" + "Customer Name    " + "Day\t" + "Timeslot\t" + "Employee Name";
+				for(int i = 0; i < businesses.get(0).bookings.size(); i++)
+				{
+					if(customers.get(userPos).getUsername().equals(businesses.get(0).bookings.get(i).getCustUsername()))
+					{
+						bookingText = bookingText + "\n" + businesses.get(userPos).bookings.get(i).toString();
+					}
+				}
+				custBookings.setText(bookingText);
+			}
+		});
+		btnCustBookingSummary.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCustBookingSummary.setBounds(904, 270, 160, 80);
+		custMenuPanel.add(btnCustBookingSummary);
 
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setBounds(904, 10, 160, 40);
@@ -695,12 +743,28 @@ public class Gui {
 			btnAddEmployee.setBounds(904, 188, 160, 80);
 			businessMenuPanel.add(btnAddEmployee);
 			
+			
+			JTextArea textArea = new JTextArea();
+			textArea.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			textArea.setBounds(25, 150, 750, 500);
+			textArea.setEditable(false);
+//			bookingSummaryLP.add(textArea);
+			JScrollPane scrollPane = new JScrollPane(textArea);
+			scrollPane.setBounds(10, 150, 790, 530);
+			bookingSummaryLP.add(scrollPane);
+			
 			JButton btnBookingSummary = new JButton("Booking Summary");
 			btnBookingSummary.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setAllVisibleFalse();
 					businessMenuPanel.setVisible(true);
 					bookingSummaryLP.setVisible(true);
+					String bookingText = "Booking ID\t" + "Date\t" + "Customer Name    " + "Day\t" + "Timeslot\t" + "Employee Name";
+					for(int i = 0; i < businesses.get(userPos).bookings.size(); i++)
+					{
+						bookingText = bookingText + "\n" + businesses.get(userPos).bookings.get(i).toString();
+					}
+					textArea.setText(bookingText);
 				}
 			});
 			btnBookingSummary.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -730,6 +794,11 @@ public class Gui {
 			lblBookingSummary.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
 			lblBookingSummary.setBounds(50, 0, 700, 150);
 			bookingSummaryLP.add(lblBookingSummary);
+			custBookingSummaryLP.add(lblBookingSummary);
+			
+
+			
+		
 	
 	
 		//set all pages visibility to false
@@ -749,6 +818,7 @@ public class Gui {
 		businessDetailsLP.setVisible(false);
 		addEmployeeLP.setVisible(false);
 		bookingSummaryLP.setVisible(false);
+		custBookingSummaryLP.setVisible(false);
 		employeeAvailabilityLP.setVisible(false);
 		custSelectEmployeeLP.setVisible(false);
 		busSelectEmployeeLP.setVisible(false);
