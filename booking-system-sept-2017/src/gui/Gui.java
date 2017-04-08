@@ -649,7 +649,7 @@ public class Gui {
 				{
 					if(customers.get(userPos).getUsername().equals(businesses.get(0).bookings.get(i).getCustUsername()))
 					{
-						bookingText = bookingText + "\n" + businesses.get(userPos).bookings.get(i).toString();
+						bookingText = bookingText + "\n" + businesses.get(0).bookings.get(i).toString();
 					}
 				}
 				custBookings.setText(bookingText);
