@@ -44,6 +44,7 @@ public class BookingActionListener implements ActionListener {
 			if(confirmResult == JOptionPane.YES_OPTION)
 			{
 				//Set Booking for customer
+				JOptionPane.showMessageDialog(optionPane, "Booking functions are not available at this time", "Alert", JOptionPane.ERROR_MESSAGE);
 			};
 		}
 		else if(buttonText.equals("Booked"))
