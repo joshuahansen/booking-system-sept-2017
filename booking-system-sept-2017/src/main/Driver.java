@@ -45,6 +45,14 @@ public class Driver {
 					System.out.println("Can not load employee database");
 					System.out.println("Can not load employee availibilities");
 				}
+				if(database.readBookingsDB(businesses, customers, employees))
+				{
+					System.out.println("Booking Databse loaded");
+				}
+				else
+				{
+					System.out.println("Can not load Bookings");
+				}
 			}
 			else
 			{
@@ -64,6 +72,14 @@ public class Driver {
 					{
 						System.out.println("Can not load employee database");
 						System.out.println("Can not load employee availibilities\n");
+					}
+					if(database.readBookingsDB(businesses, customers, employees))
+					{
+						System.out.println("Booking Databse loaded");
+					}
+					else
+					{
+						System.out.println("Can not load Bookings");
 					}
 				}
 			}

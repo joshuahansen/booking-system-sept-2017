@@ -110,7 +110,7 @@ public class Menu
 	{
 		int menuInput = 0;
 		
-		while (menuInput != 3)
+		while (menuInput != 4)
 		{
 			printBusinessMenu();
 			
@@ -135,12 +135,12 @@ public class Menu
 					}
 					else
 					{
-						for (counter = 0; counter <= numberOfBookings; counter++)
+						for (counter = 0; counter < numberOfBookings; counter++)
 						{
-							if (!businesses.get(businessPosition).bookings.get(counter).getDate().plusDays(7).isAfter(LocalDate.now()))
-							{
+//							if (!businesses.get(businessPosition).bookings.get(counter).getDate().plusDays(7).isAfter(LocalDate.now()))
+//							{
 								System.out.println(businesses.get(businessPosition).bookings.get(counter).toString());
-							}
+//							}
 						}
 					}
 					
