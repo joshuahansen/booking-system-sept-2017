@@ -1,5 +1,17 @@
-STUDENT NAME			STUDENT NUMBER
-Joshua Hansen     s3589185
-Zach Wingrave     s3539788
-Tony Mao      s3602027
-Lohgan Nash     s3601235
+STUDENT NAME			STUDENT NUMBER    CONTRIBUTION TO PART A
+Joshua Hansen     s3589185          25%
+Zach Wingrave     s3539788          25%
+Tony Mao          s3602027          25%
+Lohgan Nash       s3601235          25%
+
+We are submitting both a functional GUI and console based command line application.
+
+Our dummy data is as follows:
+
+Usernames/Passwords of Customers and Businesses:
+
+- 
+
+Existing Bookings:
+
+- 
