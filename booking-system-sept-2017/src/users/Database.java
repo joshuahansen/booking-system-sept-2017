@@ -154,7 +154,7 @@ public class Database {
 			sql = "drop table emp_avail";
 			stmt.executeUpdate(sql);
 			
-			sql = "drop talbe bookings";
+			sql = "drop table bookings";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database tables cleared");
