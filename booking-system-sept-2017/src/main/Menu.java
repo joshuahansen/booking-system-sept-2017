@@ -1,8 +1,6 @@
 package main;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.util.Date;
 import users.*;
 
 public class Menu 

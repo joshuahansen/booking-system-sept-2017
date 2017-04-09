@@ -1,8 +1,6 @@
 package main;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import users.Customer;
 import users.Employee;
 
