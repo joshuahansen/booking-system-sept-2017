@@ -3,56 +3,31 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-//import com.jgoodies.forms.layout.FormLayout;
-//import com.jgoodies.forms.layout.ColumnSpec;
-//import com.jgoodies.forms.layout.FormSpecs;
-//import com.jgoodies.forms.layout.RowSpec;
-
 import users.*;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-//import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JTable;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import main.Booking;
 import main.Login;
 import main.Registration;
 
 import javax.swing.JPanel;
-import javax.swing.JInternalFrame;
-import javax.swing.JSplitPane;
-import javax.swing.BoxLayout;
 import javax.swing.JLayeredPane;
 import java.awt.Component;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -82,9 +57,9 @@ public class Gui {
 	private JLayeredPane employeeAvailabilityLP;
 	private JLayeredPane custSelectEmployeeLP;
 	private JLayeredPane busSelectEmployeeLP;
-	private final Action action = new SwingAction();
+//	private final Action action = new SwingAction();
 	private int userPos;
-	private int empPos = 0;
+//	private int empPos = 0;
 //	private JTextField EmployeeNumberData;
 //	private JTextField EmployeeNameData;
 //	private JTextField EmployeeLNameData;
@@ -840,12 +815,12 @@ public class Gui {
 
 	
 	
- 	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
+// 	private class SwingAction extends AbstractAction {
+//		public SwingAction() {
+//			putValue(NAME, "SwingAction");
+//			putValue(SHORT_DESCRIPTION, "Some short description");
+//		}
+//		public void actionPerformed(ActionEvent e) {
+//		}
+//	}
 }
