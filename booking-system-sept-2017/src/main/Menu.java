@@ -1,6 +1,8 @@
 package main;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.Date;
 import users.*;
 
 public class Menu 
@@ -37,12 +39,12 @@ public class Menu
 					else if (returnValue == 1)
 					{
 						System.out.println("\nLogin successful: Printing customer menu.");
-						customerMenu(userInput, registration, customers, businesses, employees);
+						customerMenu(userInput, login, registration, customers, businesses, employees);
 					}
 					else if (returnValue == 2)
 					{
 						System.out.println("\nLogin successful: Printing business menu.");
-						businessMenu(userInput, registration, customers, businesses, employees);
+						businessMenu(userInput, login, registration, customers, businesses, employees);
 					}
 					break;
 				}
@@ -69,7 +71,7 @@ public class Menu
 		return true;
 	}
 	
-	public boolean customerMenu(Scanner userInput, Registration registration,  
+	public boolean customerMenu(Scanner userInput, Login login, Registration registration,  
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -103,7 +105,7 @@ public class Menu
 		return true;
 	}
 	
-	public boolean businessMenu(Scanner userInput, Registration registration, 
+	public boolean businessMenu(Scanner userInput, Login login, Registration registration, 
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -123,11 +125,34 @@ public class Menu
 				}
 				case 2:
 				{
+					int businessPosition = login.getUserPosition();
+					int numberOfBookings = businesses.get(businessPosition).bookings.size();
+					int counter = 0;
+					
+					if (numberOfBookings < 1)
+					{
+						System.out.println("There are no previous bookings to display.");
+					}
+					else
+					{
+						for (counter = 0; counter <= numberOfBookings; counter++)
+						{
+							if (!businesses.get(businessPosition).bookings.get(counter).getDate().plusDays(7).isAfter(LocalDate.now()))
+							{
+								System.out.println(businesses.get(businessPosition).bookings.get(counter).toString());
+							}
+						}
+					}
+					
+					break;
+				}
+				case 3:
+				{
 					registration.getEmployeeValues(userInput, employees);
 					registration.addNewEmployee(userInput, employees);
 					break;
 				}
-				case 3:
+				case 4:
 				{
 					System.out.println("\nReturning to main menu.\n");
 					break;
@@ -174,8 +199,9 @@ public class Menu
 		System.out.println("Business Menu");
 		printMenuLineSingle(15);
 		System.out.println("1. View Booking Timetable");
-		System.out.println("2. Add Employee");
-		System.out.println("3. Logout");
+		System.out.println("2. View Previous Bookings");
+		System.out.println("3. Add Employee");
+		System.out.println("4. Logout");
 		System.out.print("\nPlease enter your choice: ");
 		
 		return true;
