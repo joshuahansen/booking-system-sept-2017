@@ -142,6 +142,14 @@ public class Gui {
 					System.out.println("Can not load employee database");
 					System.out.println("Can not load employee availibilities");
 				}
+				if(database.readBookingsDB(businesses, customers, employees))
+				{
+					System.out.println("Booking Databse loaded");
+				}
+				else
+				{
+					System.out.println("Can not load Bookings");
+				}
 			}
 			else
 			{
@@ -163,17 +171,18 @@ public class Gui {
 						System.out.println("Can not load employee database");
 						System.out.println("Can not load employee availabilities");
 					}
+					if(database.readBookingsDB(businesses, customers, employees))
+					{
+						System.out.println("Booking Databse loaded");
+					}
+					else
+					{
+						System.out.println("Can not load Bookings");
+					}
 				}
 			}
 			
 		}
-		LocalDate today = LocalDate.now();
-		Booking newBooking = new Booking("001", 1, 2, today, true, customers.get(0), employees.get(0));
-		businesses.get(0).bookings.add(newBooking);
-		newBooking = new Booking("002", 3, 5, today, true, customers.get(1), employees.get(0));
-		businesses.get(0).bookings.add(newBooking);
-		newBooking = new Booking("003", 4, 3, today, true, customers.get(0), employees.get(0));
-		businesses.get(0).bookings.add(newBooking);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

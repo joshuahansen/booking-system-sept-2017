@@ -1,11 +1,14 @@
 package users;
 
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import main.Booking;
 //database class has all methods needed for program to interact with the database
 public class Database {
 	private Connection connection = null;
@@ -106,6 +109,22 @@ public class Database {
 		
 			stmt.executeUpdate(sql);
 			
+			sql = "CREATE TABLE BOOKINGS " +
+					"(BOOKING_ID		VARCHAR(40) NOT NULL," +
+					" AVAIL_DAY			INT				," +
+					" TIMESLOT			INT				," +
+					" DATE				INT				," +
+					" MONTH				INT				," +
+					" YEAR				INT				," +
+					" COMPLETED			BOOLEAN			," +
+					" CUST_UNAME		VARCHAR(40)		," +
+					" EMP_ID			VARCHAR(40)     ," +
+					" PRIMARY KEY (BOOKING_ID)," +
+					" FOREIGN KEY (CUST_UNAME) REFERENCES CUSTOMERS (CUST_UNAME)," +
+					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES (EMP_ID))";
+			
+			stmt.executeUpdate(sql);
+			
 			System.out.println("Database Initialised");
 			return true;
 			
@@ -133,6 +152,9 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "drop table emp_avail";
+			stmt.executeUpdate(sql);
+			
+			sql = "drop talbe bookings";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database tables cleared");
@@ -174,6 +196,15 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'yes')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKINGS VALUES('001', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKINGS VALUES('002', 1, 0, 4, 4, 2017, 'true', 'VickiV', '0001')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKINGS VALUES('003', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001')";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database set to defualt values");
@@ -301,6 +332,54 @@ public class Database {
 		}catch (SQLException e)
 		{
 			System.out.println("Unable to load employee availible times");
+			return false;
+		}
+	}
+	
+	public boolean readBookingsDB(ArrayList<Business> businesses, ArrayList<Customer> customers, ArrayList<Employee> employees)
+	{
+		ResultSet resultSet = null;
+		Booking newBooking;
+
+		try{
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM BOOKINGS");
+			while(resultSet.next())
+			{				
+				String bookingID = resultSet.getString("BOOKING_ID");
+				int day = resultSet.getInt("AVAIL_DAY");
+				int timeslot = resultSet.getInt("TIMESLOT");
+				int date = resultSet.getInt("DATE");
+				int month = resultSet.getInt("MONTH");
+				int year = resultSet.getInt("YEAR");
+				boolean completed = resultSet.getBoolean("COMPLETED");
+				String custUname = resultSet.getString("CUST_UNAME");
+				String employeeID = resultSet.getString("EMP_ID");
+				
+				int custPos = 0, employeePos = 0;
+				
+				for(int i = 0; i < customers.size(); i++)
+				{
+					if(customers.get(i).getUsername().equals(custUname))
+					{
+						custPos = i;
+					}
+				}
+				for(int i = 0; i < employees.size(); i++)
+				{
+					if(employees.get(i).getEmployeeID().equals(employeeID))
+					{
+						employeePos = i;
+					}
+				}
+				
+				LocalDate bookingDate = LocalDate.of(year, month, date);
+				newBooking = new Booking(bookingID, day, timeslot, bookingDate, completed,  customers.get(custPos), employees.get(employeePos));
+				businesses.get(0).bookings.add(newBooking);
+			}
+			return true;
+		}catch (SQLException e)
+		{
+			System.out.println("Unable to load Bookings");
 			return false;
 		}
 	}
