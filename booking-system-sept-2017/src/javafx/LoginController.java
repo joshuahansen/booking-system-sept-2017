@@ -47,10 +47,11 @@ public class LoginController {
 	    	
 	      	Login newLogin = new Login(loginUsernameData.getText(), loginPasswordData.getText());
 	      	int userType = newLogin.login(customers, businesses);
+	      	int userPos = newLogin.getUserPosition();
 	      	if( userType == 1)
 	      	{
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerMenu.fxml"));
-	    		CustomerMenuController controller = new CustomerMenuController(customers, businesses);
+	    		CustomerMenuController controller = new CustomerMenuController(customers, businesses, userPos);
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();

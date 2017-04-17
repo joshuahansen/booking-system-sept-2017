@@ -7,9 +7,9 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns:fx="http://javafx.com/fxml">
 	<right>
-		<FlowPane xmlns:fx="http://javafx.com/fxml/1" prefWidth="150" hgap="10" vgap="10">
+		<FlowPane prefWidth="150" hgap="10" vgap="10">
 			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 			
 			<Button text="Logout" fx:id="custLogoutButton"
@@ -25,5 +25,9 @@
 			onAction="#viewBookingsAction"/>
 		</FlowPane>
 	</right>
+	<center>
+		<GridPane fx:id="custMenuContent"/>
+	</center>
+	
 	
 </BorderPane>
