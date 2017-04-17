@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<right>
+		<FlowPane xmlns:fx="http://javafx.com/fxml/1" prefWidth="150" hgap="10" vgap="10">
+			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+			
+			<Button text="Logout" fx:id="custLogoutButton"
+			onAction="#logoutAction"/>
+			
+			<Button text="Customer Details" fx:id="custDetailsButton"
+			onAction="#detailsAction"/>
+			
+			<Button text="Make Booking" fx:id="custMakeBookingButton"
+			onAction="#makeBookingAction"/>
+			
+			<Button text="View Bookings" fx:id="custViewBookingButton"
+			onAction="#viewBookingsAction"/>
+		</FlowPane>
+	</right>
+	
+</BorderPane>
+
