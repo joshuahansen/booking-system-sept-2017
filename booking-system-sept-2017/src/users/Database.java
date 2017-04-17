@@ -93,7 +93,9 @@ public class Database {
 					"(EMP_ID		VARCHAR(40) NOT NULL," +
 					" EMP_FNAME		VARCHAR(40)		," +
 					" EMP_LNAME		VARCHAR(40)		," +
-					" PRIMARY KEY(EMP_ID))";
+					" BUS_UNAME		VARCHAR(40)		," +
+					" PRIMARY KEY(EMP_ID)"				+
+					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			
 			stmt.executeUpdate(sql);
 			
@@ -186,7 +188,7 @@ public class Database {
 			sql = "INSERT INTO BUSINESSES VALUES('fit4purpose','Fit for Purpose', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'superfit')";
 			stmt.executeUpdate(sql);
 			
-			sql= "INSERT INTO EMPLOYEES VALUES('0001', 'Harry', 'Jones')";
+			sql= "INSERT INTO EMPLOYEES VALUES('0001', 'Harry', 'Jones', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '0', 'no')";
@@ -278,7 +280,7 @@ public class Database {
 	}
 	
 	//read data from EMPLOYEE table into employee array
-	public boolean readEmplDB(ArrayList<Employee> employees)
+	public boolean readEmplDB(ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Employee newEmpl;
@@ -290,9 +292,17 @@ public class Database {
 				String employeeID = resultSet.getString("EMP_ID");
 				String fName = resultSet.getString("EMP_FNAME");
 				String lName = resultSet.getString("EMP_LNAME");
+				String busUname = resultSet.getString("BUS_UNAME");
 				
 				newEmpl = new Employee(employeeID, fName, lName);
-				employees.add(newEmpl);
+				
+				for(int i = 0; i < businesses.size(); i++)
+				{
+					if(businesses.get(i).getUsername().equals(busUname))
+					{
+						businesses.get(i).employees.add(newEmpl);
+					}
+				}
 			}
 			return true;
 		}catch (SQLException e)
@@ -303,7 +313,7 @@ public class Database {
 	}
 	
 	//read data from EMP_AVAIL table into correct employee availabilities array
-	public boolean readAvailablityTimes(ArrayList<Employee> employees)
+	public boolean readAvailablityTimes(ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		
@@ -318,12 +328,15 @@ public class Database {
 				int day = resultSet.getInt("AVAIL_DAY");
 				String booked = resultSet.getString("BOOKED");
 				
-				for(int i = 0; i < employees.size(); i++)
+				for(int busNo = 0; busNo < businesses.size(); busNo++)
 				{
-					if(employees.get(i).getEmployeeID().equals(employeeID))
+					for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
 					{
-						employees.get(i).setAvailableTime(timeslot, day, booked);
-						break;
+						if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+						{
+							businesses.get(busNo).employees.get(i).setAvailableTime(timeslot, day, booked);
+							break;
+						}
 					}
 				}
 			}
@@ -336,7 +349,7 @@ public class Database {
 		}
 	}
 	
-	public boolean readBookingsDB(ArrayList<Business> businesses, ArrayList<Customer> customers, ArrayList<Employee> employees)
+	public boolean readBookingsDB(ArrayList<Business> businesses, ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;
 		Booking newBooking;
@@ -355,7 +368,7 @@ public class Database {
 				String custUname = resultSet.getString("CUST_UNAME");
 				String employeeID = resultSet.getString("EMP_ID");
 				
-				int custPos = 0, employeePos = 0;
+				int custPos = 0, employeePos = 0, businessPos = 0;
 				
 				for(int i = 0; i < customers.size(); i++)
 				{
@@ -364,16 +377,22 @@ public class Database {
 						custPos = i;
 					}
 				}
-				for(int i = 0; i < employees.size(); i++)
+				for(int busNo = 0; busNo < businesses.size(); busNo++)
 				{
-					if(employees.get(i).getEmployeeID().equals(employeeID))
+
+					for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
 					{
-						employeePos = i;
+						if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+						{
+							employeePos = i;
+							businessPos = busNo;
+							break;
+						}
 					}
 				}
 				
 				LocalDate bookingDate = LocalDate.of(year, month, date);
-				newBooking = new Booking(bookingID, day, timeslot, bookingDate, completed,  customers.get(custPos), employees.get(employeePos));
+				newBooking = new Booking(bookingID, day, timeslot, bookingDate, completed,  customers.get(custPos), businesses.get(businessPos).employees.get(employeePos));
 				businesses.get(0).bookings.add(newBooking);
 			}
 			return true;
@@ -420,37 +439,40 @@ public class Database {
 	}
 	
 	//write employee array into database including available times array
-	public boolean writeEmplToDB(ArrayList<Employee> employees)
+	public boolean writeEmplToDB(ArrayList<Business> businesses)
 	{
-		for(int i = 0; i < employees.size(); i++)
+		for(int busNo = 0; busNo < businesses.size(); busNo++)
 		{
-			try{
-				String sql;
-				Statement stmt = connection.createStatement();
-			    for(int timeslot = 0; timeslot < employees.get(i).availableTimes.length; timeslot++)
-			    {
-			    	for(int day = 0; day < employees.get(i).availableTimes[timeslot].length; day++)
-			    	{
-			    		int booked = employees.get(i).availableTimes[timeslot][day];
-			    		if(booked == 1 || booked == 2)
-			    		{
-			    			try{
-				    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot, booked);
-								sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
-							    stmt.executeUpdate(sql);
-			    			}catch (SQLException e)
-			    			{
-			    				System.out.println("Employee already availible that timeslot");
-			    			}
-			    		}
-			    	}
-			    }
-			    emplToString(employees, i);
-				sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
-			    stmt.executeUpdate(sql);
-			    
-			}catch (SQLException ex) {
-				System.out.println("Employee record already exists. No changes were made.");
+			for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
+			{
+				try{
+					String sql;
+					Statement stmt = connection.createStatement();
+				    for(int timeslot = 0; timeslot < businesses.get(busNo).employees.get(i).availableTimes.length; timeslot++)
+				    {
+				    	for(int day = 0; day < businesses.get(busNo).employees.get(i).availableTimes[timeslot].length; day++)
+				    	{
+				    		int booked = businesses.get(busNo).employees.get(i).availableTimes[timeslot][day];
+				    		if(booked == 1 || booked == 2)
+				    		{
+				    			try{
+					    			emplAvailToString(businesses.get(busNo).employees.get(i).getEmployeeID(), day, timeslot, booked);
+									sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
+								    stmt.executeUpdate(sql);
+				    			}catch (SQLException e)
+				    			{
+				    				System.out.println("Employee already availible that timeslot");
+				    			}
+				    		}
+				    	}
+				    }
+				    emplToString(businesses.get(busNo).employees, i);
+					sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
+				    stmt.executeUpdate(sql);
+				    
+				}catch (SQLException ex) {
+					System.out.println("Employee record already exists. No changes were made.");
+				}
 			}
 		}
 		return true;

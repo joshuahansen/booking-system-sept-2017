@@ -3,6 +3,7 @@ package javafx;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,15 +15,18 @@ import users.Employee;
 
 public class BookingSystem extends Application {
 
+	private Database database;
+	private ArrayList<Customer> customers;
+	private ArrayList<Business> businesses;
+	
     @Override
     public void start(Stage stage) throws Exception {
-    	ArrayList<Customer> customers = new ArrayList<>();
-		ArrayList<Business> businesses = new ArrayList<>();
-		ArrayList<Employee> employees = new ArrayList<>();
+    	customers = new ArrayList<>();
+		businesses = new ArrayList<>();
 		
 		String url = "jdbc:sqlite:./database.db";
 		
-		Database database = new Database();
+		database = new Database();
 		/*only try loading database if a connection is established */
 		if(database.connectDatabase(url) == true)
 		{		
@@ -32,7 +36,7 @@ public class BookingSystem extends Application {
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
 				/*read employee availabilities only if customers and businesses are loaded correctly*/
-				if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+				if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 				{
 					System.out.println("Employee Database loaded");
 					System.out.println("Employee availible times loaded");
@@ -42,7 +46,7 @@ public class BookingSystem extends Application {
 					System.out.println("Can not load employee database");
 					System.out.println("Can not load employee availibilities");
 				}
-				if(database.readBookingsDB(businesses, customers, employees))
+				if(database.readBookingsDB(businesses, customers))
 				{
 					System.out.println("Booking Databse loaded");
 				}
@@ -61,7 +65,7 @@ public class BookingSystem extends Application {
 				{
 					System.out.println("Customer Database loaded");
 					System.out.println("Business Database loaded");
-					if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+					if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 					{
 						System.out.println("Employee Database loaded");
 						System.out.println("Employee available times loaded");
@@ -71,7 +75,7 @@ public class BookingSystem extends Application {
 						System.out.println("Can not load employee database");
 						System.out.println("Can not load employee availabilities");
 					}
-					if(database.readBookingsDB(businesses, customers, employees))
+					if(database.readBookingsDB(businesses, customers))
 					{
 						System.out.println("Booking Databse loaded");
 					}
@@ -88,20 +92,22 @@ public class BookingSystem extends Application {
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();
-		Scene loginScene = new Scene(bookingSystem, 1080, 720);
-//       bookingSystem = FXMLLoader.load(getClass().getResource("Register.fxml"));
-//       Scene registerScene = new Scene(bookingSystem,1080, 720);
-        
+		Scene loginScene = new Scene(bookingSystem, 1080, 720);        
     
         stage.setTitle("Booking System - Login");
         stage.setScene(loginScene);
-//        stage.setScene(registerScene);
         stage.show();
+        
+        stage.setOnCloseRequest(e -> {
+        System.out.println("Stage is closing");
+    	database.writeCustDB(customers);
+    	database.writeEmplToDB(businesses);
+        Platform.exit();
+        });
     }
     
 	public static void main(String[] args) {
 		launch(args);
 		
 	}
-
 }
