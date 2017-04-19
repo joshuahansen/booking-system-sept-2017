@@ -46,7 +46,9 @@ public class RegistrationTest {
 		System.out.println("\ninvalidUniqueUsernameTest:");
 		
 		assertEquals(false, reg.setValues("Bill", "Marley", "22 Test Drive", "97235234", "c_bMarley", "bMarley", customers, businesses));
-
+		
+		//unique user name is case sensitive 
+		assertEquals(false, reg.setValues("Bill", "Marley", "22 Test Drive", "97235234", "C_BMARLEY", "bMarley", customers, businesses));
 	}
 	
 	@Test
@@ -58,6 +60,9 @@ public class RegistrationTest {
 		System.out.println("\ninvalidPasswordTest:");
 
 		assertEquals(false, reg.setValues("Jimmy", "Taylor", "23 Test Drive", "97922356", "jtaylor", "pass", customers, businesses));
+		
+		//password length should be >= 6 and should return false otherwise.
+		assertEquals(true, reg.setValues("Jimmy", "Taylor", "23 Test Drive", "97922356", "jtaylor", "12345", customers, businesses));
 	}
 	
 	@Test
@@ -91,6 +96,16 @@ public class RegistrationTest {
 		System.out.println("\ninvalidPhoneTest:");
 		
 		assertEquals(false, reg.setValues("Harry", "Klein", "26 Test Drive", "953", "hklein", "pword1234", customers, businesses));
+		
+		//8 characters in phone should return false.
+		assertEquals(false, reg.setValues("Harry", "Klein", "26 Test Drive", "abcdefgh", "hklein", "pword1234", customers, businesses));
+		
+		//7 numbers in phone should return false.
+		assertEquals(false, reg.setValues("Harry", "Klein", "26 Test Drive", "1234567", "hklein", "pword1234", customers, businesses));
+		
+		//max length check for phone number >= 30
+		assertEquals(false, reg.setValues("leBron", "James", "23 Trenton Road", "12345678910111213141516171819"
+				+ "", "user01", "pass01", customers, businesses));
 	}
 	
 	//Below are the tests for the functions for adding a new employee to the system
@@ -127,7 +142,15 @@ public class RegistrationTest {
 		System.out.println("\ninvalidNameTest:");
 		
 		assertEquals(false, reg.setEmployeeValues("e00002", "", "Smith", employees));
-
+		
+		//first name passes integers and doubles
+		assertEquals(true, reg.setEmployeeValues("e00002", "555", "Smith", employees));
+		assertEquals(true, reg.setEmployeeValues("e00002", "23.45", "Smith", employees));
+		
+		//first name passes special characters
+		assertEquals(false, reg.setEmployeeValues("e00002", ",,,,,,", "Smith", employees));
+		assertEquals(false, reg.setEmployeeValues("e00002", "[][][][]", "Smith", employees));
+		assertEquals(false, reg.setEmployeeValues("e00002", "!@#$%^&*()[];'.,-=", "Smith", employees));
 	}
 	
 	@Test
@@ -138,7 +161,32 @@ public class RegistrationTest {
 		System.out.println("\ninvalidNameTest:");
 		
 		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "", employees));
-
+		
+		//last name passes integers and doubles
+	    assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "101", employees));
+		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "2.001", employees));
+		
+		//last name passes special characters
+		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", ",,,,,,", employees));
+		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "[][][][]", employees));
+		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "!@#$%^&*()[];'.,-=", employees));
 	}
+	@Test
+	public void invalidAddressTest() {
+		
+		Registration reg = new Registration();
+		ArrayList<Customer> customers = new ArrayList<>();
+		ArrayList<Business> businesses = new ArrayList<>();
+		
+		System.out.println("\ninvalidAddressTest:");
+		
+		//address will pass on empty string
+		assertEquals(false, reg.setValues("leBron", "James", "", "12345678", "user01", "pass01", customers, businesses));
+		
+		//address needs to check if there is both a number and street on the input. - seems kinda hard to code
+		assertEquals(false, reg.setValues("leBron", "James", "cleveland st", "12345678", "user01", "pass01", customers, businesses));
+		
+	}
+
 	
 }
