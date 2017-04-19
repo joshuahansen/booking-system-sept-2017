@@ -1,11 +1,14 @@
 package javafx;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +19,7 @@ import javafx.stage.Stage;
 import users.*;
 
  
-public class CustomerMenuController {
+public class CustomerMenuController implements Initializable{
     @FXML private Button custDetailsButton;
     @FXML private Button custMakeBookingButton;
     @FXML private Button custViewBookingsButton;
@@ -99,4 +102,22 @@ public class CustomerMenuController {
     		System.out.println("Unable to load bookings");
     	}
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		try {
+    		custMenuContent.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerDetails.fxml"));
+    		CustomerDetailsController controller = new CustomerDetailsController(customers, custPos);
+    		loader.setController(controller);
+    		
+    		custMenuContent.getChildren().add(loader.load());
+    		
+    		custMenuHeading.setText(customers.get(custPos).getUsername() + " Profile");
+    	}catch(IOException e)
+    	{
+    		System.out.println("Unable to load Customer Details");
+    	}
+		
+	}
 }
