@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+			<Label fx:id="busMenuHeading"/>
+			<Button text="Logout" fx:id="busLogout" onAction="#busLogoutAction" />
+	</top>
+	<center>
+		<TabPane tabClosingPolicy="UNAVAILABLE" fx:id="businessMenuTabPane">
+			<tabs>
+				<Tab text="Details" fx:id="detailsTab" >
+					<content>
+						<GridPane fx:id="businessDetails" alignment="center"/>
+					</content>
+				</Tab>
+				<Tab text="Add Employee">
+					<content>
+						<GridPane fx:id="addEmployeeForm" alignment="center"/>
+					</content>
+				</Tab>
+				<Tab text="Employee Availability">
+					<content>
+						<AnchorPane fx:id="employeeAvailability"/>
+					</content>
+				</Tab>
+				<Tab text="View Bookings">
+					<content>
+						<GridPane fx:id="busViewBooking"/>
+					</content>
+				</Tab>
+				<Tab text="Make Bookings">
+					<content>
+						<GridPane fx:id="busMakeBooking"/>
+					</content>
+				</Tab>
+			</tabs>
+		</TabPane>
+	</center>
+</BorderPane>

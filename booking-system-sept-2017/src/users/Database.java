@@ -1,17 +1,21 @@
 package users;
 
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import main.Booking;
+//database class has all methods needed for program to interact with the database
 public class Database {
 	private Connection connection = null;
 	private String custSQL;
 	private String emplSQL;
 	private String emplAvailSQL;
+	
 	
  	public Connection getConnection()
 	{
@@ -33,6 +37,7 @@ public class Database {
 		return emplAvailSQL;
 	}
 
+	//connect to the database. return false if unable to connect
 	public boolean connectDatabase(String url)
 	{
 		try{
@@ -45,20 +50,21 @@ public class Database {
 			
 		}catch(ClassNotFoundException ex){
 			System.out.println("ERROR: Class not found: " + ex.getMessage());
-//			System.exit(0);
 			return false;
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not load database");
-//			System.exit(0);
 			return false;
 		}
 	}
 	
+	//initialize database tables if there is no database found
 	public boolean initDatabase()
 	{
+		//try creating tables return true if successful
 		try{
 			Statement stmt = connection.createStatement();
 			
+			//Customer table using username as the primary key
 			String sql = "CREATE TABLE CUSTOMERS " +
 			        "(CUST_UNAME     	VARCHAR(40) NOT NULL," +
 			        " CUST_FNAME 		VARCHAR(40)     ," +
@@ -69,6 +75,7 @@ public class Database {
 			        " PRIMARY KEY(CUST_UNAME))";
 			stmt.executeUpdate(sql);
 			
+			//Business table using business username as the primary key
 			sql = "CREATE TABLE BUSINESSES " +
 					" (BUS_UNAME     	VARCHAR(40)	NOT NULL," +
 			        " BUS_BNAME			VARCHAR(40)		," +
@@ -81,14 +88,19 @@ public class Database {
 			
 			stmt.executeUpdate(sql);
 			
+			//EMployee table using employee ID as the primary key
 			sql = "CREATE TABLE EMPLOYEES " +
 					"(EMP_ID		VARCHAR(40) NOT NULL," +
 					" EMP_FNAME		VARCHAR(40)		," +
 					" EMP_LNAME		VARCHAR(40)		," +
-					" PRIMARY KEY(EMP_ID))";
+					" BUS_UNAME		VARCHAR(40)		," +
+					" PRIMARY KEY(EMP_ID)"				+
+					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			
 			stmt.executeUpdate(sql);
 			
+			//Employee availability table using employee ID, available day and timeslot as the primary key
+			//Employee ID is a foreign key
 			sql = "CREATE TABLE EMP_AVAIL " +
 					"(EMP_ID		VARCHAR(40)	NOT NULL," +
 					" AVAIL_DAY		INT NOT NULL		," +
@@ -99,16 +111,34 @@ public class Database {
 		
 			stmt.executeUpdate(sql);
 			
+			sql = "CREATE TABLE BOOKINGS " +
+					"(BOOKING_ID		VARCHAR(40) NOT NULL," +
+					" AVAIL_DAY			INT				," +
+					" TIMESLOT			INT				," +
+					" DATE				INT				," +
+					" MONTH				INT				," +
+					" YEAR				INT				," +
+					" COMPLETED			BOOLEAN			," +
+					" CUST_UNAME		VARCHAR(40)		," +
+					" EMP_ID			VARCHAR(40)     ," +
+					" PRIMARY KEY (BOOKING_ID)," +
+					" FOREIGN KEY (CUST_UNAME) REFERENCES CUSTOMERS (CUST_UNAME)," +
+					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES (EMP_ID))";
+			
+			stmt.executeUpdate(sql);
+			
 			System.out.println("Database Initialised");
 			return true;
 			
 		}catch(SQLException e)
 		{
+			//Catch any SQL exceptions, print message and return false 
 			System.out.println("Database cannot be initialised");
 			return false;
 		}
 	}
 	
+	//clear old database tables. return true when clears or false if unable to clear
 	public boolean clearTables()
 	{
 		try{
@@ -126,6 +156,9 @@ public class Database {
 			sql = "drop table emp_avail";
 			stmt.executeUpdate(sql);
 			
+			sql = "drop table bookings";
+			stmt.executeUpdate(sql);
+			
 			System.out.println("Database tables cleared");
 			return true;
 			
@@ -136,6 +169,7 @@ public class Database {
 		}
 	}
 	
+	//populate a new database with some default values
 	public boolean defaultValues()
 	{
 		try{
@@ -151,10 +185,10 @@ public class Database {
 			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESSES VALUES('StGeorges','St Georges', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'StGeorges')";
+			sql = "INSERT INTO BUSINESSES VALUES('fit4purpose','Fit for Purpose', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'superfit')";
 			stmt.executeUpdate(sql);
 			
-			sql= "INSERT INTO EMPLOYEES VALUES('0001', 'Harry', 'Jones')";
+			sql= "INSERT INTO EMPLOYEES VALUES('0001', 'Harry', 'Jones', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '0', 'no')";
@@ -164,6 +198,15 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'yes')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKINGS VALUES('001', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKINGS VALUES('002', 1, 0, 4, 4, 2017, 'true', 'VickiV', '0001')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKINGS VALUES('003', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001')";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database set to defualt values");
@@ -177,6 +220,7 @@ public class Database {
 		}
 	}
 	
+	//read data from CUSTOMER table into customer array
 	public boolean readCustDB(ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;
@@ -184,11 +228,10 @@ public class Database {
 		
 		try {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM CUSTOMERS");
-		
-		while(resultSet.next())		
-		{
-			System.out.println(resultSet);
 			
+			//read one row at a time adding customers to array. loop until no rows left
+		while(resultSet.next())		
+		{			
 			String username = resultSet.getString("CUST_UNAME");
 			String fName = resultSet.getString("CUST_FNAME");
 			String lName = resultSet.getString("CUST_LNAME");
@@ -207,17 +250,17 @@ public class Database {
 		}
 	}
 	
+	//read data from BUSINESS table into business array
 	public boolean readBusDB(ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Business newBus;
 	
+		//read one row from business table create new business object. loop until table has no new rows
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
 			while(resultSet.next())
-			{
-				System.out.println(resultSet);
-				
+			{				
 				String bName = resultSet.getString("BUS_BNAME");
 				String username = resultSet.getString("BUS_UNAME");
 				String fName = resultSet.getString("BUS_FNAME");
@@ -236,7 +279,8 @@ public class Database {
 		}
 	}
 	
-	public boolean readEmplDB(ArrayList<Employee> employees)
+	//read data from EMPLOYEE table into employee array
+	public boolean readEmplDB(ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Employee newEmpl;
@@ -245,14 +289,20 @@ public class Database {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMPLOYEES");
 			while(resultSet.next())
 			{
-				System.out.println(resultSet);
-				
 				String employeeID = resultSet.getString("EMP_ID");
 				String fName = resultSet.getString("EMP_FNAME");
 				String lName = resultSet.getString("EMP_LNAME");
+				String busUname = resultSet.getString("BUS_UNAME");
 				
 				newEmpl = new Employee(employeeID, fName, lName);
-				employees.add(newEmpl);
+				
+				for(int i = 0; i < businesses.size(); i++)
+				{
+					if(businesses.get(i).getUsername().equals(busUname))
+					{
+						businesses.get(i).employees.add(newEmpl);
+					}
+				}
 			}
 			return true;
 		}catch (SQLException e)
@@ -262,27 +312,31 @@ public class Database {
 		}
 	}
 	
-	public boolean readAvailablityTimes(ArrayList<Employee> employees)
+	//read data from EMP_AVAIL table into correct employee availabilities array
+	public boolean readAvailablityTimes(ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		
+		/*read availability from table. match employee ID in employee array to ID from emp_avail and 
+		 * add availability to employees array*/
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMP_AVAIL");
 			while(resultSet.next())
 			{
-				System.out.println(resultSet);
-				
 				String employeeID = resultSet.getString("EMP_ID");
 				int timeslot = resultSet.getInt("TIMESLOT");
 				int day = resultSet.getInt("AVAIL_DAY");
 				String booked = resultSet.getString("BOOKED");
 				
-				for(int i = 0; i < employees.size(); i++)
+				for(int busNo = 0; busNo < businesses.size(); busNo++)
 				{
-					if(employees.get(i).getEmployeeID().equals(employeeID))
+					for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
 					{
-						employees.get(i).setAvailableTime(timeslot, day, booked);
-						break;
+						if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+						{
+							businesses.get(busNo).employees.get(i).setAvailableTime(timeslot, day, booked);
+							break;
+						}
 					}
 				}
 			}
@@ -294,7 +348,62 @@ public class Database {
 			return false;
 		}
 	}
+	
+	public boolean readBookingsDB(ArrayList<Business> businesses, ArrayList<Customer> customers)
+	{
+		ResultSet resultSet = null;
+		Booking newBooking;
 
+		try{
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM BOOKINGS");
+			while(resultSet.next())
+			{				
+				String bookingID = resultSet.getString("BOOKING_ID");
+				int day = resultSet.getInt("AVAIL_DAY");
+				int timeslot = resultSet.getInt("TIMESLOT");
+				int date = resultSet.getInt("DATE");
+				int month = resultSet.getInt("MONTH");
+				int year = resultSet.getInt("YEAR");
+				boolean completed = resultSet.getBoolean("COMPLETED");
+				String custUname = resultSet.getString("CUST_UNAME");
+				String employeeID = resultSet.getString("EMP_ID");
+				
+				int custPos = 0, employeePos = 0, businessPos = 0;
+				
+				for(int i = 0; i < customers.size(); i++)
+				{
+					if(customers.get(i).getUsername().equals(custUname))
+					{
+						custPos = i;
+					}
+				}
+				for(int busNo = 0; busNo < businesses.size(); busNo++)
+				{
+
+					for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
+					{
+						if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+						{
+							employeePos = i;
+							businessPos = busNo;
+							break;
+						}
+					}
+				}
+				
+				LocalDate bookingDate = LocalDate.of(year, month, date);
+				newBooking = new Booking(bookingID, day, timeslot, bookingDate, completed,  customers.get(custPos), businesses.get(businessPos).employees.get(employeePos));
+				businesses.get(0).bookings.add(newBooking);
+			}
+			return true;
+		}catch (SQLException e)
+		{
+			System.out.println("Unable to load Bookings");
+			return false;
+		}
+	}
+
+	//write whole customer array to the database
  	public void writeCustDB(ArrayList<Customer> customers)
 	{		
 		for(int i = 0; i < customers.size(); i++)
@@ -311,6 +420,7 @@ public class Database {
 		}
 	}
 	
+ 	//only write last customer in array (New Customer) into database
 	public boolean writeNewCustToDB(ArrayList<Customer> customers, int position)
 	{
 		try{
@@ -328,42 +438,47 @@ public class Database {
 		}
 	}
 	
-	public boolean writeEmplToDB(ArrayList<Employee> employees)
+	//write employee array into database including available times array
+	public boolean writeEmplToDB(ArrayList<Business> businesses)
 	{
-		for(int i = 0; i < employees.size(); i++)
+		for(int busNo = 0; busNo < businesses.size(); busNo++)
 		{
-			try{
-				String sql;
-				Statement stmt = connection.createStatement();
-			    for(int timeslot = 0; timeslot < employees.get(i).availableTimes.length; timeslot++)
-			    {
-			    	for(int day = 0; day < employees.get(i).availableTimes[timeslot].length; day++)
-			    	{
-			    		int booked = employees.get(i).availableTimes[timeslot][day];
-			    		if(booked == 1 || booked == 2)
-			    		{
-			    			try{
-				    			emplAvailToString(employees.get(i).getEmployeeID(), day, timeslot, booked);
-								sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
-							    stmt.executeUpdate(sql);
-			    			}catch (SQLException e)
-			    			{
-			    				System.out.println("Employee already availible that timeslot");
-			    			}
-			    		}
-			    	}
-			    }
-			    emplToString(employees, i);
-				sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
-			    stmt.executeUpdate(sql);
-			    
-			}catch (SQLException ex) {
-				System.out.println("Employee record already exists. No changes were made.");
+			for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
+			{
+				try{
+					String sql;
+					Statement stmt = connection.createStatement();
+				    for(int timeslot = 0; timeslot < businesses.get(busNo).employees.get(i).availableTimes.length; timeslot++)
+				    {
+				    	for(int day = 0; day < businesses.get(busNo).employees.get(i).availableTimes[timeslot].length; day++)
+				    	{
+				    		int booked = businesses.get(busNo).employees.get(i).availableTimes[timeslot][day];
+				    		if(booked == 1 || booked == 2)
+				    		{
+				    			try{
+					    			emplAvailToString(businesses.get(busNo).employees.get(i).getEmployeeID(), day, timeslot, booked);
+									sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
+								    stmt.executeUpdate(sql);
+				    			}catch (SQLException e)
+				    			{
+				    				System.out.println("Employee already availible that timeslot");
+				    			}
+				    		}
+				    	}
+				    }
+				    emplToString(businesses.get(busNo).employees, i);
+					sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
+				    stmt.executeUpdate(sql);
+				    
+				}catch (SQLException ex) {
+					System.out.println("Employee record already exists. No changes were made.");
+				}
 			}
 		}
 		return true;
 	}
 	
+	//convert objects to strings for SQL commands
 	public boolean custToString(ArrayList<Customer> customers, int position)
 	{
 		String uName = customers.get(position).getUsername();
@@ -404,6 +519,7 @@ public class Database {
 		return true;
 	}
 	
+	//close connection to the database
 	public boolean closeConnection()
 	{
 		try{
@@ -416,6 +532,7 @@ public class Database {
 		}
 	}
 	
+	//delete all records in a specified table keeping table 
 	public boolean deleteAllRecords(String table)
 	{
 		try{

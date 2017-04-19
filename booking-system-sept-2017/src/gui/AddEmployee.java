@@ -15,6 +15,9 @@ import javax.swing.SwingConstants;
 import main.Registration;
 import users.Employee;
 
+/* to add an employee using gui to the business employee arrray.
+ * populates the add employee layered pane with the labels text boxes and buttons required to add an employee
+ */
 public class AddEmployee {
 	private JTextField EmployeeNumberData;
 	private JTextField EmployeeFNameData;
@@ -22,6 +25,7 @@ public class AddEmployee {
 
 	public void addEmployee(JLayeredPane addEmployeeLP, Registration register, ArrayList<Employee> employees)
 	{
+		addEmployeeLP.removeAll();
 		JLabel lblAddEmployee = new JLabel("Add Employee");
 		lblAddEmployee.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddEmployee.setForeground(new Color(30, 144, 255));
@@ -64,6 +68,7 @@ public class AddEmployee {
 		addEmployeeLP.add(EmployeeLNameData);
 		EmployeeLNameData.setColumns(10);
 		
+		//cancel button takes user back to main screen
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCancel.setBounds(200, 500, 130, 50);
@@ -77,6 +82,9 @@ public class AddEmployee {
 			}
 		});
 		
+		/*confirm button verifies employee details to make sure they are valid and adds employee to the array.
+		 * screen goes back to main screen 
+		 */
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnConfirm.setBounds(550, 500, 130, 50);
@@ -91,5 +99,8 @@ public class AddEmployee {
 				addEmployeeLP.setVisible(false);
 			}
 		});
+		//refreshes pages during runtime to make sure all lables buttons and text fields are up to date.
+		addEmployeeLP.revalidate();
+		addEmployeeLP.repaint();
 	}
 }

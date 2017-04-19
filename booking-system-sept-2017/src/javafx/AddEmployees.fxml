@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" vgap="10">
+	<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+
+	<!-- <gridLinesVisible>true</gridLinesVisible> -->
+					
+	<Label text="Employee Number:" fx:id="employeeNumberLabel"
+		GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+	
+	<TextField fx:id="employeeNumberData"
+		GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+	
+	<Label text="First Name:" fx:id="EmployeeFirstNameLabel"
+		GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+	
+	<TextField fx:id="employeeFirstNameData"
+		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+		
+	<Label text="Last Name:" fx:id="EmployeeLastNameLabel"
+		GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+	
+	<TextField fx:id="employeeLastNameData"
+		GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+		
+	<HBox spacing="10" alignment="bottom_left"
+       GridPane.columnIndex="0" GridPane.rowIndex="4">
+       <Button text="Clear" fx:id="registerButton"    
+       onAction="#handleClearButtonAction"/>
+	</HBox>
+       
+    <HBox spacing="10" alignment="bottom_right" 
+    GridPane.columnIndex="1" GridPane.rowIndex="4">
+    <Button text="Add Employee" fx:id="addEmployeeButton"
+    onAction="#handleAddEmployeeButtonAction"/>
+	</HBox>
+       	
+    <Text fx:id="addEmployeeActiontarget"
+       GridPane.columnIndex="0" GridPane.rowIndex="6"
+       GridPane.columnSpan="2"/>
+</GridPane>
+

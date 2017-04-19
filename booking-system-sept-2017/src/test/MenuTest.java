@@ -77,10 +77,12 @@ public class MenuTest
 		Scanner userInput = new Scanner(System.in);
 		
 		Registration registration = new Registration();
+
+		Login login = new Login();
 		
 		Menu menuTest = new Menu();
 		
-		assertEquals(true, menuTest.customerMenu(userInput, registration, customers, businesses, employees));
+		assertEquals(true, menuTest.customerMenu(userInput, login, registration, customers, businesses, employees));
 		
 		// enter 2 for successful test
 	}
@@ -96,9 +98,11 @@ public class MenuTest
 		
 		Registration registration = new Registration();
 		
+		Login login = new Login();
+		
 		Menu menuTest = new Menu();
 		
-		assertEquals(true, menuTest.businessMenu(userInput, registration, customers, businesses, employees));
+		assertEquals(true, menuTest.businessMenu(userInput, login, registration, customers, businesses, employees));
 		
 		// enter 3 for successful test
 	}

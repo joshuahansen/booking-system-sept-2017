@@ -3,32 +3,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-//import com.jgoodies.forms.layout.FormLayout;
-//import com.jgoodies.forms.layout.ColumnSpec;
-//import com.jgoodies.forms.layout.FormSpecs;
-//import com.jgoodies.forms.layout.RowSpec;
-
 import users.*;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-//import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JTable;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
@@ -38,18 +25,11 @@ import main.Login;
 import main.Registration;
 
 import javax.swing.JPanel;
-import javax.swing.JInternalFrame;
-import javax.swing.JSplitPane;
-import javax.swing.BoxLayout;
 import javax.swing.JLayeredPane;
 import java.awt.Component;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Gui {
 
@@ -69,16 +49,17 @@ public class Gui {
 	private JPanel businessMenuPanel;
 	private JLayeredPane customerDetailsLP;
 	private JLayeredPane availableTimesLP;
+	private JLayeredPane custHomeLP;
 	private JLayeredPane businessDetailsLP;
 	private JLayeredPane addEmployeeLP;
-	private JLayeredPane addOpenHoursLP;
 	private JLayeredPane bookingSummaryLP;
+	private JLayeredPane custBookingSummaryLP;
 	private JLayeredPane employeeAvailabilityLP;
 	private JLayeredPane custSelectEmployeeLP;
 	private JLayeredPane busSelectEmployeeLP;
-	private final Action action = new SwingAction();
+//	private final Action action = new SwingAction();
 	private int userPos;
-	private int empPos = 0;
+//	private int empPos = 0;
 //	private JTextField EmployeeNumberData;
 //	private JTextField EmployeeNameData;
 //	private JTextField EmployeeLNameData;
@@ -117,18 +98,16 @@ public class Gui {
 //		users.init_businesses(businesses);
 
 		Database database = new Database();
+		/*only try loading database if a connection is established */
 		if(database.connectDatabase(url) == true)
-		{
-		
-//			database.clearTables();
-//			database.initDatabase();
-//			database.defaultValues();
-			
+		{		
+			/*Try reading from database tables customers and businesses*/
 			if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
 			{
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
-				if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+				/*read employee availabilities only if customers and businesses are loaded correctly*/
+				if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 				{
 					System.out.println("Employee Database loaded");
 					System.out.println("Employee availible times loaded");
@@ -138,9 +117,18 @@ public class Gui {
 					System.out.println("Can not load employee database");
 					System.out.println("Can not load employee availibilities");
 				}
+				if(database.readBookingsDB(businesses, customers))
+				{
+					System.out.println("Booking Databse loaded");
+				}
+				else
+				{
+					System.out.println("Can not load Bookings");
+				}
 			}
 			else
 			{
+				/*if database doesn't exist initialize new database with default values and read database into arrays*/
 				database.clearTables();
 				database.initDatabase();
 				database.defaultValues();
@@ -148,7 +136,7 @@ public class Gui {
 				{
 					System.out.println("Customer Database loaded");
 					System.out.println("Business Database loaded");
-					if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+					if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 					{
 						System.out.println("Employee Database loaded");
 						System.out.println("Employee available times loaded");
@@ -158,6 +146,14 @@ public class Gui {
 						System.out.println("Can not load employee database");
 						System.out.println("Can not load employee availabilities");
 					}
+					if(database.readBookingsDB(businesses, customers))
+					{
+						System.out.println("Booking Databse loaded");
+					}
+					else
+					{
+						System.out.println("Can not load Bookings");
+					}
 				}
 			}
 			
@@ -166,7 +162,7 @@ public class Gui {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Gui window = new Gui(customers, businesses, employees, database.getConnection(), database);
+					Gui window = new Gui(customers, businesses, database.getConnection(), database);
 					window.frmBookingSystem.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -188,14 +184,14 @@ public class Gui {
 	/**
 	 * Create the application.
 	 */
-	public Gui(ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees, Connection connection, Database database) {
-		initialize(customers, businesses, employees, connection, database);
+	public Gui(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
+		initialize(customers, businesses, connection, database);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees, Connection connection, Database database) {
+	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
 		frmBookingSystem = new JFrame();
 		frmBookingSystem.setResizable(false);
 		frmBookingSystem.getContentPane().setBackground(new Color(204, 204, 204));
@@ -211,14 +207,14 @@ public class Gui {
 		
 			
 		UserDetails userDetails = new UserDetails();
-		//SelectEmployee selection = new SelectEmployee();
-		//DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
 		AddEmployee addEmployee = new AddEmployee();
 		Registration reg = new Registration();
 		
 		
 
 		//Login panel
+		/* all elements for the login panel, labels buttons images and text fields
+		 */
 			loginPanel = new JPanel();
 			loginPanel.setBounds(0, 0, 1074, 691);
 			frmBookingSystem.getContentPane().add(loginPanel);
@@ -229,6 +225,7 @@ public class Gui {
 			loginErrorPane.setBounds(150, 150, 262, 90);
 			loginPanel.add(loginErrorPane);
 			
+			//set action listener for the login button, verify user details with customer and business arrays
 			JButton btnLogin = new JButton("Login");
 			btnLogin.setBounds(450, 450, 140, 40);
 			loginPanel.add(btnLogin);
@@ -248,6 +245,7 @@ public class Gui {
 						{
 							setAllVisibleFalse();
 							custMenuPanel.setVisible(true);
+							custHomeLP.setVisible(true);
 							frmBookingSystem.setTitle("Booking System - Customer Menu");
 						}
 						else if(login == 2)
@@ -258,6 +256,7 @@ public class Gui {
 						}
 						else
 						{
+							//pop up for when username and passwords fail
 							JOptionPane.showMessageDialog(loginErrorPane, "Username or Password incorrect. Please Try Again.", "Alert", JOptionPane.ERROR_MESSAGE);
 						}
 					}
@@ -332,6 +331,7 @@ public class Gui {
 			label.setIcon(new ImageIcon(timeImg));
 		
 	//Register panel and elements
+			/*populate register panel with labels, buttons and text fields*/
 		registerPanel = new JPanel();
 		registerPanel.setBounds(0, 0, 1074, 691);
 		frmBookingSystem.getContentPane().add(registerPanel);
@@ -483,12 +483,6 @@ public class Gui {
 		passwordConfirmText.setBounds(325, 530, 350, 40);
 		registerPanel.add(passwordConfirmText);
 		
-		JLabel lblPasswordMatchError = new JLabel("");
-		lblPasswordMatchError.setBounds(675, 530, 350, 40);
-		registerPanel.add(lblPasswordMatchError);
-		lblPasswordMatchError.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblPasswordMatchError.setForeground(Color.red);
-		
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 24));
 		btnConfirm.addActionListener(new ActionListener() {
@@ -497,9 +491,9 @@ public class Gui {
 				String confPassword = new String(passwordConfirmText.getPassword());
 				if(password.equals(confPassword))
 				{
-					reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password,customers, businesses);
-					if(reg.registerNewCust(customers, businesses) == true)
+					if(reg.setValues(fNameText.getText(), lNameText.getText(), addressText.getText(), phoneText.getText(), usernameText.getText(), password,customers, businesses) == true)
 					{
+						reg.registerNewCust(customers, businesses);
 						setAllVisibleFalse();
 						loginPanel.setVisible(true);
 						
@@ -517,7 +511,11 @@ public class Gui {
 				}
 				else
 				{
-					lblPasswordMatchError.setText("Passwords do not match.");
+					JOptionPane PassMatchErrorPane = new JOptionPane();
+					PassMatchErrorPane.setVisible(false);
+					PassMatchErrorPane.setBounds(150, 150, 262, 90);
+					registerPanel.add(PassMatchErrorPane);
+					JOptionPane.showMessageDialog(PassMatchErrorPane, "Passwords do not match. Please Try Again.", "Alert", JOptionPane.ERROR_MESSAGE);
 					passwordText.setText("");
 					passwordConfirmText.setText("");
 				}
@@ -557,6 +555,10 @@ public class Gui {
 		custMenuPanel.add(availableTimesLP);
 		availableTimesLP.setLayout(null);	
 		
+		custHomeLP = new JLayeredPane();
+		custHomeLP.setBounds(0, 0, 800, 691);
+		custMenuPanel.add(custHomeLP);
+		
 		customerDetailsLP = new JLayeredPane();
 		customerDetailsLP.setBounds(0, 0, 800, 691);
 		customerDetailsLP.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -568,11 +570,23 @@ public class Gui {
 		custSelectEmployeeLP.setBounds(0, 0, 800, 691);
 		custMenuPanel.add(custSelectEmployeeLP);
 		
+		custBookingSummaryLP = new JLayeredPane();
+		custBookingSummaryLP.setBounds(0, 0, 800, 691);
+		custMenuPanel.add(custBookingSummaryLP);
+		
+		
 		JButton btnAvailableTimes = new JButton("Available Times");
 		btnAvailableTimes.setBounds(904, 190, 160, 80);
 		custMenuPanel.add(btnAvailableTimes);
 		btnAvailableTimes.setFont(new Font("Tahoma", Font.PLAIN, 18));
 	
+		JLabel lblCompany = new JLabel("Fit For Purpose");
+		lblCompany.setForeground(new Color(30, 144, 255));
+		lblCompany.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCompany.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
+		lblCompany.setBounds(50, 0, 700, 100);
+		custHomeLP.add(lblCompany);
+		
 		JButton btnViewCustomer = new JButton("Vew Details");
 		btnViewCustomer.setBounds(904, 110, 160, 80);
 		custMenuPanel.add(btnViewCustomer);
@@ -592,12 +606,42 @@ public class Gui {
 				custMenuPanel.setVisible(true);
 				SelectEmployee selection = new SelectEmployee();
 				DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
-				selection.selectPersonalTrainer(custSelectEmployeeLP, availableTimesLP, custMenuPanel, employees, displayAvail);
+				selection.selectPersonalTrainer(custSelectEmployeeLP, availableTimesLP, custMenuPanel, businesses.get(0).employees, displayAvail);
 				custSelectEmployeeLP.setVisible(true);
 				custSelectEmployeeLP.revalidate();
 				custSelectEmployeeLP.repaint();
 			}
 		});
+		
+		JTextArea custBookings = new JTextArea();
+		custBookings.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		custBookings.setBounds(25, 150, 750, 500);
+		custBookings.setEditable(false);
+//		bookingSummaryLP.add(custBookings);
+		JScrollPane custBookingsScrollPane = new JScrollPane(custBookings);
+		custBookingsScrollPane.setBounds(10, 150, 790, 530);
+		custBookingSummaryLP.add(custBookingsScrollPane);
+		
+		JButton btnCustBookingSummary = new JButton("Booking Summary");
+		btnCustBookingSummary.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setAllVisibleFalse();
+				custMenuPanel.setVisible(true);
+				custBookingSummaryLP.setVisible(true);
+				String bookingText = "Booking ID\t" + "Date\t" + "Customer Name    " + "Day\t" + "Timeslot\t" + "Employee Name";
+				for(int i = 0; i < businesses.get(0).bookings.size(); i++)
+				{
+					if(customers.get(userPos).getUsername().equals(businesses.get(0).bookings.get(i).getCustUsername()))
+					{
+						bookingText = bookingText + "\n" + businesses.get(0).bookings.get(i).toString();
+					}
+				}
+				custBookings.setText(bookingText);
+			}
+		});
+		btnCustBookingSummary.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCustBookingSummary.setBounds(904, 270, 160, 80);
+		custMenuPanel.add(btnCustBookingSummary);
 
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setBounds(904, 10, 160, 40);
@@ -647,7 +691,7 @@ public class Gui {
 			busBtnLogout.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					database.deleteAllRecords("EMP_AVAIL");
-					database.writeEmplToDB(employees);
+					database.writeEmplToDB(businesses);
 					setAllVisibleFalse();
 					setTextNull();
 					loginPanel.setVisible(true);
@@ -674,7 +718,7 @@ public class Gui {
 			btnAddEmployee.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setAllVisibleFalse();
-					addEmployee.addEmployee(addEmployeeLP, reg, employees);
+					addEmployee.addEmployee(addEmployeeLP, reg, businesses.get(0).employees);
 					businessMenuPanel.setVisible(true);
 					addEmployeeLP.setVisible(true);
 				}
@@ -683,12 +727,28 @@ public class Gui {
 			btnAddEmployee.setBounds(904, 188, 160, 80);
 			businessMenuPanel.add(btnAddEmployee);
 			
+			
+			JTextArea textArea = new JTextArea();
+			textArea.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			textArea.setBounds(25, 150, 750, 500);
+			textArea.setEditable(false);
+//			bookingSummaryLP.add(textArea);
+			JScrollPane scrollPane = new JScrollPane(textArea);
+			scrollPane.setBounds(10, 150, 790, 530);
+			bookingSummaryLP.add(scrollPane);
+			
 			JButton btnBookingSummary = new JButton("Booking Summary");
 			btnBookingSummary.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setAllVisibleFalse();
 					businessMenuPanel.setVisible(true);
 					bookingSummaryLP.setVisible(true);
+					String bookingText = "Booking ID\t" + "Date\t" + "Customer Name    " + "Day\t" + "Timeslot\t" + "Employee Name";
+					for(int i = 0; i < businesses.get(userPos).bookings.size(); i++)
+					{
+						bookingText = bookingText + "\n" + businesses.get(userPos).bookings.get(i).toString();
+					}
+					textArea.setText(bookingText);
 				}
 			});
 			btnBookingSummary.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -702,7 +762,7 @@ public class Gui {
 					businessMenuPanel.setVisible(true);
 					SelectEmployee selection = new SelectEmployee();
 					DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
-					selection.selectEmployee(busSelectEmployeeLP, employeeAvailabilityLP, businessMenuPanel, employees, displayAvail);
+					selection.selectEmployee(busSelectEmployeeLP, employeeAvailabilityLP, businessMenuPanel, businesses.get(0).employees, displayAvail);
 					busSelectEmployeeLP.setVisible(true);
 					busSelectEmployeeLP.revalidate();
 					busSelectEmployeeLP.repaint();
@@ -718,6 +778,11 @@ public class Gui {
 			lblBookingSummary.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
 			lblBookingSummary.setBounds(50, 0, 700, 150);
 			bookingSummaryLP.add(lblBookingSummary);
+			custBookingSummaryLP.add(lblBookingSummary);
+			
+
+			
+		
 	
 	
 		//set all pages visibility to false
@@ -730,12 +795,14 @@ public class Gui {
 		loginPanel.setVisible(false);
 		registerPanel.setVisible(false);
 		custMenuPanel.setVisible(false);
+		custHomeLP.setVisible(false);
 		customerDetailsLP.setVisible(false);
 		availableTimesLP.setVisible(false);
 		businessMenuPanel.setVisible(false);
 		businessDetailsLP.setVisible(false);
 		addEmployeeLP.setVisible(false);
 		bookingSummaryLP.setVisible(false);
+		custBookingSummaryLP.setVisible(false);
 		employeeAvailabilityLP.setVisible(false);
 		custSelectEmployeeLP.setVisible(false);
 		busSelectEmployeeLP.setVisible(false);
@@ -748,12 +815,12 @@ public class Gui {
 
 	
 	
- 	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
+// 	private class SwingAction extends AbstractAction {
+//		public SwingAction() {
+//			putValue(NAME, "SwingAction");
+//			putValue(SHORT_DESCRIPTION, "Some short description");
+//		}
+//		public void actionPerformed(ActionEvent e) {
+//		}
+//	}
 }

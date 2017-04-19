@@ -2,11 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.SwingConstants;
@@ -41,6 +38,7 @@ public class UserDetails {
 	private JLabel lblCustomerContactNumber;
 	private JLabel lblCustomerContactNumberData;
 	
+	/*Create labels for business details and add to business details layered pane*/
 	public void businessDetails(JLayeredPane businessDetailsLP)
 	{
 		lblBusinessDetails = new JLabel("Business Details");
@@ -112,6 +110,7 @@ public class UserDetails {
 		
 	}
 	
+	/*Create labels for customer details and add them to customerDetails layered pane*/
 	public void customerDetails(JLayeredPane customerDetailsLP)
 	{
 		lblCustomerDetails = new JLabel("Customer Details");
@@ -171,7 +170,7 @@ public class UserDetails {
 		lblCustomerContactNumberData.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		customerDetailsLP.add(lblCustomerContactNumberData);
 	}
-	
+	/* load customer details from logged in user into labels */
 	public void loadCustomerDetails(ArrayList<Customer> customers, int userPos)
 	{
 		lblCustomerFirstNameData.setText(customers.get(userPos).getFirstName());
@@ -181,6 +180,7 @@ public class UserDetails {
 		lblCustomerContactNumberData.setText(customers.get(userPos).getContactNumber());
 	}
 
+	/*Load business details from logged in user to labels*/
 	public void loadBusinessDetails(ArrayList<Business> businesses, int userPos)
 	{
 		lblBusinessNameData.setText(businesses.get(userPos).getBusinessName());

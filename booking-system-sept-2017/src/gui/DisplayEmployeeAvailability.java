@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import users.Employee;
 
+//class for printing employee availability buttons to panel
 public class DisplayEmployeeAvailability {
 
 	private int timeslots = 10;
@@ -20,9 +21,9 @@ public class DisplayEmployeeAvailability {
 	private int x;
 	private int y;
 	
+	//display employee availability buttons for the business
 	public void displayBusEmployeeAvailability(ArrayList<Employee> employees, int emplPos, JLayeredPane employeeAvailabilityLP, JPanel businessMenuPanel)
 	{
-		System.out.println("Employee position: " + emplPos);
 		x = 110;
 		y = 150;
 		JLabel lblEmployeeAvailability = new JLabel("Employee Availability");
@@ -37,7 +38,7 @@ public class DisplayEmployeeAvailability {
 		optionPane.setBounds(262, 232, 262, 90);
 		employeeAvailabilityLP.add(optionPane);
 		
-		
+		//print a 2D array of buttons with correct employee availability labels
 		JButton button[][]=new JButton[timeslots][days];
 		for(int timeslot = 0; timeslot < button.length; timeslot++)
 		{
@@ -46,18 +47,24 @@ public class DisplayEmployeeAvailability {
 				button[timeslot][day] = new JButton();
 
 				int availTime = employees.get(emplPos).getAvailableTime(timeslot, day);
-				System.out.println("available time " + availTime);
+				
 				if(availTime == 1)
 				{
 				button[timeslot][day].setText("Available");
+				button[timeslot][day].setBackground(Color.lightGray);
+				
 				}
 				else if(availTime == 2)
 				{
 					button[timeslot][day].setText("Booked");
+					button[timeslot][day].setBackground(Color.BLACK);
+					button[timeslot][day].setForeground(Color.WHITE);
 				}
 				else
 				{
 					button[timeslot][day].setText("Not Available");
+					button[timeslot][day].setForeground(Color.LIGHT_GRAY);
+					button[timeslot][day].setBackground(Color.lightGray);
 				}
 				button[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
 				button[timeslot][day].setBounds(x, y, 130, 40);
@@ -68,14 +75,16 @@ public class DisplayEmployeeAvailability {
 			}
 			x = 110;
 			y = y+45;
-		}			
+		}	
+		//refresh buttons at runtime
+		employeeAvailabilityLP.revalidate();
+		employeeAvailabilityLP.repaint();
 	}
-
+//	display employee availability buttons for the customer
 	public void displayEmployeeAvailability(ArrayList<Employee> employees, int emplPos, JLayeredPane availableTimesLP, JPanel custMenuPanel)
 	{	
 		x = 110;
 		y = 150;
-		System.out.println("Employee position: " + emplPos);
 		JLabel lblAvailableTimes = new JLabel("Available Times");
 		lblAvailableTimes.setBounds(50, 0, 700, 150);
 		availableTimesLP.add(lblAvailableTimes);
@@ -95,18 +104,23 @@ public class DisplayEmployeeAvailability {
 			{
 				bookingButton[timeslot][day] = new JButton();
 				int availTime = employees.get(emplPos).getAvailableTime(timeslot, day);
-				System.out.println("available time " + availTime);
+				
 				if(availTime == 1)
 				{
 				bookingButton[timeslot][day].setText("Available");
+				bookingButton[timeslot][day].setBackground(Color.lightGray);
 				}
 				else if(availTime == 2)
 				{
 					bookingButton[timeslot][day].setText("Booked");
+					bookingButton[timeslot][day].setBackground(Color.BLACK);
+					bookingButton[timeslot][day].setForeground(Color.WHITE);
 				}
 				else
 				{
 					bookingButton[timeslot][day].setText("Not Available");
+					bookingButton[timeslot][day].setForeground(Color.LIGHT_GRAY);
+					bookingButton[timeslot][day].setBackground(Color.lightGray);
 				}
 				bookingButton[timeslot][day].setFont(new Font("Tahoma", Font.PLAIN, 16));
 				bookingButton[timeslot][day].setBounds(x, y, 130, 40);
@@ -120,9 +134,13 @@ public class DisplayEmployeeAvailability {
 			}
 			x = 110;
 			y = y+45;
-		}	
+		}
+		//refresh buttons at run time
+		availableTimesLP.revalidate();
+		availableTimesLP.repaint();
 	}
 	
+	//labels for rows and columns for the button array
 	public void layout(JLayeredPane dayTimes)
 	{
 		JLabel lblCustMonday = new JLabel("Monday");

@@ -2,19 +2,17 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import users.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class DatabaseTest {
 	ArrayList<Customer> customers;
 	ArrayList<Business> businesses;
-	ArrayList<Employee> employees;
 	Database database;
 	String url = "jdbc:sqlite:./databaseTest.db";
 	
@@ -23,7 +21,6 @@ public class DatabaseTest {
 	{
 		customers = new ArrayList<Customer>();
 		businesses = new ArrayList<Business>();
-		employees = new ArrayList<Employee>();
 		database = new Database();
 		database.connectDatabase(url);
 	}
@@ -36,6 +33,7 @@ public class DatabaseTest {
 	@Test
 	public void clearTablesTest()
 	{
+		database.initDatabase();
 		assertTrue(database.clearTables());
 	}
 	
@@ -74,12 +72,53 @@ public class DatabaseTest {
 	{
 		database.initDatabase();
 		database.defaultValues();
-		assertTrue(database.readEmplDB(employees));
+		assertTrue(database.readEmplDB(businesses));
 	}
 	
 	@Test
 	public void readEmplAvailDB()
 	{
+		database.initDatabase();
+		database.defaultValues();
+		assertTrue(database.readAvailablityTimes(businesses));
+	}
+
+	@Test
+	public void writeNewCustToDBTest()
+	{
+		database.initDatabase();
+		Customer newCust = new Customer("test", "dummy", "ANCAP PO Box 4041 Manuka ACT 2603", "62320232", "ancapdummy", "crashtest");
+		customers.add(newCust);
+		int position = customers.size()-1;
 		
+		assertTrue(database.writeNewCustToDB(customers, position));
+	}
+	
+	@Test
+	public void writeEmplToDB()
+	{
+		database.initDatabase();
+		Employee newEmp = new Employee("0001", "Buster", "Mythbusters");
+		businesses.get(0).employees.add(newEmp);
+		
+		assertTrue(database.writeEmplToDB(businesses));
+	}
+	
+	@Test
+	public void deleteAllRecordsTest()
+	{
+		database.initDatabase();
+		database.defaultValues();
+		String table = "CUSTOMERS";
+		
+		assertTrue(database.deleteAllRecords(table));
+		
+	}
+	
+	@After
+	public void closeDatabase()
+	{
+		database.clearTables();
+		database.closeConnection();
 	}
 }
