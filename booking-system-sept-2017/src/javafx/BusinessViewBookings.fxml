@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?> 
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<Label text="Controles:"/>
+		<HBox spacing="10"> 
+		<BorderPane.margin>
+             <Insets bottom="10.0" left="25.0" right="10.0" top="10.0" />
+        </BorderPane.margin>
+	    <Button text="Past Bookings" fx:id="pastBookingsButton"
+	    onAction="#handlePastBookingsButtonAction"/>
+	    <Button text="Today's Bookings" fx:id="todaysBookingsButton"
+	    onAction="#handleTodaysBookingsButtonAction"/>
+	    <Button text="Future Bookings" fx:id="futureBookingsButton"
+	    onAction="#handleFutureBookingsButtonAction"/>
+		</HBox>
+	</top>
+	<center>
+		<TableView fx:id="busBookingTable" >
+		<BorderPane.margin>
+             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
+        </BorderPane.margin>
+			<columns>
+				<TableColumn text="Booking ID" prefWidth="100" fx:id="busBookingIdColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="bookingId"/>
+		        	</cellValueFactory>
+		        </TableColumn>
+		        
+				<TableColumn text="Date" prefWidth="100" fx:id="busDateColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="date"/>
+			        </cellValueFactory>
+			    </TableColumn>
+			    
+			    <TableColumn text="Customer Name" prefWidth="200" fx:id="busCustomerNameColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="customerName"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Day" prefWidth="100" fx:id="busDayColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="day"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Time" prefWidth="100" fx:id="busTimeColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="time"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Personal Trainer" prefWidth="200" fx:id="busPersonalTrainerColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="employeeName" />
+		        	</cellValueFactory>
+				</TableColumn>
+			</columns>
+			<sortOrder>
+		          <fx:reference source="busDateColumn"/>
+		     </sortOrder> 
+		</TableView>
+	</center>
+</BorderPane>
+
