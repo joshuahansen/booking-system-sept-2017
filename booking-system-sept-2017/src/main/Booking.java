@@ -3,6 +3,7 @@ package main;
 import java.time.LocalDate;
 import users.Customer;
 import users.Employee;
+import users.Business;
 
 public class Booking {
 	
@@ -181,4 +182,48 @@ public class Booking {
 		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + getDayAsString() + "\t" + getTimeslotAsString() + "\t" + getEmployeeName();
 	}
 	
+	public boolean addBooking(Business business, Booking booking)
+	{
+		boolean bookingFound = false;
+		
+		int numberOfBookings = business.bookings.size();
+		int counter = 0;
+		
+		for (counter = 0; counter < numberOfBookings; counter++)
+		{
+			if (business.bookings.get(counter).equals(booking))
+			{
+				bookingFound = true;
+			}
+		}
+		
+		if (bookingFound == true)
+		{
+			return false;
+		}
+		else
+		{
+			business.bookings.add(booking);
+			
+			return true;
+		}
+	}
+	
+	public boolean removeBooking(Business business, Booking booking)
+	{
+		int numberOfBookings = business.bookings.size();
+		int counter = 0;
+		
+		for (counter = 0; counter < numberOfBookings; counter++)
+		{
+			if (business.bookings.get(counter).equals(booking))
+			{
+				business.bookings.remove(counter);
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

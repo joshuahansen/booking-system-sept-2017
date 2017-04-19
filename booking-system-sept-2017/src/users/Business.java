@@ -32,4 +32,9 @@ public class Business extends User
 	{
 		return businessName;
 	}
+	
+	public ArrayList<Booking> getBookings()
+	{
+		return this.bookings;
+	}
 }
