@@ -1,28 +1,33 @@
 package javafx;
 
-import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
+import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-import main.*;
 import users.*;
 
  
-public class CustomerDetailsController {
+public class CustomerDetailsController implements Initializable {
     @FXML private Text custDetailsUsernameData;
     @FXML private Text custDetailsFirstNameData;
     @FXML private Text custDetailsLastNameData;
     @FXML private Text custDetailsAddressData;
     @FXML private Text custDetailsPhoneData;
+        
+    private ArrayList<Customer> customers;
+//    private ArrayList<Business> businesses;
+    private int custPos;
+   
+    public CustomerDetailsController(ArrayList<Customer> customers, int custPos)
+    {
+    	this.customers = customers;
+//    	this.businesses = businesses;
+    	this.custPos = custPos;
+    }
     
     public void setUsername(String username)
     {
@@ -48,6 +53,15 @@ public class CustomerDetailsController {
     {
     	custDetailsPhoneData.setText(phone);
     }
-}
     
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		setUsername(customers.get(custPos).getUsername());
+		setFirstName(customers.get(custPos).getFirstName());
+		setLastName(customers.get(custPos).getLastName());
+		setAddress(customers.get(custPos).getAddress());
+		setPhone(customers.get(custPos).getContactNumber());	
+	}
+    
+}
     

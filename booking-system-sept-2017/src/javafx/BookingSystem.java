@@ -8,10 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import users.Business;
-import users.Customer;
-import users.Database;
-import users.Employee;
+import users.*;
+
 
 public class BookingSystem extends Application {
 

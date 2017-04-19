@@ -7,7 +7,10 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<Label fx:id="custMenuHeading"/>
+	</top>
 	<right>
 		<FlowPane prefWidth="150" hgap="10" vgap="10">
 			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
@@ -26,8 +29,6 @@
 		</FlowPane>
 	</right>
 	<center>
-		<GridPane fx:id="custMenuContent"/>
-	</center>
-	
-	
+		<GridPane fx:id="custMenuContent" alignment="center"/>
+	</center>	
 </BorderPane>

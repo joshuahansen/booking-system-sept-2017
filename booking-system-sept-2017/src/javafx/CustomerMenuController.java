@@ -9,11 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import main.*;
 import users.*;
 
  
@@ -23,11 +22,7 @@ public class CustomerMenuController {
     @FXML private Button custViewBookingsButton;
     @FXML private Button custLogoutButton;
     
-    @FXML private Text custDetailsUsernameData;
-    @FXML private Text custDetailsFirstNameData;
-    @FXML private Text custDetailsLastNameData;
-    @FXML private Text custDetailsAddressData;
-    @FXML private Text custDetailsPhoneData;
+    @FXML private Label custMenuHeading;
     
     @FXML private GridPane custMenuContent;
     
@@ -65,22 +60,17 @@ public class CustomerMenuController {
     	}
     }
     
-    @FXML protected void detailsAction(ActionEvent event) throws IOException
+    @FXML protected void detailsAction(ActionEvent event)
     { 
     	try {
     		custMenuContent.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerDetails.fxml"));
-    		CustomerDetailsController controller = new CustomerDetailsController();
+    		CustomerDetailsController controller = new CustomerDetailsController(customers, custPos);
     		loader.setController(controller);
     		
     		custMenuContent.getChildren().add(loader.load());
     		
-    		//set customer values
-    		controller.setUsername(customers.get(custPos).getUsername());
-    		controller.setFirstName(customers.get(custPos).getFirstName());
-    		controller.setLastName(customers.get(custPos).getLastName());
-    		controller.setAddress(customers.get(custPos).getAddress());
-    		controller.setPhone(customers.get(custPos).getContactNumber());	
+    		custMenuHeading.setText(customers.get(custPos).getUsername() + " Profile");
     	}catch(IOException e)
     	{
     		System.out.println("Unable to load Customer Details");
@@ -95,10 +85,17 @@ public class CustomerMenuController {
     @FXML protected void viewBookingsAction(ActionEvent event)
     {
     	try {
+    		custMenuHeading.setText(customers.get(custPos).getUsername() + " Future Bookings");
     		custMenuContent.getChildren().clear();
-    		custMenuContent.getChildren().add(FXMLLoader.load(getClass().getResource("Content2.fxml")));
+    		
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustViewBookings.fxml"));
+    		CustViewBookingsController controller = new CustViewBookingsController(customers, businesses, custPos, 0);
+    		loader.setController(controller);
+    		
+    		custMenuContent.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
+    		System.out.println(e);
     		System.out.println("Unable to load bookings");
     	}
     }

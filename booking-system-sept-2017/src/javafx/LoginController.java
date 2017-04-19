@@ -62,7 +62,7 @@ public class LoginController {
 	      	else if(userType == 2)
 	      	{
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMenu.fxml"));
-	    		LoginController controller = new LoginController(customers, businesses);
+	    		BusinessMenuController controller = new BusinessMenuController(customers, businesses, userPos);
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();
@@ -76,6 +76,7 @@ public class LoginController {
 	      	}
     	}catch(IOException e)
     	{
+    		System.out.println(e);
     		System.out.println("Unable to load menu scenes");
     	}
     }
@@ -98,6 +99,7 @@ public class LoginController {
         	stage.show();
     	}catch(IOException e)
     	{
+    		System.out.println(e);
     		System.out.println("Unable to load register scenes");
     	}
     	
