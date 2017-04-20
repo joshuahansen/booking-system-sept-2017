@@ -33,7 +33,7 @@ public class Driver {
 			{
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
-				if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+				if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 				{
 					System.out.println("Employee Database loaded");
 					System.out.println("Employee availible times loaded");
@@ -43,7 +43,7 @@ public class Driver {
 					System.out.println("Can not load employee database");
 					System.out.println("Can not load employee availibilities");
 				}
-				if(database.readBookingsDB(businesses, customers, employees))
+				if(database.readBookingsDB(businesses, customers))
 				{
 					System.out.println("Booking Databse loaded");
 				}
@@ -61,7 +61,7 @@ public class Driver {
 				{
 					System.out.println("Customer Database loaded");
 					System.out.println("Business Database loaded");
-					if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+					if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 					{
 						System.out.println("Employee Database loaded");
 						System.out.println("Employee availible times loaded\n");
@@ -71,7 +71,7 @@ public class Driver {
 						System.out.println("Can not load employee database");
 						System.out.println("Can not load employee availibilities\n");
 					}
-					if(database.readBookingsDB(businesses, customers, employees))
+					if(database.readBookingsDB(businesses, customers))
 					{
 						System.out.println("Booking Databse loaded");
 					}
@@ -87,7 +87,7 @@ public class Driver {
 		menu.menuDriver(userInput, login, registration, customers, businesses, employees);
 		
 		database.writeCustDB(customers);
-		database.writeEmplToDB(employees);
+		database.writeEmplToDB(businesses);
 	
 		database.closeConnection();
 		userInput.close();

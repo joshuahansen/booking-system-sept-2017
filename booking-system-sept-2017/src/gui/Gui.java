@@ -107,7 +107,7 @@ public class Gui {
 				System.out.println("Customer Database loaded");
 				System.out.println("Business Database loaded");
 				/*read employee availabilities only if customers and businesses are loaded correctly*/
-				if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+				if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 				{
 					System.out.println("Employee Database loaded");
 					System.out.println("Employee availible times loaded");
@@ -117,7 +117,7 @@ public class Gui {
 					System.out.println("Can not load employee database");
 					System.out.println("Can not load employee availibilities");
 				}
-				if(database.readBookingsDB(businesses, customers, employees))
+				if(database.readBookingsDB(businesses, customers))
 				{
 					System.out.println("Booking Databse loaded");
 				}
@@ -136,7 +136,7 @@ public class Gui {
 				{
 					System.out.println("Customer Database loaded");
 					System.out.println("Business Database loaded");
-					if(database.readEmplDB(employees) && database.readAvailablityTimes(employees))
+					if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
 					{
 						System.out.println("Employee Database loaded");
 						System.out.println("Employee available times loaded");
@@ -146,7 +146,7 @@ public class Gui {
 						System.out.println("Can not load employee database");
 						System.out.println("Can not load employee availabilities");
 					}
-					if(database.readBookingsDB(businesses, customers, employees))
+					if(database.readBookingsDB(businesses, customers))
 					{
 						System.out.println("Booking Databse loaded");
 					}
@@ -162,7 +162,7 @@ public class Gui {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Gui window = new Gui(customers, businesses, employees, database.getConnection(), database);
+					Gui window = new Gui(customers, businesses, database.getConnection(), database);
 					window.frmBookingSystem.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -184,14 +184,14 @@ public class Gui {
 	/**
 	 * Create the application.
 	 */
-	public Gui(ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees, Connection connection, Database database) {
-		initialize(customers, businesses, employees, connection, database);
+	public Gui(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
+		initialize(customers, businesses, connection, database);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees, Connection connection, Database database) {
+	private void initialize(ArrayList<Customer> customers, ArrayList<Business> businesses, Connection connection, Database database) {
 		frmBookingSystem = new JFrame();
 		frmBookingSystem.setResizable(false);
 		frmBookingSystem.getContentPane().setBackground(new Color(204, 204, 204));
@@ -606,7 +606,7 @@ public class Gui {
 				custMenuPanel.setVisible(true);
 				SelectEmployee selection = new SelectEmployee();
 				DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
-				selection.selectPersonalTrainer(custSelectEmployeeLP, availableTimesLP, custMenuPanel, employees, displayAvail);
+				selection.selectPersonalTrainer(custSelectEmployeeLP, availableTimesLP, custMenuPanel, businesses.get(0).employees, displayAvail);
 				custSelectEmployeeLP.setVisible(true);
 				custSelectEmployeeLP.revalidate();
 				custSelectEmployeeLP.repaint();
@@ -691,7 +691,7 @@ public class Gui {
 			busBtnLogout.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					database.deleteAllRecords("EMP_AVAIL");
-					database.writeEmplToDB(employees);
+					database.writeEmplToDB(businesses);
 					setAllVisibleFalse();
 					setTextNull();
 					loginPanel.setVisible(true);
@@ -718,7 +718,7 @@ public class Gui {
 			btnAddEmployee.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setAllVisibleFalse();
-					addEmployee.addEmployee(addEmployeeLP, reg, employees);
+					addEmployee.addEmployee(addEmployeeLP, reg, businesses.get(0).employees);
 					businessMenuPanel.setVisible(true);
 					addEmployeeLP.setVisible(true);
 				}
@@ -762,7 +762,7 @@ public class Gui {
 					businessMenuPanel.setVisible(true);
 					SelectEmployee selection = new SelectEmployee();
 					DisplayEmployeeAvailability displayAvail = new DisplayEmployeeAvailability();
-					selection.selectEmployee(busSelectEmployeeLP, employeeAvailabilityLP, businessMenuPanel, employees, displayAvail);
+					selection.selectEmployee(busSelectEmployeeLP, employeeAvailabilityLP, businessMenuPanel, businesses.get(0).employees, displayAvail);
 					busSelectEmployeeLP.setVisible(true);
 					busSelectEmployeeLP.revalidate();
 					busSelectEmployeeLP.repaint();

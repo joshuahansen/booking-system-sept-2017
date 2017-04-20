@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?> 
+
+<TableView xmlns:fx="http://javafx.com/fxml/1" fx:id="custBookingsTable">
+	<columns>
+		<TableColumn text="Booking ID" prefWidth="100" fx:id="bookingIdColumn">
+			<cellValueFactory>
+				<PropertyValueFactory property="bookingId"/>
+        	</cellValueFactory>
+        </TableColumn>
+        
+		<TableColumn text="Date" prefWidth="100" fx:id="dateColumn">
+			<cellValueFactory>
+				<PropertyValueFactory property="date"/>
+	        </cellValueFactory>
+	    </TableColumn>
+	    
+	    <TableColumn text="Customer Name" prefWidth="200" fx:id="customerNameColumn">
+			<cellValueFactory>
+				<PropertyValueFactory property="customerName"/>
+        	</cellValueFactory>
+		</TableColumn>
+		
+		<TableColumn text="Day" prefWidth="100" fx:id="dayColumn">
+			<cellValueFactory>
+				<PropertyValueFactory property="day"/>
+        	</cellValueFactory>
+		</TableColumn>
+		
+		<TableColumn text="Time" prefWidth="100" fx:id="timeColumn">
+			<cellValueFactory>
+				<PropertyValueFactory property="time"/>
+        	</cellValueFactory>
+		</TableColumn>
+		
+		<TableColumn text="Personal Trainer" prefWidth="200" fx:id="personalTrainerColumn">
+			<cellValueFactory>
+				<PropertyValueFactory property="employeeName" />
+        	</cellValueFactory>
+		</TableColumn>
+	</columns>
+	<sortOrder>
+          <fx:reference source="dateColumn"/>
+     </sortOrder> 
+</TableView>
+

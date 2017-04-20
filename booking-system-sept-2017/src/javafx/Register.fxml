@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane  xmlns:fx="http://javafx.com/fxml">
+	<top>
+		<Text text="Register" fx:id="registerTitleLabel"/>	
+	</top>
+	<center>
+		<GridPane alignment="center" hgap="10" vgap="10">
+			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+			
+			<!-- <gridLinesVisible>true</gridLinesVisible> -->
+			
+			<Label text="User Name:" fx:id="registerUsernameLabel"
+				GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+			
+			<TextField fx:id="registerUsernameData"
+				GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+			
+			<Label text="First Name:" fx:id="registerFirstNameLabel"
+				GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+			
+			<TextField fx:id="registerFirstNameData"
+				GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+			
+			<Label text="Last Name:" fx:id="registerLastNameLabel"
+				GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+			
+			<TextField fx:id="registerLastNameData"
+				GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+			
+			<Label text="Address:" fx:id="registerAddressLabel"
+				GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+			
+			<TextField fx:id="registerAddressData"
+				GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+			
+			<Label text="Phone Number:" fx:id="registerPhoneLabel"
+				GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+			
+			<TextField fx:id="registerPhoneData"
+				GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+				
+			<Label text="Password:" fx:id="registerPasswordLabel"
+				GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+			
+			<PasswordField fx:id="registerPasswordField"
+				GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+				
+				<Label text="Confirm Password:" fx:id="registerPasswordConfrimLabel"
+				GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+			
+			<PasswordField fx:id="registerPasswordConfirmField"
+				GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+				
+			<HBox spacing="10" alignment="bottom_left" 
+		       GridPane.columnIndex="0" GridPane.rowIndex="8">
+		       <Button text="Cancel" fx:id="cancelButton"     
+		       onAction="#handleCancelButtonAction"/>
+			</HBox>
+		
+		    <HBox spacing="10" alignment="bottom_right" 
+		    GridPane.columnIndex="1" GridPane.rowIndex="8">
+		    <Button text="Confirm" fx:id="confirmButton"
+		    onAction="#handleConfirmButtonAction"/>
+			</HBox>
+		
+			<Text fx:id="registerActiontarget"
+		       GridPane.columnIndex="1" GridPane.rowIndex="10"/>     
+		</GridPane>
+	</center>
+</BorderPane>
