@@ -39,7 +39,7 @@ public class CustomerMenuController implements Initializable{
     	this.businesses = businesses;
     	this.custPos = custPos;
     }
-    
+    //when logout is pressed load the login screen
     @FXML protected void logoutAction(ActionEvent event)
     {
     	try {
@@ -62,7 +62,7 @@ public class CustomerMenuController implements Initializable{
     		System.out.println("Unable to load login scene");
     	}
     }
-    
+    //load the customer details when the details button is pressed
     @FXML protected void detailsAction(ActionEvent event)
     { 
     	try {
@@ -79,12 +79,24 @@ public class CustomerMenuController implements Initializable{
     		System.out.println("Unable to load Customer Details");
     	}
     }
-    
+    //when the make booking button is pressed load and create a controller
     @FXML protected void makeBookingAction(ActionEvent event)
     {
-    	
+    	try {
+    		custMenuContent.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerMakeBooking.fxml"));
+    		CustomerMakeBookingController controller = new CustomerMakeBookingController(businesses, customers, custPos);
+    		loader.setController(controller);
+    		
+    		custMenuContent.getChildren().add(loader.load());
+    		
+    		custMenuHeading.setText("Make A Booking");
+    	}catch(IOException e)
+    	{
+    		System.out.println("Unable to Make a booking");
+    	}
     }
-    
+    //when the view booking button is pressed load the fxml file and create a new controller for it.
     @FXML protected void viewBookingsAction(ActionEvent event)
     {
     	try {
@@ -102,7 +114,7 @@ public class CustomerMenuController implements Initializable{
     		System.out.println("Unable to load bookings");
     	}
     }
-
+    //initialize the customer menu with the customer details loaded.
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
