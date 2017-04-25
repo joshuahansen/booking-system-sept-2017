@@ -60,21 +60,23 @@ public class RegisterController {
 	    		{
 	    			reg.registerNewCustGUI(customers, businesses, registerFirstNameData.getText(), registerLastNameData.getText(),
 		    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText());
+	    			
+	    			FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+					LoginController controller = new LoginController(customers, businesses);
+					loader.setController(controller);
+					
+					root = loader.load();
+					
+			    	Scene scene = new Scene(root, 1080, 720);
+			    	stage.setScene(scene);
+			    	stage.show();
 	    		}
 	    		else
 	    		{
-	    			
+	    			registerActiontarget.setText("Registration failed");
 	    		}
 	    		
-		    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-				LoginController controller = new LoginController(customers, businesses);
-				loader.setController(controller);
-				
-				root = loader.load();
-				
-		    	Scene scene = new Scene(root, 1080, 720);
-		    	stage.setScene(scene);
-		    	stage.show();
+		    	
 		    	
 	    	}
 	    }catch(IOException e)
