@@ -211,7 +211,7 @@ public class Registration {
 			System.out.println("\nA valid phone number must contain at least 8 digits!");
 			return false;
 		}
-		if(this.phone.matches("[0-9]+")) {
+		if(!this.phone.matches("[0-9]+")) {
 			System.out.println("\nA valid phone number must contain only digits!");
 			return false;
 		}
