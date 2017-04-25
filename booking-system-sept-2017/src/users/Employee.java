@@ -14,7 +14,7 @@ public class Employee
 	boolean avaSaturday;
 	boolean avaSunday;
 	
-	int availableTimes[][] = new int[10][5];
+	public int availableTimes[][] = new int[10][5];
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 
@@ -107,5 +107,49 @@ public class Employee
 	public int getAvailableTime(int timeslot, int day)
 	{
 		return availableTimes[timeslot][day];
+	}
+	
+	public String getTimeSlotAsString(int timeslot)
+	{
+		if(timeslot == 0)
+		{
+			return "8am - 9am";
+		}
+		else if(timeslot == 1)
+		{
+			return "9am - 10am";
+		}
+		else if(timeslot == 2)
+		{
+			return "10am - 11am";
+		}
+		else if(timeslot == 3)
+		{
+			return "11am - 12pm";
+		}
+		else if(timeslot == 4)
+		{
+			return "12pm - 1pm";
+		}
+		else if(timeslot == 5)
+		{
+			return "1pm -2pm";
+		}
+		else if(timeslot == 6)
+		{
+			return "2pm - 3pm";
+		}
+		else if(timeslot == 7)
+		{
+			return "3pm - 4pm";
+		}
+		else if(timeslot == 8)
+		{
+			return "4pm - 5pm";
+		}
+		else
+		{
+			return "5pm - 6pm";
+		}
 	}
 }

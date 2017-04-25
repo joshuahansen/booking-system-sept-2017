@@ -25,6 +25,7 @@ public class BusinessMenuController implements Initializable {
     @FXML private GridPane businessDetails;
     @FXML private GridPane addEmployeeForm;
     @FXML private GridPane busViewBooking;
+    @FXML private GridPane busMakeBooking;
     @FXML private TabPane businessMenuTabPane;
     @FXML private Tab detailsTab;
     
@@ -98,6 +99,19 @@ public class BusinessMenuController implements Initializable {
     		loader.setController(controller);
     		
     		busViewBooking.getChildren().add(loader.load());
+    	}catch(IOException e)
+    	{
+    		System.out.println(e);
+    		System.out.println("Unable to load View Bookings Tab");
+    	}
+		
+		try {
+    		busMakeBooking.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMakeBooking.fxml"));
+    		BusinessMakeBookingController controller = new BusinessMakeBookingController(businesses, customers, busPos);
+    		loader.setController(controller);
+    		
+    		busMakeBooking.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
