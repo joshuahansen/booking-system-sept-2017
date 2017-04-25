@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import main.Registration;
 import users.Business;
+import users.Employee;
 
 public class AddEmployeeController implements Initializable{
 	@FXML Text addEmployeeActiontarget;
@@ -17,6 +19,7 @@ public class AddEmployeeController implements Initializable{
 	@FXML TextField employeeLastNameData;
 	
 	ArrayList<Business> businesses;
+	Registration reg = new Registration();
 	int busPos;
 
 	 public AddEmployeeController(ArrayList<Business> businesses, int busPos)
@@ -32,7 +35,19 @@ public class AddEmployeeController implements Initializable{
 	
 	public void handleAddEmployeeButtonAction()
 	{
-		addEmployeeActiontarget.setText("Employee added");
+		if(reg.setEmployeeValues(employeeNumberData.getText(), 
+				employeeFirstNameData.getText(), employeeLastNameData.getText(), businesses.get(busPos).employees)) {
+
+			reg.addNewEmployeeGui(businesses.get(busPos).employees);
+			addEmployeeActiontarget.setText("Employee added");
+			employeeNumberData.setText("");
+			employeeFirstNameData.setText("");
+			employeeLastNameData.setText("");
+		}
+		else
+		{
+			
+		}
 	}
 	
 	public void handleClearButtonAction()
