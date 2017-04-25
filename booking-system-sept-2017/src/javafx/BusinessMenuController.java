@@ -25,6 +25,7 @@ public class BusinessMenuController implements Initializable {
     @FXML private GridPane businessDetails;
     @FXML private GridPane addEmployeeForm;
     @FXML private GridPane busViewBooking;
+    @FXML private GridPane busEmployeeAvail;
     @FXML private GridPane busMakeBooking;
     @FXML private TabPane businessMenuTabPane;
     @FXML private Tab detailsTab;
@@ -90,6 +91,19 @@ public class BusinessMenuController implements Initializable {
     	{
     		System.out.println(e);
     		System.out.println("Unable to load Add Employee Tab");
+    	}
+		
+		try {
+			busEmployeeAvail.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeAvailabilities.fxml"));
+    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(businesses, busPos);
+    		loader.setController(controller);
+    		
+    		busEmployeeAvail.getChildren().add(loader.load());
+    	}catch(IOException e)
+    	{
+    		System.out.println(e);
+    		System.out.println("Unable to load Employee Availabilities Tab");
     	}
 		
 		try {
