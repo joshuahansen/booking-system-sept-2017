@@ -32,4 +32,8 @@ public class Business extends User
 	{
 		return businessName;
 	}
+	
+	public ArrayList<Employee> getEmployeeList() { 
+		return employees; 
+	}
 }

@@ -10,9 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import main.Registration;
 import users.*;
 
 public class RegisterController {
@@ -24,8 +25,15 @@ public class RegisterController {
     @FXML private PasswordField registerPasswordField;
     @FXML private PasswordField registerPasswordConfirmField;
     
+    @FXML TextField registerUsernameData;
+	@FXML TextField registerFirstNameData;
+	@FXML TextField registerLastNameData;
+	@FXML TextField registerAddressData;
+	@FXML TextField registerPhoneData;
+    
     ArrayList<Customer> customers;
     ArrayList<Business> businesses;
+    Registration reg = new Registration();
     
     public RegisterController(ArrayList<Customer> customers, ArrayList<Business> businesses)
     {
@@ -47,6 +55,17 @@ public class RegisterController {
 	    	}
 	    	else
 	    	{
+	    		if(reg.setValues(registerFirstNameData.getText(), registerLastNameData.getText(),
+	    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText(), customers, businesses))
+	    		{
+	    			reg.registerNewCustGUI(customers, businesses, registerFirstNameData.getText(), registerLastNameData.getText(),
+		    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText());
+	    		}
+	    		else
+	    		{
+	    			
+	    		}
+	    		
 		    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
 				LoginController controller = new LoginController(customers, businesses);
 				loader.setController(controller);
