@@ -1,0 +1,9 @@
+.root {
+-fx-background-image: url("http://www.greenprm.com/images/bgPageImg3.jpg");
+}
+.label {
+-fx-font-family: sans-serif;
+}
+/* #custLogoutButton {
+-fx-background-color: rgb(135,206,250, 0.90);
+}*/

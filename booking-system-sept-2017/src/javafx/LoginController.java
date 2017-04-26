@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -58,7 +60,8 @@ public class LoginController implements Initializable{
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();
-	      		Scene scene = new Scene(root, 1080, 720);
+	      		Scene scene = new Scene(root, 860, 640);
+	      		root.getStylesheets().add(getClass().getResource("loginPage.css").toExternalForm());
 	      		stage.setScene(scene);
 	      		stage.show();
 	      	}
@@ -69,7 +72,8 @@ public class LoginController implements Initializable{
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();
-	      		Scene scene = new Scene(root, 1080, 720);
+	      		Scene scene = new Scene(root, 860, 640);
+	      		//scene.getStylesheets().add(getClass().getResource("loginPage.css").toExternalForm());
 	      		stage.setScene(scene);
 	      		stage.show();
 	      	}
@@ -97,7 +101,8 @@ public class LoginController implements Initializable{
     		loader.setController(controller);
     		
     		root = loader.load();
-        	Scene scene = new Scene(root, 1080, 720);
+        	Scene scene = new Scene(root, 860, 640);
+        	root.getStylesheets().add(getClass().getResource("loginPage.css").toExternalForm());
         	stage.setScene(scene);
         	stage.show();
     	}catch(IOException e)
