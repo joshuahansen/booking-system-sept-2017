@@ -24,6 +24,9 @@ public class BusinessMakeBookingController implements Initializable{
     
 //    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> availabilities = FXCollections.observableArrayList();
+//    private final ObservableList<PersonalTrainer> personalTrainer = FXCollections.observableArrayList();
+//    private final ObservableList<Dates> dates = FXCollections.observableArrayList();
+    
     		
     @FXML private TableView<AvailableBookingTable> busAvailableBookingTable;    
     
