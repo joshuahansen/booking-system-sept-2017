@@ -163,7 +163,7 @@ public class Registration {
 		return true;		
 	}
 	
-	private boolean validUsername(ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean validUsername(ArrayList<Customer> cust, ArrayList<Business> busi) {
 		/*This runs through the customer and the business array list and compares the username of each index to the username 
 		 * entered by the user, and if it matches with an already existing username, it will return false
 		 */		
@@ -188,37 +188,69 @@ public class Registration {
 		return true;
 	}
 	
-	private boolean validPassword() {
+	public boolean validPassword() {
 		//Validates the password length
 		if(this.password.length() < 5) {
-			System.out.println("\nPassword length must be at least 6 characters!");
+			System.out.println("\nPassword length must be at least 6 characters");
+			return false;
+		}
+		if(!this.password.matches(".*[a-zA-Z]+.*")) {
+			System.out.println("\nPassword length must contain at least 1 letter!");
+			return false;
+		}
+		if(!this.password.matches(".*[0-9]+.*")) {
+			System.out.println("\nPassword length must contain at least 1 number!");
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean validPhone() {
+	public boolean validPhone() {
 		//Validates the phone number length
 		if(this.phone.length() < 7) {
 			System.out.println("\nA valid phone number must contain at least 8 digits!");
 			return false;
 		}
-		return true;
-	}
-	
-	private boolean validFirstName() {
-		//Validates the first name length
-		if(this.firstName.length() < 1) {
-			System.out.println("\nFirst name must contain at least 1 character!");
+		if(!this.phone.matches("[0-9]+")) {
+			System.out.println("\nA valid phone number must contain only digits!");
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean validLastName() {
+	public boolean validFirstName() {
+		//Validates the first name length
+		if(this.firstName.length() < 1) {
+			System.out.println("\nFirst name must contain at least 1 character!");
+			return false;
+		}
+		if (!this.firstName.matches("[a-zA-Z]+")) {
+			System.out.println("\nFirst name can only contain alphabetical characters!");
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean validLastName() {
 		//Validates the last name length
 		if(this.lastName.length() < 1) {
 			System.out.println("\nLast name must contain at least 1 character!");
+			return false;
+		}
+		if (!this.lastName.matches("[a-zA-Z]+")) {
+			System.out.println("\nLast name can only contain alphabetical characters!");
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean validAddress() {
+		if(this.address.length() < 1) {
+			System.out.println("\nAddress name must contain at least 1 character!");
+			return false;
+		}
+		if(!this.address.matches("^[0-9]+[A-z]+")) {
+			System.out.println("\nAddress must contain a number followed by letters!");
 			return false;
 		}
 		return true;
@@ -368,18 +400,12 @@ public class Registration {
 					return false;
 				}
 		}
-		
-		//Validates the id length
-		if(this.employeeID.length() < 4) {
-			System.out.println("\nUsername length must be at least 4 characters!");
-			return false;
-		}
 		return true;
 	}
 
 	public boolean addNewEmployeeGui(ArrayList<Employee> empl) {
 		//If all input is valid, the new employee is added, and then added to the array list.
-		Employee newEmpl = new Employee(employeeID, firstName, lastName);
+		Employee newEmpl = new Employee(this.employeeID, this.firstName, this.lastName);
 		empl.add(newEmpl);
 		
 		System.out.println("\nEmployee Added! Success!");

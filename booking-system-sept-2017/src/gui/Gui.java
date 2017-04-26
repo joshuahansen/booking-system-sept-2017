@@ -778,7 +778,7 @@ public class Gui {
 			lblBookingSummary.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 48));
 			lblBookingSummary.setBounds(50, 0, 700, 150);
 			bookingSummaryLP.add(lblBookingSummary);
-			custBookingSummaryLP.add(lblBookingSummary);
+//			custBookingSummaryLP.add(lblBookingSummary);
 			
 
 			

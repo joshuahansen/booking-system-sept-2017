@@ -1,6 +1,7 @@
 package main;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import users.Customer;
 import users.Employee;
 import users.Business;
@@ -9,11 +10,13 @@ public class Booking {
 	
 	private String bookingID;
 	private Boolean completed;
-	private int day;
-	private int timeslot;
 	private LocalDate date;
+	private LocalTime time;
 	private Customer customer;
 	private Employee employee;
+	
+	private int day;
+	private int timeslot;
 
 	public Booking(String bookingID, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
 	{
@@ -180,50 +183,5 @@ public class Booking {
 	public String toString()
 	{
 		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + getDayAsString() + "\t" + getTimeslotAsString() + "\t" + getEmployeeName();
-	}
-	
-	public boolean addBooking(Business business, Booking booking)
-	{
-		boolean bookingFound = false;
-		
-		int numberOfBookings = business.bookings.size();
-		int counter = 0;
-		
-		for (counter = 0; counter < numberOfBookings; counter++)
-		{
-			if (business.bookings.get(counter).equals(booking))
-			{
-				bookingFound = true;
-			}
-		}
-		
-		if (bookingFound == true)
-		{
-			return false;
-		}
-		else
-		{
-			business.bookings.add(booking);
-			
-			return true;
-		}
-	}
-	
-	public boolean removeBooking(Business business, Booking booking)
-	{
-		int numberOfBookings = business.bookings.size();
-		int counter = 0;
-		
-		for (counter = 0; counter < numberOfBookings; counter++)
-		{
-			if (business.bookings.get(counter).equals(booking))
-			{
-				business.bookings.remove(counter);
-				
-				return true;
-			}
-		}
-		
-		return false;
 	}
 }

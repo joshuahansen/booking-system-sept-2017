@@ -33,8 +33,13 @@ public class Business extends User
 		return businessName;
 	}
 	
+<<<<<<< HEAD
 	public ArrayList<Booking> getBookings()
 	{
 		return this.bookings;
+=======
+	public ArrayList<Employee> getEmployeeList() { 
+		return employees; 
+>>>>>>> branch 'master' of https://github.com/rmit-s3589185-joshua-hansen/booking-system-sept-2017
 	}
 }

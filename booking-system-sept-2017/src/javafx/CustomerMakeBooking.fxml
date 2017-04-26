@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?> 
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<center>
+		<TableView fx:id="custAvailableBookingTable" >
+		<BorderPane.margin>
+             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
+        </BorderPane.margin>
+			<columns>		        
+				<TableColumn text="Date" prefWidth="100" fx:id="custDateColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="date"/>
+			        </cellValueFactory>
+			    </TableColumn>
+			    			
+				<TableColumn text="Day" prefWidth="100" fx:id="custDayColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="day"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Time" prefWidth="100" fx:id="custTimeColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="time"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Personal Trainer" prefWidth="200" fx:id="custPersonalTrainerColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="employeeName" />
+		        	</cellValueFactory>
+				</TableColumn>
+			</columns>
+			<sortOrder>
+		          <fx:reference source="custDateColumn"/>
+		     </sortOrder> 
+		</TableView>
+	</center>
+</BorderPane>

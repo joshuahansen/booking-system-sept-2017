@@ -10,11 +10,8 @@ public class ViewBusiAvail {
 	private int TABLE_HEIGHT = 8;
 	private int TABLE_WIDTH = 5;
 	private String[][] serviceTime = new String[TABLE_HEIGHT][TABLE_WIDTH];
-    private String notAvailable = "UNAVAILABLE";
-	
-    public ViewBusiAvail() {
-		
-	}
+    private String unAvailable = "UNAVAILABLE";
+    
 	
 	public void viewAvailabilities(ArrayList<Customer> customers, ArrayList<Business> businesses) {
 		
@@ -73,15 +70,15 @@ public class ViewBusiAvail {
 					
 				serviceTime[4][col] = "13:00-14:00";
 					
-		     		serviceTime[5][col] = "14:00-15:00";
+		     	serviceTime[5][col] = "14:00-15:00";
 					
 				serviceTime[6][col] = "15:00-16:00";
 					
 				serviceTime[7][col] = "16:00-17:00";
 					
-				serviceTime[row][2] = notAvailable;
+				serviceTime[row][2] = unAvailable;
 				
-				serviceTime[3][col] = notAvailable;
+				serviceTime[3][col] = unAvailable;
 			}
 		}
 	}
