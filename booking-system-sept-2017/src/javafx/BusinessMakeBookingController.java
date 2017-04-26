@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 
 import users.*;
@@ -24,11 +25,16 @@ public class BusinessMakeBookingController implements Initializable{
     
 //    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> availabilities = FXCollections.observableArrayList();
-//    private final ObservableList<PersonalTrainer> personalTrainer = FXCollections.observableArrayList();
-//    private final ObservableList<Dates> dates = FXCollections.observableArrayList();
+    private final ObservableList<String> personalTrainer = FXCollections.observableArrayList();
+    private final ObservableList<String> classType = FXCollections.observableArrayList();
+    private final ObservableList<String> dayList = FXCollections.observableArrayList();
+    private final ObservableList<String> timeList = FXCollections.observableArrayList();
     
-    		
-    @FXML private TableView<AvailableBookingTable> busAvailableBookingTable;    
+    @FXML private TableView<AvailableBookingTable> busAvailableBookingTable;
+    @FXML private ComboBox<String> classCombo = new ComboBox();
+    @FXML private ComboBox<String> personalTrainerCombo = new ComboBox();
+    @FXML private ComboBox<String> timeCombo = new ComboBox();
+    @FXML private ComboBox<String> dayCombo = new ComboBox();
     
     public BusinessMakeBookingController(ArrayList<Business> businesses, ArrayList<Customer> customers, int busPos)
     {
@@ -78,7 +84,39 @@ public class BusinessMakeBookingController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		LocalDate today = LocalDate.now();
-
+		
+		classType.add("All");
+		classType.add("CROSSFIT");
+		classType.add("WEIGHTS");
+		classType.add("SPIN");
+		classCombo.setItems(classType);
+		classCombo.setValue("All");
+		
+		personalTrainer.add("All");
+		for(int empNo = 0; empNo < businesses.get(busPos).employees.size(); empNo++)
+		{
+			personalTrainer.add(businesses.get(busPos).employees.get(empNo).getName());
+		}
+		personalTrainerCombo.setItems(personalTrainer);
+		personalTrainerCombo.setValue("All");
+		
+		timeList.add("All");
+		timeList.add("Morning");
+		timeList.add("Midday");
+		timeList.add("Afternoon");
+		timeList.add("Evening");
+		timeCombo.setItems(timeList);
+		timeCombo.setValue("All");
+		
+		dayList.add("All");
+		dayList.add("Monday");
+		dayList.add("Tuesday");
+		dayList.add("Wednesday");
+		dayList.add("Thursday");
+		dayList.add("Friday");
+		dayCombo.setItems(dayList);
+		dayCombo.setValue("All");
+		
     	for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos ++)
 		{
     		for(int timeslot = 0; timeslot < businesses.get(busPos).employees.get(empPos).availableTimes.length; timeslot++)

@@ -11,6 +11,18 @@
 <?import fxmltableview.*?> 
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<GridPane fx:id="selections">
+			<ComboBox fx:id="classCombo" prefWidth="150.0" promptText="Choose a class"
+					GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="personalTrainerCombo" prefWidth="150.0" promptText="Choose a trainer"
+					GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="dayCombo" prefWidth="150.0" promptText="Choose a day"
+					GridPane.columnIndex="2" GridPane.rowIndex="0" />
+			<ComboBox fx:id="timeCombo" prefWidth="150.0" promptText="Choose a time"
+					GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+		</GridPane>
+	</top>
 	<center>
 		<TableView fx:id="custAvailableBookingTable" >
 		<BorderPane.margin>
