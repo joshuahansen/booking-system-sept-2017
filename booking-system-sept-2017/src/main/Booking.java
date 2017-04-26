@@ -10,6 +10,9 @@ public class Booking {
 	
 	private String bookingID;
 	private Boolean completed;
+	private String sessionType;
+	private int day;
+	private int timeslot;
 	private LocalDate date;
 	private LocalTime time;
 	private Customer customer;
@@ -18,9 +21,10 @@ public class Booking {
 	private int day;
 	private int timeslot;
 
-	public Booking(String bookingID, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
+	public Booking(String bookingID, String sessionType, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
 	{
 		setBookingID(bookingID);
+		setSessionType(sessionType);
 		setDay(day);
 		setTimeslot(timeslot);
 		setDate(date);
@@ -32,6 +36,11 @@ public class Booking {
 	private void setBookingID(String bookingID)
 	{
 		this.bookingID = bookingID;
+	}
+	
+	private void setSessionType(String sessionType)
+	{
+		this.sessionType = sessionType;
 	}
 	
 	private void setDay(int day)
@@ -72,6 +81,11 @@ public class Booking {
 	public String getBookingID()
 	{
 		return bookingID;
+	}
+	
+	public String getSessionType()
+	{
+		return this.sessionType;
 	}
 	
 	public int getDay()

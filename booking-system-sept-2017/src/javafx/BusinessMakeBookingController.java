@@ -109,33 +109,33 @@ public class BusinessMakeBookingController implements Initializable{
     					{
     						if(day < 2)
     						{
-    							daysToAdd = 6 + day;
+    							daysToAdd = 5 + day;
     						}
     						else
     						{
-    							daysToAdd = day - 1;
+    							daysToAdd = day - 2;
     						}
     					}
     					else if(today.getDayOfWeek().name().equalsIgnoreCase("THURSDAY"))
     					{
     						if(day < 3)
     						{
-    							daysToAdd = 6 + day;
+    							daysToAdd = 4 + day;
     						}
     						else
     						{
-    							daysToAdd = day - 1;
+    							daysToAdd = day - 3;
     						}
     					}
     					else if(today.getDayOfWeek().name().equalsIgnoreCase("FRIDAY"))
     					{
     						if(day < 4)
     						{
-    							daysToAdd = 6 + day;
+    							daysToAdd = 3 + day;
     						}
     						else
     						{
-    							daysToAdd = day - 1;
+    							daysToAdd = day - 4;
     						}
     					}
     					else
