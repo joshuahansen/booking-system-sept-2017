@@ -190,7 +190,7 @@ public class Registration {
 	
 	public boolean validPassword() {
 		//Validates the password length
-		if(this.password.length() < 5) {
+		if(this.password.length() < 6) {
 			System.out.println("\nPassword length must be at least 6 characters");
 			return false;
 		}
@@ -207,7 +207,7 @@ public class Registration {
 	
 	public boolean validPhone() {
 		//Validates the phone number length
-		if(this.phone.length() < 9) {
+		if(this.phone.length() < 8) {
 			System.out.println("\nA valid phone number must contain at least 8 digits!");
 			return false;
 		}
