@@ -207,7 +207,7 @@ public class Registration {
 	
 	public boolean validPhone() {
 		//Validates the phone number length
-		if(this.phone.length() < 7) {
+		if(this.phone.length() < 9) {
 			System.out.println("\nA valid phone number must contain at least 8 digits!");
 			return false;
 		}

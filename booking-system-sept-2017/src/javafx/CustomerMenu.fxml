@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@customerMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
-		<Label fx:id="custMenuHeading"/>
+		<Label fx:id="custMenuHeading" />
 	</top>
 	<right>
-		<FlowPane prefWidth="150" hgap="10" vgap="10">
-			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+		<FlowPane hgap="10" prefWidth="150" vgap="10">
+			<padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
 			
-			<Button text="Logout" fx:id="custLogoutButton"
-			onAction="#logoutAction"/>
+			<Button fx:id="custDetailsButton" onAction="#detailsAction" prefHeight="65.0" prefWidth="111.0" text="Customer Details" textAlignment="CENTER" wrapText="true">
+            <effect>
+               <InnerShadow />
+            </effect></Button>
 			
-			<Button text="Customer Details" fx:id="custDetailsButton"
-			onAction="#detailsAction"/>
+			<Button fx:id="custViewBookingButton" onAction="#viewBookingsAction" prefHeight="65.0" prefWidth="111.0" text="View Bookings" textAlignment="CENTER" wrapText="true">
+            <effect>
+               <InnerShadow />
+            </effect></Button>
 			
-			<Button text="Make Booking" fx:id="custMakeBookingButton"
-			onAction="#makeBookingAction"/>
+            <Button fx:id="custMakeBookingButton" onAction="#makeBookingAction" prefHeight="65.0" prefWidth="111.0" text="Make Booking" textAlignment="CENTER" wrapText="true">
+            <effect>
+               <InnerShadow />
+            </effect></Button>
 			
-			<Button text="View Bookings" fx:id="custViewBookingButton"
-			onAction="#viewBookingsAction"/>
+			<Button fx:id="custLogoutButton" onAction="#logoutAction" prefHeight="65.0" prefWidth="111.0" stylesheets="@customerMenu.css" text="Logout" textAlignment="CENTER" wrapText="true">
+            <effect>
+               <InnerShadow />
+            </effect></Button>
 		</FlowPane>
 	</right>
 	<center>
-		<GridPane fx:id="custMenuContent" alignment="center"/>
+		<GridPane fx:id="custMenuContent" alignment="center" />
 	</center>	
 </BorderPane>

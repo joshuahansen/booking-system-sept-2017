@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?> 
-<?import javafx.collections.*?> 
-<?import fxmltableview.*?> 
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1">
-	<center>
-		<TableView fx:id="custAvailableBookingTable" >
-		<BorderPane.margin>
-             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
-        </BorderPane.margin>
-			<columns>		        
-				<TableColumn text="Date" prefWidth="100" fx:id="custDateColumn">
-					<cellValueFactory>
-						<PropertyValueFactory property="date"/>
-			        </cellValueFactory>
-			    </TableColumn>
-			    			
-				<TableColumn text="Day" prefWidth="100" fx:id="custDayColumn">
-					<cellValueFactory>
-						<PropertyValueFactory property="day"/>
-		        	</cellValueFactory>
-				</TableColumn>
-				
-				<TableColumn text="Time" prefWidth="100" fx:id="custTimeColumn">
-					<cellValueFactory>
-						<PropertyValueFactory property="time"/>
-		        	</cellValueFactory>
-				</TableColumn>
-				
-				<TableColumn text="Personal Trainer" prefWidth="200" fx:id="custPersonalTrainerColumn">
-					<cellValueFactory>
-						<PropertyValueFactory property="employeeName" />
-		        	</cellValueFactory>
-				</TableColumn>
-			</columns>
-			<sortOrder>
-		          <fx:reference source="custDateColumn"/>
-		     </sortOrder> 
-		</TableView>
-	</center>
-</BorderPane>
+<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@customerMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      		<TableView fx:id="custAvailableBookingTable" layoutX="10.0" layoutY="25.0" prefHeight="403.0" prefWidth="504.0">
+      			<columns>		        
+      				<TableColumn fx:id="custDateColumn" prefWidth="100" text="Date">
+      					<cellValueFactory>
+      						<PropertyValueFactory property="date" />
+      			        </cellValueFactory>
+      			    </TableColumn>
+      			    			
+      				<TableColumn fx:id="custDayColumn" prefWidth="100" text="Day">
+      					<cellValueFactory>
+      						<PropertyValueFactory property="day" />
+      		        	</cellValueFactory>
+      				</TableColumn>
+      				
+      				<TableColumn fx:id="custTimeColumn" prefWidth="100" text="Time">
+      					<cellValueFactory>
+      						<PropertyValueFactory property="time" />
+      		        	</cellValueFactory>
+      				</TableColumn>
+      				
+      				<TableColumn fx:id="custPersonalTrainerColumn" prefWidth="203.0" text="Personal Trainer">
+      					<cellValueFactory>
+      						<PropertyValueFactory property="employeeName" />
+      		        	</cellValueFactory>
+      				</TableColumn>
+      			</columns>
+      			<sortOrder>
+      		          <fx:reference source="custDateColumn" />
+      		     </sortOrder> 
+      		</TableView>
+   </children>
+</AnchorPane>

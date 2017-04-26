@@ -67,7 +67,7 @@ public class RegisterController {
 					
 					root = loader.load();
 					
-			    	Scene scene = new Scene(root, 1080, 720);
+			    	Scene scene = new Scene(root, 860, 640);
 			    	stage.setScene(scene);
 			    	stage.show();
 	    		}
@@ -99,7 +99,7 @@ public class RegisterController {
 			
 			root = loader.load();
 			
-	    	Scene scene = new Scene(root, 1080, 720);
+	    	Scene scene = new Scene(root, 860, 640);
 	    	stage.setScene(scene);
 	    	stage.show();
     	}catch(IOException e)

@@ -1,49 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane  xmlns:fx="http://javafx.com/fxml/1">
-	<top>
-		<Text text="Booking System" fx:id="loginTitleLabel"/>	
-	</top>
-	<center>
-		<GridPane alignment="center" hgap="10" vgap="10">
-			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-	
-				<!-- <gridLinesVisible>true</gridLinesVisible> -->
-								
-				<Label text="User Name:" fx:id="loginUsernameLabel"
-					GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-				
-				<TextField fx:id="loginUsernameData"
-					GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-				
-				<Label text="Password:" fx:id="loginPasswordLabel"
-					GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-				
-				<PasswordField fx:id="loginPasswordData"
-					GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-					
-				<HBox spacing="10" alignment="bottom_left"
-			       GridPane.columnIndex="0" GridPane.rowIndex="4">
-			       <Button text="Register" fx:id="registerButton"    
-			       onAction="#handleRegisterButtonAction"/>
-				</HBox>
-			       
-			    <HBox spacing="10" alignment="bottom_right" 
-			    GridPane.columnIndex="1" GridPane.rowIndex="4">
-			    <Button text="Login" fx:id="loginButton"
-			    onAction="#handleLoginButtonAction"/>
-				</HBox>
-			       	
-			    <Text fx:id="actiontarget"
-			       GridPane.columnIndex="0" GridPane.rowIndex="6"
-			       GridPane.columnSpan="2"/>
-		</GridPane>
-	</center>
-</BorderPane>
+<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@bookingSystem.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="639.0" prefWidth="861.0">
+         <center>
+            <GridPane id="gridPaneLogin" alignment="CENTER" hgap="10" vgap="10">
+            			<padding>
+                  <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+            	
+                                                                     				<!-- <gridLinesVisible>true</gridLinesVisible> -->
+            								
+                                                                     				<Label fx:id="loginUsernameLabel" text="User Name:" GridPane.rowIndex="1" />
+            				
+                                                               				<TextField fx:id="loginUsernameData" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            				
+                                                               				<Label fx:id="loginPasswordLabel" text="Password:" GridPane.rowIndex="2" />
+            				
+                                                               				<PasswordField fx:id="loginPasswordData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            					
+                                                                     				<HBox alignment="bottom_left" spacing="10" GridPane.rowIndex="4">
+            			       <Button fx:id="registerButton" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="99.0" text="Register">
+                     <effect>
+                        <DropShadow height="15.0" radius="7.0" spread="0.14" width="15.0" />
+                     </effect>
+                  </Button>
+            				</HBox>
+            			       
+                            <HBox alignment="bottom_right" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            			    <Button fx:id="loginButton" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="99.0" text="Login">
+                     <effect>
+                        <DropShadow height="15.0" radius="7.0" spread="0.14" width="15.0" />
+                     </effect>
+                  </Button>
+                  <GridPane.margin>
+                     <Insets />
+                  </GridPane.margin>
+            				</HBox>
+            			       	
+                        <Text fx:id="actiontarget" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints maxHeight="27.0" minHeight="27.0" prefHeight="27.0" />
+                  <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+            		</GridPane>
+         </center>
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BookingSystem" BorderPane.alignment="TOP_LEFT" />
+         </top>
+      </BorderPane>
+      <ImageView fitHeight="198.0" fitWidth="187.0" layoutX="343.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logoGiants.png" />
+         </image></ImageView>
+   </children>
+</AnchorPane>
