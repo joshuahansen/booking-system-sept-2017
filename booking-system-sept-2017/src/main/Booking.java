@@ -1,8 +1,10 @@
 package main;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import users.Customer;
 import users.Employee;
+import users.Business;
 
 public class Booking {
 	
@@ -12,8 +14,12 @@ public class Booking {
 	private int day;
 	private int timeslot;
 	private LocalDate date;
+	private LocalTime time;
 	private Customer customer;
 	private Employee employee;
+	
+	private int day;
+	private int timeslot;
 
 	public Booking(String bookingID, String sessionType, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
 	{
@@ -192,5 +198,4 @@ public class Booking {
 	{
 		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + getDayAsString() + "\t" + getTimeslotAsString() + "\t" + getEmployeeName();
 	}
-	
 }
