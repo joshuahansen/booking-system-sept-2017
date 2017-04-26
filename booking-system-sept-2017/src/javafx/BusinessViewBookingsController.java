@@ -36,15 +36,17 @@ public class BusinessViewBookingsController implements Initializable{
     public static class TableViewBooking 
     {
     	private final SimpleStringProperty bookingId;
+    	private final SimpleStringProperty sessionType;
     	private final SimpleStringProperty date;
     	private final SimpleStringProperty customerName;
     	private final SimpleStringProperty day;
     	private final SimpleStringProperty time;
     	private final SimpleStringProperty employeeName;
     	
-    	private TableViewBooking(String bookingId, LocalDate date, String customerName, String day, String time, String employeeName)
+    	private TableViewBooking(String bookingId, String sessionType, LocalDate date, String customerName, String day, String time, String employeeName)
     	{
     		this.bookingId = new SimpleStringProperty(bookingId);
+    		this.sessionType = new SimpleStringProperty(sessionType);
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LLLL/yyyy");
     		this.date = new SimpleStringProperty(date.format(formatter));
     		this.customerName = new SimpleStringProperty(customerName);
@@ -56,6 +58,11 @@ public class BusinessViewBookingsController implements Initializable{
     	public String getBookingId()
     	{
     		return bookingId.get();
+    	}
+    	
+    	public String getSessionType()
+    	{
+    		return sessionType.get();
     	}
     	
     	public String getDate()
@@ -112,24 +119,27 @@ public class BusinessViewBookingsController implements Initializable{
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
 		{
     		if(businesses.get(busPos).bookings.get(i).getDate().isAfter(today))
-				futureBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getDate(),
-						businesses.get(busPos).bookings.get(i).getCustomerName(), businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+				futureBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
+						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
+						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}
     	
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
 		{
     		if(businesses.get(busPos).bookings.get(i).getDate().isBefore(today))
-				pastBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getDate(),
-						businesses.get(busPos).bookings.get(i).getCustomerName(), businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+				pastBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
+						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
+						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}
     	
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
 		{
     		if(businesses.get(busPos).bookings.get(i).getDate().equals(today))
-				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getDate(),
-						businesses.get(busPos).bookings.get(i).getCustomerName(), businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
+						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
+						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}
 		

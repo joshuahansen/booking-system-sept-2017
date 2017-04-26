@@ -113,6 +113,7 @@ public class Database {
 			
 			sql = "CREATE TABLE BOOKINGS " +
 					"(BOOKING_ID		VARCHAR(40) NOT NULL," +
+					" SESSIONTYPE		VARCHAR(40)		," +	
 					" AVAIL_DAY			INT				," +
 					" TIMESLOT			INT				," +
 					" DATE				INT				," +
@@ -200,13 +201,13 @@ public class Database {
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'yes')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BOOKINGS VALUES('001', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
+			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BOOKINGS VALUES('002', 1, 0, 4, 4, 2017, 'true', 'VickiV', '0001')";
+			sql = "INSERT INTO BOOKINGS VALUES('002', 'WEIGHTS', 1, 0, 4, 4, 2017, 'true', 'VickiV', '0001')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BOOKINGS VALUES('003', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001')";
+			sql = "INSERT INTO BOOKINGS VALUES('003', 'SPIN', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001')";
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database set to defualt values");
@@ -359,6 +360,7 @@ public class Database {
 			while(resultSet.next())
 			{				
 				String bookingID = resultSet.getString("BOOKING_ID");
+				String sessionType = resultSet.getString("SESSIONTYPE");
 				int day = resultSet.getInt("AVAIL_DAY");
 				int timeslot = resultSet.getInt("TIMESLOT");
 				int date = resultSet.getInt("DATE");
@@ -392,7 +394,7 @@ public class Database {
 				}
 				
 				LocalDate bookingDate = LocalDate.of(year, month, date);
-				newBooking = new Booking(bookingID, day, timeslot, bookingDate, completed,  customers.get(custPos), businesses.get(businessPos).employees.get(employeePos));
+				newBooking = new Booking(bookingID, sessionType, day, timeslot, bookingDate, completed,  customers.get(custPos), businesses.get(businessPos).employees.get(employeePos));
 				businesses.get(0).bookings.add(newBooking);
 			}
 			return true;

@@ -8,9 +8,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?> 
 <?import javafx.collections.*?> 
-<?import fxmltableview.*?> 
+<?import fxmltableview.*?>
+<?import javafx.scene.control.ComboBox?> 
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<ComboBox fx:id="personalTrainerCombo" prefWidth="90.0" promptText="choose a trainer"/>
+		<ComboBox fx:id="dayCombo" prefWidth="90.0" promptText="choose a day"/>
+		<ComboBox fx:id="timeCombo" prefWidth="90.0" promptText="choose a time"/>
+	</top>
 	<center>
 		<TableView fx:id="busAvailableBookingTable" >
 		<BorderPane.margin>

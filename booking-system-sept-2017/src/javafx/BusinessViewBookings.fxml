@@ -37,6 +37,12 @@
 		        	</cellValueFactory>
 		        </TableColumn>
 		        
+		        <TableColumn text="Class Type" prefWidth="100" fx:id="busClassTypeColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="sessionType"/>
+		        	</cellValueFactory>
+		        </TableColumn>
+		        
 				<TableColumn text="Date" prefWidth="100" fx:id="busDateColumn">
 					<cellValueFactory>
 						<PropertyValueFactory property="date"/>
