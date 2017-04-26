@@ -11,8 +11,6 @@ public class Booking {
 	private String bookingID;
 	private Boolean completed;
 	private String sessionType;
-	private int day;
-	private int timeslot;
 	private LocalDate date;
 	private LocalTime time;
 	private Customer customer;
