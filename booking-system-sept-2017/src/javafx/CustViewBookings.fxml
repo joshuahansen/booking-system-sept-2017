@@ -19,6 +19,12 @@
         	</cellValueFactory>
         </TableColumn>
         
+        <TableColumn text="Class Type" prefWidth="100" fx:id="custClassTypeColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="sessionType"/>
+		        	</cellValueFactory>
+		        </TableColumn>
+        
 		<TableColumn text="Date" prefWidth="100" fx:id="dateColumn">
 			<cellValueFactory>
 				<PropertyValueFactory property="date"/>
