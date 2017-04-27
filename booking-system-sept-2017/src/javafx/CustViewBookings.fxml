@@ -1,62 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.cell.*?> 
-<?import javafx.collections.*?> 
-<?import fxmltableview.*?> 
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<TableView xmlns:fx="http://javafx.com/fxml/1" fx:id="custBookingsTable">
-	<columns>
-		<TableColumn text="Booking ID" prefWidth="100" fx:id="bookingIdColumn">
-			<cellValueFactory>
-				<PropertyValueFactory property="bookingId"/>
-        	</cellValueFactory>
-        </TableColumn>
-        
-        <TableColumn text="Class Type" prefWidth="100" fx:id="custClassTypeColumn">
-					<cellValueFactory>
-						<PropertyValueFactory property="sessionType"/>
-		        	</cellValueFactory>
-		        </TableColumn>
-        
-		<TableColumn text="Date" prefWidth="100" fx:id="dateColumn">
-			<cellValueFactory>
-				<PropertyValueFactory property="date"/>
-	        </cellValueFactory>
-	    </TableColumn>
-	    
-	    <TableColumn text="Customer Name" prefWidth="200" fx:id="customerNameColumn">
-			<cellValueFactory>
-				<PropertyValueFactory property="customerName"/>
-        	</cellValueFactory>
-		</TableColumn>
-		
-		<TableColumn text="Day" prefWidth="100" fx:id="dayColumn">
-			<cellValueFactory>
-				<PropertyValueFactory property="day"/>
-        	</cellValueFactory>
-		</TableColumn>
-		
-		<TableColumn text="Time" prefWidth="100" fx:id="timeColumn">
-			<cellValueFactory>
-				<PropertyValueFactory property="time"/>
-        	</cellValueFactory>
-		</TableColumn>
-		
-		<TableColumn text="Personal Trainer" prefWidth="200" fx:id="personalTrainerColumn">
-			<cellValueFactory>
-				<PropertyValueFactory property="employeeName" />
-        	</cellValueFactory>
-		</TableColumn>
-	</columns>
-	<sortOrder>
-          <fx:reference source="dateColumn"/>
-     </sortOrder> 
-</TableView>
-
+<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@customerMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="custBookingsTable" layoutX="10.0" layoutY="25.0" prefHeight="401.0" prefWidth="703.0">
+      	<columns>
+      		<TableColumn fx:id="bookingIdColumn" prefWidth="92.0" text="Booking ID">
+      			<cellValueFactory>
+      				<PropertyValueFactory property="bookingId" />
+              	</cellValueFactory>
+              </TableColumn>
+              
+      		<TableColumn fx:id="dateColumn" prefWidth="104.0" text="Date">
+      			<cellValueFactory>
+      				<PropertyValueFactory property="date" />
+      	        </cellValueFactory>
+      	    </TableColumn>
+      	    
+      	    <TableColumn fx:id="customerNameColumn" prefWidth="160.0" text="Customer Name">
+      			<cellValueFactory>
+      				<PropertyValueFactory property="customerName" />
+              	</cellValueFactory>
+      		</TableColumn>
+      		
+      		<TableColumn fx:id="dayColumn" prefWidth="97.0" text="Day">
+      			<cellValueFactory>
+      				<PropertyValueFactory property="day" />
+              	</cellValueFactory>
+      		</TableColumn>
+      		
+      		<TableColumn fx:id="timeColumn" prefWidth="103.0" text="Time">
+      			<cellValueFactory>
+      				<PropertyValueFactory property="time" />
+              	</cellValueFactory>
+      		</TableColumn>
+      		
+      		<TableColumn fx:id="personalTrainerColumn" prefWidth="146.0" text="Personal Trainer">
+      			<cellValueFactory>
+      				<PropertyValueFactory property="employeeName" />
+              	</cellValueFactory>
+      		</TableColumn>
+      	</columns>
+      	<sortOrder>
+                <fx:reference source="dateColumn" />
+           </sortOrder> 
+      </TableView>
+   </children>
+</AnchorPane>

@@ -98,8 +98,9 @@ public class BookingSystem extends Application {
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();
-		Scene loginScene = new Scene(bookingSystem, 1080, 720);        
-    
+		Scene loginScene = new Scene(bookingSystem, 860, 640);        
+		bookingSystem.getStylesheets().add(getClass().getResource("bookingSystem.css").toExternalForm());
+
         stage.setTitle("Booking System - Login");
         stage.setScene(loginScene);
         stage.show();
