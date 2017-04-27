@@ -5,20 +5,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.StringTokenizer;
 
-import org.sqlite.util.StringUtils;
-
-import javafx.BusinessMakeBookingController.AvailableBookingTable;
-import javafx.BusinessViewBookingsController.TableViewBooking;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import main.Booking;
 import users.*;
 
@@ -42,6 +36,8 @@ public class CustomerMakeBookingController implements Initializable{
     @FXML private ComboBox<String> personalTrainerCombo = new ComboBox<String>();
     @FXML private ComboBox<String> timeCombo = new ComboBox<String>();
     @FXML private ComboBox<String> dayCombo = new ComboBox<String>();
+    
+    @FXML private Label addBookingLabel;
     		
     @FXML private TableView<AvailableBookingTable> custAvailableBookingTable;    
     
@@ -312,10 +308,11 @@ public class CustomerMakeBookingController implements Initializable{
 			}
 		}
 		Booking newBooking = new Booking(generateBookingID(), "GENERAL", day, timeslot, date, completed, customers.get(custPos), employee);
-		System.out.println("Make booking with " + newSelection.getEmployeeName() + " at " + newSelection.getTime() + " on " + newSelection.getDate());
 		addBooking(businesses.get(busPos), newBooking);
-		System.out.println("New booking added");
+		allAvailabilities.remove(newSelection);
+		addBookingLabel.setText("Booked with " + employee.getName() + " at " + newSelection.getTime() + " on the " + date);
 	}
+	
 	public String generateBookingID()
 	{
 		String bookingID = new String();

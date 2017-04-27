@@ -71,7 +71,13 @@
 		</TableView>
 	</center>
 		<bottom>
-		<Button text="Make Booking" fx:id="makeBookingButton"
-			onAction="#handleMakeBookingButtonAction"/>
+		<GridPane>
+			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+			<Button text="Make Booking" fx:id="makeBookingButton"
+			onAction="#handleMakeBookingButtonAction"
+			GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			<Label fx:id="addBookingLabel" text="" 
+			GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+		</GridPane>
 	</bottom>
 </BorderPane>

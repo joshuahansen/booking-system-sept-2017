@@ -6,16 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.BusinessViewBookingsController.TableViewBooking;
-import javafx.CustomerMakeBookingController.AvailableBookingTable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import main.Booking;
 import users.*;
 
@@ -46,6 +43,8 @@ public class BusinessMakeBookingController implements Initializable{
     @FXML private ComboBox<String> timeCombo = new ComboBox<String>();
     @FXML private ComboBox<String> dayCombo = new ComboBox<String>();
     @FXML private ComboBox<String> customerCombo = new ComboBox<String>();
+    
+    @FXML private Label addBookingLabel;
     
     /**
      * Constructor for creating a new controller. Sets ArrayLists to local variables
@@ -372,9 +371,9 @@ public class BusinessMakeBookingController implements Initializable{
 			}
 		}
 		Booking newBooking = new Booking(generateBookingID(), "GENERAL", day, timeslot, date, completed, selectedCustomer, employee);
-		System.out.println("Make booking with " + newSelection.getEmployeeName() + " at " + newSelection.getTime() + " on " + newSelection.getDate());
 		addBooking(businesses.get(busPos), newBooking);
-		System.out.println("New booking added");
+		allAvailabilities.remove(newSelection);
+		addBookingLabel.setText("Booked with " + employee.getName() + " at " + newSelection.getTime() + " on the " + date);
 	}
 	
 	/**

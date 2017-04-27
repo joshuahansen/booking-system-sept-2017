@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.CustomerMakeBookingController.AvailableBookingTable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,17 +94,53 @@ public class BusinessViewBookingsController implements Initializable{
     
     public void handlePastBookingsButtonAction(ActionEvent event)
     {	
+    	pastBookings.clear();
+    	LocalDate today = LocalDate.now();
+    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+		{
+    		if(businesses.get(busPos).bookings.get(i).getDate().isBefore(today))
+				pastBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
+						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
+						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+		}
 		busBookingTable.setItems(pastBookings);
     }
     
     public void handleFutureBookingsButtonAction(ActionEvent event)
     {	
+    	futureBookings.clear();
+    	LocalDate today = LocalDate.now();
+    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+		{
+    		if(businesses.get(busPos).bookings.get(i).getDate().isAfter(today))
+				futureBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
+						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
+						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+		}
 		busBookingTable.setItems(futureBookings);
     }
     
     public void handleTodaysBookingsButtonAction(ActionEvent event)
     {
+    	todaysBookings.clear();
+    	LocalDate today = LocalDate.now();
+    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+		{
+    		if(businesses.get(busPos).bookings.get(i).getDate().equals(today))
+				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
+						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
+						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+		}
     	busBookingTable.setItems(todaysBookings);
+    }
+    
+    public void handleRemoveBookingButtonAction(ActionEvent event)
+    {
+    	TableViewBooking newSelection = busBookingTable.getSelectionModel().getSelectedItem();
+    	
     }
     
 	@Override
@@ -116,23 +153,9 @@ public class BusinessViewBookingsController implements Initializable{
 //		}
 		
 		LocalDate today = LocalDate.now();
-    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
-		{
-    		if(businesses.get(busPos).bookings.get(i).getDate().isAfter(today))
-				futureBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
-		}
     	
-    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
-		{
-    		if(businesses.get(busPos).bookings.get(i).getDate().isBefore(today))
-				pastBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
-		}
+    	
+    	
     	
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
 		{
