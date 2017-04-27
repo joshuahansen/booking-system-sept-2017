@@ -15,6 +15,7 @@ public class Database {
 	private String custSQL;
 	private String emplSQL;
 	private String emplAvailSQL;
+	private String bookingSQL;
 	
 	
  	public Connection getConnection()
@@ -35,6 +36,11 @@ public class Database {
 	public String getEmplAvailSQL()
 	{
 		return emplAvailSQL;
+	}
+	
+	public String getBookingSQL()
+	{
+		return bookingSQL;
 	}
 
 	//connect to the database. return false if unable to connect
@@ -198,7 +204,7 @@ public class Database {
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1', 'no')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'yes')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'no')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
@@ -480,6 +486,28 @@ public class Database {
 		return true;
 	}
 	
+	//write Bookings array into database
+	public boolean writeBookingToDB(ArrayList<Business> businesses)
+	{
+		for(int busNo = 0; busNo < businesses.size(); busNo++)
+		{
+			for(int i = 0; i < businesses.get(busNo).bookings.size(); i++)
+			{
+				try{
+					String sql;
+					Statement stmt = connection.createStatement();
+				    bookingToString(businesses.get(busNo).bookings.get(i));
+					sql = "INSERT INTO BOOKINGS VALUES(" + getBookingSQL() +")";
+					stmt.executeUpdate(sql);
+				    
+				}catch (SQLException ex) {
+					System.out.println("Booking record already exists. No changes were made.");
+				}
+			}
+		}
+		return true;
+	}
+	
 	//convert objects to strings for SQL commands
 	public boolean custToString(ArrayList<Customer> customers, int position)
 	{
@@ -519,6 +547,24 @@ public class Database {
 			
 		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot + ", '" + isBooked + "'";
 		return true;
+	}
+	
+	private boolean bookingToString(Booking booking)
+	{
+		String bookingId = booking.getBookingID();
+		String sessionType = booking.getSessionType();
+		int avail_day = booking.getDay();
+		int timeslot = booking.getTimeslot();
+		LocalDate bookingDate = booking.getDate();
+		int date = bookingDate.getDayOfMonth();
+		int month = bookingDate.getMonthValue();
+		int year = bookingDate.getYear();
+		boolean completed = booking.getCompleted();
+		String custUname = booking.getCustUsername();
+		String employeeID = booking.getEmployeeID();
+		this.bookingSQL = "'"+ bookingId + "', '" + sessionType + "', " + avail_day + ", " + timeslot + ", "  + date + ", " + month + ", " + year + ", '" + completed + "', '" 
+				+ custUname + "', '" + employeeID + "'";
+		return true;				
 	}
 	
 	//close connection to the database

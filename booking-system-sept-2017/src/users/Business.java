@@ -15,7 +15,16 @@ public class Business extends User
 	
 	ArrayList<String> availibleTimes = new ArrayList<String>();
 	
-	//constructor for business
+	/**
+	 * Constructor to make business object
+	 * @param businessName
+	 * @param firstName
+	 * @param lastName
+	 * @param address
+	 * @param contactNumber
+	 * @param username
+	 * @param password
+	 */
 	public Business(String businessName, String firstName, String lastName, String address, 
 					String contactNumber, String username, String password) 
 	{
@@ -37,7 +46,10 @@ public class Business extends User
 	{
 		return this.bookings;
 	}
-	
+	/**
+	 * 
+	 * @return employee array list
+	 */
 	public ArrayList<Employee> getEmployeeList() 
 	{ 
 		return employees; 

@@ -130,7 +130,7 @@ public class BusinessMenuController implements Initializable {
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load View Bookings Tab");
+    		System.out.println("Unable to load Make Bookings Tab");
     	}
 	}
 }

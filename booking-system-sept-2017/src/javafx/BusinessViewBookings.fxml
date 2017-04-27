@@ -78,5 +78,9 @@
 		     </sortOrder> 
 		</TableView>
 	</center>
+	<bottom>
+		<Button text="Remove Booking"
+		onAction="#handleRemoveBookingButtonAction"/>
+	</bottom>
 </BorderPane>
 

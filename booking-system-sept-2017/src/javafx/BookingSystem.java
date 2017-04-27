@@ -10,13 +10,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import users.*;
 
-
+/**
+ * Main driver of the Booking System.
+ * Contains main method and also start method to load GUI
+ * @author Josh
+ *
+ */
 public class BookingSystem extends Application {
-
 	private Database database;
 	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
 	
+	/**
+	 * Loads data from database into program
+	 * Initializes program and sets login scene to the stage.
+	 */
     @Override
     public void start(Stage stage) throws Exception {
     	customers = new ArrayList<>();
@@ -101,10 +109,15 @@ public class BookingSystem extends Application {
         System.out.println("Stage is closing");
     	database.writeCustDB(customers);
     	database.writeEmplToDB(businesses);
+    	database.writeBookingToDB(businesses);
         Platform.exit();
         });
     }
-    
+
+    /**
+     * Main method. Launches GUI interface.
+     * @param args
+     */
 	public static void main(String[] args) {
 		launch(args);
 		

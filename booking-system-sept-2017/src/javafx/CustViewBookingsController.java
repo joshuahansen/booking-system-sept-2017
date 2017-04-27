@@ -103,6 +103,7 @@ public class CustViewBookingsController implements Initializable{
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 			}
 		}
+		
 	    custBookingsTable.setItems(bookings);
 	}
 }

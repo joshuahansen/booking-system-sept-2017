@@ -1,41 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?> 
 
-<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@customerMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      		<TableView fx:id="custAvailableBookingTable" layoutX="10.0" layoutY="25.0" prefHeight="403.0" prefWidth="504.0">
-      			<columns>		        
-      				<TableColumn fx:id="custDateColumn" prefWidth="100" text="Date">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="date" />
-      			        </cellValueFactory>
-      			    </TableColumn>
-      			    			
-      				<TableColumn fx:id="custDayColumn" prefWidth="100" text="Day">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="day" />
-      		        	</cellValueFactory>
-      				</TableColumn>
-      				
-      				<TableColumn fx:id="custTimeColumn" prefWidth="100" text="Time">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="time" />
-      		        	</cellValueFactory>
-      				</TableColumn>
-      				
-      				<TableColumn fx:id="custPersonalTrainerColumn" prefWidth="203.0" text="Personal Trainer">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="employeeName" />
-      		        	</cellValueFactory>
-      				</TableColumn>
-      			</columns>
-      			<sortOrder>
-      		          <fx:reference source="custDateColumn" />
-      		     </sortOrder> 
-      		</TableView>
-   </children>
-</AnchorPane>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+		<top>
+		<GridPane fx:id="selections">
+			<Label text="Choose a Class"
+					GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="classCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+			<Label text="Choose a Trainer"
+					GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="personalTrainerCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+					<Label text="Choose a Day"
+					GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="dayCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="2" GridPane.rowIndex="1" />
+			<Label text="Choose a Time"
+					GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="timeCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+		</GridPane>
+	</top>
+	<center>
+		<TableView fx:id="custAvailableBookingTable" >
+		<BorderPane.margin>
+             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
+        </BorderPane.margin>
+			<columns>		        
+				<TableColumn text="Date" prefWidth="100" fx:id="custDateColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="date"/>
+			        </cellValueFactory>
+			    </TableColumn>
+			    			
+				<TableColumn text="Day" prefWidth="100" fx:id="custDayColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="day"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Time" prefWidth="100" fx:id="custTimeColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="time"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Personal Trainer" prefWidth="200" fx:id="custPersonalTrainerColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="employeeName" />
+		        	</cellValueFactory>
+				</TableColumn>
+			</columns>
+			<sortOrder>
+		          <fx:reference source="custDateColumn"/>
+		     </sortOrder> 
+		</TableView>
+	</center>
+		<bottom>
+		<GridPane>
+			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+			<Button text="Make Booking" fx:id="makeBookingButton"
+			onAction="#handleMakeBookingButtonAction"
+			GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			<Label fx:id="addBookingLabel" text="" 
+			GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+		</GridPane>
+	</bottom>
+</BorderPane>

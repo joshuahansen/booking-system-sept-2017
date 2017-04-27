@@ -14,7 +14,7 @@
 	<center>
 		<TabPane tabClosingPolicy="UNAVAILABLE" fx:id="businessMenuTabPane">
 			<tabs>
-				<Tab text="Details" fx:id="detailsTab" >
+				<Tab text="Details" fx:id="detailsTab">
 					<content>
 						<GridPane fx:id="businessDetails" alignment="center"/>
 					</content>
