@@ -72,8 +72,13 @@
 		</TableView>
 	</center>
 	<bottom>
-		<Button text="Make Booking" fx:id="makeBookingButton"
-			onAction="#handleMakeBookingButtonAction"/>
+		<GridPane fx:id="buttons">
+			<ComboBox fx:id="customerCombo" prefWidth="200.0"
+					GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			<Button text="Make Booking" fx:id="makeBookingButton"
+			onAction="#handleMakeBookingButtonAction"
+			GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+		</GridPane>
 	</bottom>
 </BorderPane>
 

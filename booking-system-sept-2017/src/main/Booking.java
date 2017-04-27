@@ -114,6 +114,11 @@ public class Booking {
 		
 		return name;
 	}
+	public String getEmployeeID()
+	{
+		String ID = employee.getEmployeeID();
+		return ID;
+	}
 	
 	public String getCustUsername()
 	{

@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
+
+import org.sqlite.util.StringUtils;
 
 import javafx.BusinessMakeBookingController.AvailableBookingTable;
 import javafx.BusinessViewBookingsController.TableViewBooking;
@@ -16,12 +19,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
-
+import main.Booking;
 import users.*;
 
 public class CustomerMakeBookingController implements Initializable{
     private ArrayList<Business> businesses;
     private ArrayList<Customer> customers;
+    private int custPos;
     private int busPos;
     
 //    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
@@ -31,6 +35,8 @@ public class CustomerMakeBookingController implements Initializable{
     private final ObservableList<String> classType = FXCollections.observableArrayList();
     private final ObservableList<String> dayList = FXCollections.observableArrayList();
     private final ObservableList<String> timeList = FXCollections.observableArrayList();
+   
+    private String timesArray[] = new String[]{"8am - 9am", "9am - 10am", "10am - 11am", "11am - 12pm", "12pm - 1pm", "1pm - 2pm", "2pm - 3pm", "3pm - 4pm", "4pm - 5pm", "5pm - 6pm"};
     
     @FXML private ComboBox<String> classCombo = new ComboBox<String>();
     @FXML private ComboBox<String> personalTrainerCombo = new ComboBox<String>();
@@ -43,7 +49,7 @@ public class CustomerMakeBookingController implements Initializable{
     {
     	this.businesses = businesses;
     	this.customers = customers;
-    	this.busPos = busPos;
+    	this.custPos = custPos;
     }
     
     public static class AvailableBookingTable 
@@ -209,7 +215,7 @@ public class CustomerMakeBookingController implements Initializable{
 				
 		//clear current displayed list
 		displayedAvailabilities.clear();
-		String timesArray[] = new String[]{"8am - 9am", "9am - 10am", "10am - 11am", "11am - 12pm", "12pm - 1pm", "1pm - 2pm", "2pm - 3pm", "3pm - 4pm", "4pm - 5pm", "5pm - 6pm"};
+		
 		for(int count = 0; count < allAvailabilities.size(); count++)
 		{
 			displayedAvailabilities.add(allAvailabilities.get(count));
@@ -252,5 +258,105 @@ public class CustomerMakeBookingController implements Initializable{
 					}
 				}
 			custAvailableBookingTable.setItems(displayedAvailabilities);
+	}
+	
+	public void handleMakeBookingButtonAction(ActionEvent event)
+	{
+		AvailableBookingTable newSelection = custAvailableBookingTable.getSelectionModel().getSelectedItem();
+		int day = 0, timeslot = 0;
+		LocalDate date;
+		boolean completed = false;
+		Employee employee = null;
+		
+		for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos++)
+		{
+			if(businesses.get(busPos).employees.get(empPos).getName().equalsIgnoreCase(newSelection.getEmployeeName()))
+			{
+				employee = businesses.get(busPos).employees.get(empPos);
+			}
+		}
+		
+		String strDate = newSelection.getDate();
+		String tokens[] = strDate.split("/");
+		int dateDay = Integer.valueOf(tokens[0]);
+		int dateMonth = Integer.valueOf(tokens[1]);
+		int dateYear = Integer.valueOf(tokens[2]);
+		date = LocalDate.of(dateYear, dateMonth, dateDay);
+		
+		for(int count = 0; count < timesArray.length; count++)
+		{
+			if(timesArray[count].equalsIgnoreCase(newSelection.getTime()))
+			{
+				timeslot = count;
+			}
+		}
+		
+		String dayArray[] = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+		for(int count = 0; count < dayArray.length; count++)
+		{
+			if(dayArray[count].equalsIgnoreCase(newSelection.getDay()))
+			{
+				day = count;
+			}
+		}
+		Booking newBooking = new Booking(generateBookingID(), "GENERAL", day, timeslot, date, completed, customers.get(custPos), employee);
+		System.out.println("Make booking with " + newSelection.getEmployeeName() + " at " + newSelection.getTime() + " on " + newSelection.getDate());
+		addBooking(businesses.get(busPos), newBooking);
+		System.out.println("New booking added");
+	}
+	public String generateBookingID()
+	{
+		String bookingID = new String();
+		int lastBooking = businesses.get(busPos).bookings.size() - 1;
+		int nextBookingId = Integer.valueOf(businesses.get(busPos).bookings.get(lastBooking).getBookingID());
+		nextBookingId++;
+		
+		bookingID = String.valueOf(nextBookingId);
+		return bookingID;
+	}
+	
+	public boolean addBooking(Business business, Booking booking)
+	{
+		boolean bookingFound = false;
+		
+		int numberOfBookings = business.bookings.size();
+		int counter = 0;
+		
+		for (counter = 0; counter < numberOfBookings; counter++)
+		{
+			if (business.bookings.get(counter).equals(booking))
+			{
+				bookingFound = true;
+			}
+		}
+		
+		if (bookingFound == true)
+		{
+			return false;
+		}
+		else
+		{
+			business.bookings.add(booking);
+			
+			return true;
+		}
+	}
+	
+	public boolean removeBooking(Business business, Booking booking)
+	{
+		int numberOfBookings = business.bookings.size();
+		int counter = 0;
+		
+		for (counter = 0; counter < numberOfBookings; counter++)
+		{
+			if (business.bookings.get(counter).equals(booking))
+			{
+				business.bookings.remove(counter);
+				
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

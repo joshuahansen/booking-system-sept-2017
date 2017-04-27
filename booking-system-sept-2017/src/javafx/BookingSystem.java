@@ -100,6 +100,7 @@ public class BookingSystem extends Application {
         System.out.println("Stage is closing");
     	database.writeCustDB(customers);
     	database.writeEmplToDB(businesses);
+    	database.writeBookingToDB(businesses);
         Platform.exit();
         });
     }

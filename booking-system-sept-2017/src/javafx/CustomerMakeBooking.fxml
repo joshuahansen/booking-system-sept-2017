@@ -70,4 +70,8 @@
 		     </sortOrder> 
 		</TableView>
 	</center>
+		<bottom>
+		<Button text="Make Booking" fx:id="makeBookingButton"
+			onAction="#handleMakeBookingButtonAction"/>
+	</bottom>
 </BorderPane>
