@@ -19,12 +19,17 @@ import javafx.scene.control.TableView;
 import main.Booking;
 import users.*;
 
+/**
+ * BusinessMakeBookingController contains all the code used for the functionality of the BusinessMakeBooking.fxml file.
+ * Any required values from previous controllers are passed in and set to local attributes to be used within the controller.
+ * @author Josh
+ *
+ */
 public class BusinessMakeBookingController implements Initializable{
     private ArrayList<Business> businesses;
     private ArrayList<Customer> customers;
     private int busPos;
     
-//    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> displayedAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<String> personalTrainer = FXCollections.observableArrayList();
@@ -42,6 +47,12 @@ public class BusinessMakeBookingController implements Initializable{
     @FXML private ComboBox<String> dayCombo = new ComboBox<String>();
     @FXML private ComboBox<String> customerCombo = new ComboBox<String>();
     
+    /**
+     * Constructor for creating a new controller. Sets ArrayLists to local variables
+     * @param businesses Passes reference to businesses array created in BookingSystem class
+     * @param customers Passes reference to customers array created in BookingSystem class
+     * @param busPos Passes value of logging in user and sets it to local variable
+     */
     public BusinessMakeBookingController(ArrayList<Business> businesses, ArrayList<Customer> customers, int busPos)
     {
     	this.businesses = businesses;
@@ -49,6 +60,11 @@ public class BusinessMakeBookingController implements Initializable{
     	this.busPos = busPos;
     }
     
+    /**
+     * Available bookings objects for the table view. Sets values to SimpleStringProperty to be displayed in TableView
+     * @author Josh
+     *
+     */
     public static class AvailableBookingTable 
     {
     	private final SimpleStringProperty date;
@@ -56,6 +72,13 @@ public class BusinessMakeBookingController implements Initializable{
     	private final SimpleStringProperty time;
     	private final SimpleStringProperty employeeName;
     	
+    	/**
+    	 * Constructor for new row in TableView
+    	 * @param date passes LocalDate object and changes to String for displaying
+    	 * @param day String of day of week
+    	 * @param time String time slot for booking 
+    	 * @param employeeName String of full employee's name
+    	 */
     	private AvailableBookingTable(LocalDate date, String day, String time, String employeeName)
     	{
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LLLL/yyyy");
@@ -65,27 +88,44 @@ public class BusinessMakeBookingController implements Initializable{
     		this.employeeName = new SimpleStringProperty(employeeName);
     	}
     	
+    	/**
+    	 * Getter for date value
+    	 * @return Return objects date value
+    	 */
     	public String getDate()
     	{
     		return date.get();
     	}
     	    	
+    	/**
+    	 * Getter for objects day
+    	 * @return Return objects day value
+    	 */
     	public String getDay()
     	{
     		return day.get();
     	}
     	
+    	/**
+    	 * Get time from object
+    	 * @return Return objects time value of type String
+    	 */
     	public String getTime()
     	{
     		return time.get();
     	}
     	
+    	/**
+    	 * Getter for employee name
+    	 * @return Return objects employeeName value
+    	 */
     	public String getEmployeeName()
     	{
     		return employeeName.get();
     	}
     }
     
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -143,11 +183,11 @@ public class BusinessMakeBookingController implements Initializable{
     					String dayString[] = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     					long daysToAdd = 0;
     					
-    					if(today.getDayOfWeek().name().equalsIgnoreCase("MONDAY"))
+    					if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[0]))
     					{
     						daysToAdd = day;
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("TUESDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[1]))
     					{
     						if(day < 1)
     						{
@@ -158,7 +198,7 @@ public class BusinessMakeBookingController implements Initializable{
     							daysToAdd = day - 1;
     						}
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("WEDNESDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[2]))
     					{
     						if(day < 2)
     						{
@@ -169,7 +209,7 @@ public class BusinessMakeBookingController implements Initializable{
     							daysToAdd = day - 2;
     						}
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("THURSDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[3]))
     					{
     						if(day < 3)
     						{
@@ -180,7 +220,7 @@ public class BusinessMakeBookingController implements Initializable{
     							daysToAdd = day - 3;
     						}
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("FRIDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[4]))
     					{
     						if(day < 4)
     						{
@@ -195,20 +235,36 @@ public class BusinessMakeBookingController implements Initializable{
     					{
     						continue;
     					}
-						allAvailabilities.add(new AvailableBookingTable(today.plusDays(daysToAdd), dayString[day], 
+    					boolean booked = false;
+    					for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
+    					{
+    						String timeslotAsString = businesses.get(busPos).bookings.get(i).getTimeslotAsString();
+    						String EmployeeName = businesses.get(busPos).bookings.get(i).getEmployeeName();
+    						LocalDate bookingDate = businesses.get(busPos).bookings.get(i).getDate();
+    						if(businesses.get(busPos).employees.get(empPos).getTimeSlotAsString(timeslot).equalsIgnoreCase(timeslotAsString) &&
+    								businesses.get(busPos).employees.get(empPos).getName().equalsIgnoreCase(EmployeeName) &&
+    								today.plusDays(daysToAdd).equals(bookingDate))
+    						{
+    							booked = true;
+    						}
+    					}
+    					if(!booked)
+    					{
+    						allAvailabilities.add(new AvailableBookingTable(today.plusDays(daysToAdd), dayString[day], 
 									businesses.get(busPos).employees.get(empPos).getTimeSlotAsString(timeslot),
 									businesses.get(busPos).employees.get(empPos).getName()));
+    					}
     				}
     			}
     		}
-//    		if(businesses.get(busPos).bookings.get(i).getDate().isAfter(today))
-//				availabilities.add(new AvailableBookingTable(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getDate(),
-//						businesses.get(busPos).bookings.get(i).getCustomerName(), businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
-//						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}	
     	busAvailableBookingTable.setItems(allAvailabilities);
 	}
 
+	/**
+	 * Each time a Combo box is changes in the GUI the availabilities displayed are changed 
+	 * @param event Triggered when ComboBox is changed
+	 */
 	public void handleSortAvailability(ActionEvent event)
 	{
 		String classType = classCombo.getValue();
@@ -262,6 +318,11 @@ public class BusinessMakeBookingController implements Initializable{
 			busAvailableBookingTable.setItems(displayedAvailabilities);
 	}
 	
+	/**
+	 * Controls what happens when the Make Booking Button is pressed.
+	 * Gets values from the GUI that is selected by the user and sets them as the new booking values
+	 * @param event Event from button being pressed
+	 */
 	public void handleMakeBookingButtonAction(ActionEvent event)
 	{
 		AvailableBookingTable newSelection = busAvailableBookingTable.getSelectionModel().getSelectedItem();
@@ -315,6 +376,11 @@ public class BusinessMakeBookingController implements Initializable{
 		addBooking(businesses.get(busPos), newBooking);
 		System.out.println("New booking added");
 	}
+	
+	/**
+	 * Generates the next BookingID using the last bookingID in the booking array  
+	 * @return returns a String which is the bookingID
+	 */
 	public String generateBookingID()
 	{
 		String bookingID = new String();
@@ -326,6 +392,12 @@ public class BusinessMakeBookingController implements Initializable{
 		return bookingID;
 	}
 	
+	/**
+	 * Adds booking to the business's booking array
+	 * @param business The business the booking is for.
+	 * @param booking the booking being added
+	 * @return true if booking is added otherwise return false
+	 */
 	public boolean addBooking(Business business, Booking booking)
 	{
 		boolean bookingFound = false;
@@ -353,6 +425,12 @@ public class BusinessMakeBookingController implements Initializable{
 		}
 	}
 	
+	/**
+	 * Removes a booking from the business's booking array
+	 * @param business Business from which the booking is being removed
+	 * @param booking Booking that is being removed
+	 * @return Return true if booking is removed else return false
+	 */
 	public boolean removeBooking(Business business, Booking booking)
 	{
 		int numberOfBookings = business.bookings.size();

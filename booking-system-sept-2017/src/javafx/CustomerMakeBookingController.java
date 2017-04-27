@@ -140,11 +140,11 @@ public class CustomerMakeBookingController implements Initializable{
     					String dayString[] = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     					long daysToAdd = 0;
     					
-    					if(today.getDayOfWeek().name().equalsIgnoreCase("MONDAY"))
+    					if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[0]))
     					{
     						daysToAdd = day;
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("TUESDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[1]))
     					{
     						if(day < 1)
     						{
@@ -155,7 +155,7 @@ public class CustomerMakeBookingController implements Initializable{
     							daysToAdd = day - 1;
     						}
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("WEDNESDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[2]))
     					{
     						if(day < 2)
     						{
@@ -166,7 +166,7 @@ public class CustomerMakeBookingController implements Initializable{
     							daysToAdd = day - 2;
     						}
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("THURSDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[3]))
     					{
     						if(day < 3)
     						{
@@ -177,7 +177,7 @@ public class CustomerMakeBookingController implements Initializable{
     							daysToAdd = day - 3;
     						}
     					}
-    					else if(today.getDayOfWeek().name().equalsIgnoreCase("FRIDAY"))
+    					else if(today.getDayOfWeek().name().equalsIgnoreCase(dayString[4]))
     					{
     						if(day < 4)
     						{
@@ -192,16 +192,28 @@ public class CustomerMakeBookingController implements Initializable{
     					{
     						continue;
     					}
-						allAvailabilities.add(new AvailableBookingTable(today.plusDays(daysToAdd), dayString[day], 
+    					boolean booked = false;
+    					for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
+    					{
+    						String timeslotAsString = businesses.get(busPos).bookings.get(i).getTimeslotAsString();
+    						String EmployeeName = businesses.get(busPos).bookings.get(i).getEmployeeName();
+    						LocalDate bookingDate = businesses.get(busPos).bookings.get(i).getDate();
+    						if(businesses.get(busPos).employees.get(empPos).getTimeSlotAsString(timeslot).equalsIgnoreCase(timeslotAsString) &&
+    								businesses.get(busPos).employees.get(empPos).getName().equalsIgnoreCase(EmployeeName) &&
+    								today.plusDays(daysToAdd).equals(bookingDate))
+    						{
+    							booked = true;
+    						}
+    					}
+    					if(!booked)
+    					{
+    						allAvailabilities.add(new AvailableBookingTable(today.plusDays(daysToAdd), dayString[day], 
 									businesses.get(busPos).employees.get(empPos).getTimeSlotAsString(timeslot),
 									businesses.get(busPos).employees.get(empPos).getName()));
+    					}
     				}
     			}
     		}
-//    		if(businesses.get(busPos).bookings.get(i).getDate().isAfter(today))
-//				availabilities.add(new AvailableBookingTable(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getDate(),
-//						businesses.get(busPos).bookings.get(i).getCustomerName(), businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
-//						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}	
     	custAvailableBookingTable.setItems(allAvailabilities);
 	}

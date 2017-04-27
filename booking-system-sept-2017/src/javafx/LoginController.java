@@ -20,7 +20,12 @@ import javafx.stage.Stage;
 import main.*;
 import users.*;
 
- 
+/**
+ * Controller for the Login.fxml.
+ * Arrays are passed into controller when it is created.
+ * @author Josh
+ *
+ */
 public class LoginController implements Initializable{
     @FXML private Text actiontarget;
     
@@ -34,12 +39,21 @@ public class LoginController implements Initializable{
     ArrayList<Customer> customers;
     ArrayList<Business> businesses;
     
+    /**
+     * Constructor for login controller
+     * @param customers Customer array passed in from driver where it was created
+     * @param businesses Business array passed in from driver where it was created
+     */
     public LoginController(ArrayList<Customer> customers, ArrayList<Business> businesses)
     {
     	this.customers = customers;
     	this.businesses = businesses;
     }
     
+    /**
+     * Method used when Login button is pressed. Verifies if username and password is correct and sets scene to correct menu
+     * for user. 
+     */
     @FXML protected void handleLoginButtonAction(ActionEvent event)
     {
     	try {
@@ -84,6 +98,10 @@ public class LoginController implements Initializable{
     	}
     }
     
+    /**
+     * Handles when the register button is pressed and loads the registration page
+     * @param event Gets action from when button is pressed
+     */
     @FXML protected void handleRegisterButtonAction(ActionEvent event)
     {
     	try {
@@ -110,7 +128,5 @@ public class LoginController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
 	}
 }
