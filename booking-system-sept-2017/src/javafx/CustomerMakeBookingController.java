@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.BusinessMakeBookingController.AvailableBookingTable;
 import javafx.BusinessViewBookingsController.TableViewBooking;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 
 import users.*;
@@ -23,7 +25,17 @@ public class CustomerMakeBookingController implements Initializable{
     private int busPos;
     
 //    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
-    private final ObservableList<AvailableBookingTable> availabilities = FXCollections.observableArrayList();
+    private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
+    private final ObservableList<AvailableBookingTable> displayedAvailabilities = FXCollections.observableArrayList();
+    private final ObservableList<String> personalTrainer = FXCollections.observableArrayList();
+    private final ObservableList<String> classType = FXCollections.observableArrayList();
+    private final ObservableList<String> dayList = FXCollections.observableArrayList();
+    private final ObservableList<String> timeList = FXCollections.observableArrayList();
+    
+    @FXML private ComboBox<String> classCombo = new ComboBox<String>();
+    @FXML private ComboBox<String> personalTrainerCombo = new ComboBox<String>();
+    @FXML private ComboBox<String> timeCombo = new ComboBox<String>();
+    @FXML private ComboBox<String> dayCombo = new ComboBox<String>();
     		
     @FXML private TableView<AvailableBookingTable> custAvailableBookingTable;    
     
@@ -75,6 +87,38 @@ public class CustomerMakeBookingController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		LocalDate today = LocalDate.now();
+		
+		classType.add("All");
+		classType.add("CROSSFIT");
+		classType.add("WEIGHTS");
+		classType.add("SPIN");
+		classCombo.setItems(classType);
+		classCombo.setValue("All");
+		
+		personalTrainer.add("All");
+		for(int empNo = 0; empNo < businesses.get(busPos).employees.size(); empNo++)
+		{
+			personalTrainer.add(businesses.get(busPos).employees.get(empNo).getName());
+		}
+		personalTrainerCombo.setItems(personalTrainer);
+		personalTrainerCombo.setValue("All");
+		
+		timeList.add("All");
+		timeList.add("Morning");
+		timeList.add("Midday");
+		timeList.add("Afternoon");
+		timeList.add("Evening");
+		timeCombo.setItems(timeList);
+		timeCombo.setValue("All");
+		
+		dayList.add("All");
+		dayList.add("Monday");
+		dayList.add("Tuesday");
+		dayList.add("Wednesday");
+		dayList.add("Thursday");
+		dayList.add("Friday");
+		dayCombo.setItems(dayList);
+		dayCombo.setValue("All");
 
     	for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos ++)
 		{
@@ -142,7 +186,7 @@ public class CustomerMakeBookingController implements Initializable{
     					{
     						continue;
     					}
-						availabilities.add(new AvailableBookingTable(today.plusDays(daysToAdd), dayString[day], 
+						allAvailabilities.add(new AvailableBookingTable(today.plusDays(daysToAdd), dayString[day], 
 									businesses.get(busPos).employees.get(empPos).getTimeSlotAsString(timeslot),
 									businesses.get(busPos).employees.get(empPos).getName()));
     				}
@@ -153,6 +197,60 @@ public class CustomerMakeBookingController implements Initializable{
 //						businesses.get(busPos).bookings.get(i).getCustomerName(), businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
 //						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}	
-    	custAvailableBookingTable.setItems(availabilities);
+    	custAvailableBookingTable.setItems(allAvailabilities);
+	}
+	
+	public void handleSortAvailability(ActionEvent event)
+	{
+		String classType = classCombo.getValue();
+		String personalTrainer = personalTrainerCombo.getValue();
+		String time = timeCombo.getValue();
+		String day = dayCombo.getValue();
+				
+		//clear current displayed list
+		displayedAvailabilities.clear();
+		String timesArray[] = new String[]{"8am - 9am", "9am - 10am", "10am - 11am", "11am - 12pm", "12pm - 1pm", "1pm - 2pm", "2pm - 3pm", "3pm - 4pm", "4pm - 5pm", "5pm - 6pm"};
+		for(int count = 0; count < allAvailabilities.size(); count++)
+		{
+			displayedAvailabilities.add(allAvailabilities.get(count));
+		}
+		
+		//for each item in list check to see if it should still be in the list
+			for(int count = displayedAvailabilities.size() - 1; count >= 0 ; count--)
+				{
+					String timeslot = "All";
+					if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[0]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[1])
+							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[2]))
+					{
+						timeslot = "Morning";
+					}
+					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[3]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[4]))
+					{
+						timeslot = "Midday";
+					}
+					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[5]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[6])
+							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[7]))
+					{
+						timeslot = "Afternoon";
+					}
+					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[8]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[9]))
+					{
+						timeslot = "Evening";
+					}
+					
+					if(!personalTrainer.equalsIgnoreCase("All") && !personalTrainer.equalsIgnoreCase(displayedAvailabilities.get(count).getEmployeeName()))
+					{
+						displayedAvailabilities.remove(displayedAvailabilities.get(count));
+					}
+					else if(!time.equalsIgnoreCase("All") && !time.equalsIgnoreCase(timeslot))
+					{
+						displayedAvailabilities.remove(allAvailabilities.get(count));
+					}
+					else if(!day.equalsIgnoreCase("All") && !day.equalsIgnoreCase(allAvailabilities.get(count).getDay()))
+					{
+						displayedAvailabilities.remove(allAvailabilities.get(count));
+					}
+				}
+			custAvailableBookingTable.setItems(displayedAvailabilities);
 	}
 }

@@ -198,7 +198,7 @@ public class Database {
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1', 'no')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'yes')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'no')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
