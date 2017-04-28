@@ -140,7 +140,15 @@ public class BusinessViewBookingsController implements Initializable{
     public void handleRemoveBookingButtonAction(ActionEvent event)
     {
     	TableViewBooking newSelection = busBookingTable.getSelectionModel().getSelectedItem();
-    	
+    	String bookingID = newSelection.getBookingId();
+    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
+    	{
+    		if(businesses.get(busPos).bookings.get(i).getBookingID().equalsIgnoreCase(bookingID))
+    		{
+    			businesses.get(busPos).bookings.remove(businesses.get(busPos).bookings.get(i));
+    			busBookingTable.getItems().remove(newSelection);
+    		}
+    	}
     }
     
 	@Override

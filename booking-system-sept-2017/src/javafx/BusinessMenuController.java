@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -80,33 +81,42 @@ public class BusinessMenuController implements Initializable {
     		System.out.println(e);
     		System.out.println("Unable to load Business Details Tab");
     	}
-		
+	}
+
+	@FXML protected void onSelectionMakeBooking(Event event)
+	{
 		try {
-    		addEmployeeForm.getChildren().clear();
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddEmployees.fxml"));
-    		AddEmployeeController controller = new AddEmployeeController(businesses, busPos);
+    		busMakeBooking.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMakeBooking.fxml"));
+    		BusinessMakeBookingController controller = new BusinessMakeBookingController(businesses, customers, busPos);
     		loader.setController(controller);
     		
-    		addEmployeeForm.getChildren().add(loader.load());
+    		busMakeBooking.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load Add Employee Tab");
+    		System.out.println("Unable to load Make Bookings Tab");
     	}
-		
+	}
+
+	@FXML protected void onSelectionDetails(Event event)
+	{
 		try {
-			busEmployeeAvail.getChildren().clear();
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeAvailabilities.fxml"));
-    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(businesses, busPos);
+    		businessDetails.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
+    		BusinessDetailsController controller = new BusinessDetailsController(businesses, busPos);
     		loader.setController(controller);
     		
-    		busEmployeeAvail.getChildren().add(loader.load());
+    		businessDetails.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load Employee Availabilities Tab");
+    		System.out.println("Unable to load Business Details Tab");
     	}
-		
+	}
+
+	@FXML protected void onSelectionViewBookings(Event event)
+	{
 		try {
     		busViewBooking.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessViewBookings.fxml"));
@@ -119,18 +129,37 @@ public class BusinessMenuController implements Initializable {
     		System.out.println(e);
     		System.out.println("Unable to load View Bookings Tab");
     	}
-		
+	}
+
+	@FXML protected void onSelectionAddEmployee(Event event)
+	{
 		try {
-    		busMakeBooking.getChildren().clear();
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMakeBooking.fxml"));
-    		BusinessMakeBookingController controller = new BusinessMakeBookingController(businesses, customers, busPos);
+    		addEmployeeForm.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddEmployees.fxml"));
+    		AddEmployeeController controller = new AddEmployeeController(businesses, busPos);
     		loader.setController(controller);
     		
-    		busMakeBooking.getChildren().add(loader.load());
+    		addEmployeeForm.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load Make Bookings Tab");
+    		System.out.println("Unable to load Add Employee Tab");
+    	}
+	}
+
+	@FXML protected void onSelectionEmployeeAvailability(Event event)
+	{
+		try {
+			busEmployeeAvail.getChildren().clear();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeAvailabilities.fxml"));
+    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(businesses, busPos);
+    		loader.setController(controller);
+    		
+    		busEmployeeAvail.getChildren().add(loader.load());
+    	}catch(IOException e)
+    	{
+    		System.out.println(e);
+    		System.out.println("Unable to load Employee Availabilities Tab");
     	}
 	}
 }
