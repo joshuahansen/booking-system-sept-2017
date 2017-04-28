@@ -14,27 +14,27 @@
 	<center>
 		<TabPane tabClosingPolicy="UNAVAILABLE" fx:id="businessMenuTabPane">
 			<tabs>
-				<Tab text="Details" fx:id="detailsTab">
+				<Tab text="Details" fx:id="detailsTab" onSelectionChanged="#onSelectionDetails">
 					<content>
 						<GridPane fx:id="businessDetails" alignment="center"/>
 					</content>
 				</Tab>
-				<Tab text="Add Employee">
+				<Tab text="Add Employee" onSelectionChanged="#onSelectionAddEmployee">
 					<content>
 						<GridPane fx:id="addEmployeeForm" alignment="center"/>
 					</content>
 				</Tab>
-				<Tab text="Employee Availability">
+				<Tab text="Employee Availability" onSelectionChanged="#onSelectionEmployeeAvailability">
 					<content>
 						<GridPane fx:id="busEmployeeAvail" alignment="center"/>
 					</content>
 				</Tab>
-				<Tab text="View Bookings">
+				<Tab text="View Bookings" onSelectionChanged="#onSelectionViewBookings">
 					<content>
 						<GridPane fx:id="busViewBooking"/>
 					</content>
 				</Tab>
-				<Tab text="Make Bookings">
+				<Tab text="Make Bookings" onSelectionChanged="#onSelectionMakeBooking">
 					<content>
 						<GridPane fx:id="busMakeBooking"/>
 					</content>
