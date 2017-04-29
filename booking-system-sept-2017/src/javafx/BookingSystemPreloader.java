@@ -5,6 +5,7 @@ import javafx.application.Preloader.StateChangeNotification.Type;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -16,7 +17,7 @@ public class BookingSystemPreloader extends Preloader {
 	@Override
 	    public void start(Stage primaryStage) throws Exception {
 	       this.preloaderStage = primaryStage;
-	 
+	   
 	       VBox loading = new VBox(20);
 	       loading.setMaxWidth(Region.USE_PREF_SIZE);
 	       loading.setMaxHeight(Region.USE_PREF_SIZE);
