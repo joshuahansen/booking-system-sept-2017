@@ -6,11 +6,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.BusinessViewBookingsController.TableViewBooking;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 
 import users.*;
@@ -21,10 +24,13 @@ public class CustViewBookingsController implements Initializable{
     private int custPos;
     private int busPos;
     
-    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
+    private final ObservableList<TableViewBooking> allBookings = FXCollections.observableArrayList();
+    private final ObservableList<TableViewBooking> displayBookings = FXCollections.observableArrayList();
+    private final ObservableList<String> bookingTime = FXCollections.observableArrayList();
     		
     @FXML private TableView<TableViewBooking> custBookingsTable;    
-    
+    @FXML private ComboBox<String> bookingCombo = new ComboBox<String>();
+        
     public CustViewBookingsController(ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos, int busPos)
     {
     	this.customers = customers;
@@ -42,6 +48,7 @@ public class CustViewBookingsController implements Initializable{
     	private final SimpleStringProperty day;
     	private final SimpleStringProperty time;
     	private final SimpleStringProperty employeeName;
+    	private LocalDate localDate;
     	
     	private TableViewBooking(String bookingId, String sessionType, LocalDate date, String customerName, String day, String time, String employeeName)
     	{
@@ -49,6 +56,7 @@ public class CustViewBookingsController implements Initializable{
     		this.sessionType = new SimpleStringProperty(sessionType);
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LLLL/yyyy");
     		this.date = new SimpleStringProperty(date.format(formatter));
+    		this.localDate = date;
     		this.customerName = new SimpleStringProperty(customerName);
     		this.day = new SimpleStringProperty(day);
     		this.time = new SimpleStringProperty(time);
@@ -89,6 +97,11 @@ public class CustViewBookingsController implements Initializable{
     	{
     		return employeeName.get();
     	}
+    	
+    	public LocalDate getLocalDate()
+    	{
+    		return localDate;
+    	}
     }
     
 	@Override
@@ -97,13 +110,78 @@ public class CustViewBookingsController implements Initializable{
 		{
 			if(businesses.get(busPos).bookings.get(i).getCustUsername().equals(customers.get(custPos).getUsername()))
 			{
-				bookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
+				allBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(), 
 						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 			}
 		}
 		
-	    custBookingsTable.setItems(bookings);
+		LocalDate today = LocalDate.now();
+		
+		for(int i = 0; i < allBookings.size(); i ++)
+		{
+    		if(allBookings.get(i).getLocalDate().equals(today))
+    		{
+				displayBookings.add(allBookings.get(i));
+    		}
+		}
+		
+	    custBookingsTable.setItems(displayBookings);
+	    
+	    bookingTime.add("All");
+		bookingTime.add("Past");
+		bookingTime.add("Today");
+		bookingTime.add("Future");
+		bookingCombo.setItems(bookingTime);
+		bookingCombo.setValue("Today");
+	}
+	
+	@FXML protected void handleSortBookings(ActionEvent event)
+	{
+		displayBookings.clear();
+		String bookingTime = bookingCombo.getValue();
+		
+		LocalDate today = LocalDate.now();
+    	
+		if(bookingTime.equalsIgnoreCase("Today"))
+		{
+			for(int i = 0; i < allBookings.size(); i ++)
+			{
+	    		if(allBookings.get(i).getLocalDate().equals(today))
+	    		{
+					displayBookings.add(allBookings.get(i));
+	    		}
+			}
+		}
+		else if(bookingTime.equalsIgnoreCase("Past"))
+		{
+			for(int i = 0; i < allBookings.size(); i ++)
+			{
+	    		if(allBookings.get(i).getLocalDate().isBefore(today))
+	    		{
+					displayBookings.add(allBookings.get(i));
+	    		}
+			}
+		}
+		else if(bookingTime.equalsIgnoreCase("Future"))
+		{
+			for(int i = 0; i < allBookings.size(); i ++)
+			{
+	    		if(allBookings.get(i).getLocalDate().isAfter(today))
+	    		{
+					displayBookings.add(allBookings.get(i));
+	    		}
+			}
+		}
+		else
+		{
+			for(int i = 0; i < allBookings.size(); i++)
+			{
+				displayBookings.add(allBookings.get(i));
+			}
+		}
+		
+		custBookingsTable.setItems(displayBookings);
 	}
 }

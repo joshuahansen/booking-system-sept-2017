@@ -49,7 +49,7 @@
 			        </cellValueFactory>
 			    </TableColumn>
 			    
-			    <TableColumn text="Customer Name" prefWidth="200" fx:id="busCustomerNameColumn">
+			    <TableColumn text="Customer Name" prefWidth="150" fx:id="busCustomerNameColumn">
 					<cellValueFactory>
 						<PropertyValueFactory property="customerName"/>
 		        	</cellValueFactory>
@@ -67,7 +67,7 @@
 		        	</cellValueFactory>
 				</TableColumn>
 				
-				<TableColumn text="Personal Trainer" prefWidth="200" fx:id="busPersonalTrainerColumn">
+				<TableColumn text="Personal Trainer" prefWidth="150" fx:id="busPersonalTrainerColumn">
 					<cellValueFactory>
 						<PropertyValueFactory property="employeeName" />
 		        	</cellValueFactory>

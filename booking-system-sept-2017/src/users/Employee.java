@@ -14,7 +14,7 @@ public class Employee
 	boolean avaSaturday;
 	boolean avaSunday;
 	
-	public int availableTimes[][] = new int[10][5];
+	public int availableTimes[][] = new int[5][10];
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 
@@ -72,30 +72,30 @@ public class Employee
 	}
 	
 	//Sets time to available given the timeslot, day and if it's booked or not
-	public boolean setAvailableTime(int timeslot, int day, String booked)
+	public boolean setAvailableTime(int day, int timeslot, String booked)
 	{
 		if(booked.equalsIgnoreCase("yes"))
 		{
-			availableTimes[timeslot][day] = 2;
+			availableTimes[day][timeslot] = 2;
 		}
 		else if(booked.equalsIgnoreCase("no"))
 		{
-			availableTimes[timeslot][day] = 1;
+			availableTimes[day][timeslot] = 1;
 		}
 		return true;
 	}
 	
 	//remove available time from employee availability array
-	public boolean removeAvailibleTime(int timeslot, int day)
+	public boolean removeAvailibleTime(int day, int timeslot)
 	{
-		availableTimes[timeslot][day] = 0;
+		availableTimes[day][timeslot] = 0;
 		return true;
 	}
 	
 	//remove booking from employee availability array at given timeslot and day
 	public boolean removeBooking(int timeslot, int day)
 	{
-		availableTimes[timeslot][day] = 1;
+		availableTimes[day][timeslot] = 1;
 		return true;
 	}
 	
@@ -106,7 +106,7 @@ public class Employee
 	 */
 	public int getAvailableTime(int timeslot, int day)
 	{
-		return availableTimes[timeslot][day];
+		return availableTimes[day][timeslot];
 	}
 	
 	public String getTimeSlotAsString(int timeslot)
