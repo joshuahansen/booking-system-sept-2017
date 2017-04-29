@@ -2,8 +2,11 @@ package javafx;
 
 import java.util.ArrayList;
 
+import com.sun.javafx.application.LauncherImpl;
+
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,13 +24,15 @@ public class BookingSystem extends Application {
 	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
 	
-	/**
-	 * Loads data from database into program
-	 * Initializes program and sets login scene to the stage.
-	 */
-    @Override
-    public void start(Stage stage) throws Exception {
-    	customers = new ArrayList<>();
+	private Scene loginScene;
+	
+	public static void launchApplication(final Class<? extends Application> appClass,
+			   final Class<? extends Preloader> preloaderClass,
+			   final String[] args) {
+			}
+	
+	public void init() throws Exception {
+	  	customers = new ArrayList<>();
 		businesses = new ArrayList<>();
 		
 		String url = "jdbc:sqlite:./database.db";
@@ -98,9 +103,17 @@ public class BookingSystem extends Application {
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();
-		Scene loginScene = new Scene(bookingSystem, 860, 640);        
+		loginScene = new Scene(bookingSystem, 860, 640);        
 		bookingSystem.getStylesheets().add(getClass().getResource("bookingSystem.css").toExternalForm());
-
+		Thread.sleep(2000);
+	}
+	/**
+	 * Loads data from database into program
+	 * Initializes program and sets login scene to the stage.
+	 */
+    @Override
+    public void start(Stage stage) throws Exception {
+ 
         stage.setTitle("Booking System - Login");
         stage.setScene(loginScene);
         stage.show();
@@ -119,7 +132,7 @@ public class BookingSystem extends Application {
      * @param args
      */
 	public static void main(String[] args) {
-		launch(args);
-		
+//		launch(args);
+		LauncherImpl.launchApplication(BookingSystem.class, BookingSystemPreloader.class, args);
 	}
 }

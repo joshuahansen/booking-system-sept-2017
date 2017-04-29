@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?>
+<?import javafx.scene.control.ComboBox?> 
 
 <AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@customerMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+			<Label text="Select from Past, Today or Future Bookings"/>
+			<ComboBox fx:id="bookingCombo" prefWidth="150.0"
+					onAction="#handleSortBookings"/>
+					
       <TableView fx:id="custBookingsTable" layoutX="10.0" layoutY="25.0" prefHeight="401.0" prefWidth="703.0">
       	<columns>
       		<TableColumn fx:id="bookingIdColumn" prefWidth="92.0" text="Booking ID">
@@ -21,9 +31,9 @@
       	        </cellValueFactory>
       	    </TableColumn>
       	    
-      	    <TableColumn fx:id="customerNameColumn" prefWidth="160.0" text="Customer Name">
+      	    <TableColumn fx:id="classTypeColumn" prefWidth="160.0" text="Class Type">
       			<cellValueFactory>
-      				<PropertyValueFactory property="customerName" />
+      				<PropertyValueFactory property="sessionType" />
               	</cellValueFactory>
       		</TableColumn>
       		

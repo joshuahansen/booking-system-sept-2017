@@ -18,6 +18,7 @@ public class Booking {
 	
 	private int day;
 	private int timeslot;
+	private int endTime;
 
 	public Booking(String bookingID, String sessionType, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
 	{
@@ -29,6 +30,14 @@ public class Booking {
 		setCompleted(completed);
 		setCustomer(customer);
 		setEmployee(employee);
+		if(sessionType.equalsIgnoreCase("CROSSFIT 2HR") || sessionType.equalsIgnoreCase("CARDIO 2HR"))
+		{
+			endTime = timeslot + 1;
+		}
+		else
+		{
+			endTime = timeslot;
+		}
 	}
 	
 	private void setBookingID(String bookingID)
@@ -101,6 +110,11 @@ public class Booking {
 		return timeslot;
 	}
 	
+	public int getEndTime()
+	{
+		return endTime;
+	}
+	
 	public String getCustomerName()
 	{
 		String name = customer.getFirstName() + " " + customer.getLastName(); 
@@ -154,41 +168,77 @@ public class Booking {
 	public String getTimeslotAsString()
 	{
 		String stringTimeslot;
-		if(timeslot == 0)
+		if(timeslot == 0 && endTime == 0)
 		{
 			stringTimeslot = "8am - 9am";
 		}
-		else if(timeslot == 1)
+		else if(timeslot == 0 && endTime == 1)
+		{
+			stringTimeslot = "8am - 10am";
+		}
+		else if(timeslot == 1 && endTime == 1)
 		{
 			stringTimeslot = "9am - 10am";
 		}
-		else if(timeslot == 2)
+		else if(timeslot == 1 && endTime == 2)
+		{
+			stringTimeslot = "9am - 11am";
+		}
+		else if(timeslot == 2 && endTime == 2)
 		{
 			stringTimeslot = "10am - 11am";
 		}
-		else if(timeslot == 3)
+		else if(timeslot == 2 && endTime == 3)
+		{
+			stringTimeslot = "10am - 12pm";
+		}
+		else if(timeslot == 3 && endTime == 3)
 		{
 			stringTimeslot = "11am - 12pm";
 		}
-		else if(timeslot == 4)
+		else if(timeslot == 3 && endTime == 4)
+		{
+			stringTimeslot = "11am - 1pm";
+		}
+		else if(timeslot == 4 && endTime == 4)
 		{
 			stringTimeslot = "12pm - 1pm";
 		}
-		else if(timeslot == 5)
+		else if(timeslot == 4 && endTime == 5)
+		{
+			stringTimeslot = "12pm - 2pm";
+		}
+		else if(timeslot == 5 && endTime == 5)
 		{
 			stringTimeslot = "1pm - 2pm";
 		}
-		else if(timeslot == 6)
+		else if(timeslot == 5 && endTime == 6)
+		{
+			stringTimeslot = "1pm - 3pm";
+		}
+		else if(timeslot == 6 && endTime == 6)
 		{
 			stringTimeslot = "2pm - 3pm";
 		}
-		else if(timeslot == 7)
+		else if(timeslot == 6 && endTime == 7)
+		{
+			stringTimeslot = "2pm - 4pm";
+		}
+		else if(timeslot == 7 && endTime == 7)
 		{
 			stringTimeslot = "3pm - 4pm";
 		}
-		else if(timeslot == 8)
+		else if(timeslot == 7 && endTime == 8)
+		{
+			stringTimeslot = "3pm - 5pm";
+		}
+		else if(timeslot == 8 && endTime == 8)
 		{
 			stringTimeslot = "4pm - 5pm";
+		}
+		else if(timeslot == 8 && endTime == 9)
+		{
+			stringTimeslot = "4pm - 6pm";
 		}
 		else
 		{

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.CustomerMakeBookingController.AvailableBookingTable;
@@ -13,8 +14,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import users.*;
 
 public class BusinessViewBookingsController implements Initializable{
@@ -140,38 +147,64 @@ public class BusinessViewBookingsController implements Initializable{
     public void handleRemoveBookingButtonAction(ActionEvent event)
     {
     	TableViewBooking newSelection = busBookingTable.getSelectionModel().getSelectedItem();
-    	String bookingID = newSelection.getBookingId();
-    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
-    	{
-    		if(businesses.get(busPos).bookings.get(i).getBookingID().equalsIgnoreCase(bookingID))
-    		{
-    			businesses.get(busPos).bookings.remove(businesses.get(busPos).bookings.get(i));
-    			busBookingTable.getItems().remove(newSelection);
-    		}
+    	
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Delete Booking Confirmation");
+    	alert.setHeaderText("Delete Booking Confirmation");
+    	alert.setContentText("Are you sure you want to delete this booking?");
+
+    	String exceptionText = "Booking ID: " + newSelection.getBookingId() + "\nCustomer Name: " + newSelection.getCustomerName() + 
+    			"\nDate: " + newSelection.getDate() + "\nEmployee: " + newSelection.getEmployeeName();
+    			
+    			
+    	Label label = new Label("The booking details are:");
+
+    	TextArea textArea = new TextArea(exceptionText);
+    	textArea.setEditable(false);
+    	textArea.setWrapText(true);
+
+    	textArea.setMaxWidth(Double.MAX_VALUE);
+    	textArea.setMaxHeight(Double.MAX_VALUE);
+    	GridPane.setVgrow(textArea, Priority.ALWAYS);
+    	GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+    	GridPane expContent = new GridPane();
+    	expContent.setMaxWidth(Double.MAX_VALUE);
+    	expContent.add(label, 0, 0);
+    	expContent.add(textArea, 0, 1);
+    	alert.getDialogPane().setExpandableContent(expContent);
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK){
+        	String bookingID = newSelection.getBookingId();
+        	for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
+        	{
+        		if(businesses.get(busPos).bookings.get(i).getBookingID().equalsIgnoreCase(bookingID))
+        		{
+        			businesses.get(busPos).bookings.remove(businesses.get(busPos).bookings.get(i));
+        			busBookingTable.getItems().remove(newSelection);
+        		}
+        	}
+    	} else {
+    	    // ... user chose CANCEL or closed the dialog
     	}
+    	
     }
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
-//		{
-//				bookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getDate(),
-//						businesses.get(busPos).bookings.get(i).getCustomerName(), businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
-//						businesses.get(busPos).bookings.get(i).getEmployeeName()));
-//		}
 		
 		LocalDate today = LocalDate.now();
-    	
-    	
-    	
     	
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
 		{
     		if(businesses.get(busPos).bookings.get(i).getDate().equals(today))
+    		{
 				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
 						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+    		}
 		}
 		
 		busBookingTable.setItems(todaysBookings);

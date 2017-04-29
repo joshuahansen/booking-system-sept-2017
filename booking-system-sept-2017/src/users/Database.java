@@ -204,7 +204,7 @@ public class Database {
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1', 'no')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'no')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1', 'no')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
@@ -341,7 +341,7 @@ public class Database {
 					{
 						if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
 						{
-							businesses.get(busNo).employees.get(i).setAvailableTime(timeslot, day, booked);
+							businesses.get(busNo).employees.get(i).setAvailableTime(day, timeslot, booked);
 							break;
 						}
 					}
@@ -456,11 +456,11 @@ public class Database {
 				try{
 					String sql;
 					Statement stmt = connection.createStatement();
-				    for(int timeslot = 0; timeslot < businesses.get(busNo).employees.get(i).availableTimes.length; timeslot++)
+				    for(int day = 0; day < businesses.get(busNo).employees.get(i).availableTimes.length; day++)
 				    {
-				    	for(int day = 0; day < businesses.get(busNo).employees.get(i).availableTimes[timeslot].length; day++)
+				    	for(int timeslot = 0; timeslot < businesses.get(busNo).employees.get(i).availableTimes[day].length; timeslot++)
 				    	{
-				    		int booked = businesses.get(busNo).employees.get(i).availableTimes[timeslot][day];
+				    		int booked = businesses.get(busNo).employees.get(i).availableTimes[day][timeslot];
 				    		if(booked == 1 || booked == 2)
 				    		{
 				    			try{
@@ -489,22 +489,25 @@ public class Database {
 	//write Bookings array into database
 	public boolean writeBookingToDB(ArrayList<Business> businesses)
 	{
-		for(int busNo = 0; busNo < businesses.size(); busNo++)
-		{
-			for(int i = 0; i < businesses.get(busNo).bookings.size(); i++)
+		try{
+			String sql;
+			Statement stmt = connection.createStatement();
+	
+			sql = "DELETE FROM BOOKINGS";
+			stmt.executeUpdate(sql);
+					
+			for(int busNo = 0; busNo < businesses.size(); busNo++)
 			{
-				try{
-					String sql;
-					Statement stmt = connection.createStatement();
+				for(int i = 0; i < businesses.get(busNo).bookings.size(); i++)
+				{
 				    bookingToString(businesses.get(busNo).bookings.get(i));
 					sql = "INSERT INTO BOOKINGS VALUES(" + getBookingSQL() +")";
 					stmt.executeUpdate(sql);
-				    
-				}catch (SQLException ex) {
-					System.out.println("Booking record already exists. No changes were made.");
 				}
 			}
-		}
+			}catch (SQLException ex) {
+				System.out.println("Booking record already exists. No changes were made.");
+			}
 		return true;
 	}
 	
