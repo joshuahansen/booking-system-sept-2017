@@ -1,9 +1,13 @@
 .root {
--fx-background-image: url("http://www.greenprm.com/images/bgPageImg3.jpg");
+-fx-background-image: url("http://il7.picdn.net/shutterstock/videos/626887/thumb/1.jpg");
+-fx-background-size: cover;
 }
 .label {
--fx-font-family: sans-serif;
+-fx-font-weight: bold;
 }
-/* #custLogoutButton {
--fx-background-color: rgb(135,206,250, 0.90);
-}*/
+#loginOutline {
+-fx-background-color: white;
+}
+#custDetailOutline {
+-fx-background-color: white;
+}
