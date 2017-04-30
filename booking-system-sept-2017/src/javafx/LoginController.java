@@ -30,8 +30,8 @@ import users.*;
  *
  */
 public class LoginController implements Initializable{
-    @FXML private Text actiontarget;
     
+	@FXML private Text actiontarget;
     @FXML private TextField loginUsernameData;
     @FXML private PasswordField loginPasswordData;
     @FXML private Hyperlink registerButton;

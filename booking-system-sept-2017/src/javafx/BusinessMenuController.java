@@ -76,6 +76,7 @@ public class BusinessMenuController implements Initializable {
     		loader.setController(controller);
     		
     		businessDetails.getChildren().add(loader.load());
+    		
     	}catch(IOException e)
     	{
     		System.out.println(e);

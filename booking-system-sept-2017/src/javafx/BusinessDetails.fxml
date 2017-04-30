@@ -1,55 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml"
-		alignment="center" hgap="10" vgap="10">
-			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-			
-			<!-- <gridLinesVisible>true</gridLinesVisible> -->
-			
-			<Label text="Business Details" fx:id="busDetailsLabel"
-				GridPane.columnIndex="0" GridPane.rowIndex="0"
-				GridPane.columnSpan="2"/>
-			
-			<Label text="Business Name:" fx:id="busDetailsBusNameLabel"
-				GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-			
-			<Text fx:id="busDetailsBusNameData"
-				GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-					
-			<Label text="User Name:" fx:id="busDetailsUsernameLabel"
-				GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-			
-			<Text fx:id="busDetailsUsernameData"
-				GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-			
-			<Label text="First Name:" fx:id="busDetailsFirstNameLabel"
-				GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-			
-			<Text fx:id="busDetailsFirstNameData"
-				GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-			
-			<Label text="Last Name:" fx:id="busDetailsLastNameLabel"
-				GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-			
-			<Text fx:id="busDetailsLastNameData"
-				GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-			
-			<Label text="Address:" fx:id="busDetailsAddressLabel"
-				GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-			
-			<Text fx:id="busDetailsAddressData"
-				GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-			
-			<Label text="Phone Number:" fx:id="busDetailsPhoneLabel"
-				GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-			
-			<Text fx:id="busDetailsPhoneData"
-				GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-</GridPane>
+<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@businessMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane fx:id="busiDetailOutline" layoutX="222.0" layoutY="112.0" opacity="0.6" prefHeight="249.0" prefWidth="369.0" stylesheets="@businessMenu.css">
+         <effect>
+            <InnerShadow color="#cdb8b8">
+               <input>
+                  <MotionBlur />
+               </input>
+            </InnerShadow>
+         </effect>
+      </Pane>
+      <GridPane alignment="center" hgap="10" prefHeight="448.0" prefWidth="800.0" vgap="10">
+      			<padding>
+            <Insets bottom="10" left="25" right="25" top="25" />
+         </padding>
+      			
+      <!-- <gridLinesVisible>true</gridLinesVisible> -->
+      			
+      <Label fx:id="busDetailsLabel" text="Business Details:" textFill="#3700ff" underline="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+      			
+      <Label fx:id="busDetailsBusNameLabel" prefHeight="17.0" prefWidth="116.0" text="Business Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      			
+      <Text fx:id="busDetailsBusNameData" wrappingWidth="109.6878662109375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      					
+      <Label fx:id="busDetailsUsernameLabel" text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      			
+      <Text fx:id="busDetailsUsernameData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      			
+      <Label fx:id="busDetailsFirstNameLabel" text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      			
+      <Text fx:id="busDetailsFirstNameData" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      			
+      <Label fx:id="busDetailsLastNameLabel" text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+      			
+      <Text fx:id="busDetailsLastNameData" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      			
+      <Label fx:id="busDetailsAddressLabel" text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+      			
+      <Text fx:id="busDetailsAddressData" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      			
+      <Label fx:id="busDetailsPhoneLabel" text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+      			
+      <Text fx:id="busDetailsPhoneData" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>

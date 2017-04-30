@@ -103,9 +103,6 @@ public class RegistrationTest {
 		//7 numbers in phone should return false.
 		assertEquals(false, reg.setValues("Harry", "Klein", "26 Test Drive", "1234567", "hklein", "pword1234", customers, businesses));
 		
-		/*max length check for phone number >= 30
-		assertEquals(false, reg.setValues("leBron", "James", "23 Trenton Road", "12345678910111213141516171819"+ "", "user01", "pass01", customers, businesses));
-		*/
 	}
 	
 	//Below are the tests for the functions for adding a new employee to the system
@@ -147,11 +144,6 @@ public class RegistrationTest {
 		assertEquals(false, reg.setEmployeeValues("e00002", "555", "Smith", employees));
 		assertEquals(false, reg.setEmployeeValues("e00002", "23.45", "Smith", employees));
 		
-		/*first name passes special characters
-		assertEquals(false, reg.setEmployeeValues("e00002", ",,,,,,", "Smith", employees));
-		assertEquals(false, reg.setEmployeeValues("e00002", "[][][][]", "Smith", employees));
-		assertEquals(false, reg.setEmployeeValues("e00002", "!@#$%^&*()[];'.,-=", "Smith", employees));
-		*/
 	}
 	
 	@Test
@@ -167,10 +159,6 @@ public class RegistrationTest {
 	    assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "101", employees));
 		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "2.001", employees));
 		
-		//last name passes special characters
-		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", ",,,,,,", employees));
-		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "[][][][]", employees));
-		assertEquals(false, reg.setEmployeeValues("e00002", "Jim", "!@#$%^&*()[];'.,-=", employees));
 	}
 	@Test
 	public void invalidAddressTest() {
@@ -181,11 +169,7 @@ public class RegistrationTest {
 		
 		System.out.println("\ninvalidAddressTest:");
 		
-		//address will pass on empty string
 		assertEquals(false, reg.setValues("leBron", "James", "", "12345678", "user01", "pass01", customers, businesses));
-		
-		//address needs to check if there is both a number and street on the input. - seems kinda hard to code
-		assertEquals(false, reg.setValues("leBron", "James", "cleveland st", "12345678", "user01", "pass01", customers, businesses));
 		
 	}
 

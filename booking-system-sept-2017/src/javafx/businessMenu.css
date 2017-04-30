@@ -4,3 +4,6 @@
 .label {
 -fx-font-family: sans-serif;
 }
+#busiDetailOutline {
+-fx-background-color: white;
+}

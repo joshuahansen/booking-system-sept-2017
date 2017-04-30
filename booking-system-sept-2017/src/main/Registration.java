@@ -105,7 +105,9 @@ public class Registration {
 			//prompts the user to enter their username and assigns it to the username variable
 			System.out.print("Enter Address: ");
 			this.address = userInput.nextLine();
-			valid = true; 
+			if(validAddress()) {
+				valid = true; 
+			}
 		}
 		valid = false;
 		while(valid == false) {
