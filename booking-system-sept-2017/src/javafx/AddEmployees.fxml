@@ -15,7 +15,12 @@
 		GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 	
 	<TextField fx:id="employeeNumberData"
-		GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+		GridPane.columnIndex="1" GridPane.rowIndex="1">
+		<tooltip>
+        	<Tooltip fx:id="employeeTooltip" maxWidth="150" wrapText="true"
+            		text="Employee ID can only contain digits"/>
+    	</tooltip>
+     </TextField>
 		
 	<Text fx:id="employeeIDFail" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 	
@@ -23,7 +28,12 @@
 		GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 	
 	<TextField fx:id="employeeFirstNameData"
-		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+		GridPane.columnIndex="1" GridPane.rowIndex="2">
+		<tooltip>
+        	<Tooltip fx:id="firstNameTooltip" maxWidth="150" wrapText="true"
+            			text="First name can only contain alphabetical characters"/>
+        </tooltip>
+     </TextField>
 		
 	<Text fx:id="firstNameFail" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 		
@@ -31,7 +41,12 @@
 		GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 	
 	<TextField fx:id="employeeLastNameData"
-		GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+		GridPane.columnIndex="1" GridPane.rowIndex="3">
+		<tooltip>
+ 			<Tooltip fx:id="lastNameTooltip" maxWidth="150" wrapText="true"
+ 					text="Last name can only contain alphabetical characters"/>
+ 		</tooltip>
+	</TextField>
 		
 	<Text fx:id="lastNameFail" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 		

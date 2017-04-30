@@ -7,3 +7,7 @@
 #busiDetailOutline {
 -fx-background-color: white;
 }
+
+.tooltip {
+	-fx-font-size: 14;
+}

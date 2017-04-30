@@ -44,7 +44,7 @@
             			<TextField fx:id="registerFirstNameData" GridPane.columnIndex="1" GridPane.rowIndex="2">
             				<tooltip>
             					<Tooltip fx:id="firstNameTooltip" maxWidth="150" wrapText="true"
-            						text="First name can only contain alphbetical characters"/>
+            						text="First name can only contain alphabetical characters"/>
             				</tooltip>
       					</TextField>
       					
@@ -55,7 +55,7 @@
             			<TextField fx:id="registerLastNameData" GridPane.columnIndex="1" GridPane.rowIndex="3">
             				<tooltip>
             					<Tooltip fx:id="lastNameTooltip" maxWidth="150" wrapText="true"
-            						text="Last name can only contain alphbetical characters"/>
+            						text="Last name can only contain alphabetical characters"/>
             				</tooltip>
       					</TextField>
       			
@@ -66,7 +66,7 @@
             			<TextField fx:id="registerAddressData" GridPane.columnIndex="1" GridPane.rowIndex="4">
             				<tooltip>	
             					<Tooltip fx:id="addressTooltip" maxWidth="150" wrapText="true"
-            						text="Address must be a number followed by alphbetical characters"/>
+            						text="Address must be a number followed by alphabetical characters"/>
             				</tooltip>
       					</TextField>
       			
@@ -88,7 +88,7 @@
                 		<PasswordField fx:id="registerPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="6">
           					<tooltip>
           						<Tooltip fx:id="passwordTooltip" maxWidth="150" wrapText="true"
-          							text="Password must be at least 6 characters and contain at least one diget and one alphbetical characters"/>
+          							text="Password must be at least 6 characters and contain at least one diget and one alphabetical characters"/>
           					</tooltip>
     					</PasswordField>
                 			
