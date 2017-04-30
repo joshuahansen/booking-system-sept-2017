@@ -73,7 +73,7 @@
 		<bottom>
 		<GridPane>
 			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-			<Button text="Make Booking" fx:id="makeBookingButton"
+			<Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Make Booking" fx:id="makeBookingButton"
 			onAction="#handleMakeBookingButtonAction"
 			GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 			<Label fx:id="addBookingLabel" text="" 

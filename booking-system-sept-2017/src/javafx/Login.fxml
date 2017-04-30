@@ -67,6 +67,7 @@
                      </Hyperlink>
                   </children>
                </HBox>
+               <Text fx:id="actiontarget" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="162.21875" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints />

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?> 
-<?import javafx.collections.*?> 
-<?import fxmltableview.*?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.layout.GridPane?> 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@customerMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
    		<GridPane>
-			<Label text="Select Bookings to Display "
-			GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-			<ComboBox fx:id="bookingCombo" prefWidth="150.0"
-					onAction="#handleSortBookings"
-					GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
 		</GridPane>
 					
-      <TableView fx:id="custBookingsTable" layoutX="10.0" layoutY="25.0" prefHeight="401.0" prefWidth="703.0">
+      <TableView fx:id="custBookingsTable" layoutX="8.0" layoutY="74.0" prefHeight="401.0" prefWidth="684.0">
       	<columns>
       		<TableColumn fx:id="bookingIdColumn" prefWidth="92.0" text="Booking ID">
       			<cellValueFactory>
@@ -36,25 +36,25 @@
       	        </cellValueFactory>
       	    </TableColumn>
       	    
-      	    <TableColumn fx:id="classTypeColumn" prefWidth="160.0" text="Class Type">
+      	    <TableColumn fx:id="classTypeColumn" prefWidth="146.0" text="Class Type">
       			<cellValueFactory>
       				<PropertyValueFactory property="sessionType" />
               	</cellValueFactory>
       		</TableColumn>
       		
-      		<TableColumn fx:id="dayColumn" prefWidth="97.0" text="Day">
+      		<TableColumn fx:id="dayColumn" prefWidth="102.0" text="Day">
       			<cellValueFactory>
       				<PropertyValueFactory property="day" />
               	</cellValueFactory>
       		</TableColumn>
       		
-      		<TableColumn fx:id="timeColumn" prefWidth="103.0" text="Time">
+      		<TableColumn fx:id="timeColumn" prefWidth="97.0" text="Time">
       			<cellValueFactory>
       				<PropertyValueFactory property="time" />
               	</cellValueFactory>
       		</TableColumn>
       		
-      		<TableColumn fx:id="personalTrainerColumn" prefWidth="146.0" text="Personal Trainer">
+      		<TableColumn fx:id="personalTrainerColumn" prefWidth="144.0" text="Personal Trainer">
       			<cellValueFactory>
       				<PropertyValueFactory property="employeeName" />
               	</cellValueFactory>
@@ -64,5 +64,7 @@
                 <fx:reference source="dateColumn" />
            </sortOrder> 
       </TableView>
+			<Label layoutX="14.0" layoutY="31.0" text="Select Bookings to Display: " />
+			<ComboBox fx:id="bookingCombo" layoutX="202.0" layoutY="26.0" onAction="#handleSortBookings" prefWidth="150.0" />
    </children>
 </AnchorPane>

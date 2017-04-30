@@ -99,11 +99,13 @@
             			<PasswordField fx:id="registerPasswordConfirmField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       				
             			<HBox alignment="bottom_left" spacing="10" GridPane.rowIndex="8">
-      		       <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" text="Cancel" />
+      		       <Button fx:id="cancelButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+      		       			onAction="#handleCancelButtonAction" text="Cancel" />
       			</HBox>
       		
             		    <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="8">
-      		    <Button fx:id="confirmButton" onAction="#handleConfirmButtonAction" text="Confirm" />
+      		    <Button fx:id="confirmButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+      		    		onAction="#handleConfirmButtonAction" text="Confirm" />
       			</HBox>
       		
             			<Text fx:id="registerActiontarget" GridPane.columnIndex="1" GridPane.rowIndex="10" />
