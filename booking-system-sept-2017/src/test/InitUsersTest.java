@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import main.Session;
 import users.*;
 
 
@@ -22,13 +24,13 @@ public class InitUsersTest {
 	}
 
 	@Test
-	public void initCustomerTest() {
-		assertTrue(initUser.init_customers(customers));
+	public void initCustomerTest(Session session) {
+		assertTrue(initUser.init_customers(session, customers));
 	}
 	
 	@Test
-	public void initBusinessesTest() {
-		assertTrue(initUser.init_businesses(businesses));
+	public void initBusinessesTest(Session session) {
+		assertTrue(initUser.init_businesses(session, businesses));
 	}
 
 }

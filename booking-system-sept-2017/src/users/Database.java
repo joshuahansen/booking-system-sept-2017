@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import main.Booking;
+import main.Session;
 //database class has all methods needed for program to interact with the database
 public class Database {
 	private Connection connection = null;
@@ -44,7 +45,7 @@ public class Database {
 	}
 
 	//connect to the database. return false if unable to connect
-	public boolean connectDatabase(String url)
+	public boolean connectDatabase(Session session, String url)
 	{
 		try{
 			Class.forName("org.sqlite.JDBC");
@@ -52,20 +53,24 @@ public class Database {
 			String password = "";
 			connection = DriverManager.getConnection(url,user,password);
 			System.out.println("Connected to database");
+			session.addLog("Connected to database");
 			return true;
 			
 		}catch(ClassNotFoundException ex){
 			System.out.println("ERROR: Class not found: " + ex.getMessage());
+			session.addLog("ERROR: Class not found: " + ex.getMessage());
 			return false;
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not load database");
+			session.addLog("ERROR: Could not load database");
 			return false;
 		}
 	}
 	
 	//initialize database tables if there is no database found
-	public boolean initDatabase()
+	public boolean initDatabase(Session session)
 	{
+		session.addLog("Initialising database");
 		//try creating tables return true if successful
 		try{
 			Statement stmt = connection.createStatement();
@@ -135,19 +140,22 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database Initialised");
+			session.addLog("Database initalised");
 			return true;
 			
 		}catch(SQLException e)
 		{
 			//Catch any SQL exceptions, print message and return false 
 			System.out.println("Database cannot be initialised");
+			session.addLog("Database could not be initialised");
 			return false;
 		}
 	}
 	
 	//clear old database tables. return true when clears or false if unable to clear
-	public boolean clearTables()
+	public boolean clearTables(Session session)
 	{
+		session.addLog("Clearing old database tables");
 		try{
 			Statement stmt = connection.createStatement();
 			
@@ -167,18 +175,22 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database tables cleared");
+			session.addLog("Database tables cleared");
 			return true;
 			
 		}catch(SQLException e)
 		{
 			System.out.println("Can not delete tables");
+			session.addLog("Cannot delete tables");
 			return false;
 		}
 	}
 	
 	//populate a new database with some default values
-	public boolean defaultValues()
+	public boolean defaultValues(Session session)
 	{
+		session.addLog("Populating new database with default values");
+		
 		try{
 			Statement stmt = connection.createStatement();
 			String sql;
@@ -217,18 +229,20 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			System.out.println("Database set to defualt values");
+			session.addLog("Database set to default values");
 			return true;
 			
 		}catch (SQLException e)
 		{
 			System.out.println("Could not set database values to default");
+			session.addLog("Could not set database values to default");
 			
 			return false;
 		}
 	}
 	
 	//read data from CUSTOMER table into customer array
-	public boolean readCustDB(ArrayList<Customer> customers)
+	public boolean readCustDB(Session session, ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;
 		Customer newCust;
@@ -253,12 +267,13 @@ public class Database {
 		
 		}catch (SQLException e) {
 			System.out.println("Unable to load Customer Database");
+			session.addLog("Unable to load Customer Databse");
 			return false;
 		}
 	}
 	
 	//read data from BUSINESS table into business array
-	public boolean readBusDB(ArrayList<Business> businesses)
+	public boolean readBusDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Business newBus;
@@ -282,12 +297,13 @@ public class Database {
 			return true;
 		}catch (SQLException e) {
 			System.out.println("Unable to load Business Database");
+			session.addLog("Unable to load Business Database");
 			return false;
 		}
 	}
 	
 	//read data from EMPLOYEE table into employee array
-	public boolean readEmplDB(ArrayList<Business> businesses)
+	public boolean readEmplDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Employee newEmpl;
@@ -315,12 +331,13 @@ public class Database {
 		}catch (SQLException e)
 		{
 			System.out.println("Unable to load Employees");
+			session.addLog("Unable to load employees");
 			return false;
 		}
 	}
 	
 	//read data from EMP_AVAIL table into correct employee availabilities array
-	public boolean readAvailablityTimes(ArrayList<Business> businesses)
+	public boolean readAvailablityTimes(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		
@@ -352,11 +369,12 @@ public class Database {
 		}catch (SQLException e)
 		{
 			System.out.println("Unable to load employee availible times");
+			session.addLog("Unable to load employee available times");
 			return false;
 		}
 	}
 	
-	public boolean readBookingsDB(ArrayList<Business> businesses, ArrayList<Customer> customers)
+	public boolean readBookingsDB(Session session, ArrayList<Business> businesses, ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;
 		Booking newBooking;
@@ -407,12 +425,13 @@ public class Database {
 		}catch (SQLException e)
 		{
 			System.out.println("Unable to load Bookings");
+			session.addLog("Unable to load bookings");
 			return false;
 		}
 	}
 
 	//write whole customer array to the database
- 	public void writeCustDB(ArrayList<Customer> customers)
+ 	public void writeCustDB(Session session, ArrayList<Customer> customers)
 	{		
 		for(int i = 0; i < customers.size(); i++)
 		{
@@ -424,12 +443,13 @@ public class Database {
 			    
 			}catch (SQLException ex) {
 				System.out.println("Customer record already exists. No changes were made.");
+				session.addLog("Customer record already exists. No changes were made.");
 			}
 		}
 	}
 	
  	//only write last customer in array (New Customer) into database
-	public boolean writeNewCustToDB(ArrayList<Customer> customers, int position)
+	public boolean writeNewCustToDB(Session session, ArrayList<Customer> customers, int position)
 	{
 		try{
 			custToString(customers, position);
@@ -437,17 +457,19 @@ public class Database {
 		    Statement stmt = connection.createStatement();
 		    stmt.executeUpdate(sql);
 		    System.out.println("Customer added to database");
+		    session.addLog("Customer added to database.");
 		    return true;
 
 		}catch (SQLException ex) {
 			System.out.println("Customer record already exists. No changes were made.");
+			session.addLog("Customer record already exists. No changes were made.");
 			
 			return false;
 		}
 	}
 	
 	//write employee array into database including available times array
-	public boolean writeEmplToDB(ArrayList<Business> businesses)
+	public boolean writeEmplToDB(Session session, ArrayList<Business> businesses)
 	{
 		for(int busNo = 0; busNo < businesses.size(); busNo++)
 		{
@@ -470,6 +492,7 @@ public class Database {
 				    			}catch (SQLException e)
 				    			{
 				    				System.out.println("Employee already availible that timeslot");
+				    				session.addLog("Employee already available in that timeslot.");
 				    			}
 				    		}
 				    	}
@@ -480,6 +503,7 @@ public class Database {
 				    
 				}catch (SQLException ex) {
 					System.out.println("Employee record already exists. No changes were made.");
+					session.addLog("Employee record already exists. No changes were made.");
 				}
 			}
 		}
@@ -487,7 +511,7 @@ public class Database {
 	}
 	
 	//write Bookings array into database
-	public boolean writeBookingToDB(ArrayList<Business> businesses)
+	public boolean writeBookingToDB(Session session, ArrayList<Business> businesses)
 	{
 		try{
 			String sql;
@@ -507,6 +531,7 @@ public class Database {
 			}
 			}catch (SQLException ex) {
 				System.out.println("Booking record already exists. No changes were made.");
+				session.addLog("Booking record already exists. No changes were made.");
 			}
 		return true;
 	}
@@ -571,20 +596,22 @@ public class Database {
 	}
 	
 	//close connection to the database
-	public boolean closeConnection()
+	public boolean closeConnection(Session session)
 	{
 		try{
 			connection.close();
+			session.addLog("Connection to database closed.");
 			return true;
 		}catch (SQLException e)
 		{
 			System.out.println("Can not close connection");
+			session.addLog("Cannot close connection to database.");
 			return false;
 		}
 	}
 	
 	//delete all records in a specified table keeping table 
-	public boolean deleteAllRecords(String table)
+	public boolean deleteAllRecords(Session session, String table)
 	{
 		try{
 			Statement stmt = connection.createStatement();
@@ -595,7 +622,7 @@ public class Database {
 		}catch (SQLException e)
 		{
 			System.out.println("Unable to clear records from " + table + " table.");
-			
+			session.addLog("Unable to clear records from " + table + " table.");
 		}
 		return true;
 	}

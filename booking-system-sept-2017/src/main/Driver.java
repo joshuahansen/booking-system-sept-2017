@@ -33,7 +33,7 @@ public class Driver {
 		
 		session.addLog("Database URL: " + url);
 		
-		if(database.connectDatabase(url) == true)
+		if(database.connectDatabase(session, url) == true)
 		{
 			session.addLog("Database connection to " + url + " successful");
 //			database.clearTables();
@@ -73,9 +73,9 @@ public class Driver {
 			}
 			else
 			{
-				database.clearTables();
-				database.initDatabase();
-				database.defaultValues();
+				database.clearTables(session);
+				database.initDatabase(session);
+				database.defaultValues(session);
 				if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
 				{
 					System.out.println("Customer Database loaded");
@@ -121,8 +121,6 @@ public class Driver {
 		session.addLog("Connection to database closed");
 		userInput.close();
 		session.addLog("Scanner closed");
-		System.out.println(session.getSessionLog().exists());
-		System.out.println(session.getSessionLog().getAbsolutePath());
 		session.terminateSession();
 	}
 }
