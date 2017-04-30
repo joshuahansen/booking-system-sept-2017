@@ -1,6 +1,11 @@
 .root {
--fx-background-image: url("http://www.greenprm.com/images/bgPageImg3.jpg");
+-fx-background-image: url("http://il7.picdn.net/shutterstock/videos/626887/thumb/1.jpg");
+-fx-background-size: cover;
 }
 .label {
 -fx-font-family: sans-serif;
+}
+
+.tooltip {
+	-fx-font-size: 14;
 }

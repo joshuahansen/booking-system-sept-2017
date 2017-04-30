@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -24,8 +23,6 @@ public class CustomerMenuController implements Initializable{
     @FXML private Button custMakeBookingButton;
     @FXML private Button custViewBookingsButton;
     @FXML private Button custLogoutButton;
-    
-    @FXML private Label custMenuHeading;
     
     @FXML private GridPane custMenuContent;
     
@@ -74,7 +71,6 @@ public class CustomerMenuController implements Initializable{
     		
     		custMenuContent.getChildren().add(loader.load());
     		
-    		custMenuHeading.setText(customers.get(custPos).getUsername() + " Profile");
     	}catch(IOException e)
     	{
     		System.out.println("Unable to load Customer Details");
@@ -91,7 +87,6 @@ public class CustomerMenuController implements Initializable{
     		
     		custMenuContent.getChildren().add(loader.load());
     		
-    		custMenuHeading.setText("Make A Booking");
     	}catch(IOException e)
     	{
     		System.out.println("Unable to Make a booking");
@@ -101,7 +96,6 @@ public class CustomerMenuController implements Initializable{
     @FXML protected void viewBookingsAction(ActionEvent event)
     {
     	try {
-    		custMenuHeading.setText(customers.get(custPos).getUsername() + " Future Bookings");
     		custMenuContent.getChildren().clear();
     		
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustViewBookings.fxml"));
@@ -126,7 +120,6 @@ public class CustomerMenuController implements Initializable{
     		
     		custMenuContent.getChildren().add(loader.load());
     		
-    		custMenuHeading.setText(customers.get(custPos).getUsername() + " Profile");
     	}catch(IOException e)
     	{
     		System.out.println("Unable to load Customer Details");

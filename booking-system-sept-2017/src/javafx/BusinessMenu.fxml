@@ -8,8 +8,13 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1">
 	<top>
-			<Label fx:id="busMenuHeading"/>
-			<Button text="Logout" fx:id="busLogout" onAction="#busLogoutAction" />
+		<HBox spacing="10" alignment="top_right"> 
+			<BorderPane.margin>
+	             <Insets bottom="2.0" left="25.0" right="10.0" top="2.0" />
+	        </BorderPane.margin>
+        	<Label fx:id="busMenuHeading"/>
+			<Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Logout" fx:id="busLogout" onAction="#busLogoutAction" />
+		</HBox>
 	</top>
 	<center>
 		<TabPane tabClosingPolicy="UNAVAILABLE" fx:id="businessMenuTabPane">

@@ -12,13 +12,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Tooltip?>
 
 <AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@registrationPage.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="639.0" prefWidth="860.0">
-      	<top>
+      	<!--<top>
       		<Text fx:id="registerTitleLabel" text="Register" />	
-      	</top>
+      	</top>-->
       	<center>
       		<GridPane alignment="center" hgap="10" vgap="10">
       			<padding>
@@ -29,38 +30,82 @@
       			
             			<Label fx:id="registerUsernameLabel" text="User Name:" GridPane.rowIndex="1" />
       			
-            			<TextField fx:id="registerUsernameData" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      			
+            			<TextField fx:id="registerUsernameData" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            				<tooltip>
+            					<Tooltip fx:id="usernameTooltip" maxWidth="150" wrapText="true"
+            						text="Username must be at least 4 characters" />
+            				</tooltip>		
+      					</TextField>
+      					
+      					<Text fx:id="usernameFail" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      					
             			<Label fx:id="registerFirstNameLabel" text="First Name:" GridPane.rowIndex="2" />
       			
-            			<TextField fx:id="registerFirstNameData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      			
+            			<TextField fx:id="registerFirstNameData" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            				<tooltip>
+            					<Tooltip fx:id="firstNameTooltip" maxWidth="150" wrapText="true"
+            						text="First name can only contain alphabetical characters"/>
+            				</tooltip>
+      					</TextField>
+      					
+      					<Text fx:id="firstNameFail" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      					
             			<Label fx:id="registerLastNameLabel" text="Last Name:" GridPane.rowIndex="3" />
       			
-            			<TextField fx:id="registerLastNameData" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            			<TextField fx:id="registerLastNameData" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            				<tooltip>
+            					<Tooltip fx:id="lastNameTooltip" maxWidth="150" wrapText="true"
+            						text="Last name can only contain alphabetical characters"/>
+            				</tooltip>
+      					</TextField>
       			
+      					<Text fx:id="lastNameFail" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      					
             			<Label fx:id="registerAddressLabel" text="Address:" GridPane.rowIndex="4" />
       			
-            			<TextField fx:id="registerAddressData" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            			<TextField fx:id="registerAddressData" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            				<tooltip>	
+            					<Tooltip fx:id="addressTooltip" maxWidth="150" wrapText="true"
+            						text="Address must be a number followed by alphabetical characters"/>
+            				</tooltip>
+      					</TextField>
       			
+      					<Text fx:id="addressFail" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      					
             			<Label fx:id="registerPhoneLabel" text="Phone Number:" GridPane.rowIndex="5" />
       			
-            			<TextField fx:id="registerPhoneData" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            			<TextField fx:id="registerPhoneData" GridPane.columnIndex="1" GridPane.rowIndex="5"> 
+            				<tooltip>
+            					<Tooltip fx:id="phoneTooltip" maxWidth="150" wrapText="true" 
+            						text="Phone must be at least 8 digets and only contain digets"/>
+            				</tooltip>
+      					</TextField>
       				
-                  			<Label fx:id="registerPasswordLabel" text="Password:" GridPane.rowIndex="6" />
-      			
-                  			<PasswordField fx:id="registerPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      				
-            				<Label fx:id="registerPasswordConfrimLabel" text="Confirm Password:" GridPane.rowIndex="7" />
+      					<Text fx:id="phoneFail" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      					
+                		<Label fx:id="registerPasswordLabel" text="Password:" GridPane.rowIndex="6" />
+    			
+                		<PasswordField fx:id="registerPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="6">
+          					<tooltip>
+          						<Tooltip fx:id="passwordTooltip" maxWidth="150" wrapText="true"
+          							text="Password must be at least 6 characters and contain at least one diget and one alphabetical characters"/>
+          					</tooltip>
+    					</PasswordField>
+                			
+                		<Text fx:id="passwordFail" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+     				
+           				<Label fx:id="registerPasswordConfrimLabel" text="Confirm Password:" GridPane.rowIndex="7" />
       			
             			<PasswordField fx:id="registerPasswordConfirmField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       				
             			<HBox alignment="bottom_left" spacing="10" GridPane.rowIndex="8">
-      		       <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" text="Cancel" />
+      		       <Button fx:id="cancelButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+      		       			onAction="#handleCancelButtonAction" text="Cancel" />
       			</HBox>
       		
             		    <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="8">
-      		    <Button fx:id="confirmButton" onAction="#handleConfirmButtonAction" text="Confirm" />
+      		    <Button fx:id="confirmButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+      		    		onAction="#handleConfirmButtonAction" text="Confirm" />
       			</HBox>
       		
             			<Text fx:id="registerActiontarget" GridPane.columnIndex="1" GridPane.rowIndex="10" />

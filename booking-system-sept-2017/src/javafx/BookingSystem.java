@@ -19,6 +19,7 @@ import users.*;
  * @author Josh
  *
  */
+@SuppressWarnings("restriction")
 public class BookingSystem extends Application {
 	private Database database;
 	private ArrayList<Customer> customers;
@@ -114,7 +115,7 @@ public class BookingSystem extends Application {
     @Override
     public void start(Stage stage) throws Exception {
  
-        stage.setTitle("Booking System - Login");
+        stage.setTitle("Booking System");
         stage.setScene(loginScene);
         stage.show();
         

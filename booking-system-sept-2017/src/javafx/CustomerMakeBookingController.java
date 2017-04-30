@@ -156,8 +156,6 @@ public class CustomerMakeBookingController implements Initializable{
     		{    			
     			for(int timeslot = 0; timeslot < businesses.get(busPos).employees.get(empPos).availableTimes[day].length; timeslot++)
     			{
-    				System.out.println("day " + day + " timeslot " + timeslot);
-    				System.out.println(businesses.get(busPos).employees.get(empPos).availableTimes[day][timeslot]);
     				if(businesses.get(busPos).employees.get(empPos).availableTimes[day][timeslot] == 1)
     				{
     					
@@ -329,7 +327,6 @@ public class CustomerMakeBookingController implements Initializable{
 								{
 									if(timesArray[i].equalsIgnoreCase(allAvailabilities.get(count).getTime()) && timesArray[i + 1].equalsIgnoreCase(allAvailabilities.get(count + 1).getTime()))
 									{
-										System.out.println("first: " + allAvailabilities.get(count).getTime() + " Second " + allAvailabilities.get(count + 1).getTime());
 										doubleTimeslot = true;
 										break;
 									}

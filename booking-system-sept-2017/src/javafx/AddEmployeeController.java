@@ -7,16 +7,24 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import main.Registration;
 import users.Business;
-import users.Employee;
 
 public class AddEmployeeController implements Initializable{
 	@FXML Text addEmployeeActiontarget;
 	@FXML TextField employeeNumberData;
 	@FXML TextField employeeFirstNameData;
 	@FXML TextField employeeLastNameData;
+	
+	@FXML private Text employeeIDFail;
+	@FXML private Text firstNameFail;
+	@FXML private Text lastNameFail;
+	
+	@FXML private Tooltip employeeTooltip;
+	@FXML private Tooltip firstNameTooltip;
+	@FXML private Tooltip lastNameTooltip;
 	
 	ArrayList<Business> businesses;
 	Registration reg = new Registration();
@@ -30,7 +38,9 @@ public class AddEmployeeController implements Initializable{
 	 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		employeeNumberData.setTooltip(employeeTooltip);
+		employeeFirstNameData.setTooltip(firstNameTooltip);
+		employeeLastNameData.setTooltip(lastNameTooltip);
 	}
 	
 	public void handleAddEmployeeButtonAction()
@@ -46,7 +56,30 @@ public class AddEmployeeController implements Initializable{
 		}
 		else
 		{
-			
+			if(!reg.validEmployeeID(businesses.get(busPos).employees))
+			{
+				employeeIDFail.setText("ID Not Valid");
+			}
+			else
+			{
+				employeeIDFail.setText("");
+			}
+			if(!reg.validFirstName())
+			{
+				firstNameFail.setText("Name Not Valid");
+			}
+			else
+			{
+				firstNameFail.setText("");
+			}
+			if(!reg.validLastName())
+			{
+				lastNameFail.setText("Last Name Not Valid");
+			}
+			else
+			{
+				lastNameFail.setText("");
+			}
 		}
 	}
 	

@@ -47,6 +47,7 @@ public class DatabaseTest {
 	@Test
 	public void defaultValuesTest()
 	{
+		database.clearTables();
 		database.initDatabase();
 		assertTrue(database.defaultValues());
 	}
@@ -97,8 +98,11 @@ public class DatabaseTest {
 	@Test
 	public void writeEmplToDB()
 	{
+		database.clearTables();
 		database.initDatabase();
-		Employee newEmp = new Employee("0001", "Buster", "Mythbusters");
+		database.defaultValues();
+		database.readBusDB(businesses);
+		Employee newEmp = new Employee("0004", "Buster", "Mythbusters");
 		businesses.get(0).employees.add(newEmp);
 		
 		assertTrue(database.writeEmplToDB(businesses));

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.CustomerMakeBookingController.AvailableBookingTable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,47 +147,49 @@ public class BusinessViewBookingsController implements Initializable{
     {
     	TableViewBooking newSelection = busBookingTable.getSelectionModel().getSelectedItem();
     	
-    	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Delete Booking Confirmation");
-    	alert.setHeaderText("Delete Booking Confirmation");
-    	alert.setContentText("Are you sure you want to delete this booking?");
-
-    	String exceptionText = "Booking ID: " + newSelection.getBookingId() + "\nCustomer Name: " + newSelection.getCustomerName() + 
-    			"\nDate: " + newSelection.getDate() + "\nEmployee: " + newSelection.getEmployeeName();
-    			
-    			
-    	Label label = new Label("The booking details are:");
-
-    	TextArea textArea = new TextArea(exceptionText);
-    	textArea.setEditable(false);
-    	textArea.setWrapText(true);
-
-    	textArea.setMaxWidth(Double.MAX_VALUE);
-    	textArea.setMaxHeight(Double.MAX_VALUE);
-    	GridPane.setVgrow(textArea, Priority.ALWAYS);
-    	GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-    	GridPane expContent = new GridPane();
-    	expContent.setMaxWidth(Double.MAX_VALUE);
-    	expContent.add(label, 0, 0);
-    	expContent.add(textArea, 0, 1);
-    	alert.getDialogPane().setExpandableContent(expContent);
-    	
-    	Optional<ButtonType> result = alert.showAndWait();
-    	if (result.get() == ButtonType.OK){
-        	String bookingID = newSelection.getBookingId();
-        	for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
-        	{
-        		if(businesses.get(busPos).bookings.get(i).getBookingID().equalsIgnoreCase(bookingID))
-        		{
-        			businesses.get(busPos).bookings.remove(businesses.get(busPos).bookings.get(i));
-        			busBookingTable.getItems().remove(newSelection);
-        		}
-        	}
-    	} else {
-    	    // ... user chose CANCEL or closed the dialog
-    	}
-    	
+    	if(newSelection != null)
+    	{
+	    	Alert alert = new Alert(AlertType.CONFIRMATION);
+	    	alert.setTitle("Delete Booking Confirmation");
+	    	alert.setHeaderText("Delete Booking Confirmation");
+	    	alert.setContentText("Are you sure you want to delete this booking?");
+	
+	    	String exceptionText = "Booking ID: " + newSelection.getBookingId() + "\nCustomer Name: " + newSelection.getCustomerName() + 
+	    			"\nDate: " + newSelection.getDate() + "\nEmployee: " + newSelection.getEmployeeName();
+	    			
+	    			
+	    	Label label = new Label("The booking details are:");
+	
+	    	TextArea textArea = new TextArea(exceptionText);
+	    	textArea.setEditable(false);
+	    	textArea.setWrapText(true);
+	
+	    	textArea.setMaxWidth(Double.MAX_VALUE);
+	    	textArea.setMaxHeight(Double.MAX_VALUE);
+	    	GridPane.setVgrow(textArea, Priority.ALWAYS);
+	    	GridPane.setHgrow(textArea, Priority.ALWAYS);
+	
+	    	GridPane expContent = new GridPane();
+	    	expContent.setMaxWidth(Double.MAX_VALUE);
+	    	expContent.add(label, 0, 0);
+	    	expContent.add(textArea, 0, 1);
+	    	alert.getDialogPane().setExpandableContent(expContent);
+	    	
+	    	Optional<ButtonType> result = alert.showAndWait();
+	    	if (result.get() == ButtonType.OK){
+	        	String bookingID = newSelection.getBookingId();
+	        	for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
+	        	{
+	        		if(businesses.get(busPos).bookings.get(i).getBookingID().equalsIgnoreCase(bookingID))
+	        		{
+	        			businesses.get(busPos).bookings.remove(businesses.get(busPos).bookings.get(i));
+	        			busBookingTable.getItems().remove(newSelection);
+	        		}
+	        	}
+	    	} else {
+	    	    // ... user chose CANCEL or closed the dialog
+	    	}
+	    }
     }
     
 	@Override

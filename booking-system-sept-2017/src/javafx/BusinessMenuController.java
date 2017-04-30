@@ -57,7 +57,7 @@ public class BusinessMenuController implements Initializable {
 			root = loader.load();
 			
 	    	Scene scene = new Scene(root, 860, 640);
-	    	root.getStylesheets().add(getClass().getResource("businessMenu.css").toExternalForm());
+	    	root.getStylesheets().add(getClass().getResource("bookingSystem.css").toExternalForm());
 	    	stage.setScene(scene);
 	    	stage.show();
     	}catch(IOException e)
@@ -68,7 +68,6 @@ public class BusinessMenuController implements Initializable {
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		busMenuHeading.setText("Welcome to The Booking System");
 		try {
     		businessDetails.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
@@ -76,6 +75,7 @@ public class BusinessMenuController implements Initializable {
     		loader.setController(controller);
     		
     		businessDetails.getChildren().add(loader.load());
+    		
     	}catch(IOException e)
     	{
     		System.out.println(e);

@@ -1,10 +1,9 @@
 package main;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+//import java.time.LocalTime;
 import users.Customer;
 import users.Employee;
-import users.Business;
 
 public class Booking {
 	
@@ -12,7 +11,7 @@ public class Booking {
 	private Boolean completed;
 	private String sessionType;
 	private LocalDate date;
-	private LocalTime time;
+//	private LocalTime time;
 	private Customer customer;
 	private Employee employee;
 	

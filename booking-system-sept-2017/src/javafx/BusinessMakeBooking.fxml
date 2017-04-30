@@ -39,7 +39,7 @@
 	<center>
 		<TableView fx:id="busAvailableBookingTable" >
 		<BorderPane.margin>
-             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
+             <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
         </BorderPane.margin>
 			<columns>		        
 				<TableColumn text="Date" prefWidth="100" fx:id="busDateColumn">
@@ -76,7 +76,7 @@
 			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 			<ComboBox fx:id="customerCombo" prefWidth="200.0" promptText="Choose a Customer"
 					GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-			<Button text="Make Booking" fx:id="makeBookingButton"
+			<Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Make Booking" fx:id="makeBookingButton"
 			onAction="#handleMakeBookingButtonAction"
 			GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 			<Label fx:id="addBookingLabel" text="" 
@@ -84,4 +84,3 @@
 		</GridPane>
 	</bottom>
 </BorderPane>
-

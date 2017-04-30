@@ -16,12 +16,12 @@ public class BookingSystemPreloader extends Preloader {
 	@Override
 	    public void start(Stage primaryStage) throws Exception {
 	       this.preloaderStage = primaryStage;
-	 
+	   
 	       VBox loading = new VBox(20);
 	       loading.setMaxWidth(Region.USE_PREF_SIZE);
 	       loading.setMaxHeight(Region.USE_PREF_SIZE);
 	       loading.getChildren().add(new ProgressBar());
-	       loading.getChildren().add(new Label("Please wait..."));
+	       loading.getChildren().add(new Label("Loading Databases \nPlease wait..."));
 	 
 	       BorderPane root = new BorderPane(loading);
 	       Scene scene = new Scene(root);
