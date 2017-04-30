@@ -114,7 +114,7 @@ public class BookingSystem extends Application {
     @Override
     public void start(Stage stage) throws Exception {
  
-        stage.setTitle("Booking System - Login");
+        stage.setTitle("Booking System");
         stage.setScene(loginScene);
         stage.show();
         

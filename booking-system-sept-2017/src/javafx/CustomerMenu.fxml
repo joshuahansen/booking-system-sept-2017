@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.GridPane?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-	<top>
+	<!-- <top>
 		<Label fx:id="custMenuHeading" />
-	</top>
+	</top>-->
 	<right>
 		<FlowPane hgap="10" prefWidth="150" vgap="10">
 			<padding><Insets bottom="10" left="25" right="25" top="25" /></padding>

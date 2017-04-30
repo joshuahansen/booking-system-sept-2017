@@ -31,6 +31,13 @@ public class RegisterController {
 	@FXML TextField registerAddressData;
 	@FXML TextField registerPhoneData;
     
+	@FXML private Text usernameFail;
+	@FXML private Text firstNameFail;
+	@FXML private Text lastNameFail;
+	@FXML private Text addressFail;
+	@FXML private Text phoneFail;
+	@FXML private Text passwordFail;
+	
     ArrayList<Customer> customers;
     ArrayList<Business> businesses;
     Registration reg = new Registration();
@@ -73,7 +80,68 @@ public class RegisterController {
 	    		}
 	    		else
 	    		{
+	    			System.out.println("Run ");
 	    			registerActiontarget.setText("Registration failed");
+	    			if(!reg.validUsername(customers, businesses))
+	    			{
+	    				System.out.println("\t\tUsername fail");
+	    				usernameFail.setText("Username Not Valid");
+	    			}
+	    			else
+	    			{
+	    				System.out.println("\t\tUsername pass");
+	    				usernameFail.setText("");
+	    			}
+	    			if(!reg.validFirstName())
+	    			{
+	    				System.out.println("\t\tName fail");
+	    				firstNameFail.setText("Name Not Valid");
+	    			}
+	    			else
+	    			{
+	    				System.out.println("\t\tName pass");
+	    				firstNameFail.setText("");
+	    			}
+	    			if(!reg.validLastName())
+	    			{
+	    				System.out.println("\t\tLast Name fail");
+	    				lastNameFail.setText("Last Name Not Valid");
+	    			}
+	    			else
+	    			{
+	    				System.out.println("\t\tLast Name pass");
+	    				lastNameFail.setText("");
+	    			}
+	    			if(!reg.validAddress())
+	    			{
+	    				System.out.println("\t\taddress fail");
+	    				addressFail.setText("Address not Valid");
+	    			}
+	    			else
+	    			{
+	    				System.out.println("\t\tAddress Pass");
+	    				addressFail.setText("");
+	    			}
+	    			if(!reg.validPhone())
+	    			{
+	    				System.out.println("\t\tphone fail");
+	    				phoneFail.setText("Phone Not Valid");
+	    			}
+	    			else
+	    			{
+	    				System.out.println("\t\tphone pass");
+	    				phoneFail.setText("");
+	    			}
+	    			if(!reg.validPassword())
+	    			{
+	    				System.out.println("\t\tpassword fail");
+	    				passwordFail.setText("Password Not Valid");
+	    			}
+	    			else
+	    			{
+	    				System.out.println("\t\tpassword pass");
+	    				passwordFail.setText("");
+	    			}
 	    		}
 	    		
 		    	
