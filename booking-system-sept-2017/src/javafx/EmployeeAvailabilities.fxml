@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>"src/javafx/EmployeeAvailabilities.fxml"
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -18,12 +18,12 @@
 	        <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select an Employee:">
                <HBox.margin>
-                  <Insets left="28.0" right="-10.0" top="25.0" />
+                  <Insets left="28.0" right="-10.0" top="30.0" />
                </HBox.margin>
             </Text>
             <ComboBox fx:id="employeeCombo" onAction="#updateBoard" prefWidth="150.0" promptText="Select">
                <HBox.margin>
-                  <Insets left="25.0" top="22.0" />
+                  <Insets left="25.0" top="27.0" />
                </HBox.margin>
             </ComboBox>
 	        </children>
@@ -50,7 +50,12 @@
             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dadada" height="83.0" stroke="BLACK" strokeType="INSIDE" width="672.0" GridPane.columnIndex="1" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dadada" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="123.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets top="100.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dadada" height="83.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="672.0" GridPane.columnIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MONDAY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
