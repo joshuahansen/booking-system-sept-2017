@@ -362,6 +362,7 @@ public class Database {
 		}
 	}
 	
+	//read bookings from database and load into business's array of bookings
 	public boolean readBookingsDB(ArrayList<Business> businesses, ArrayList<Customer> customers)
 	{
 		ResultSet resultSet = null;

@@ -12,6 +12,12 @@ import javafx.scene.text.Text;
 import main.Registration;
 import users.Business;
 
+/**
+ * Controller for AddEmployee.fxml
+ * Adds functionality to the page
+ * @author Josh-Desktop
+ *
+ */
 public class AddEmployeeController implements Initializable{
 	@FXML Text addEmployeeActiontarget;
 	@FXML TextField employeeNumberData;
@@ -30,12 +36,20 @@ public class AddEmployeeController implements Initializable{
 	Registration reg = new Registration();
 	int busPos;
 
+	/**
+	 * Constructor for the AddEmployeeController class
+	 * @param businesses The array of Businesses is passed in
+	 * @param busPos the current logged in business position in the business array is pass in.
+	 */
 	 public AddEmployeeController(ArrayList<Business> businesses, int busPos)
 	    {
 	    	this.businesses = businesses;
 	    	this.busPos = busPos;
 	    }
 	 
+	 /**
+	  * Initialize page with tool tips on each TextField
+	  */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		employeeNumberData.setTooltip(employeeTooltip);
@@ -43,6 +57,12 @@ public class AddEmployeeController implements Initializable{
 		employeeLastNameData.setTooltip(lastNameTooltip);
 	}
 	
+	/**
+	 * Handle add employee button.
+	 * Get input from TextFields and pass to Registration object. 
+	 * If registration passes add employee.
+	 * If registration fails display a prompt to user for fields failed
+	 */
 	public void handleAddEmployeeButtonAction()
 	{
 		if(reg.setEmployeeValues(employeeNumberData.getText(), 
@@ -83,6 +103,9 @@ public class AddEmployeeController implements Initializable{
 		}
 	}
 	
+	/**
+	 * Handle Clear button action. Clear text fields
+	 */
 	public void handleClearButtonAction()
 	{
 		employeeNumberData.setText("");

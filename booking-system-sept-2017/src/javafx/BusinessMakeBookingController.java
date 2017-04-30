@@ -140,18 +140,29 @@ public class BusinessMakeBookingController implements Initializable{
     		return employeeName.get();
     	}
     	
+    	/**
+    	 * get start time of the booking
+    	 * @return Return objects start time
+    	 */
     	public LocalTime getStartTime()
     	{
     		return bookingStartTime;
     	}
     	
+    	/**
+    	 * Get Date of booking as a LocalDate object 
+    	 * @return Return LocalDate object
+    	 */
     	public LocalDate getLocalDate()
     	{
     		return localDate;
     	}
     }
     
-
+    /**
+     * Initialize page and populate dropdown menus.
+     * Also load availabilities into an array to be displayed in the TableView
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -551,5 +562,4 @@ public class BusinessMakeBookingController implements Initializable{
 		return false;
 	}
 
-	
 }

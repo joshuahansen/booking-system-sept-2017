@@ -158,8 +158,8 @@ public class BusinessMenuController implements Initializable {
     		busEmployeeAvail.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
-    		System.out.println(e);
-    		System.out.println("Unable to load Employee Availabilities Tab");
+//    		System.out.println(e);
+//    		System.out.println("Unable to load Employee Availabilities Tab");
     	}
 	}
 }
