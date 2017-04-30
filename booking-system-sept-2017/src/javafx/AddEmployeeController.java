@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import main.Registration;
 import users.Business;
-import users.Employee;
 
 public class AddEmployeeController implements Initializable{
 	@FXML Text addEmployeeActiontarget;

@@ -19,6 +19,7 @@ import users.*;
  * @author Josh
  *
  */
+@SuppressWarnings("restriction")
 public class BookingSystem extends Application {
 	private Database database;
 	private ArrayList<Customer> customers;

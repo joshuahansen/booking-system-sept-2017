@@ -1,6 +1,5 @@
 package javafx;
 
-import java.awt.List;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -14,8 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import main.Registration;
 import users.Business;
 import users.Employee;
