@@ -114,7 +114,7 @@ public class RegistrationTest {
 		
 		System.out.println("\naddNewEmployee:");
 
-		assertEquals(true, reg.setEmployeeValues("e00001", "John", "Smith", employees));
+		assertEquals(true, reg.setEmployeeValues("00001", "John", "Smith", employees));
 	}
 
 	@Test
