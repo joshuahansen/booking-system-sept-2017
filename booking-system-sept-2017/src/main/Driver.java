@@ -40,13 +40,13 @@ public class Driver {
 //			database.initDatabase();
 //			database.defaultValues();
 			
-			if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
+			if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true)
 			{
 				System.out.println("Customer Database loaded");
 				session.addLog("Customer Database loaded");
 				System.out.println("Business Database loaded");
 				session.addLog("Business Database loaded");
-				if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
+				if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 				{
 					System.out.println("Employee Database loaded");
 					session.addLog("Employee Database loaded");
@@ -60,7 +60,7 @@ public class Driver {
 					System.out.println("Cannot load employee availibilities");
 					session.addLog("Cannot load employee availibilities");
 				}
-				if(database.readBookingsDB(businesses, customers))
+				if(database.readBookingsDB(session, businesses, customers))
 				{
 					System.out.println("Booking Database loaded");
 					session.addLog("Booking Database loaded");
@@ -76,13 +76,13 @@ public class Driver {
 				database.clearTables(session);
 				database.initDatabase(session);
 				database.defaultValues(session);
-				if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
+				if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true)
 				{
 					System.out.println("Customer Database loaded");
 					session.addLog("Customer Database loaded");
 					System.out.println("Business Database loaded");
 					session.addLog("Business Database loaded");
-					if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
+					if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 					{
 						System.out.println("Employee Database loaded");
 						session.addLog("Employee Database loaded");
@@ -96,7 +96,7 @@ public class Driver {
 						System.out.println("Can not load employee availabilities\n");
 						session.addLog("Cannot load employee availabilities");
 					}
-					if(database.readBookingsDB(businesses, customers))
+					if(database.readBookingsDB(session, businesses, customers))
 					{
 						System.out.println("Booking Database loaded");
 						session.addLog("Booking Database loaded");
@@ -112,12 +112,12 @@ public class Driver {
 		}
 		
 		menu.menuDriver(session, userInput, login, registration, customers, businesses, employees);
-		database.writeCustDB(customers);
+		database.writeCustDB(session, customers);
 		session.addLog("Customer data written to database");
-		database.writeEmplToDB(businesses);
+		database.writeEmplToDB(session, businesses);
 		session.addLog("Business data written to database");
 	
-		database.closeConnection();
+		database.closeConnection(session);
 		session.addLog("Connection to database closed");
 		userInput.close();
 		session.addLog("Scanner closed");
