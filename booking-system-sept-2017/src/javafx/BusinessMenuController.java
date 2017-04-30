@@ -17,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import users.*;
+import main.*;
 
  
 public class BusinessMenuController implements Initializable {
@@ -34,6 +35,7 @@ public class BusinessMenuController implements Initializable {
     ArrayList<Customer> customers;
     ArrayList<Business> businesses;
     int busPos;
+    Session session;
     
     public BusinessMenuController(ArrayList<Customer> customers, ArrayList<Business> businesses, int busPos)
     {
@@ -51,7 +53,7 @@ public class BusinessMenuController implements Initializable {
 	    	stage = (Stage) busLogout.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(customers, businesses);
+			LoginController controller = new LoginController(session, customers, businesses);
 			loader.setController(controller);
 			
 			root = loader.load();

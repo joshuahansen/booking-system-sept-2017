@@ -65,6 +65,7 @@ public class AddEmployeeController implements Initializable{
 	 */
 	public void handleAddEmployeeButtonAction()
 	{
+		session.addLog("Add Employee Button Pressed");
 		if(reg.setEmployeeValues(employeeNumberData.getText(), 
 				employeeFirstNameData.getText(), employeeLastNameData.getText(), businesses.get(busPos).employees)) {
 
@@ -73,31 +74,38 @@ public class AddEmployeeController implements Initializable{
 			employeeNumberData.setText("");
 			employeeFirstNameData.setText("");
 			employeeLastNameData.setText("");
+			session.addLog("Employee added");
 		}
 		else
 		{
 			if(!reg.validEmployeeID(businesses.get(busPos).employees))
 			{
+				session.addLog("Invalid employee ID");
 				employeeIDFail.setText("ID Not Valid");
 			}
 			else
 			{
+				session.addLog("Valid employee ID");
 				employeeIDFail.setText("");
 			}
 			if(!reg.validFirstName())
 			{
+				session.addLog("Invalid first name");
 				firstNameFail.setText("Name Not Valid");
 			}
 			else
 			{
+				session.addLog("Valid first name");
 				firstNameFail.setText("");
 			}
 			if(!reg.validLastName())
 			{
+				session.addLog("Invalid last name");
 				lastNameFail.setText("Last Name Not Valid");
 			}
 			else
 			{
+				session.addLog("Valid last name");
 				lastNameFail.setText("");
 			}
 		}
@@ -108,6 +116,7 @@ public class AddEmployeeController implements Initializable{
 	 */
 	public void handleClearButtonAction()
 	{
+		session.addLog("Clear Button Pressed");
 		employeeNumberData.setText("");
 		employeeFirstNameData.setText("");
 		employeeLastNameData.setText("");

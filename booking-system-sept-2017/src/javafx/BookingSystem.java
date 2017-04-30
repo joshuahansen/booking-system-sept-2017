@@ -1,5 +1,6 @@
 package javafx;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.sun.javafx.application.LauncherImpl;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.*;
 import users.*;
 
 /**
@@ -24,6 +26,8 @@ public class BookingSystem extends Application {
 	private Database database;
 	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
+	private Session session;
+	
 	
 	private Scene loginScene;
 	
@@ -35,72 +39,73 @@ public class BookingSystem extends Application {
 	public void init() throws Exception {
 	  	customers = new ArrayList<>();
 		businesses = new ArrayList<>();
+		session = new Session();
 		
 		String url = "jdbc:sqlite:./database.db";
 		
 		database = new Database();
 		/*only try loading database if a connection is established */
-		if(database.connectDatabase(url) == true)
+		if(database.connectDatabase(session, url) == true)
 		{		
 			/*Try reading from database tables customers and businesses*/
-			if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
+			if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true)
 			{
-				System.out.println("Customer Database loaded");
-				System.out.println("Business Database loaded");
+				session.addLog("Customer Database loaded");
+				session.addLog("Business Database loaded");
 				/*read employee availabilities only if customers and businesses are loaded correctly*/
-				if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
+				if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 				{
-					System.out.println("Employee Database loaded");
-					System.out.println("Employee availible times loaded");
+					session.addLog("Employee Database loaded");
+					session.addLog("Employee availible times loaded");
 				}
 				else
 				{
-					System.out.println("Can not load employee database");
-					System.out.println("Can not load employee availibilities");
+					session.addLog("Can not load employee database");
+					session.addLog("Can not load employee availibilities");
 				}
-				if(database.readBookingsDB(businesses, customers))
+				if(database.readBookingsDB(session, businesses, customers))
 				{
-					System.out.println("Booking Databse loaded");
+					session.addLog("Booking Databse loaded");
 				}
 				else
 				{
-					System.out.println("Can not load Bookings");
+					session.addLog("Can not load Bookings");
 				}
 			}
 			else
 			{
 				/*if database doesn't exist initialize new database with default values and read database into arrays*/
-				database.clearTables();
-				database.initDatabase();
-				database.defaultValues();
-				if(database.readCustDB(customers) == true && database.readBusDB(businesses) == true)
+				database.clearTables(session);
+				database.initDatabase(session);
+				database.defaultValues(session);
+				if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true)
 				{
-					System.out.println("Customer Database loaded");
-					System.out.println("Business Database loaded");
-					if(database.readEmplDB(businesses) && database.readAvailablityTimes(businesses))
+					session.addLog("Customer Database loaded");
+					session.addLog("Business Database loaded");
+					if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 					{
-						System.out.println("Employee Database loaded");
-						System.out.println("Employee available times loaded");
+						session.addLog("Employee Database loaded");
+						session.addLog("Employee availible times loaded");
 					}
 					else
 					{
-						System.out.println("Can not load employee database");
-						System.out.println("Can not load employee availabilities");
+						session.addLog("Can not load employee database");
+						session.addLog("Can not load employee availibilities");
 					}
-					if(database.readBookingsDB(businesses, customers))
+					if(database.readBookingsDB(session, businesses, customers))
 					{
-						System.out.println("Booking Databse loaded");
+						session.addLog("Booking Databse loaded");
 					}
 					else
 					{
-						System.out.println("Can not load Bookings");
+						session.addLog("Can not load Bookings");
 					}
 				}
 			}
 		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		LoginController controller = new LoginController(customers, businesses);
+		LoginController controller = new LoginController(session, customers, businesses);
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();
@@ -120,10 +125,15 @@ public class BookingSystem extends Application {
         stage.show();
         
         stage.setOnCloseRequest(e -> {
-        System.out.println("Stage is closing");
-    	database.writeCustDB(customers);
-    	database.writeEmplToDB(businesses);
-    	database.writeBookingToDB(businesses);
+        session.addLog("Stage is closing");
+    	database.writeCustDB(session, customers);
+    	database.writeEmplToDB(session, businesses);
+    	database.writeBookingToDB(session, businesses);
+    	try {
+			session.terminateSession();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
         Platform.exit();
         });
     }

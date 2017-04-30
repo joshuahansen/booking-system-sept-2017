@@ -80,7 +80,7 @@ public class RegisterController implements Initializable{
 		    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText());
 	    			
 	    			FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-					LoginController controller = new LoginController(customers, businesses);
+					LoginController controller = new LoginController(session, customers, businesses);
 					loader.setController(controller);
 					
 					root = loader.load();

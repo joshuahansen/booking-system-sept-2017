@@ -40,13 +40,16 @@ public class LoginController implements Initializable{
     ArrayList<Customer> customers;
     ArrayList<Business> businesses;
     
+    Session session;
+    
     /**
      * Constructor for login controller
      * @param customers Customer array passed in from driver where it was created
      * @param businesses Business array passed in from driver where it was created
      */
-    public LoginController(ArrayList<Customer> customers, ArrayList<Business> businesses)
+    public LoginController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses)
     {
+    	this.session = session;
     	this.customers = customers;
     	this.businesses = businesses;
     }
@@ -57,6 +60,7 @@ public class LoginController implements Initializable{
      */
     @FXML protected void handleLoginButtonAction(ActionEvent event)
     {
+    	session.addLog("Login Button Pressed");
     	try {
 	    	Stage stage;
 	    	Parent root;
