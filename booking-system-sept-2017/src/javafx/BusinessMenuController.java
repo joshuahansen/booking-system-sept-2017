@@ -68,7 +68,6 @@ public class BusinessMenuController implements Initializable {
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		busMenuHeading.setText("Welcome to The Booking System");
 		try {
     		businessDetails.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));

@@ -17,18 +17,18 @@
 		<BorderPane.margin>
              <Insets bottom="10.0" left="25.0" right="10.0" top="10.0" />
         </BorderPane.margin>
-	    <Button text="Past Bookings" fx:id="pastBookingsButton"
+	    <Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Past Bookings" fx:id="pastBookingsButton"
 	    onAction="#handlePastBookingsButtonAction"/>
-	    <Button text="Today's Bookings" fx:id="todaysBookingsButton"
+	    <Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Today's Bookings" fx:id="todaysBookingsButton"
 	    onAction="#handleTodaysBookingsButtonAction"/>
-	    <Button text="Future Bookings" fx:id="futureBookingsButton"
+	    <Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Future Bookings" fx:id="futureBookingsButton"
 	    onAction="#handleFutureBookingsButtonAction"/>
 		</HBox>
 	</top>
 	<center>
 		<TableView fx:id="busBookingTable" >
 		<BorderPane.margin>
-             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
+             <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
         </BorderPane.margin>
 			<columns>
 				<TableColumn text="Booking ID" prefWidth="100" fx:id="busBookingIdColumn">
@@ -79,8 +79,13 @@
 		</TableView>
 	</center>
 	<bottom>
-		<Button text="Remove Booking"
-		onAction="#handleRemoveBookingButtonAction"/>
+		<HBox spacing="10"> 
+			<BorderPane.margin>
+	             <Insets bottom="10.0" left="25.0" right="10.0" top="10.0" />
+	        </BorderPane.margin>
+			<Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Remove Booking"
+			onAction="#handleRemoveBookingButtonAction"/>
+		</HBox>
 	</bottom>
 </BorderPane>
 

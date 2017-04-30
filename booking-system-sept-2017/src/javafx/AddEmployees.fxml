@@ -16,6 +16,8 @@
 	
 	<TextField fx:id="employeeNumberData"
 		GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+		
+	<Text fx:id="employeeIDFail" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 	
 	<Label text="First Name:" fx:id="EmployeeFirstNameLabel"
 		GridPane.columnIndex="0" GridPane.rowIndex="2"/>
@@ -23,21 +25,25 @@
 	<TextField fx:id="employeeFirstNameData"
 		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 		
+	<Text fx:id="firstNameFail" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+		
 	<Label text="Last Name:" fx:id="EmployeeLastNameLabel"
 		GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 	
 	<TextField fx:id="employeeLastNameData"
 		GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 		
+	<Text fx:id="lastNameFail" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+		
 	<HBox spacing="10" alignment="bottom_left"
        GridPane.columnIndex="0" GridPane.rowIndex="4">
-       <Button text="Clear" fx:id="registerButton"    
+       <Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Clear" fx:id="registerButton"    
        onAction="#handleClearButtonAction"/>
 	</HBox>
        
     <HBox spacing="10" alignment="bottom_right" 
     GridPane.columnIndex="1" GridPane.rowIndex="4">
-    <Button text="Add Employee" fx:id="addEmployeeButton"
+    <Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Add Employee" fx:id="addEmployeeButton"
     onAction="#handleAddEmployeeButtonAction"/>
 	</HBox>
        	

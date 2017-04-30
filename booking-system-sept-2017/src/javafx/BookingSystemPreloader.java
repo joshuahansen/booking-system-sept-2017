@@ -22,7 +22,7 @@ public class BookingSystemPreloader extends Preloader {
 	       loading.setMaxWidth(Region.USE_PREF_SIZE);
 	       loading.setMaxHeight(Region.USE_PREF_SIZE);
 	       loading.getChildren().add(new ProgressBar());
-	       loading.getChildren().add(new Label("Loading Databases Please wait..."));
+	       loading.getChildren().add(new Label("Loading Databases \nPlease wait..."));
 	 
 	       BorderPane root = new BorderPane(loading);
 	       Scene scene = new Scene(root);
