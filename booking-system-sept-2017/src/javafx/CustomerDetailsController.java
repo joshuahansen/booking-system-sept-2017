@@ -56,6 +56,7 @@ public class CustomerDetailsController implements Initializable {
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		session.addLog("Load custoemr details");
 		setUsername(customers.get(custPos).getUsername());
 		setFirstName(customers.get(custPos).getFirstName());
 		setLastName(customers.get(custPos).getLastName());

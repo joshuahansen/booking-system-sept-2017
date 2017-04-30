@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import main.Registration;
+import main.Session;
 import users.Business;
 
 /**
@@ -35,16 +36,18 @@ public class AddEmployeeController implements Initializable{
 	ArrayList<Business> businesses;
 	Registration reg = new Registration();
 	int busPos;
+	Session session;
 
 	/**
 	 * Constructor for the AddEmployeeController class
 	 * @param businesses The array of Businesses is passed in
 	 * @param busPos the current logged in business position in the business array is pass in.
 	 */
-	 public AddEmployeeController(ArrayList<Business> businesses, int busPos)
+	 public AddEmployeeController(Session session, ArrayList<Business> businesses, int busPos)
 	    {
 	    	this.businesses = businesses;
 	    	this.busPos = busPos;
+	    	this.session = session;
 	    }
 	 
 	 /**

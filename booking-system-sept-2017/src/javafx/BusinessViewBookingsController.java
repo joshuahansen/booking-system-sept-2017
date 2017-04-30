@@ -100,6 +100,7 @@ public class BusinessViewBookingsController implements Initializable{
     
     public void handlePastBookingsButtonAction(ActionEvent event)
     {	
+    	session.addLog("Past bookings Button Pressed");
     	pastBookings.clear();
     	LocalDate today = LocalDate.now();
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
@@ -115,6 +116,7 @@ public class BusinessViewBookingsController implements Initializable{
     
     public void handleFutureBookingsButtonAction(ActionEvent event)
     {	
+    	session.addLog("Future bookings Button Pressed");
     	futureBookings.clear();
     	LocalDate today = LocalDate.now();
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
@@ -130,6 +132,7 @@ public class BusinessViewBookingsController implements Initializable{
     
     public void handleTodaysBookingsButtonAction(ActionEvent event)
     {
+    	session.addLog("todays bookings Button Pressed");
     	todaysBookings.clear();
     	LocalDate today = LocalDate.now();
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
@@ -145,6 +148,7 @@ public class BusinessViewBookingsController implements Initializable{
     
     public void handleRemoveBookingButtonAction(ActionEvent event)
     {
+    	session.addLog("Remove Booking Button Pressed");
     	TableViewBooking newSelection = busBookingTable.getSelectionModel().getSelectedItem();
     	
     	if(newSelection != null)
@@ -186,15 +190,17 @@ public class BusinessViewBookingsController implements Initializable{
 	        			busBookingTable.getItems().remove(newSelection);
 	        		}
 	        	}
+	        	session.addLog("Alert confirmed");
 	    	} else {
 	    	    // ... user chose CANCEL or closed the dialog
+	    		session.addLog("alert cancled");
 	    	}
 	    }
     }
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		session.addLog("Initialize with today's bookings");
 		LocalDate today = LocalDate.now();
     	
     	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)

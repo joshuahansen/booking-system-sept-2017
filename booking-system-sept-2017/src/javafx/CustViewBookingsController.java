@@ -105,6 +105,7 @@ public class CustViewBookingsController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		session.addLog("Custoemr view bookings");
 		for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
 		{
 			if(businesses.get(busPos).bookings.get(i).getCustUsername().equals(customers.get(custPos).getUsername()))
@@ -138,9 +139,10 @@ public class CustViewBookingsController implements Initializable{
 	
 	@FXML protected void handleSortBookings(ActionEvent event)
 	{
+		session.addLog("sort bookings");
 		displayBookings.clear();
 		String bookingTime = bookingCombo.getValue();
-		
+		session.addLog(bookingTime);
 		LocalDate today = LocalDate.now();
     	
 		if(bookingTime.equalsIgnoreCase("Today"))

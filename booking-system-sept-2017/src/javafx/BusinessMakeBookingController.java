@@ -165,7 +165,7 @@ public class BusinessMakeBookingController implements Initializable{
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		session.addLog("Initialize Make booking page");
 		LocalDate today = LocalDate.now();
 		
 		classType.add("All");
@@ -323,6 +323,7 @@ public class BusinessMakeBookingController implements Initializable{
     		}
 		}	
     	busAvailableBookingTable.setItems(allAvailabilities);
+    	session.addLog("Display availabilities");
 	}
 
 	/**
@@ -331,6 +332,7 @@ public class BusinessMakeBookingController implements Initializable{
 	 */
 	public void handleSortAvailability(ActionEvent event)
 	{
+		session.addLog("Sort availabilities");
 		String classType = classCombo.getValue();
 		String personalTrainer = personalTrainerCombo.getValue();
 		String time = timeCombo.getValue();
@@ -415,6 +417,7 @@ public class BusinessMakeBookingController implements Initializable{
 	 */
 	public void handleMakeBookingButtonAction(ActionEvent event)
 	{
+		session.addLog("Make Booking Button Pressed");
 		AvailableBookingTable newSelection = busAvailableBookingTable.getSelectionModel().getSelectedItem();
 		int day = 0, timeslot = 0;
 		LocalDate date;

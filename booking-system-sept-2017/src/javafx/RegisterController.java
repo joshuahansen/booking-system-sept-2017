@@ -61,6 +61,7 @@ public class RegisterController implements Initializable{
     
     @FXML protected void handleConfirmButtonAction(ActionEvent event)
     {
+    	session.addLog("Confirm Button Pressed");
 	    try {
     		Stage stage;
 	    	Parent root;
@@ -69,6 +70,7 @@ public class RegisterController implements Initializable{
 	      	
 	    	if(!registerPasswordField.getText().equals(registerPasswordConfirmField.getText()) || registerPasswordField.getText().isEmpty())
 	    	{
+	    		session.addLog("passwords don't match");
 	    		registerActiontarget.setText("Passwords do not match");
 	    	}
 	    	else
@@ -78,7 +80,7 @@ public class RegisterController implements Initializable{
 	    		{
 	    			reg.registerNewCustGUI(customers, businesses, registerFirstNameData.getText(), registerLastNameData.getText(),
 		    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText());
-	    			
+	    			session.addLog("Registration Pass");
 	    			FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
 					LoginController controller = new LoginController(session, customers, businesses);
 					loader.setController(controller);
@@ -91,6 +93,7 @@ public class RegisterController implements Initializable{
 	    		}
 	    		else
 	    		{
+	    			session.addLog("Registration fail");
 	    			registerActiontarget.setText("Registration failed");
 	    			if(!reg.validUsername(customers, businesses))
 	    			{
@@ -147,12 +150,13 @@ public class RegisterController implements Initializable{
 	    	}
 	    }catch(IOException e)
 		{
-			System.out.println("Unable to load login scene");
+	    	session.addLog("Unable to load login scene");
 		}
     }
     
     @FXML protected void handleCancelButtonAction(ActionEvent event) 
     {
+    	session.addLog("Cancle Button Pressed");
     	try {
 	    	Stage stage;
 	    	Parent root;
@@ -170,12 +174,13 @@ public class RegisterController implements Initializable{
 	    	stage.show();
     	}catch(IOException e)
     	{
-    		System.out.println("Unable to load login scene");
+    		session.addLog("Unable to load login scene");
     	}
     }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		session.addLog("Tooltips added to registration page");
 		registerUsernameData.setTooltip(usernameTooltip);
 		registerFirstNameData.setTooltip(firstNameTooltip);
 		registerLastNameData.setTooltip(lastNameTooltip);

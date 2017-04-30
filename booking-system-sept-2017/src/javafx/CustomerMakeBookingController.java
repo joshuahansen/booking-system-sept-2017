@@ -114,7 +114,7 @@ public class CustomerMakeBookingController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		session.addLog("Load custoemr make booking page");
 		LocalDate today = LocalDate.now();
 		
 		classType.add("All");
@@ -267,6 +267,7 @@ public class CustomerMakeBookingController implements Initializable{
 	
 	public void handleSortAvailability(ActionEvent event)
 	{
+		session.addLog("Sort Availabilities");
 		String classType = classCombo.getValue();
 		String personalTrainer = personalTrainerCombo.getValue();
 		String time = timeCombo.getValue();
@@ -347,6 +348,7 @@ public class CustomerMakeBookingController implements Initializable{
 	
 	public void handleMakeBookingButtonAction(ActionEvent event)
 	{
+		session.addLog("Make Booking Button Pressed");
 		AvailableBookingTable newSelection = custAvailableBookingTable.getSelectionModel().getSelectedItem();
 		int day = 0, timeslot = 0;
 		LocalDate date;
@@ -358,6 +360,7 @@ public class CustomerMakeBookingController implements Initializable{
 		if(classType.equalsIgnoreCase("All"))
 		{
 			classType = "GENERAL";
+			session.addLog("no class type selected");
 		}
 		
 		for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos++)

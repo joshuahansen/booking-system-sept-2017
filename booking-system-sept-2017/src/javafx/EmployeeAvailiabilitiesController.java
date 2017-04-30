@@ -130,7 +130,7 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 		if(button.getText().equals("Not Availiable") || button.getText().equals(""))
 		{
 			button.setText("Availiable");
-	
+			
 		}
 		else if(button.getText().equals("Availiable") || button.getText().equals(""))
 		{

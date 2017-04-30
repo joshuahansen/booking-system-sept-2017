@@ -72,6 +72,7 @@ public class LoginController implements Initializable{
 	      	int userPos = newLogin.getUserPosition();
 	      	if( userType == 1)
 	      	{
+	      		session.addLog("Load customer menu");
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerMenu.fxml"));
 	    		CustomerMenuController controller = new CustomerMenuController(customers, businesses, userPos);
 	    		loader.setController(controller);
@@ -84,6 +85,7 @@ public class LoginController implements Initializable{
 	      	}
 	      	else if(userType == 2)
 	      	{
+	      		session.addLog("Load business menu");
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMenu.fxml"));
 	    		BusinessMenuController controller = new BusinessMenuController(customers, businesses, userPos);
 	    		loader.setController(controller);
@@ -96,12 +98,13 @@ public class LoginController implements Initializable{
 	      	}
 	      	else
 	      	{
+	      		session.addLog("Login fail");
 	      		actiontarget.setText("Username or password incorrect");
 	      	}
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load menu scenes");
+    		session.addLog("Unable to load menu scenes");
     	}
     }
     
@@ -111,6 +114,7 @@ public class LoginController implements Initializable{
      */
     @FXML protected void handleRegisterButtonAction(ActionEvent event)
     {
+    	session.addLog("Registration button pressed");
     	try {
     		Stage stage;
         	Parent root;
@@ -129,7 +133,7 @@ public class LoginController implements Initializable{
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load register scenes");
+    		session.addLog("Unable to load register scenes");
     	}
     	
     }

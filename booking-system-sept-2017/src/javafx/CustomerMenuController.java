@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
+import main.Session;
 import users.*;
 
  
@@ -29,16 +29,19 @@ public class CustomerMenuController implements Initializable{
     ArrayList<Customer> customers;
     ArrayList<Business> businesses;
     int custPos;
+    Session session;
     
-    public CustomerMenuController(ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos)
+    public CustomerMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos)
     {
     	this.customers = customers;
     	this.businesses = businesses;
     	this.custPos = custPos;
+    	this.session = session;
     }
     //when logout is pressed load the login screen
     @FXML protected void logoutAction(ActionEvent event)
     {
+    	session.addLog("Logout Button Pressed");
     	try {
 	    	Stage stage;
 	    	Parent root;
@@ -57,12 +60,13 @@ public class CustomerMenuController implements Initializable{
 	    	stage.show();
     	}catch(IOException e)
     	{
-    		System.out.println("Unable to load login scene");
+    		session.addLog("Unable to load login scene");
     	}
     }
     //load the customer details when the details button is pressed
     @FXML protected void detailsAction(ActionEvent event)
     { 
+    	session.addLog("Details Button Pressed");
     	try {
     		custMenuContent.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerDetails.fxml"));
@@ -73,12 +77,13 @@ public class CustomerMenuController implements Initializable{
     		
     	}catch(IOException e)
     	{
-    		System.out.println("Unable to load Customer Details");
+    		session.addLog("Unable to load Customer Details");
     	}
     }
     //when the make booking button is pressed load and create a controller
     @FXML protected void makeBookingAction(ActionEvent event)
     {
+    	session.addLog("Make Booking Button Pressed");
     	try {
     		custMenuContent.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerMakeBooking.fxml"));
@@ -89,12 +94,13 @@ public class CustomerMenuController implements Initializable{
     		
     	}catch(IOException e)
     	{
-    		System.out.println("Unable to Make a booking");
+    		session.addLog("Unable to Make a booking");
     	}
     }
     //when the view booking button is pressed load the fxml file and create a new controller for it.
     @FXML protected void viewBookingsAction(ActionEvent event)
     {
+    	session.addLog("View Bookings Button Pressed");
     	try {
     		custMenuContent.getChildren().clear();
     		
@@ -106,7 +112,7 @@ public class CustomerMenuController implements Initializable{
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load bookings");
+    		session.addLog("Unable to load bookings");
     	}
     }
     //initialize the customer menu with the customer details loaded.
@@ -117,12 +123,12 @@ public class CustomerMenuController implements Initializable{
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerDetails.fxml"));
     		CustomerDetailsController controller = new CustomerDetailsController(customers, custPos);
     		loader.setController(controller);
-    		
+    		session.addLog("load customer details");
     		custMenuContent.getChildren().add(loader.load());
     		
     	}catch(IOException e)
     	{
-    		System.out.println("Unable to load Customer Details");
+    		session.addLog("Unable to load Customer Details");
     	}
 		
 	}

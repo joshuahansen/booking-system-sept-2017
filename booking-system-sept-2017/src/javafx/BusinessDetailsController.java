@@ -95,6 +95,7 @@ public class BusinessDetailsController implements Initializable {
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		session.addLog("Load Business details");
 		setUsername(businesses.get(busPos).getUsername());
 		setBusName(businesses.get(busPos).getBusinessName());
 		setFirstName(businesses.get(busPos).getFirstName());
