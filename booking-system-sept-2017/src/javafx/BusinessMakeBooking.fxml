@@ -1,97 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?>
+<?import javafx.scene.control.ComboBox?> 
 
-<AnchorPane prefHeight="640.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane layoutX="27.0" layoutY="25.0" prefHeight="512.0" prefWidth="654.0">
-      	<top>
-      		<GridPane fx:id="selections">
-      			<Label text="Choose a Class" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      			<ComboBox fx:id="classCombo" onAction="#handleSortAvailability" prefWidth="150.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-      			<Label text="Choose a Trainer" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-      			<ComboBox fx:id="personalTrainerCombo" onAction="#handleSortAvailability" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      					<Label text="Choose a Day" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-      			<ComboBox fx:id="dayCombo" onAction="#handleSortAvailability" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      			<Label text="Choose a Time" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-      			<ComboBox fx:id="timeCombo" onAction="#handleSortAvailability" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-      		</GridPane>
-      	</top>
-      	<center>
-      		<TableView fx:id="busAvailableBookingTable">
-      		<BorderPane.margin>
-                   <Insets bottom="25.0" right="25.0" top="10.0" />
-              </BorderPane.margin>
-      			<columns>		        
-      				<TableColumn fx:id="busDateColumn" prefWidth="108.06547927856445" text="Date">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="date" />
-      			        </cellValueFactory>
-      			    </TableColumn>
-      			    			
-      				<TableColumn fx:id="busDayColumn" prefWidth="100.06544494628906" text="Day">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="day" />
-      		        	</cellValueFactory>
-      				</TableColumn>
-      				
-      				<TableColumn fx:id="busTimeColumn" prefWidth="114.93452453613281" text="Time">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="time" />
-      		        	</cellValueFactory>
-      				</TableColumn>
-      				
-      				<TableColumn fx:id="busPersonalTrainerColumn" prefWidth="302.0" text="Personal Trainer">
-      					<cellValueFactory>
-      						<PropertyValueFactory property="employeeName" />
-      		        	</cellValueFactory>
-      				</TableColumn>
-      			</columns>
-      			<sortOrder>
-      		          <fx:reference source="busDateColumn" />
-      		     </sortOrder> 
-      		</TableView>
-      	</center>
-      	<bottom>
-      		<GridPane fx:id="buttons">
-      			<padding>
-                  <Insets bottom="10" left="25" right="25" top="25" />
-               </padding>
-      			<ComboBox fx:id="customerCombo" prefWidth="200.0" promptText="Choose a Customer" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      			<Button fx:id="makeBookingButton" onAction="#handleMakeBookingButtonAction" text="Make Booking" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-      			<Label fx:id="addBookingLabel" text="" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-               </rowConstraints>
-      		</GridPane>
-      	</bottom>
-      </BorderPane>
-   </children>
-</AnchorPane>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<GridPane fx:id="selections">
+			<Label text="Choose a Class"
+					GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="classCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+			<Label text="Choose a Trainer"
+					GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="personalTrainerCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+					<Label text="Choose a Day"
+					GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="dayCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="2" GridPane.rowIndex="1" />
+			<Label text="Choose a Time"
+					GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+			<ComboBox fx:id="timeCombo" prefWidth="150.0"
+					onAction="#handleSortAvailability"
+					GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+		</GridPane>
+	</top>
+	<center>
+		<TableView fx:id="busAvailableBookingTable" >
+		<BorderPane.margin>
+             <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+        </BorderPane.margin>
+			<columns>		        
+				<TableColumn text="Date" prefWidth="100" fx:id="busDateColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="date"/>
+			        </cellValueFactory>
+			    </TableColumn>
+			    			
+				<TableColumn text="Day" prefWidth="100" fx:id="busDayColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="day"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Time" prefWidth="100" fx:id="busTimeColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="time"/>
+		        	</cellValueFactory>
+				</TableColumn>
+				
+				<TableColumn text="Personal Trainer" prefWidth="200" fx:id="busPersonalTrainerColumn">
+					<cellValueFactory>
+						<PropertyValueFactory property="employeeName" />
+		        	</cellValueFactory>
+				</TableColumn>
+			</columns>
+			<sortOrder>
+		          <fx:reference source="busDateColumn"/>
+		     </sortOrder> 
+		</TableView>
+	</center>
+	<bottom>
+		<GridPane fx:id="buttons">
+			<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+			<ComboBox fx:id="customerCombo" prefWidth="200.0" promptText="Choose a Customer"
+					GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			<Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Make Booking" fx:id="makeBookingButton"
+			onAction="#handleMakeBookingButtonAction"
+			GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+			<Label fx:id="addBookingLabel" text="" 
+			GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+		</GridPane>
+	</bottom>
+</BorderPane>

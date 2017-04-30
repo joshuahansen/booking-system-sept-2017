@@ -1,96 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?> 
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
 	<top>
-		<Label text="Controles:" />
 		<HBox spacing="10"> 
 		<BorderPane.margin>
-             <Insets bottom="10.0" left="25.0" right="10.0" top="15.0" />
+             <Insets bottom="10.0" left="25.0" right="10.0" top="10.0" />
         </BorderPane.margin>
-	    <Button fx:id="pastBookingsButton" onAction="#handlePastBookingsButtonAction" text="Past Bookings">
-            <effect>
-               <DropShadow height="18.0" radius="7.0" width="12.0" />
-            </effect></Button>
-	    <Button fx:id="todaysBookingsButton" onAction="#handleTodaysBookingsButtonAction" text="Today's Bookings">
-            <effect>
-               <DropShadow height="18.0" radius="7.0" width="12.0" />
-            </effect></Button>
-	    <Button fx:id="futureBookingsButton" onAction="#handleFutureBookingsButtonAction" text="Future Bookings">
-            <effect>
-               <DropShadow height="18.0" radius="7.0" width="12.0" />
-            </effect></Button>
+	    <Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Past Bookings" fx:id="pastBookingsButton"
+	    onAction="#handlePastBookingsButtonAction"/>
+	    <Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Today's Bookings" fx:id="todaysBookingsButton"
+	    onAction="#handleTodaysBookingsButtonAction"/>
+	    <Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Future Bookings" fx:id="futureBookingsButton"
+	    onAction="#handleFutureBookingsButtonAction"/>
 		</HBox>
 	</top>
 	<center>
-		<TableView fx:id="busBookingTable">
+		<TableView fx:id="busBookingTable" >
 		<BorderPane.margin>
-             <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
+             <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
         </BorderPane.margin>
 			<columns>
-				<TableColumn fx:id="busBookingIdColumn" prefWidth="100" text="Booking ID">
+				<TableColumn text="Booking ID" prefWidth="100" fx:id="busBookingIdColumn">
 					<cellValueFactory>
-						<PropertyValueFactory property="bookingId" />
+						<PropertyValueFactory property="bookingId"/>
 		        	</cellValueFactory>
 		        </TableColumn>
 		        
-		        <TableColumn fx:id="busClassTypeColumn" prefWidth="100" text="Class Type">
+		        <TableColumn text="Class Type" prefWidth="100" fx:id="busClassTypeColumn">
 					<cellValueFactory>
-						<PropertyValueFactory property="sessionType" />
+						<PropertyValueFactory property="sessionType"/>
 		        	</cellValueFactory>
 		        </TableColumn>
 		        
-				<TableColumn fx:id="busDateColumn" prefWidth="100" text="Date">
+				<TableColumn text="Date" prefWidth="100" fx:id="busDateColumn">
 					<cellValueFactory>
-						<PropertyValueFactory property="date" />
+						<PropertyValueFactory property="date"/>
 			        </cellValueFactory>
 			    </TableColumn>
 			    
-			    <TableColumn fx:id="busCustomerNameColumn" prefWidth="150" text="Customer Name">
+			    <TableColumn text="Customer Name" prefWidth="150" fx:id="busCustomerNameColumn">
 					<cellValueFactory>
-						<PropertyValueFactory property="customerName" />
+						<PropertyValueFactory property="customerName"/>
 		        	</cellValueFactory>
 				</TableColumn>
 				
-				<TableColumn fx:id="busDayColumn" prefWidth="100" text="Day">
+				<TableColumn text="Day" prefWidth="100" fx:id="busDayColumn">
 					<cellValueFactory>
-						<PropertyValueFactory property="day" />
+						<PropertyValueFactory property="day"/>
 		        	</cellValueFactory>
 				</TableColumn>
 				
-				<TableColumn fx:id="busTimeColumn" prefWidth="100" text="Time">
+				<TableColumn text="Time" prefWidth="100" fx:id="busTimeColumn">
 					<cellValueFactory>
-						<PropertyValueFactory property="time" />
+						<PropertyValueFactory property="time"/>
 		        	</cellValueFactory>
 				</TableColumn>
 				
-				<TableColumn fx:id="busPersonalTrainerColumn" prefWidth="150" text="Personal Trainer">
+				<TableColumn text="Personal Trainer" prefWidth="150" fx:id="busPersonalTrainerColumn">
 					<cellValueFactory>
 						<PropertyValueFactory property="employeeName" />
 		        	</cellValueFactory>
 				</TableColumn>
 			</columns>
 			<sortOrder>
-		          <fx:reference source="busDateColumn" />
+		          <fx:reference source="busDateColumn"/>
 		     </sortOrder> 
 		</TableView>
 	</center>
 	<bottom>
-		<Button onAction="#handleRemoveBookingButtonAction" text="Remove Booking" textFill="#070505">
-         <BorderPane.margin>
-            <Insets left="25.0" />
-         </BorderPane.margin>
-         <effect>
-            <DropShadow />
-         </effect></Button>
+		<HBox spacing="10"> 
+			<BorderPane.margin>
+	             <Insets bottom="10.0" left="25.0" right="10.0" top="10.0" />
+	        </BorderPane.margin>
+			<Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false" text="Remove Booking"
+			onAction="#handleRemoveBookingButtonAction"/>
+		</HBox>
 	</bottom>
 </BorderPane>

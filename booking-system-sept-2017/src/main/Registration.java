@@ -60,16 +60,17 @@ public class Registration {
 			ArrayList<Employee> empl) {
 			
 		this.employeeID = employeeID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		
 		if(!validEmployeeID(empl)) {
 			 return false; 
 		}
-		
-		this.firstName = firstName;
+
 		if(!validFirstName()) {
 			 return false; 
 		}
-		
-		this.lastName = lastName;
+
 		if(!validLastName()) {
 			 return false; 
 		}
@@ -421,8 +422,21 @@ public class Registration {
 		return true;		
 	}
 	
-	private boolean validEmployeeID(ArrayList<Employee> empl) {
-
+	public boolean validEmployeeID(ArrayList<Employee> empl) {
+		
+		if(employeeID == null)
+		{
+			return false;
+		}
+		if(employeeID.length() < 1)
+		{
+			System.out.println("EmployeeID to short");
+			return false;
+		}
+		if(!employeeID.matches("[0-9]+")) {
+			System.out.println("\nA valid ID must contain only digits!");
+			return false;
+		}
 		for(int i = 0; i < empl.size(); i++) {	
 				if(this.employeeID.equals(empl.get(i).getEmployeeID())) {					
 					System.out.println("\nID already exists!");

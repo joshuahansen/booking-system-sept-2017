@@ -18,6 +18,10 @@ public class AddEmployeeController implements Initializable{
 	@FXML TextField employeeFirstNameData;
 	@FXML TextField employeeLastNameData;
 	
+	@FXML private Text employeeIDFail;
+	@FXML private Text firstNameFail;
+	@FXML private Text lastNameFail;
+	
 	ArrayList<Business> businesses;
 	Registration reg = new Registration();
 	int busPos;
@@ -46,7 +50,30 @@ public class AddEmployeeController implements Initializable{
 		}
 		else
 		{
-			
+			if(!reg.validEmployeeID(businesses.get(busPos).employees))
+			{
+				employeeIDFail.setText("ID Not Valid");
+			}
+			else
+			{
+				employeeIDFail.setText("");
+			}
+			if(!reg.validFirstName())
+			{
+				firstNameFail.setText("Name Not Valid");
+			}
+			else
+			{
+				firstNameFail.setText("");
+			}
+			if(!reg.validLastName())
+			{
+				lastNameFail.setText("Last Name Not Valid");
+			}
+			else
+			{
+				lastNameFail.setText("");
+			}
 		}
 	}
 	

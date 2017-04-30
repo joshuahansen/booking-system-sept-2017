@@ -5,3 +5,7 @@
 .label {
 -fx-font-family: sans-serif;
 }
+
+.tooltip {
+	-fx-font-size: 14;
+}
