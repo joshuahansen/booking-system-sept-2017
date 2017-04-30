@@ -412,7 +412,7 @@ public class BusinessMakeBookingController implements Initializable{
 		Employee employee = null;
 		Customer selectedCustomer = null; 
 		String classType = classCombo.getValue();
-		
+
 		//if user does not select a class type it is set to general by default
 		if(classType.equalsIgnoreCase("All"))
 		{
@@ -423,6 +423,10 @@ public class BusinessMakeBookingController implements Initializable{
 		{
 			addBookingLabel.setText("Please select a Customer");
 			
+		}
+		else if(newSelection == null)
+		{
+			addBookingLabel.setText("Please select a Booking from the table");
 		}
 		//otherwise create a booking
 		else
