@@ -57,7 +57,7 @@ public class BusinessMenuController implements Initializable {
 			root = loader.load();
 			
 	    	Scene scene = new Scene(root, 860, 640);
-	    	root.getStylesheets().add(getClass().getResource("bookingSysten.css").toExternalForm());
+	    	root.getStylesheets().add(getClass().getResource("bookingSystem.css").toExternalForm());
 	    	stage.setScene(scene);
 	    	stage.show();
     	}catch(IOException e)

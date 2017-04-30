@@ -86,9 +86,9 @@
                </rowConstraints>
             		</GridPane>
          </center>
-         <top>
+         <!-- <top>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BookingSystem" BorderPane.alignment="TOP_LEFT" />
-         </top>
+         </top>-->
       </BorderPane>
    </children>
 </AnchorPane>

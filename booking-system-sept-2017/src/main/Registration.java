@@ -22,33 +22,36 @@ public class Registration {
 	public boolean setValues(String firstName, String lastName, String address,
 			String phone, String username, String password, ArrayList<Customer> cust, ArrayList<Business> busi) {
 			
-		this.firstName = firstName;
-		if(!validFirstName()) {
-			 return false; 
-		}
-		
-		this.lastName = lastName;
-		if(!validLastName()) {
-			 return false; 
-		}
-		
-		this.address = address;
-		
-		this.phone = phone;
-		if(!validPhone()) {
-			 return false; 
-		}
-		
 		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.phone = phone;
+		this.password = password;
+		
 		if(!validUsername(cust, busi)) {
 			 return false; 
 		}
 		
-		this.password = password;
-		if(!validPassword()) {
+		if(!validFirstName()) {
 			 return false; 
 		}
 		
+		if(!validLastName()) {
+			 return false; 
+		}
+	
+		if(!validAddress()){
+			return false;
+		}
+
+		if(!validPhone()) {
+			 return false; 
+		}
+		
+		if(!validPassword()) {
+			 return false; 
+		}
 		
 		return true;
 	}
@@ -167,6 +170,10 @@ public class Registration {
 		/*This runs through the customer and the business array list and compares the username of each index to the username 
 		 * entered by the user, and if it matches with an already existing username, it will return false
 		 */		
+		if(username == null)
+		{
+			return false;
+		}
 		for(int i = 0; i < cust.size(); i++) {	
 				if(this.username.equals(cust.get(i).getUsername())) {					
 					System.out.println("\nUsername already exists!");
@@ -190,6 +197,10 @@ public class Registration {
 	
 	public boolean validPassword() {
 		//Validates the password length
+		if(password == null)
+		{
+			return false;
+		}
 		if(this.password.length() < 6) {
 			System.out.println("\nPassword length must be at least 6 characters");
 			return false;
@@ -207,6 +218,10 @@ public class Registration {
 	
 	public boolean validPhone() {
 		//Validates the phone number length
+		if(phone == null)
+		{
+			return false;
+		}
 		if(this.phone.length() < 8) {
 			System.out.println("\nA valid phone number must contain at least 8 digits!");
 			return false;
@@ -220,6 +235,10 @@ public class Registration {
 	
 	public boolean validFirstName() {
 		//Validates the first name length
+		if(firstName == null)
+		{
+			return false;
+		}
 		if(this.firstName.length() < 1) {
 			System.out.println("\nFirst name must contain at least 1 character!");
 			return false;
@@ -233,6 +252,10 @@ public class Registration {
 	
 	public boolean validLastName() {
 		//Validates the last name length
+		if(lastName == null)
+		{
+			return false;
+		}
 		if(this.lastName.length() < 1) {
 			System.out.println("\nLast name must contain at least 1 character!");
 			return false;
@@ -245,11 +268,15 @@ public class Registration {
 	}
 	
 	public boolean validAddress() {
+		if(address == null)
+		{
+			return false;
+		}
 		if(this.address.length() < 1) {
 			System.out.println("\nAddress name must contain at least 1 character!");
 			return false;
 		}
-		if(!this.address.matches("^[0-9]+[A-z]+")) {
+		if(!this.address.matches("^[0-9 ]+[A-z ]+")) {
 			System.out.println("\nAddress must contain a number followed by letters!");
 			return false;
 		}
