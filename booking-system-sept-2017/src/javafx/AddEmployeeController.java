@@ -33,10 +33,10 @@ public class AddEmployeeController implements Initializable{
 	@FXML private Tooltip firstNameTooltip;
 	@FXML private Tooltip lastNameTooltip;
 	
-	ArrayList<Business> businesses;
-	Registration reg = new Registration();
-	int busPos;
-	Session session;
+	private ArrayList<Business> businesses;
+	private Registration reg = new Registration();
+	private int busPos;
+	private Session session;
 
 	/**
 	 * Constructor for the AddEmployeeController class

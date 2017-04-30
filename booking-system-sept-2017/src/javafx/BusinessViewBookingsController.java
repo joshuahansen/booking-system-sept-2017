@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import main.Session;
 import users.*;
 
 public class BusinessViewBookingsController implements Initializable{
@@ -33,11 +34,13 @@ public class BusinessViewBookingsController implements Initializable{
     private final ObservableList<TableViewBooking> todaysBookings = FXCollections.observableArrayList();
     		
     @FXML private TableView<TableViewBooking> busBookingTable;    
+    private Session session;
     
-    public BusinessViewBookingsController(ArrayList<Business> businesses, int busPos)
+    public BusinessViewBookingsController(Session session, ArrayList<Business> businesses, int busPos)
     {
     	this.businesses = businesses;
     	this.busPos = busPos;
+    	this.session = session;
     }
     
     public static class TableViewBooking 

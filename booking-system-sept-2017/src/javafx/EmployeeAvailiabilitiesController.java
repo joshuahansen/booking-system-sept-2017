@@ -1,7 +1,5 @@
 package javafx;
 
-import java.awt.Color;
-import java.awt.List;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -15,17 +13,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import main.Registration;
+import main.Session;
 import users.Business;
 import users.Employee;
 
 public class EmployeeAvailiabilitiesController implements Initializable{
 	
-	ArrayList<Business> businesses;
+	private ArrayList<Business> businesses;
 	public Button btn[][] = new Button[5][4];
-	Registration reg = new Registration();
-	int busPos;
-	int emplPos;
+
+	private int busPos;
+	private int emplPos;
 	
 	@FXML private Button button1;
 	@FXML private Button button2;
@@ -53,11 +51,13 @@ public class EmployeeAvailiabilitiesController implements Initializable{
     private final ObservableList<String> employeeList = FXCollections.observableArrayList();
 
 	private ArrayList<MenuItem> menuButtons;
+	private Session session;
 
-	 public EmployeeAvailiabilitiesController(ArrayList<Business> businesses, int busPos)
+	 public EmployeeAvailiabilitiesController(Session session, ArrayList<Business> businesses, int busPos)
 	 {
 	    	this.businesses = businesses;
 	    	this.busPos = busPos;
+	    	this.session = session;
 	 }
 	 
 	 public void initializeButtonArray() 
@@ -120,6 +120,7 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 
 	 @FXML
 	 protected void handleUpdateButtonAction(ActionEvent event) {
+		 	session.addLog("Availability Button pressed");
 		 	Button button = (Button) event.getSource();
 	        updateButton(businesses.get(busPos).employees.get(emplPos), button);
 	 }

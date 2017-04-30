@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
-
+import main.Session;
 import users.*;
 
 public class CustViewBookingsController implements Initializable{
@@ -22,6 +22,7 @@ public class CustViewBookingsController implements Initializable{
     private ArrayList<Business> businesses;
     private int custPos;
     private int busPos;
+    private Session session;
     
     private final ObservableList<TableViewBooking> allBookings = FXCollections.observableArrayList();
     private final ObservableList<TableViewBooking> displayBookings = FXCollections.observableArrayList();
@@ -30,12 +31,13 @@ public class CustViewBookingsController implements Initializable{
     @FXML private TableView<TableViewBooking> custBookingsTable;    
     @FXML private ComboBox<String> bookingCombo = new ComboBox<String>();
         
-    public CustViewBookingsController(ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos, int busPos)
+    public CustViewBookingsController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos, int busPos)
     {
     	this.customers = customers;
     	this.businesses = businesses;
     	this.custPos = custPos;
     	this.busPos = busPos;
+    	this.session = session;
     }
     
     public static class TableViewBooking 

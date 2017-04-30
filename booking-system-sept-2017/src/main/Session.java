@@ -20,10 +20,13 @@ public class Session
 	public Session() throws IOException
 	{
 		this.sessionLogs = new ArrayList<>();
-		this.sessionID = generateSessionID();
-		this.sessionLog = new File(sessionID);
+		this.sessionID = generateFileNameSessionID();
+		this.sessionLog = new File(sessionID+".txt");
+		sessionLog.createNewFile();
 		this.sessionLogger = new FileWriter(sessionLog);
 	}
+	
+
 	
 	public ArrayList<String> getSessionLogs()
 	{
@@ -70,6 +73,19 @@ public class Session
 		this.addLog("End of session. Terminated at " + this.generateSessionID());
 		this.writeWholeLog();
 		this.sessionLogger.close();
+	}
+	
+	public String generateFileNameSessionID()
+	{
+		String sessionID = new String();
+		
+		LocalDate date = LocalDate.now();
+		
+		String dateString = date.toString();
+		
+		sessionID = dateString;
+		
+		return sessionID;
 	}
 	
 	public String generateSessionID()

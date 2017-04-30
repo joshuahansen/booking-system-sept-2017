@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.Booking;
+import main.Session;
 import users.*;
 
 public class CustomerMakeBookingController implements Initializable{
@@ -24,6 +25,7 @@ public class CustomerMakeBookingController implements Initializable{
     private ArrayList<Customer> customers;
     private int custPos;
     private int busPos;
+    private Session session;
     
 //    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
@@ -44,11 +46,12 @@ public class CustomerMakeBookingController implements Initializable{
     		
     @FXML private TableView<AvailableBookingTable> custAvailableBookingTable;    
     
-    public CustomerMakeBookingController(ArrayList<Business> businesses, ArrayList<Customer> customers, int custPos)
+    public CustomerMakeBookingController(Session session, ArrayList<Business> businesses, ArrayList<Customer> customers, int custPos)
     {
     	this.businesses = businesses;
     	this.customers = customers;
     	this.custPos = custPos;
+    	this.session = session;
     }
     
     public static class AvailableBookingTable 

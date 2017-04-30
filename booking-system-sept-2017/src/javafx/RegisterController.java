@@ -18,6 +18,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Registration;
+import main.Session;
 import users.*;
 
 public class RegisterController implements Initializable{
@@ -29,11 +30,11 @@ public class RegisterController implements Initializable{
     @FXML private PasswordField registerPasswordField;
     @FXML private PasswordField registerPasswordConfirmField;
     
-    @FXML TextField registerUsernameData;
-	@FXML TextField registerFirstNameData;
-	@FXML TextField registerLastNameData;
-	@FXML TextField registerAddressData;
-	@FXML TextField registerPhoneData;
+    @FXML private TextField registerUsernameData;
+	@FXML private TextField registerFirstNameData;
+	@FXML private TextField registerLastNameData;
+	@FXML private TextField registerAddressData;
+	@FXML private TextField registerPhoneData;
     
 	@FXML private Text usernameFail;
 	@FXML private Text firstNameFail;
@@ -49,14 +50,16 @@ public class RegisterController implements Initializable{
 	@FXML private Tooltip phoneTooltip;
 	@FXML private Tooltip passwordTooltip;
 	
-    ArrayList<Customer> customers;
-    ArrayList<Business> businesses;
-    Registration reg = new Registration();
+	private ArrayList<Customer> customers;
+	private ArrayList<Business> businesses;
+	private Registration reg = new Registration();
+	private Session session;
     
-    public RegisterController(ArrayList<Customer> customers, ArrayList<Business> businesses)
+    public RegisterController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses)
     {
     	this.customers = customers;
     	this.businesses = businesses;
+    	this.session = session;
     }
     
     @FXML protected void handleConfirmButtonAction(ActionEvent event)
@@ -164,7 +167,7 @@ public class RegisterController implements Initializable{
 	    	stage = (Stage) cancelButton.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(customers, businesses);
+			LoginController controller = new LoginController(session, customers, businesses);
 			loader.setController(controller);
 			
 			root = loader.load();

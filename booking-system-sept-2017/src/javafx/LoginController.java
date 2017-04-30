@@ -37,10 +37,10 @@ public class LoginController implements Initializable{
     @FXML private Button loginButton;
     @FXML private Button confirmButton;
     
-    ArrayList<Customer> customers;
-    ArrayList<Business> businesses;
+    private ArrayList<Customer> customers;
+    private ArrayList<Business> businesses;
     
-    Session session;
+    private Session session;
     
     /**
      * Constructor for login controller
@@ -74,7 +74,7 @@ public class LoginController implements Initializable{
 	      	{
 	      		session.addLog("Load customer menu");
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerMenu.fxml"));
-	    		CustomerMenuController controller = new CustomerMenuController(customers, businesses, userPos);
+	    		CustomerMenuController controller = new CustomerMenuController(session, customers, businesses, userPos);
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();
@@ -87,7 +87,7 @@ public class LoginController implements Initializable{
 	      	{
 	      		session.addLog("Load business menu");
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMenu.fxml"));
-	    		BusinessMenuController controller = new BusinessMenuController(customers, businesses, userPos);
+	    		BusinessMenuController controller = new BusinessMenuController(session, customers, businesses, userPos);
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();
@@ -122,7 +122,7 @@ public class LoginController implements Initializable{
         	stage = (Stage) registerButton.getScene().getWindow();
           	
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("Register.fxml"));
-    		RegisterController controller = new RegisterController(customers, businesses);
+    		RegisterController controller = new RegisterController(session,customers, businesses);
     		loader.setController(controller);
     		
     		root = loader.load();

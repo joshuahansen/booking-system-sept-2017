@@ -32,16 +32,17 @@ public class BusinessMenuController implements Initializable {
     @FXML private TabPane businessMenuTabPane;
     @FXML private Tab detailsTab;
     
-    ArrayList<Customer> customers;
-    ArrayList<Business> businesses;
-    int busPos;
-    Session session;
+    private ArrayList<Customer> customers;
+    private ArrayList<Business> businesses;
+    private int busPos;
+    private Session session;
     
-    public BusinessMenuController(ArrayList<Customer> customers, ArrayList<Business> businesses, int busPos)
+    public BusinessMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int busPos)
     {
     	this.customers = customers;
     	this.businesses = businesses;
     	this.busPos = busPos;
+    	this.session = session;
     }
     
     @FXML protected void busLogoutAction(ActionEvent event)
@@ -64,7 +65,7 @@ public class BusinessMenuController implements Initializable {
 	    	stage.show();
     	}catch(IOException e)
     	{
-    		System.out.println("Unable to load login scene");
+    		session.addLog("Unable to load login scene");
     	}
     }
     
@@ -73,7 +74,7 @@ public class BusinessMenuController implements Initializable {
 		try {
     		businessDetails.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
-    		BusinessDetailsController controller = new BusinessDetailsController(businesses, busPos);
+    		BusinessDetailsController controller = new BusinessDetailsController(session, businesses, busPos);
     		loader.setController(controller);
     		
     		businessDetails.getChildren().add(loader.load());
@@ -81,7 +82,7 @@ public class BusinessMenuController implements Initializable {
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load Business Details Tab");
+    		session.addLog("Unable to load Business Details Tab");
     	}
 	}
 
@@ -90,14 +91,14 @@ public class BusinessMenuController implements Initializable {
 		try {
     		busMakeBooking.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMakeBooking.fxml"));
-    		BusinessMakeBookingController controller = new BusinessMakeBookingController(businesses, customers, busPos);
+    		BusinessMakeBookingController controller = new BusinessMakeBookingController(session, businesses, customers, busPos);
     		loader.setController(controller);
     		
     		busMakeBooking.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load Make Bookings Tab");
+    		session.addLog("Unable to load Make Bookings Tab");
     	}
 	}
 
@@ -106,14 +107,14 @@ public class BusinessMenuController implements Initializable {
 		try {
     		businessDetails.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
-    		BusinessDetailsController controller = new BusinessDetailsController(businesses, busPos);
+    		BusinessDetailsController controller = new BusinessDetailsController(session, businesses, busPos);
     		loader.setController(controller);
     		
     		businessDetails.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load Business Details Tab");
+    		session.addLog("Unable to load Business Details Tab");
     	}
 	}
 
@@ -122,14 +123,14 @@ public class BusinessMenuController implements Initializable {
 		try {
     		busViewBooking.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessViewBookings.fxml"));
-    		BusinessViewBookingsController controller = new BusinessViewBookingsController(businesses, busPos);
+    		BusinessViewBookingsController controller = new BusinessViewBookingsController(session, businesses, busPos);
     		loader.setController(controller);
     		
     		busViewBooking.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load View Bookings Tab");
+    		session.addLog("Unable to load View Bookings Tab");
     	}
 	}
 
@@ -138,14 +139,14 @@ public class BusinessMenuController implements Initializable {
 		try {
     		addEmployeeForm.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddEmployees.fxml"));
-    		AddEmployeeController controller = new AddEmployeeController(businesses, busPos);
+    		AddEmployeeController controller = new AddEmployeeController(session, businesses, busPos);
     		loader.setController(controller);
     		
     		addEmployeeForm.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
     		System.out.println(e);
-    		System.out.println("Unable to load Add Employee Tab");
+    		session.addLog("Unable to load Add Employee Tab");
     	}
 	}
 
@@ -154,14 +155,14 @@ public class BusinessMenuController implements Initializable {
 		try {
 			busEmployeeAvail.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeAvailabilities.fxml"));
-    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(businesses, busPos);
+    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(session, businesses, busPos);
     		loader.setController(controller);
     		
     		busEmployeeAvail.getChildren().add(loader.load());
     	}catch(IOException e)
     	{
-//    		System.out.println(e);
-//    		System.out.println("Unable to load Employee Availabilities Tab");
+    		System.out.println(e);
+    		session.addLog("Unable to load Employee Availabilities Tab");
     	}
 	}
 }

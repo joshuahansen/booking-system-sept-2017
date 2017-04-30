@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.Booking;
+import main.Session;
 import users.*;
 
 /**
@@ -29,6 +30,7 @@ public class BusinessMakeBookingController implements Initializable{
     private ArrayList<Business> businesses;
     private ArrayList<Customer> customers;
     private int busPos;
+    private Session session;
     
     private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> displayedAvailabilities = FXCollections.observableArrayList();
@@ -55,11 +57,12 @@ public class BusinessMakeBookingController implements Initializable{
      * @param customers Passes reference to customers array created in BookingSystem class
      * @param busPos Passes value of logging in user and sets it to local variable
      */
-    public BusinessMakeBookingController(ArrayList<Business> businesses, ArrayList<Customer> customers, int busPos)
+    public BusinessMakeBookingController(Session session, ArrayList<Business> businesses, ArrayList<Customer> customers, int busPos)
     {
     	this.businesses = businesses;
     	this.customers = customers;
     	this.busPos = busPos;
+    	this.session = session;
     }
     
     /**

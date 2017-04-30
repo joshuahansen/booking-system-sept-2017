@@ -52,7 +52,6 @@ public class Database {
 			String user = "sa";
 			String password = "";
 			connection = DriverManager.getConnection(url,user,password);
-			System.out.println("Connected to database");
 			session.addLog("Connected to database");
 			return true;
 			
@@ -61,7 +60,6 @@ public class Database {
 			session.addLog("ERROR: Class not found: " + ex.getMessage());
 			return false;
 		} catch (SQLException e) {
-			System.out.println("ERROR: Could not load database");
 			session.addLog("ERROR: Could not load database");
 			return false;
 		}
@@ -139,14 +137,12 @@ public class Database {
 			
 			stmt.executeUpdate(sql);
 			
-			System.out.println("Database Initialised");
 			session.addLog("Database initalised");
 			return true;
 			
 		}catch(SQLException e)
 		{
 			//Catch any SQL exceptions, print message and return false 
-			System.out.println("Database cannot be initialised");
 			session.addLog("Database could not be initialised");
 			return false;
 		}
@@ -174,13 +170,11 @@ public class Database {
 			sql = "drop table bookings";
 			stmt.executeUpdate(sql);
 			
-			System.out.println("Database tables cleared");
 			session.addLog("Database tables cleared");
 			return true;
 			
 		}catch(SQLException e)
 		{
-			System.out.println("Can not delete tables");
 			session.addLog("Cannot delete tables");
 			return false;
 		}
@@ -233,14 +227,12 @@ public class Database {
 			
 			sql = "INSERT INTO BOOKINGS VALUES('003', 'SPIN', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001')";
 			stmt.executeUpdate(sql);
-			
-			System.out.println("Database set to defualt values");
+
 			session.addLog("Database set to default values");
 			return true;
 			
 		}catch (SQLException e)
 		{
-			System.out.println("Could not set database values to default");
 			session.addLog("Could not set database values to default");
 			
 			return false;
@@ -272,7 +264,6 @@ public class Database {
 		return true;
 		
 		}catch (SQLException e) {
-			System.out.println("Unable to load Customer Database");
 			session.addLog("Unable to load Customer Databse");
 			return false;
 		}
@@ -302,7 +293,6 @@ public class Database {
 			}
 			return true;
 		}catch (SQLException e) {
-			System.out.println("Unable to load Business Database");
 			session.addLog("Unable to load Business Database");
 			return false;
 		}
@@ -336,7 +326,6 @@ public class Database {
 			return true;
 		}catch (SQLException e)
 		{
-			System.out.println("Unable to load Employees");
 			session.addLog("Unable to load employees");
 			return false;
 		}
@@ -374,7 +363,6 @@ public class Database {
 				
 		}catch (SQLException e)
 		{
-			System.out.println("Unable to load employee availible times");
 			session.addLog("Unable to load employee available times");
 			return false;
 		}
@@ -431,7 +419,6 @@ public class Database {
 			return true;
 		}catch (SQLException e)
 		{
-			System.out.println("Unable to load Bookings");
 			session.addLog("Unable to load bookings");
 			return false;
 		}
@@ -449,7 +436,6 @@ public class Database {
 			    stmt.executeUpdate(sql);
 			    
 			}catch (SQLException ex) {
-				System.out.println("Customer record already exists. No changes were made.");
 				session.addLog("Customer record already exists. No changes were made.");
 			}
 		}
@@ -463,12 +449,10 @@ public class Database {
 			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
 		    Statement stmt = connection.createStatement();
 		    stmt.executeUpdate(sql);
-		    System.out.println("Customer added to database");
 		    session.addLog("Customer added to database.");
 		    return true;
 
 		}catch (SQLException ex) {
-			System.out.println("Customer record already exists. No changes were made.");
 			session.addLog("Customer record already exists. No changes were made.");
 			
 			return false;
@@ -498,7 +482,6 @@ public class Database {
 								    stmt.executeUpdate(sql);
 				    			}catch (SQLException e)
 				    			{
-				    				System.out.println("Employee already availible that timeslot");
 				    				session.addLog("Employee already available in that timeslot.");
 				    			}
 				    		}
@@ -509,7 +492,6 @@ public class Database {
 				    stmt.executeUpdate(sql);
 				    
 				}catch (SQLException ex) {
-					System.out.println("Employee record already exists. No changes were made.");
 					session.addLog("Employee record already exists. No changes were made.");
 				}
 			}
@@ -537,7 +519,6 @@ public class Database {
 				}
 			}
 			}catch (SQLException ex) {
-				System.out.println("Booking record already exists. No changes were made.");
 				session.addLog("Booking record already exists. No changes were made.");
 			}
 		return true;
@@ -611,7 +592,6 @@ public class Database {
 			return true;
 		}catch (SQLException e)
 		{
-			System.out.println("Can not close connection");
 			session.addLog("Cannot close connection to database.");
 			return false;
 		}
@@ -628,7 +608,6 @@ public class Database {
 
 		}catch (SQLException e)
 		{
-			System.out.println("Unable to clear records from " + table + " table.");
 			session.addLog("Unable to clear records from " + table + " table.");
 		}
 		return true;

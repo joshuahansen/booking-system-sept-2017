@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
+import main.Session;
 import users.*;
 
 /**
@@ -22,18 +23,19 @@ public class BusinessDetailsController implements Initializable {
     @FXML private Text busDetailsAddressData;
     @FXML private Text busDetailsPhoneData;
     
-    ArrayList<Business> businesses;
-    int busPos;
-    
+    private ArrayList<Business> businesses;
+    private int busPos;
+    private Session session;
     /**
      * Constructor for the BusinessDetailsController
      * @param businesses Array of Businesses passed by reference to controller
      * @param busPos current user position in array passed to controller
      */
-    public BusinessDetailsController(ArrayList<Business> businesses, int busPos)
+    public BusinessDetailsController(Session session, ArrayList<Business> businesses, int busPos)
     {
     	this.businesses = businesses;
     	this.busPos = busPos;
+    	this.session = session;
     }
     
     /**
