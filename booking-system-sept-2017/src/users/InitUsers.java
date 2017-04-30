@@ -2,10 +2,14 @@ package users;
 
 import java.util.ArrayList;
 
+import main.Session;
+
 public class InitUsers {
 	//pass in Array List of type customer and assign new customer objects to array
-	public boolean init_customers(ArrayList<Customer> customers)
+	public boolean init_customers(Session session, ArrayList<Customer> customers)
 	{
+		session.addLog("Initialising customers");
+		
 		Customer c1 = new Customer("Bob", "Marley", "1 High Street Melbourne", "97342356",
 										"c_bMarley", "bMarley");
 		Customer c2 = new Customer("Vicki", "Vale", "23 Batman Street Melbourne", "34232687", 
@@ -20,8 +24,10 @@ public class InitUsers {
 		return true;
 	}
 	//pass in Array List of type business and assign business objects to array
-	public boolean init_businesses(ArrayList<Business> businesses)
+	public boolean init_businesses(Session session, ArrayList<Business> businesses)
 	{
+		session.addLog("Initialising businesses");
+		
 		Business b1 = new Business("St. George’s Hospital", "Henry", "Gray", "Blackshaw Road Melbourne", 
 									"86721255", "b_StGeorges", "StGeorges");
 		

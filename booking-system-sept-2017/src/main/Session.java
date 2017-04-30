@@ -89,7 +89,7 @@ public class Session
 	
 	public void addLog(String log)
 	{
-		log = log + "\n";
+		log = this.generateSessionID() + ": " + log + "\n";
 		this.sessionLogs.add(log);
 	}
 	
