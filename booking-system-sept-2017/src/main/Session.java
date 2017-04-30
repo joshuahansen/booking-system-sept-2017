@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class Session 
 {
-	ArrayList<String> sessionLogs;
-	String sessionID;
-	File sessionLog;
-	FileWriter sessionLogger;
+	private ArrayList<String> sessionLogs;
+	private String sessionID;
+	private File sessionLog;
+	private FileWriter sessionLogger;
 	
 //	Login login;
 //	Registration registration;
@@ -23,6 +23,53 @@ public class Session
 		this.sessionID = generateSessionID();
 		this.sessionLog = new File(sessionID);
 		this.sessionLogger = new FileWriter(sessionLog);
+	}
+	
+	public ArrayList<String> getSessionLogs()
+	{
+		return this.sessionLogs;
+	}
+	
+	public void setSessionLogs(ArrayList<String> sessionLogs)
+	{
+		this.sessionLogs = sessionLogs;
+	}
+	
+	public String getSessionID()
+	{
+		return this.sessionID;
+	}
+	
+	public void setSessionID(String sessionID)
+	{
+		this.sessionID = sessionID;
+	}
+	
+	public File getSessionLog()
+	{
+		return this.sessionLog;
+	}
+	
+	public void setSessionLog(File sessionLog)
+	{
+		this.sessionLog = sessionLog;
+	}
+	
+	public FileWriter getSessionLogger()
+	{
+		return this.sessionLogger;
+	}
+	
+	public void setSessionLogger(FileWriter sessionLogger)
+	{
+		this.sessionLogger = sessionLogger;
+	}
+	
+	public void terminateSession() throws IOException
+	{
+		this.addLog("End of session. Terminated at " + this.generateSessionID());
+		this.writeWholeLog();
+		this.sessionLogger.close();
 	}
 	
 	public String generateSessionID()
@@ -42,11 +89,13 @@ public class Session
 	
 	public void addLog(String log)
 	{
+		log = log + "\n";
 		this.sessionLogs.add(log);
 	}
 	
 	public void writeToFile(String log) throws IOException
 	{
+		log = log + "\n";
 		this.sessionLogger.append(log);
 	}
 	

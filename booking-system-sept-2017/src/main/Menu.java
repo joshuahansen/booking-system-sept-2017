@@ -10,7 +10,7 @@ public class Menu
 		// default constructor
 	}
 	
-	public boolean menuDriver(Scanner userInput, Login login, Registration registration, 
+	public boolean menuDriver(Session session, Scanner userInput, Login login, Registration registration, 
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -18,6 +18,7 @@ public class Menu
 		
 		while (menuInput != 3)
 		{
+			session.addLog("Printing main menu");
 			printMainMenu();
 			
 			menuInput = userInput.nextInt();
@@ -26,36 +27,43 @@ public class Menu
 			{
 				case 1:
 				{
+					session.addLog("Getting username and password");
 					login.getUsernamePassword(userInput);
+					session.addLog("Username and password retrieved");
+					session.addLog("Attempting to login");
 					returnValue = login.login(customers, businesses);
 					
 					if (returnValue == 0)
 					{
 						System.out.println("\nLogin failed: Incorrect username or password.");
+						session.addLog("Login failed: Incorrect username or password");
 						login.setUsernamePassword(null, null);
 					}
 					else if (returnValue == 1)
 					{
 						System.out.println("\nLogin successful: Printing customer menu.");
-						customerMenu(userInput, login, registration, customers, businesses, employees);
+						session.addLog("Customer " + customers.get(login.getUserPosition()).getFullName() + " successfully logged in");
+						customerMenu(session, userInput, login, registration, customers, businesses, employees);
 					}
 					else if (returnValue == 2)
 					{
 						System.out.println("\nLogin successful: Printing business menu.");
-						businessMenu(userInput, login, registration, customers, businesses, employees);
+						session.addLog("Business " + businesses.get(login.getUserPosition()).getBusinessName() + " successfully logged in");
+						businessMenu(session, userInput, login, registration, customers, businesses, employees);
 					}
 					break;
 				}
 				case 2:
 				{
 					registration.getUserValues(userInput, customers, businesses);
-					
-					registration.registerNewCust(customers, businesses);
+					session.addLog("Registering new customer");
+					registration.registerNewCust(session, customers, businesses);
 					break;
 				}
 				case 3:
 				{
 					System.out.println("\nSystem exiting.\n");
+					session.addLog("Exiting main menu");
 					break;
 				}
 				default:
@@ -69,13 +77,14 @@ public class Menu
 		return true;
 	}
 	
-	public boolean customerMenu(Scanner userInput, Login login, Registration registration,  
+	public boolean customerMenu(Session session, Scanner userInput, Login login, Registration registration,  
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
 		
 		while (menuInput != 2)
 		{
+			session.addLog("Printing customer menu");
 			printCustomerMenu();
 			
 			menuInput = userInput.nextInt();
@@ -84,11 +93,13 @@ public class Menu
 			{
 				case 1:
 				{
-					printAvailabilities(userInput, customers, businesses, employees);
+					session.addLog("Printing booking availabilities");
+					printAvailabilities(session, userInput, customers, businesses, employees);
 					break;
 				}
 				case 2:
 				{
+					session.addLog("Exiting customer menu");
 					System.out.println("\nReturning to main menu.\n");
 					break;
 				}
@@ -103,13 +114,14 @@ public class Menu
 		return true;
 	}
 	
-	public boolean businessMenu(Scanner userInput, Login login, Registration registration, 
+	public boolean businessMenu(Session session, Scanner userInput, Login login, Registration registration, 
 			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
 		
 		while (menuInput != 4)
 		{
+			session.addLog("Printing business menu");
 			printBusinessMenu();
 			
 			menuInput = userInput.nextInt();
@@ -118,7 +130,8 @@ public class Menu
 			{
 				case 1:
 				{
-					printAvailabilities(userInput, customers, businesses, employees);
+					session.addLog("Printing booking availabilities");
+					printAvailabilities(session, userInput, customers, businesses, employees);
 					break;
 				}
 				case 2:
@@ -129,6 +142,7 @@ public class Menu
 					
 					if (numberOfBookings < 1)
 					{
+						session.addLog("No bookings to display");
 						System.out.println("There are no previous bookings to display.");
 					}
 					else
@@ -147,11 +161,13 @@ public class Menu
 				case 3:
 				{
 					registration.getEmployeeValues(userInput, employees);
-					registration.addNewEmployee(userInput, employees);
+					session.addLog("Registering new employee");
+					registration.addNewEmployee(session, userInput, employees);
 					break;
 				}
 				case 4:
 				{
+					session.addLog("Exiting business menu");
 					System.out.println("\nReturning to main menu.\n");
 					break;
 				}
@@ -205,7 +221,7 @@ public class Menu
 		return true;
 	}
 	
-	public boolean printAvailabilities(Scanner userInput, ArrayList<Customer> customers, 
+	public boolean printAvailabilities(Session session, Scanner userInput, ArrayList<Customer> customers, 
 			ArrayList<Business> businesses, ArrayList<Employee> employees)
 	{
 		int menuInput = 0;
@@ -213,9 +229,8 @@ public class Menu
 		
 		while (menuInput != 1)
 		{
-			
-			table.viewAvailabilities(customers, businesses);
-			
+			table.viewAvailabilities(session, customers, businesses);
+			session.addLog("Printed booking availabilities");
 			System.out.println("\n1. Exit");
 			System.out.print("\nPlease enter your choice: ");
 			menuInput = userInput.nextInt();

@@ -3,6 +3,7 @@ package test;
 import main.Login;
 import main.Menu;
 import main.Registration;
+import main.Session;
 import users.Business;
 import users.Customer;
 import users.Employee;
@@ -47,7 +48,7 @@ public class MenuTest
 	}
 	
 	@Test
-	public void mainMenuExitTest()
+	public void mainMenuExitTest(Session session)
 	{
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
@@ -61,14 +62,14 @@ public class MenuTest
 		
 		Menu menuTest = new Menu();
 		
-		assertEquals(true, menuTest.menuDriver(userInput, login, registration, 
+		assertEquals(true, menuTest.menuDriver(session, userInput, login, registration, 
 				customers, businesses, employees));
 		
 		// enter 3 for successful test
 	}
 	
 	@Test
-	public void customerMenuExitTest()
+	public void customerMenuExitTest(Session session)
 	{
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
@@ -82,13 +83,13 @@ public class MenuTest
 		
 		Menu menuTest = new Menu();
 		
-		assertEquals(true, menuTest.customerMenu(userInput, login, registration, customers, businesses, employees));
+		assertEquals(true, menuTest.customerMenu(session, userInput, login, registration, customers, businesses, employees));
 		
 		// enter 2 for successful test
 	}
 	
 	@Test
-	public void businessMenuExitTest()
+	public void businessMenuExitTest(Session session)
 	{
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
@@ -102,7 +103,7 @@ public class MenuTest
 		
 		Menu menuTest = new Menu();
 		
-		assertEquals(true, menuTest.businessMenu(userInput, login, registration, customers, businesses, employees));
+		assertEquals(true, menuTest.businessMenu(session, userInput, login, registration, customers, businesses, employees));
 		
 		// enter 3 for successful test
 	}

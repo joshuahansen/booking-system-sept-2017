@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import main.Registration;
+import main.Session;
 import users.Business;
 import users.Customer;
 import users.Employee;
@@ -22,7 +23,7 @@ public class RegistrationTest {
 	}
 
 	@Test
-	public void registerNewCustTest() {
+	public void registerNewCustTest(Session session) {
 		Registration reg = new Registration();
 		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();		
@@ -30,7 +31,7 @@ public class RegistrationTest {
 		System.out.println("\nregisterNewCustTest:");
 
 		reg.setValues("John", "Smith", "21 Test Drive", "97235334", "jsmith", "pass123", customers, businesses);
-		assertEquals(true, reg.registerNewCust(customers, businesses));
+		assertEquals(true, reg.registerNewCust(session, customers, businesses));
 	}
 
 	@Test
