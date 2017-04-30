@@ -141,7 +141,7 @@ public class Registration {
 		return true;
 	}
 	
-	public boolean registerNewCust(ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean registerNewCust(Session session, ArrayList<Customer> cust, ArrayList<Business> busi) {
 		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
 		 *If one of the inputs is invalid, the function will return false, causing this function 
 		 * to return false and send the user back to registration.
@@ -149,7 +149,9 @@ public class Registration {
 		
 		//If all input is valid, the new customer is created, and then added to the array list.
 		Customer newCust = new Customer(firstName, lastName, address, phone, username, password);
+		session.addLog("Customer object created");
 		cust.add(newCust);
+		session.addLog("Customer added");
 		
 		System.out.println("\nRegistration success!");
 		return true;		
@@ -324,8 +326,9 @@ public class Registration {
 		return true;
 	} 
 	
-	public boolean addNewEmployee(Scanner userInput, ArrayList<Employee> empl) {
+	public boolean addNewEmployee(Session session, Scanner userInput, ArrayList<Employee> empl) {
 		//If all input is valid, the new employee is added, and then added to the array list.
+		session.addLog("Employee object created");
 		Employee newEmpl = new Employee(employeeID, firstName, lastName);
 		
 		int selection = 0;
@@ -415,7 +418,7 @@ public class Registration {
 			}
 			
 		}
-		
+		session.addLog("Employee added");
 		empl.add(newEmpl);
 			
 		System.out.println("\nEmployee Added! Success!");

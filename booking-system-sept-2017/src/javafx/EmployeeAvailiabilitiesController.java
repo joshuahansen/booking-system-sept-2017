@@ -111,7 +111,7 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 		String employeeSelected = employeeCombo.getValue();
 		
 		for(int count = businesses.get(busPos).employees.size() - 1; count >= 0 ; count--)
-			if(!employeeSelected.equalsIgnoreCase("Select"))
+			if(!employeeSelected.equalsIgnoreCase("Select") && employeeSelected.equals(businesses.get(busPos).employees.get(count).getName()))
 			{
 				loadButtons(businesses.get(busPos).employees.get(count));
 				emplPos = count;

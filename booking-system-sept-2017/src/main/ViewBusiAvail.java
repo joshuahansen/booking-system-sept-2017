@@ -13,7 +13,7 @@ public class ViewBusiAvail {
     private String unAvailable = "UNAVAILABLE";
     
 	
-	public void viewAvailabilities(ArrayList<Customer> customers, ArrayList<Business> businesses) {
+	public void viewAvailabilities(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses) {
 		
 		//initializes the times for each weekday.
 		initServiceTable();
