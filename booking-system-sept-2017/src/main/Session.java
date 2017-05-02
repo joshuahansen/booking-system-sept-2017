@@ -21,7 +21,7 @@ public class Session
 	{
 		this.sessionLogs = new ArrayList<>();
 		this.sessionID = generateFileNameSessionID();
-		this.sessionLog = new File(sessionID+".txt");
+		this.sessionLog = new File(sessionID+".log");
 		sessionLog.createNewFile();
 		this.sessionLogger = new FileWriter(sessionLog);
 	}
