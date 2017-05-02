@@ -5,12 +5,14 @@ package main;
 
 import java.io.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Session 
 {
 	private ArrayList<String> sessionLogs;
 	private String sessionID;
+	private File sessionFolder;
 	private File sessionLog;
 	private FileWriter sessionLogger;
 	
@@ -20,13 +22,13 @@ public class Session
 	public Session() throws IOException
 	{
 		this.sessionLogs = new ArrayList<>();
-		this.sessionID = generateFileNameSessionID();
-		this.sessionLog = new File(sessionID+".txt");
-		sessionLog.createNewFile();
+		this.sessionID = generateSessionID();
+		this.sessionFolder = new File("./sessionLogs");
+		this.sessionFolder.mkdir();
+		this.sessionLog = new File("./sessionLogs/" + sessionID + ".txt");
+		this.sessionLog.createNewFile();
 		this.sessionLogger = new FileWriter(sessionLog);
 	}
-	
-
 	
 	public ArrayList<String> getSessionLogs()
 	{
@@ -75,30 +77,21 @@ public class Session
 		this.sessionLogger.close();
 	}
 	
-	public String generateFileNameSessionID()
-	{
-		String sessionID = new String();
-		
-		LocalDate date = LocalDate.now();
-		
-		String dateString = date.toString();
-		
-		sessionID = dateString;
-		
-		return sessionID;
-	}
-	
 	public String generateSessionID()
 	{
 		String sessionID = new String();
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
 		
 		LocalDate date = LocalDate.now();
 		LocalTime time = LocalTime.now();
 		
 		String dateString = date.toString();
-		String timeString = time.toString();
+		String timeString = formatter.format(time);
 		
-		sessionID = dateString + "-" + timeString;
+		timeString = this.parseTime(timeString);
+		
+		sessionID = dateString + " " + timeString;
 		
 		return sessionID;
 	}
@@ -135,5 +128,14 @@ public class Session
 				continue;
 			}
 		}
+	}
+	
+	public String parseTime(String time)
+	{
+		String parsedTime = new String();
+		
+		parsedTime = time.replaceAll(":", "-");
+		
+		return parsedTime;
 	}
 }
