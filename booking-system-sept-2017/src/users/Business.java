@@ -11,21 +11,21 @@ import main.Booking;
 public class Business extends User
 {
 	/**
-	 * @param businessName Name of the business object.
+	 * Name of the business object.
 	 */
 	private String businessName;
 	
 	/**
-	 * @param employees Array list of employees for the business object.
+	 * Array list of employees for the business object.
 	 */
 	public ArrayList<Employee> employees = new ArrayList<Employee>();
 	
 	/**
-	 * @param bookings Array list of bookings for the current business object.
+	 * Array list of bookings for the current business object.
 	 */
 	public ArrayList<Booking> bookings = new ArrayList<Booking>();
 	
-	ArrayList<String> availibleTimes = new ArrayList<String>();
+	ArrayList<String> availableTimes = new ArrayList<String>();
 	
 	/**
 	 * Constructor to make business object.

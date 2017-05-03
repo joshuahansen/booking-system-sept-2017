@@ -26,7 +26,7 @@ public class Session
 		this.sessionID = generateSessionID();
 		this.sessionFolder = new File("./sessionLogs");
 		this.sessionFolder.mkdir();
-		this.sessionLog = new File("./sessionLogs/" + sessionID + ".txt");
+		this.sessionLog = new File("./sessionLogs/" + this.sessionID + ".log");
 		this.sessionLog.createNewFile();
 
 		this.sessionLogger = new FileWriter(sessionLog);
@@ -74,7 +74,7 @@ public class Session
 	
 	public void terminateSession() throws IOException
 	{
-		this.addLog("End of session. Terminated at " + this.generateSessionID());
+		this.addLog("Session terminated.");
 		this.writeWholeLog();
 		this.sessionLogger.close();
 	}
@@ -103,10 +103,8 @@ public class Session
 		log = this.generateSessionID() + ": " + log + "\n";
 		this.sessionLogs.add(log);
 	}
-	
 	public void writeToFile(String log) throws IOException
 	{
-		log = log + "\n";
 		this.sessionLogger.append(log);
 	}
 	

@@ -56,7 +56,7 @@ public class BookingSystem extends Application {
 				if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 				{
 					session.addLog("Employee Database loaded");
-					session.addLog("Employee availible times loaded");
+					session.addLog("Employee available times loaded");
 				}
 				else
 				{
@@ -65,7 +65,7 @@ public class BookingSystem extends Application {
 				}
 				if(database.readBookingsDB(session, businesses, customers))
 				{
-					session.addLog("Booking Databse loaded");
+					session.addLog("Booking Database loaded");
 				}
 				else
 				{
@@ -85,7 +85,7 @@ public class BookingSystem extends Application {
 					if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 					{
 						session.addLog("Employee Database loaded");
-						session.addLog("Employee availible times loaded");
+						session.addLog("Employee available times loaded");
 					}
 					else
 					{
@@ -94,7 +94,7 @@ public class BookingSystem extends Application {
 					}
 					if(database.readBookingsDB(session, businesses, customers))
 					{
-						session.addLog("Booking Databse loaded");
+						session.addLog("Booking Database loaded");
 					}
 					else
 					{
