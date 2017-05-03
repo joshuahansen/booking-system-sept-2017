@@ -264,7 +264,7 @@ public class Database {
 		return true;
 		
 		}catch (SQLException e) {
-			session.addLog("Unable to load Customer Databse");
+			session.addLog("Unable to load Customer Database");
 			return false;
 		}
 	}

@@ -25,7 +25,7 @@ public class Business extends User
 	 */
 	public ArrayList<Booking> bookings = new ArrayList<Booking>();
 	
-	ArrayList<String> availibleTimes = new ArrayList<String>();
+	ArrayList<String> availableTimes = new ArrayList<String>();
 	
 	/**
 	 * Constructor to make business object.
