@@ -77,7 +77,7 @@
             			<TextField fx:id="registerPhoneData" GridPane.columnIndex="1" GridPane.rowIndex="5"> 
             				<tooltip>
             					<Tooltip fx:id="phoneTooltip" maxWidth="150" wrapText="true" 
-            						text="Phone must be at least 8 digets and only contain digets"/>
+            						text="Phone must be at least 8 digits and only contain digits"/>
             				</tooltip>
       					</TextField>
       				
@@ -88,7 +88,7 @@
                 		<PasswordField fx:id="registerPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="6">
           					<tooltip>
           						<Tooltip fx:id="passwordTooltip" maxWidth="150" wrapText="true"
-          							text="Password must be at least 6 characters and contain at least one diget and one alphabetical characters"/>
+          							text="Password must be at least 6 characters and contain at least one digit and one alphabetical character"/>
           					</tooltip>
     					</PasswordField>
                 			
