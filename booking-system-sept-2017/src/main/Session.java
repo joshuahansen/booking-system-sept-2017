@@ -25,7 +25,7 @@ public class Session
 		this.sessionID = generateSessionID();
 		this.sessionFolder = new File("./sessionLogs");
 		this.sessionFolder.mkdir();
-		this.sessionLog = new File("./sessionLogs/" + sessionID + ".txt");
+		this.sessionLog = new File("./sessionLogs/" + sessionID + ".log");
 		this.sessionLog.createNewFile();
 		this.sessionLogger = new FileWriter(sessionLog);
 	}
@@ -100,11 +100,17 @@ public class Session
 	{
 		log = this.generateSessionID() + ": " + log + "\n";
 		this.sessionLogs.add(log);
+		try
+		{
+			this.writeToFile(log);
+		}
+		catch(IOException exception)
+		{
+			System.out.println(exception);
+		}
 	}
-	
 	public void writeToFile(String log) throws IOException
 	{
-		log = log + "\n";
 		this.sessionLogger.append(log);
 	}
 	
