@@ -86,7 +86,7 @@ public class Employee
 	}
 	
 	//remove available time from employee availability array
-	public boolean removeavailableTime(int day, int timeslot)
+	public boolean removeAvailableTime(int day, int timeslot)
 	{
 		availableTimes[day][timeslot] = 0;
 		return true;
