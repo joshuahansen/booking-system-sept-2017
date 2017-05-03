@@ -22,11 +22,13 @@ public class Session
 	public Session() throws IOException
 	{
 		this.sessionLogs = new ArrayList<>();
+
 		this.sessionID = generateSessionID();
 		this.sessionFolder = new File("./sessionLogs");
 		this.sessionFolder.mkdir();
 		this.sessionLog = new File("./sessionLogs/" + sessionID + ".txt");
 		this.sessionLog.createNewFile();
+
 		this.sessionLogger = new FileWriter(sessionLog);
 	}
 	
