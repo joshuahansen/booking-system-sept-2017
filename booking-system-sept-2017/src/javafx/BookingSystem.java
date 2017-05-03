@@ -61,7 +61,7 @@ public class BookingSystem extends Application {
 				else
 				{
 					session.addLog("Can not load employee database");
-					session.addLog("Can not load employee availibilities");
+					session.addLog("Can not load employee availabilities");
 				}
 				if(database.readBookingsDB(session, businesses, customers))
 				{
@@ -90,7 +90,7 @@ public class BookingSystem extends Application {
 					else
 					{
 						session.addLog("Can not load employee database");
-						session.addLog("Can not load employee availibilities");
+						session.addLog("Can not load employee availabilities");
 					}
 					if(database.readBookingsDB(session, businesses, customers))
 					{
