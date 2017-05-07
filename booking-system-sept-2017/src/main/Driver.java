@@ -111,7 +111,7 @@ public class Driver {
 			
 		}
 		
-		menu.menuDriver(session, userInput, login, registration, customers, businesses, employees);
+		menu.menuDriver(session, userInput, login, registration, customers, businesses, employees, database);
 		database.writeCustDB(session, customers);
 		session.addLog("Customer data written to database");
 		database.writeEmplToDB(session, businesses);

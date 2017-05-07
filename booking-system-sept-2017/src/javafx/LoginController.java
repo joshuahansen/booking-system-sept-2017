@@ -39,6 +39,7 @@ public class LoginController implements Initializable{
     
     private ArrayList<Customer> customers;
     private ArrayList<Business> businesses;
+    private Database database;
     
     private Session session;
     
@@ -47,11 +48,12 @@ public class LoginController implements Initializable{
      * @param customers Customer array passed in from driver where it was created
      * @param businesses Business array passed in from driver where it was created
      */
-    public LoginController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses)
+    public LoginController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
     {
     	this.session = session;
     	this.customers = customers;
     	this.businesses = businesses;
+    	this.database = database;
     }
     
     /**
@@ -68,13 +70,13 @@ public class LoginController implements Initializable{
 	    	stage = (Stage) loginButton.getScene().getWindow();
 	    	
 	      	Login newLogin = new Login(loginUsernameData.getText(), loginPasswordData.getText());
-	      	int userType = newLogin.login(customers, businesses);
+	      	int userType = newLogin.login(customers, businesses, database);
 	      	int userPos = newLogin.getUserPosition();
 	      	if( userType == 1)
 	      	{
 	      		session.addLog("Load customer menu");
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerMenu.fxml"));
-	    		CustomerMenuController controller = new CustomerMenuController(session, customers, businesses, userPos);
+	    		CustomerMenuController controller = new CustomerMenuController(session, customers, businesses, userPos, database);
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();
@@ -87,12 +89,25 @@ public class LoginController implements Initializable{
 	      	{
 	      		session.addLog("Load business menu");
 	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMenu.fxml"));
-	    		BusinessMenuController controller = new BusinessMenuController(session, customers, businesses, userPos);
+	    		BusinessMenuController controller = new BusinessMenuController(session, customers, businesses, userPos, database);
 	    		loader.setController(controller);
 	    		
 	    		root = loader.load();
 	      		Scene scene = new Scene(root, 860, 640);
 	      		scene.getStylesheets().add(getClass().getResource("businessMenu.css").toExternalForm());
+	      		stage.setScene(scene);
+	      		stage.show();
+	      	}
+	      	else if(userType == 3)
+	      	{
+	      		session.addLog("Load admin menu");
+	      		FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminMenu.fxml"));
+	    		AdminMenuController controller = new AdminMenuController(session, customers, businesses, database);
+	    		loader.setController(controller);
+	    		
+	    		root = loader.load();
+	      		Scene scene = new Scene(root, 860, 640);
+//	      		scene.getStylesheets().add(getClass().getResource("businessMenu.css").toExternalForm());
 	      		stage.setScene(scene);
 	      		stage.show();
 	      	}
@@ -121,8 +136,8 @@ public class LoginController implements Initializable{
         	
         	stage = (Stage) registerButton.getScene().getWindow();
           	
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("Register.fxml"));
-    		RegisterController controller = new RegisterController(session,customers, businesses);
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterCustomer.fxml"));
+    		RegisterCustomerController controller = new RegisterCustomerController(session,customers, businesses, database);
     		loader.setController(controller);
     		
     		root = loader.load();

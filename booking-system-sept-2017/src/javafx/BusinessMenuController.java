@@ -36,13 +36,15 @@ public class BusinessMenuController implements Initializable {
     private ArrayList<Business> businesses;
     private int busPos;
     private Session session;
+    private Database database;
     
-    public BusinessMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int busPos)
+    public BusinessMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int busPos, Database database)
     {
     	this.customers = customers;
     	this.businesses = businesses;
     	this.busPos = busPos;
     	this.session = session;
+    	this.database = database;
     }
     
     @FXML protected void busLogoutAction(ActionEvent event)
@@ -54,7 +56,7 @@ public class BusinessMenuController implements Initializable {
 	    	stage = (Stage) busLogout.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, customers, businesses);
+			LoginController controller = new LoginController(session, customers, businesses, database);
 			loader.setController(controller);
 			
 			root = loader.load();

@@ -15,6 +15,7 @@ public class Registration {
 	private String address;
 	private String phone; 
 	private String employeeID;
+	private String businessName;
 	
 	String days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 	
@@ -28,6 +29,49 @@ public class Registration {
 		this.address = address;
 		this.phone = phone;
 		this.password = password;
+		
+		if(!validUsername(cust, busi)) {
+			 return false; 
+		}
+		
+		if(!validFirstName()) {
+			 return false; 
+		}
+		
+		if(!validLastName()) {
+			 return false; 
+		}
+	
+		if(!validAddress()){
+			return false;
+		}
+
+		if(!validPhone()) {
+			 return false; 
+		}
+		
+		if(!validPassword()) {
+			 return false; 
+		}
+		
+		return true;
+	}
+	
+	public boolean setBusinessValues(String businessName, String firstName, String lastName, String address,
+			String phone, String username, String password, ArrayList<Customer> cust, ArrayList<Business> busi) {
+			
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.phone = phone;
+		this.password = password;
+		this.businessName = businessName;
+		
+		if(!validBusinessName(cust, busi))
+		{
+			return false;
+		}
 		
 		if(!validUsername(cust, busi)) {
 			 return false; 
@@ -171,6 +215,22 @@ public class Registration {
 		return true;		
 	}
 	
+	public boolean registerNewBusiness(Session session, ArrayList<Customer> cust, ArrayList<Business> busi) {
+		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
+		 *If one of the inputs is invalid, the function will return false, causing this function 
+		 * to return false and send the user back to registration.
+		 */
+		
+		//If all input is valid, the new customer is created, and then added to the array list.
+		Business newBusiness = new Business(businessName, firstName, lastName, address, phone, username, password);
+		session.addLog("Business object created");
+		busi.add(newBusiness);
+		session.addLog("Business added");
+		
+		System.out.println("\nRegistration success!");
+		return true;		
+	}
+	
 	public boolean validUsername(ArrayList<Customer> cust, ArrayList<Business> busi) {
 		/*This runs through the customer and the business array list and compares the username of each index to the username 
 		 * entered by the user, and if it matches with an already existing username, it will return false
@@ -253,6 +313,24 @@ public class Registration {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean validBusinessName(ArrayList<Customer> customers, ArrayList<Business> businesses)
+	{
+		//Validates the business name length
+				if(businessName == null)
+				{
+					return false;
+				}
+				if(this.businessName.length() < 1) {
+					System.out.println("\nFirst name must contain at least 1 character!");
+					return false;
+				}
+				if (!this.businessName.matches("[a-zA-Z]+")) {
+					System.out.println("\nBusiness name can only contain alphabetical characters!");
+					return false;
+				}
+				return true;
 	}
 	
 	public boolean validLastName() {

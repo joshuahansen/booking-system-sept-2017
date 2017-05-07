@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<left>
+		<GridPane fx:id="selectBusinessLayout" alignment="center">
+	</left>
+	<right>
+		<GridPane fx:id="businessRegistration" alignment="center"/>
+	</right>
+</BorderPane>
+

@@ -6,6 +6,7 @@ import main.Registration;
 import main.Session;
 import users.Business;
 import users.Customer;
+import users.Database;
 import users.Employee;
 
 import static org.junit.Assert.*;
@@ -13,10 +14,22 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class MenuTest 
 {
+	Database database;
+	String url = "jdbc:sqlite:./databaseTest.db";
+	Session session;
+	
+	@Before
+	public void setup()
+	{
+		database = new Database();
+		database.connectDatabase(session, url);
+	}
+	
 	@Test
 	public void printMainMenuTest()
 	{
@@ -63,7 +76,7 @@ public class MenuTest
 		Menu menuTest = new Menu();
 		
 		assertEquals(true, menuTest.menuDriver(session, userInput, login, registration, 
-				customers, businesses, employees));
+				customers, businesses, employees, database));
 		
 		// enter 3 for successful test
 	}

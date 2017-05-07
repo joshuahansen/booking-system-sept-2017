@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane fx:id="selectBusinessLayout" xmlns:fx="http://javafx.com/fxml/1">
+		<Label fx:id="selectBusiness" text="Select a business"
+				GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+		<ComboBox fx:id="businessCombo" prefWidth="150.0"
+				 GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+		<Button fx:id="confirmSelectedBusinessButton" text="Login as Business"
+			onAction="#handleBusinessLogin" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+</GridPane>
+

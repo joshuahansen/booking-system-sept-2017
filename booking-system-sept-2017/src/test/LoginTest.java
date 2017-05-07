@@ -1,16 +1,31 @@
 package test;
 
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 import users.Business;
 import users.Customer;
+import users.Database;
 import main.Login;
+import main.Session;
 
 public class LoginTest 
 {
+	Database database;
+	String url = "jdbc:sqlite:./databaseTest.db";
+	Session session;
+	
+	@Before
+	public void setup()
+	{
+		database = new Database();
+		database.connectDatabase(session, url);
+	}
+	
 	@Test
 	public void customerSuccessTest() 
 	{
@@ -27,9 +42,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses);
+		loginTest.login(customers, businesses, database);
 		
-		assertEquals(1, loginTest.login(customers, businesses));
+		assertEquals(1, loginTest.login(customers, businesses, database));
 	}
 	
 	@Test
@@ -48,9 +63,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses);
+		loginTest.login(customers, businesses, database);
 		
-		assertEquals(2, loginTest.login(customers, businesses));
+		assertEquals(2, loginTest.login(customers, businesses, database));
 	}
 	
 	@Test
@@ -69,9 +84,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses);
+		loginTest.login(customers, businesses, database);
 		
-		assertEquals(0, loginTest.login(customers, businesses));
+		assertEquals(0, loginTest.login(customers, businesses, database));
 	}
 	
 	@Test
@@ -90,9 +105,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses);
+		loginTest.login(customers, businesses, database);
 		
-		assertEquals(0, loginTest.login(customers, businesses));
+		assertEquals(0, loginTest.login(customers, businesses, database));
 	}
 	
 	@Test
@@ -111,9 +126,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses);
+		loginTest.login(customers, businesses, database);
 		
-		assertEquals(0, loginTest.login(customers, businesses));
+		assertEquals(0, loginTest.login(customers, businesses, database));
 	}
 	
 	@Test
@@ -132,8 +147,8 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses);
+		loginTest.login(customers, businesses, database);
 		
-		assertEquals(0, loginTest.login(customers, businesses));
+		assertEquals(0, loginTest.login(customers, businesses, database));
 	}
 }

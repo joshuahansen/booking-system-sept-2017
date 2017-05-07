@@ -137,6 +137,14 @@ public class Database {
 			
 			stmt.executeUpdate(sql);
 			
+			sql = "CREATE TABLE ADMIN " +
+					"(USERNAME		VARCHAR(40) NOT NULL," +
+					" PASSWORD		VARCHAR(40) NOT NULL," +
+					" PRIMARY KEY (USERNAME))";
+			
+			stmt.executeUpdate(sql);
+			
+			
 			session.addLog("Database initalised");
 			return true;
 			
@@ -226,6 +234,9 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BOOKINGS VALUES('003', 'SPIN', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO ADMIN VALUES('admin', 'admin')";
 			stmt.executeUpdate(sql);
 
 			session.addLog("Database set to default values");

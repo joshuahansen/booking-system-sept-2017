@@ -54,12 +54,14 @@ public class RegisterCustomerController implements Initializable{
 	private ArrayList<Business> businesses;
 	private Registration reg = new Registration();
 	private Session session;
+	private Database database;
     
-    public RegisterCustomerController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses)
+    public RegisterCustomerController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
     {
     	this.customers = customers;
     	this.businesses = businesses;
     	this.session = session;
+    	this.database = database;
     }
     
     @FXML protected void handleConfirmButtonAction(ActionEvent event)
@@ -85,7 +87,7 @@ public class RegisterCustomerController implements Initializable{
 		    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText());
 	    			session.addLog("Registration Pass");
 	    			FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-					LoginController controller = new LoginController(session, customers, businesses);
+					LoginController controller = new LoginController(session, customers, businesses, database);
 					loader.setController(controller);
 					
 					root = loader.load();
@@ -167,7 +169,7 @@ public class RegisterCustomerController implements Initializable{
 	    	stage = (Stage) cancelButton.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, customers, businesses);
+			LoginController controller = new LoginController(session, customers, businesses, database);
 			loader.setController(controller);
 			
 			root = loader.load();

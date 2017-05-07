@@ -30,13 +30,15 @@ public class CustomerMenuController implements Initializable{
     private ArrayList<Business> businesses;
     int custPos;
     private Session session;
+    private Database database;
     
-    public CustomerMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos)
+    public CustomerMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos, Database database)
     {
     	this.customers = customers;
     	this.businesses = businesses;
     	this.custPos = custPos;
     	this.session = session;
+    	this.database = database;
     }
     //when logout is pressed load the login screen
     @FXML protected void logoutAction(ActionEvent event)
@@ -49,7 +51,7 @@ public class CustomerMenuController implements Initializable{
 	    	stage = (Stage) custLogoutButton.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, customers, businesses);
+			LoginController controller = new LoginController(session, customers, businesses, database);
 			loader.setController(controller);
 			
 			root = loader.load();

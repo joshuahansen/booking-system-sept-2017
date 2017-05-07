@@ -105,7 +105,7 @@ public class BookingSystem extends Application {
 		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		LoginController controller = new LoginController(session, customers, businesses);
+		LoginController controller = new LoginController(session, customers, businesses, database);
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();
