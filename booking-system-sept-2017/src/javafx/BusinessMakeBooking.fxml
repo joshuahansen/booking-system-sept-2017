@@ -21,7 +21,7 @@
 					GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 			<Label text="Choose a Trainer"
 					GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-			<ComboBox fx:id="personalTrainerCombo" prefWidth="150.0"
+			<ComboBox fx:id="employeeCombo" prefWidth="150.0"
 					onAction="#handleSortAvailability"
 					GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 					<Label text="Choose a Day"
@@ -60,7 +60,7 @@
 		        	</cellValueFactory>
 				</TableColumn>
 				
-				<TableColumn text="Personal Trainer" prefWidth="200" fx:id="busPersonalTrainerColumn">
+				<TableColumn text="Employee" prefWidth="200" fx:id="busEmployeeColumn">
 					<cellValueFactory>
 						<PropertyValueFactory property="employeeName" />
 		        	</cellValueFactory>

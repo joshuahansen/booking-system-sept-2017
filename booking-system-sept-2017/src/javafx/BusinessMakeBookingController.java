@@ -34,7 +34,7 @@ public class BusinessMakeBookingController implements Initializable{
     
     private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> displayedAvailabilities = FXCollections.observableArrayList();
-    private final ObservableList<String> personalTrainer = FXCollections.observableArrayList();
+    private final ObservableList<String> employeeList = FXCollections.observableArrayList();
     private final ObservableList<String> classType = FXCollections.observableArrayList();
     private final ObservableList<String> dayList = FXCollections.observableArrayList();
     private final ObservableList<String> timeList = FXCollections.observableArrayList();
@@ -44,7 +44,7 @@ public class BusinessMakeBookingController implements Initializable{
     
     @FXML private TableView<AvailableBookingTable> busAvailableBookingTable;
     @FXML private ComboBox<String> classCombo = new ComboBox<String>();
-    @FXML private ComboBox<String> personalTrainerCombo = new ComboBox<String>();
+    @FXML private ComboBox<String> employeeCombo = new ComboBox<String>();
     @FXML private ComboBox<String> timeCombo = new ComboBox<String>();
     @FXML private ComboBox<String> dayCombo = new ComboBox<String>();
     @FXML private ComboBox<String> customerCombo = new ComboBox<String>();
@@ -172,24 +172,27 @@ public class BusinessMakeBookingController implements Initializable{
 		LocalDate today = LocalDate.now();
 		
 		classType.add("All");
-		classType.add("CROSSFIT 2HR");
-		classType.add("WEIGHTS");
-		classType.add("SPIN");
-		classType.add("CARDIO 2HR");
+		for(int classPos = 0; classPos < businesses.get(busPos).bookingTypes.size(); classPos++)
+		{
+			classType.add(businesses.get(busPos).bookingTypes.get(classPos));
+		}
+//		classType.add("CROSSFIT 2HR");
+//		classType.add("WEIGHTS");
+//		classType.add("SPIN");
+//		classType.add("CARDIO 2HR");
 		classCombo.setItems(classType);
 		classCombo.setValue("All");
 		
-		personalTrainer.add("All");
+		employeeList.add("All");
 		for(int empNo = 0; empNo < businesses.get(busPos).employees.size(); empNo++)
 		{
-			personalTrainer.add(businesses.get(busPos).employees.get(empNo).getName());
+			employeeList.add(businesses.get(busPos).employees.get(empNo).getName());
 		}
-		personalTrainerCombo.setItems(personalTrainer);
-		personalTrainerCombo.setValue("All");
+		employeeCombo.setItems(employeeList);
+		employeeCombo.setValue("All");
 		
 		timeList.add("All");
 		timeList.add("Morning");
-		timeList.add("Midday");
 		timeList.add("Afternoon");
 		timeList.add("Evening");
 		timeCombo.setItems(timeList);
@@ -201,6 +204,8 @@ public class BusinessMakeBookingController implements Initializable{
 		dayList.add("Wednesday");
 		dayList.add("Thursday");
 		dayList.add("Friday");
+		dayList.add("Saturday");
+		dayList.add("Sunday");
 		dayCombo.setItems(dayList);
 		dayCombo.setValue("All");
 		
@@ -337,7 +342,7 @@ public class BusinessMakeBookingController implements Initializable{
 	{
 		session.addLog("Sort availabilities");
 		String classType = classCombo.getValue();
-		String personalTrainer = personalTrainerCombo.getValue();
+		String personalTrainer = employeeCombo.getValue();
 		String time = timeCombo.getValue();
 		String day = dayCombo.getValue();
 				
@@ -355,16 +360,12 @@ public class BusinessMakeBookingController implements Initializable{
 				
 					String timeslot = "All";
 					if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[0]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[1])
-							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[2]))
+							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[2]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[3]))
 					{
 						timeslot = "Morning";
 					}
-					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[3]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[4]))
-					{
-						timeslot = "Midday";
-					}
-					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[5]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[6])
-							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[7]))
+					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[4]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[5]) 
+							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[6])	|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[7]))
 					{
 						timeslot = "Afternoon";
 					}
@@ -504,8 +505,16 @@ public class BusinessMakeBookingController implements Initializable{
 	{
 		String bookingID = new String();
 		int lastBooking = businesses.get(busPos).bookings.size() - 1;
-		int nextBookingId = Integer.valueOf(businesses.get(busPos).bookings.get(lastBooking).getBookingID());
-		nextBookingId++;
+		int nextBookingId;
+		if(lastBooking < 0)
+		{
+			nextBookingId = 1;
+		}
+		else
+		{
+			nextBookingId = Integer.valueOf(businesses.get(busPos).bookings.get(lastBooking).getBookingID());
+			nextBookingId++;
+		}
 		
 		bookingID = String.valueOf(nextBookingId);
 		return bookingID;

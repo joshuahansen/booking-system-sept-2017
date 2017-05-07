@@ -27,6 +27,8 @@ public class Business extends User
 	
 	ArrayList<String> availableTimes = new ArrayList<String>();
 	
+	public ArrayList<String> bookingTypes = new ArrayList<String>();
+	
 	/**
 	 * Constructor to make business object.
 	 * @param businessName Name of the business.

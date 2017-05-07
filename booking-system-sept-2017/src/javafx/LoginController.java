@@ -107,7 +107,7 @@ public class LoginController implements Initializable{
 	    		
 	    		root = loader.load();
 	      		Scene scene = new Scene(root, 860, 640);
-//	      		scene.getStylesheets().add(getClass().getResource("businessMenu.css").toExternalForm());
+//	      		scene.getStylesheets().add(getClass().getResource("adminMenu.css").toExternalForm());
 	      		stage.setScene(scene);
 	      		stage.show();
 	      	}

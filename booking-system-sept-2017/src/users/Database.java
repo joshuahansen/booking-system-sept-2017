@@ -17,6 +17,7 @@ public class Database {
 	private String emplSQL;
 	private String emplAvailSQL;
 	private String bookingSQL;
+	private String busiSQL;
 	
 	
  	public Connection getConnection()
@@ -27,6 +28,11 @@ public class Database {
 	public String getCustSQL()
 	{
 		return custSQL;
+	}
+	
+	public String getBusiSQL()
+	{
+		return busiSQL;
 	}
 	
 	public String getEmplSQL()
@@ -94,7 +100,6 @@ public class Database {
 			        " BUS_PHONE      	VARCHAR(40)     ," +
 			        " BUS_PASSWORD		VARCHAR(40)		," +
 			        " PRIMARY KEY(BUS_UNAME))";
-			
 			stmt.executeUpdate(sql);
 			
 			//EMployee table using employee ID as the primary key
@@ -103,9 +108,8 @@ public class Database {
 					" EMP_FNAME		VARCHAR(40)		," +
 					" EMP_LNAME		VARCHAR(40)		," +
 					" BUS_UNAME		VARCHAR(40)		," +
-					" PRIMARY KEY(EMP_ID)"				+
+					" PRIMARY KEY(EMP_ID, BUS_UNAME)"				+
 					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
-			
 			stmt.executeUpdate(sql);
 			
 			//Employee availability table using employee ID, available day and timeslot as the primary key
@@ -115,9 +119,10 @@ public class Database {
 					" AVAIL_DAY		INT NOT NULL		," +
 					" TIMESLOT		INT	NOT NULL		," +
 					" BOOKED		VARCHAR(40)			," +
-					" PRIMARY KEY(EMP_ID, AVAIL_DAY, TIMESLOT)" +
-					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES (EMP_ID))";
-		
+					" BUS_UNAME		VARCHAR(40)			," +
+					" PRIMARY KEY(EMP_ID, AVAIL_DAY, TIMESLOT, BUS_UNAME)" +
+					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES (EMP_ID) " +
+					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
 			sql = "CREATE TABLE BOOKINGS " +
@@ -131,17 +136,23 @@ public class Database {
 					" COMPLETED			BOOLEAN			," +
 					" CUST_UNAME		VARCHAR(40)		," +
 					" EMP_ID			VARCHAR(40)     ," +
-					" PRIMARY KEY (BOOKING_ID)," +
+					" BUS_UNAME			VARCHAR(40)     ," +
+					" PRIMARY KEY (BOOKING_ID, BUS_UNAME)," +
 					" FOREIGN KEY (CUST_UNAME) REFERENCES CUSTOMERS (CUST_UNAME)," +
-					" FOREIGN KEY (EMP_ID) REFERENCES EMPLOYEES (EMP_ID))";
-			
+					" FOREIGN KEY (EMP_ID, BUS_UNAME) REFERENCES EMPLOYEES (EMP_ID, BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
 			sql = "CREATE TABLE ADMIN " +
 					"(USERNAME		VARCHAR(40) NOT NULL," +
 					" PASSWORD		VARCHAR(40) NOT NULL," +
 					" PRIMARY KEY (USERNAME))";
+			stmt.executeUpdate(sql);
 			
+			sql = "CREATE TABLE BOOKING_TYPE " +
+					"(BUS_UNAME		VARCHAR(40) NOT NULL," +
+					" BOOKING_TYPE	VARCHAR(40)	NOT NULL," +
+					" PRIMARY KEY (BUS_UNAME, BOOKING_TYPE)," +
+					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
 			
@@ -218,22 +229,22 @@ public class Database {
 			sql= "INSERT INTO EMPLOYEES VALUES('0003', 'Bob', 'Jane', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '0', 'no')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '0', 'no', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1', 'no')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '1', 'no', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'no')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'no', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001')";
+			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 0, 2, 3, 4, 2017, 'true', 'bMarley', '0001', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BOOKINGS VALUES('002', 'WEIGHTS', 1, 0, 4, 4, 2017, 'true', 'VickiV', '0001')";
+			sql = "INSERT INTO BOOKINGS VALUES('002', 'WEIGHTS', 1, 0, 4, 4, 2017, 'true', 'VickiV', '0001', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BOOKINGS VALUES('003', 'SPIN', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001')";
+			sql = "INSERT INTO BOOKINGS VALUES('003', 'SPIN', 2, 1, 5, 4, 2017, 'true', 'jd666', '0001', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO ADMIN VALUES('admin', 'admin')";
@@ -357,15 +368,19 @@ public class Database {
 				int timeslot = resultSet.getInt("TIMESLOT");
 				int day = resultSet.getInt("AVAIL_DAY");
 				String booked = resultSet.getString("BOOKED");
+				String businessUsername = resultSet.getString("BUS_UNAME");
 				
 				for(int busNo = 0; busNo < businesses.size(); busNo++)
 				{
-					for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
+					if(businesses.get(busNo).getUsername().equalsIgnoreCase(businessUsername))
 					{
-						if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+						for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
 						{
-							businesses.get(busNo).employees.get(i).setAvailableTime(day, timeslot, booked);
-							break;
+							if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+							{
+								businesses.get(busNo).employees.get(i).setAvailableTime(day, timeslot, booked);
+								break;
+							}
 						}
 					}
 				}
@@ -399,6 +414,7 @@ public class Database {
 				boolean completed = resultSet.getBoolean("COMPLETED");
 				String custUname = resultSet.getString("CUST_UNAME");
 				String employeeID = resultSet.getString("EMP_ID");
+				String busUname = resultSet.getString("BUS_UNAME");
 				
 				int custPos = 0, employeePos = 0, businessPos = 0;
 				
@@ -411,14 +427,16 @@ public class Database {
 				}
 				for(int busNo = 0; busNo < businesses.size(); busNo++)
 				{
-
-					for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
+					if(businesses.get(busNo).getUsername().equalsIgnoreCase(busUname))
 					{
-						if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+						for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
 						{
-							employeePos = i;
-							businessPos = busNo;
-							break;
+							if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+							{
+								employeePos = i;
+								businessPos = busNo;
+								break;
+							}
 						}
 					}
 				}
@@ -448,6 +466,22 @@ public class Database {
 			    
 			}catch (SQLException ex) {
 				session.addLog("Customer record already exists. No changes were made.");
+			}
+		}
+	}
+ 	
+ 	public void writeBusinessDB(Session session, ArrayList<Business> businesses)
+	{		
+		for(int i = 0; i < businesses.size(); i++)
+		{
+			try{
+				businessToString(businesses, i);
+				String sql = "INSERT INTO BUSINESSES VALUES(" + getBusiSQL() +")";
+			    Statement stmt = connection.createStatement();
+			    stmt.executeUpdate(sql);
+			    
+			}catch (SQLException ex) {
+				session.addLog("Business record already exists. No changes were made.");
 			}
 		}
 	}
@@ -488,7 +522,7 @@ public class Database {
 				    		if(booked == 1 || booked == 2)
 				    		{
 				    			try{
-					    			emplAvailToString(businesses.get(busNo).employees.get(i).getEmployeeID(), day, timeslot, booked);
+					    			emplAvailToString(businesses.get(busNo), businesses.get(busNo).employees.get(i).getEmployeeID(), day, timeslot, booked);
 									sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
 								    stmt.executeUpdate(sql);
 				    			}catch (SQLException e)
@@ -498,7 +532,7 @@ public class Database {
 				    		}
 				    	}
 				    }
-				    emplToString(businesses.get(busNo).employees, i);
+				    emplToString(businesses.get(busNo), businesses.get(busNo).employees, i);
 					sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
 				    stmt.executeUpdate(sql);
 				    
@@ -524,7 +558,7 @@ public class Database {
 			{
 				for(int i = 0; i < businesses.get(busNo).bookings.size(); i++)
 				{
-				    bookingToString(businesses.get(busNo).bookings.get(i));
+				    bookingToString(businesses.get(busNo).bookings.get(i), businesses.get(busNo));
 					sql = "INSERT INTO BOOKINGS VALUES(" + getBookingSQL() +")";
 					stmt.executeUpdate(sql);
 				}
@@ -550,17 +584,32 @@ public class Database {
 		return true;
 	}
 	
-	public boolean emplToString(ArrayList<Employee> employees, int position)
+	//convert objects to strings for SQL commands
+		public boolean businessToString(ArrayList<Business> businesses, int position)
+		{
+			String businessName = businesses.get(position).getBusinessName();
+			String uName = businesses.get(position).getUsername();
+			String fName = businesses.get(position).getFirstName();
+			String lName = businesses.get(position).getLastName();
+			String address = businesses.get(position).getAddress();
+			String phone = businesses.get(position).getContactNumber();
+			String password = businesses.get(position).getPassword();
+			
+			this.busiSQL = "'"  + uName + "', '" + businessName + "', '" + fName + "', '" + lName + "', '" + address + "', '" + phone + "', '" + password + "'";
+			return true;
+		}
+	
+	public boolean emplToString(Business business, ArrayList<Employee> employees, int position)
 	{
 		String empID = employees.get(position).getEmployeeID();
 		String fName = employees.get(position).getFirstName();
 		String lName = employees.get(position).getLastName();
 		
-		this.emplSQL = "'" + empID + "', '" + fName + "', '" + lName + "'"; 
+		this.emplSQL = "'" + empID + "', '" + fName + "', '" + lName + "', '" + business.getUsername() + "'"; 
 		return true;
 	}
 
-	public boolean emplAvailToString(String emplID, int day, int timeslot, int booked)
+	public boolean emplAvailToString(Business business, String emplID, int day, int timeslot, int booked)
 	{
 		String isBooked;
 		if(booked == 2)
@@ -572,11 +621,11 @@ public class Database {
 			isBooked = "no";
 		}
 			
-		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot + ", '" + isBooked + "'";
+		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot + ", '" + isBooked + "', '" + business.getUsername() + "'";
 		return true;
 	}
 	
-	private boolean bookingToString(Booking booking)
+	private boolean bookingToString(Booking booking, Business business)
 	{
 		String bookingId = booking.getBookingID();
 		String sessionType = booking.getSessionType();
@@ -590,7 +639,7 @@ public class Database {
 		String custUname = booking.getCustUsername();
 		String employeeID = booking.getEmployeeID();
 		this.bookingSQL = "'"+ bookingId + "', '" + sessionType + "', " + avail_day + ", " + timeslot + ", "  + date + ", " + month + ", " + year + ", '" + completed + "', '" 
-				+ custUname + "', '" + employeeID + "'";
+				+ custUname + "', '" + employeeID + "', '" + business.getUsername() + "'";
 		return true;				
 	}
 	
