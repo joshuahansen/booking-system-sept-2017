@@ -1,4 +1,6 @@
 package main;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,7 +69,7 @@ public class Login
 		this.password = userInput.next();
 	}
 	
-	public int login(ArrayList<Customer> customers, ArrayList<Business> businesses)
+	public int login(ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
 	{
 		int customersLength = customers.size();
 		int businessesLength = businesses.size();
@@ -124,8 +126,23 @@ public class Login
 					}
 				}
 			}
+			try{
+				ResultSet resultSet = database.getConnection().createStatement().executeQuery("SELECT * FROM ADMIN");
+			
+					String adminUsername = resultSet.getString("USERNAME");
+					String adminPassword = resultSet.getString("PASSWORD");
+					if(username.equalsIgnoreCase(adminUsername) && password.equalsIgnoreCase(adminPassword))
+					{
+						return 3;
+					}
+					else 
+					{
+						return 0;
+					}
+			}catch (SQLException e) {
+//				session.addLog("Unable to load admin database");
+				return 0;
+			}
 		}
-		
-		return 0;
 	}
 }

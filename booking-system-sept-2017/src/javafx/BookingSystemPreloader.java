@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class BookingSystemPreloader extends Preloader {
 	private Stage preloaderStage;
@@ -31,6 +32,7 @@ public class BookingSystemPreloader extends Preloader {
 	       primaryStage.setWidth(800);
 	       primaryStage.setHeight(600);
 	       primaryStage.setScene(scene);
+	       primaryStage.initStyle(StageStyle.UNDECORATED);
 	       primaryStage.show();
 	   }
 	 

@@ -1,5 +1,5 @@
 .root {
--fx-background-image: url("Light-Blue-Background-2.jpg");/* url("http://il7.picdn.net/shutterstock/videos/626887/thumb/1.jpg");*/
+-fx-background-image: url("Light-Blue-Background-2.jpg");
 -fx-background-size: cover;
 }
 .label {

@@ -11,7 +11,7 @@ public class Menu
 	}
 	
 	public boolean menuDriver(Session session, Scanner userInput, Login login, Registration registration, 
-			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees)
+			ArrayList<Customer> customers, ArrayList<Business> businesses, ArrayList<Employee> employees, Database database)
 	{
 		int menuInput = 0;
 		int returnValue = 0;
@@ -31,7 +31,7 @@ public class Menu
 					login.getUsernamePassword(userInput);
 					session.addLog("Username and password retrieved");
 					session.addLog("Attempting to login");
-					returnValue = login.login(customers, businesses);
+					returnValue = login.login(customers, businesses, database);
 					
 					if (returnValue == 0)
 					{

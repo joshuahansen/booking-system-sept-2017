@@ -1,0 +1,24 @@
+.root {
+-fx-background-image: url("admin-wallpaper.jpg");
+-fx-background-size: cover;
+}
+.label {
+	-fx-font-family: sans-serif;
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
+
+#confirmButton {
+-fx-font-weight: bold;
+}
+#clearButton {
+	-fx-font-weight: bold;
+}
+#confirmSelectedBusinessButton {
+	-fx-font-weight: bold;
+}
+
+#adminLogoutButton {
+	-fx-font-weight: bold;
+}
+

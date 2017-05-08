@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.*;
 import users.*;
 
@@ -105,7 +106,7 @@ public class BookingSystem extends Application {
 		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		LoginController controller = new LoginController(session, customers, businesses);
+		LoginController controller = new LoginController(session, customers, businesses, database);
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();
@@ -122,6 +123,8 @@ public class BookingSystem extends Application {
  
         stage.setTitle("Booking System");
         stage.setScene(loginScene);
+        
+        stage.setResizable(false);
         stage.show();
         
         stage.setOnCloseRequest(e -> {
@@ -129,6 +132,7 @@ public class BookingSystem extends Application {
     	database.writeCustDB(session, customers);
     	database.writeEmplToDB(session, businesses);
     	database.writeBookingToDB(session, businesses);
+    	database.writeBusinessDB(session, businesses);
     	try {
 			session.terminateSession();
 		} catch (IOException e1) {

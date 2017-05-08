@@ -66,7 +66,7 @@
 		        	</cellValueFactory>
 				</TableColumn>
 				
-				<TableColumn text="Personal Trainer" prefWidth="150" fx:id="busPersonalTrainerColumn">
+				<TableColumn text="Employee" prefWidth="150" fx:id="busEmployeeColumn">
 					<cellValueFactory>
 						<PropertyValueFactory property="employeeName" />
 		        	</cellValueFactory>
