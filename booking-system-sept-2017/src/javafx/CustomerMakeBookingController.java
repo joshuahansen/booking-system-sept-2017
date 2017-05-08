@@ -138,7 +138,6 @@ public class CustomerMakeBookingController implements Initializable{
 		
 		timeList.add("All");
 		timeList.add("Morning");
-		timeList.add("Midday");
 		timeList.add("Afternoon");
 		timeList.add("Evening");
 		timeCombo.setItems(timeList);
@@ -150,6 +149,8 @@ public class CustomerMakeBookingController implements Initializable{
 		dayList.add("Wednesday");
 		dayList.add("Thursday");
 		dayList.add("Friday");
+		dayList.add("Saturday");
+		dayList.add("Sunday");
 		dayCombo.setItems(dayList);
 		dayCombo.setValue("All");
 
@@ -291,16 +292,12 @@ public class CustomerMakeBookingController implements Initializable{
 					
 					String timeslot = "All";
 					if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[0]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[1])
-							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[2]))
+							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[2]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[3]))
 					{
 						timeslot = "Morning";
 					}
-					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[3]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[4]))
-					{
-						timeslot = "Midday";
-					}
-					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[5]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[6])
-							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[7]))
+					else if(displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[4]) || displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[5]) 
+							|| displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[6]) ||displayedAvailabilities.get(count).getTime().equalsIgnoreCase(timesArray[7]))
 					{
 						timeslot = "Afternoon";
 					}

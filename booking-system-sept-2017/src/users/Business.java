@@ -1,8 +1,11 @@
 package users;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
+import main.AvailableTime;
 import main.Booking;
+import main.BookingType;
 
 /**
  * A class for storing data about the businesses using the program.
@@ -25,9 +28,9 @@ public class Business extends User
 	 */
 	public ArrayList<Booking> bookings = new ArrayList<Booking>();
 	
-	ArrayList<String> availableTimes = new ArrayList<String>();
+	public ArrayList<AvailableTime> businessHours = new ArrayList<AvailableTime>();
 	
-	public ArrayList<String> bookingTypes = new ArrayList<String>();
+	public ArrayList<BookingType> bookingTypes = new ArrayList<BookingType>();
 	
 	/**
 	 * Constructor to make business object.
@@ -80,5 +83,25 @@ public class Business extends User
 	public ArrayList<Employee> getEmployeeList() 
 	{ 
 		return this.employees; 
+	}
+	
+	public boolean addBusinessHours(LocalTime startTime, LocalTime endTime, String day)
+	{
+		AvailableTime newAvailTime = new AvailableTime(startTime, endTime, day);
+		for(int i = 0; i < businessHours.size(); i++)
+		{
+			if(businessHours.get(i).equals(newAvailTime))
+			{
+				return false;
+			}
+			else if(businessHours.get(i).getDay().equalsIgnoreCase(newAvailTime.getDay()))
+			{
+				businessHours.get(i).setStartTime(newAvailTime.getStartTime());
+				businessHours.get(i).setEndTime(newAvailTime.getEndTime());
+				return true;
+			}
+		}
+		businessHours.add(newAvailTime);
+		return true;
 	}
 }

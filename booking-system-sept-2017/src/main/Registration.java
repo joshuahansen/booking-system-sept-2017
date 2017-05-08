@@ -404,104 +404,104 @@ public class Registration {
 		return true;
 	} 
 	
-	public boolean addNewEmployee(Session session, Scanner userInput, ArrayList<Employee> empl) {
-		//If all input is valid, the new employee is added, and then added to the array list.
-		session.addLog("Employee object created");
-		Employee newEmpl = new Employee(employeeID, firstName, lastName);
-		
-		int selection = 0;
-		
-		for(int i = 0; i <= days.length; i++) {
-
-			System.out.println("Availiable " + days[i] + "?");
-
-			System.out.println("	1. Yes");
-			System.out.println("	2. No\n");
-			System.out.print("Enter your choice: ");
-			selection = userInput.nextInt();
-			boolean availDay = false;
-
-			switch(selection) {
-				case 1: availDay = true;
-				break;
-				case 2: availDay = false;
-				break;
-			}
-
-			selection = 0;
-
-			if(availDay == true) {
-
-				System.out.println("\nAvailiable Mornings?");
-
-				System.out.println("	1. Yes");
-				System.out.println("	2. No");
-				System.out.print("Enter your choice: ");
-				selection = userInput.nextInt();
-				
-				switch(selection) {
-					case 1: 
-						newEmpl.setAvailableTime(0, i, "no");
-						newEmpl.setAvailableTime(1, i, "no");
-						newEmpl.setAvailableTime(2, i, "no");
-						newEmpl.setAvailableTime(3, i, "no");
-						break;
-					case 2: 
-						break;
-				}
-
-				selection = 0;
-
-				System.out.println("\nAvailiable Midday?");
-
-				System.out.println("	1. Yes");
-				System.out.println("	2. No");
-				System.out.print("Enter your choice: ");
-				selection = userInput.nextInt();
-				
-				switch(selection) {
-					case 1: 
-						newEmpl.setAvailableTime(4, i, "no");
-						newEmpl.setAvailableTime(5, i, "no");
-						newEmpl.setAvailableTime(6, i, "no");
-						break;
-					case 2: 
-						break;
-					
-				}
-
-				selection = 0;
-
-				System.out.println("\nAvailiable Afternoon?");
-
-				System.out.println("	1. Yes");
-				System.out.println("	2. No");
-				System.out.print("Enter your choice: ");
-				selection = userInput.nextInt();
-				
-				switch(selection) {
-					case 1: 
-						newEmpl.setAvailableTime(7, i, "no");
-						newEmpl.setAvailableTime(8, i, "no");
-						newEmpl.setAvailableTime(9, i, "no");
-						break;
-					case 2: 
-						break;
-				}
-
-			}
-			
-			else {
-				break;
-			}
-			
-		}
-		session.addLog("Employee added");
-		empl.add(newEmpl);
-			
-		System.out.println("\nEmployee Added! Success!");
-		return true;		
-	}
+//	public boolean addNewEmployee(Session session, Scanner userInput, ArrayList<Employee> empl) {
+//		//If all input is valid, the new employee is added, and then added to the array list.
+//		session.addLog("Employee object created");
+//		Employee newEmpl = new Employee(employeeID, firstName, lastName);
+//		
+//		int selection = 0;
+//		
+//		for(int i = 0; i <= days.length; i++) {
+//
+//			System.out.println("Availiable " + days[i] + "?");
+//
+//			System.out.println("	1. Yes");
+//			System.out.println("	2. No\n");
+//			System.out.print("Enter your choice: ");
+//			selection = userInput.nextInt();
+//			boolean availDay = false;
+//
+//			switch(selection) {
+//				case 1: availDay = true;
+//				break;
+//				case 2: availDay = false;
+//				break;
+//			}
+//
+//			selection = 0;
+//
+//			if(availDay == true) {
+//
+//				System.out.println("\nAvailiable Mornings?");
+//
+//				System.out.println("	1. Yes");
+//				System.out.println("	2. No");
+//				System.out.print("Enter your choice: ");
+//				selection = userInput.nextInt();
+//				
+//				switch(selection) {
+//					case 1: 
+//						newEmpl.setAvailableTime(0, i, "no");
+//						newEmpl.setAvailableTime(1, i, "no");
+//						newEmpl.setAvailableTime(2, i, "no");
+//						newEmpl.setAvailableTime(3, i, "no");
+//						break;
+//					case 2: 
+//						break;
+//				}
+//
+//				selection = 0;
+//
+//				System.out.println("\nAvailiable Midday?");
+//
+//				System.out.println("	1. Yes");
+//				System.out.println("	2. No");
+//				System.out.print("Enter your choice: ");
+//				selection = userInput.nextInt();
+//				
+//				switch(selection) {
+//					case 1: 
+//						newEmpl.setAvailableTime(4, i, "no");
+//						newEmpl.setAvailableTime(5, i, "no");
+//						newEmpl.setAvailableTime(6, i, "no");
+//						break;
+//					case 2: 
+//						break;
+//					
+//				}
+//
+//				selection = 0;
+//
+//				System.out.println("\nAvailiable Afternoon?");
+//
+//				System.out.println("	1. Yes");
+//				System.out.println("	2. No");
+//				System.out.print("Enter your choice: ");
+//				selection = userInput.nextInt();
+//				
+//				switch(selection) {
+//					case 1: 
+//						newEmpl.setAvailableTime(7, i, "no");
+//						newEmpl.setAvailableTime(8, i, "no");
+//						newEmpl.setAvailableTime(9, i, "no");
+//						break;
+//					case 2: 
+//						break;
+//				}
+//
+//			}
+//			
+//			else {
+//				break;
+//			}
+//			
+//		}
+//		session.addLog("Employee added");
+//		empl.add(newEmpl);
+//			
+//		System.out.println("\nEmployee Added! Success!");
+//		return true;		
+//	}
 	
 	public boolean validEmployeeID(ArrayList<Employee> empl) {
 		
