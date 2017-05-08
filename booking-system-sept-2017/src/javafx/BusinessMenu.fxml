@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.layout.GridPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1">
 	<top>
@@ -31,7 +32,7 @@
 				</Tab>
 				<Tab text="Employee Availability" onSelectionChanged="#onSelectionEmployeeAvailability">
 					<content>
-						<GridPane fx:id="busEmployeeAvail" alignment="center"/>
+						<GridPane fx:id="busEmployeeAvail" alignment="top_center"/>
 					</content>
 				</Tab>
 				<Tab text="View Bookings" onSelectionChanged="#onSelectionViewBookings">
