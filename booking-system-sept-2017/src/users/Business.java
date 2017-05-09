@@ -104,4 +104,11 @@ public class Business extends User
 		businessHours.add(newAvailTime);
 		return true;
 	}
+	
+	public boolean addBookingType(String bookingType, int bookingLength)
+	{
+		BookingType newBookingType = new BookingType(bookingType, bookingLength);
+		bookingTypes.add(newBookingType);
+		return true;
+	}
 }

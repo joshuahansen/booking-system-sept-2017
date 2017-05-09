@@ -176,8 +176,9 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "CREATE TABLE BOOKING_TYPE " +
-					"(BUS_UNAME		VARCHAR(40) NOT NULL," +
-					" BOOKING_TYPE	VARCHAR(40)	NOT NULL," +
+					"(BUS_UNAME			VARCHAR(40) NOT NULL," +
+					" BOOKING_TYPE		VARCHAR(40)	NOT NULL," +
+					" BOOKING_LENGTH	INT			NOT NULL," +
 					" PRIMARY KEY (BUS_UNAME, BOOKING_TYPE)," +
 					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
@@ -264,34 +265,34 @@ public class Database {
 //			
 //			sql = "INSERT INTO EMP_AVAIL VALUES('0001', '0', '2', 'no', 'fit4purpose')";
 //			stmt.executeUpdate(sql);
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 17, 30, 'Monday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 12, 00, 'Monday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 17, 30, 'Tuesday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 12, 00, 'Tuesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 17, 30, 'Wednesday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 12, 0, 17, 30, 'Wednesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 17, 30, 'Thursday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 12, 0, 17, 30, 'Thursday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 17, 30, 'Friday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 17, 30, 20, 30, 'Friday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpse', 9, 0, 17, 30, 'Monday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Monday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpse', 9, 0, 17, 30, 'Tuesday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Tuesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpse', 9, 0, 17, 30, 'Wednesday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Wednesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpse', 9, 0, 17, 30, 'Thursday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Thursday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpse', 9, 0, 17, 30, 'Friday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 20, 30, 'Friday')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 9, 0, 11, 0, 'Monday', 3, 4, 2017, 'bMarley', '0001', 'fit4purpose')";
@@ -301,6 +302,21 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BOOKINGS VALUES('003', 'SPIN', 13, 0, 14, 0, 'Wednesday', 5, 4, 2017, 'jd666', '0001', 'fit4purpose')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKING_TYPE VALUES('fit4purpose', 'CROSSFIT', 120)";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKING_TYPE VALUES('fit4purpose', 'CARDIO', 120)";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKING_TYPE VALUES('fit4purpose', 'WEIGHTS', 60)";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKING_TYPE VALUES('fit4purpose', 'SPIN', 60)";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BOOKING_TYPE VALUES('fit4purpose', 'GENERAL', 60)";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO ADMIN VALUES('admin', 'admin')";
@@ -460,7 +476,7 @@ public class Database {
 		ResultSet resultSet = null;
 		
 		try{
-			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMP_AVAIL");
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESS_HOURS");
 			while(resultSet.next())
 			{
 				String businessUsername = resultSet.getString("BUS_UNAME");
@@ -478,6 +494,34 @@ public class Database {
 					if(businesses.get(busPos).getUsername().equals(businessUsername))
 					{
 						businesses.get(busPos).addBusinessHours(startTime, endTime, day);
+					}
+				}
+			}
+			return true;
+		}catch (SQLException e)
+		{
+			session.addLog("Unable to load Business Hours");
+			return false;
+		}
+	}
+	
+	public boolean readBookingTypesDB(Session session, ArrayList<Business> businesses)
+	{
+		ResultSet resultSet = null;
+		
+		try{
+			resultSet = connection.createStatement().executeQuery("SELECT * FROM BOOKING_TYPE");
+			while(resultSet.next())
+			{
+				String businessUsername = resultSet.getString("BUS_UNAME");
+				String bookingType = resultSet.getString("BOOKING_TYPE");
+				int bookingLength = resultSet.getInt("BOOKING_LENGTH");
+							
+				for(int busPos = 0; busPos < businesses.size(); busPos++)
+				{
+					if(businesses.get(busPos).getUsername().equals(businessUsername))
+					{
+						businesses.get(busPos).addBookingType(bookingType, bookingLength);
 					}
 				}
 			}
@@ -744,11 +788,11 @@ public class Database {
 	{
 		String bookingId = booking.getBookingID();
 		String sessionType = booking.getSessionType();
-		String day = booking.getDay();
-		int startHour = booking.getStartTime().getHour();
-		int startMin = booking.getStartTime().getMinute();
-		int endHour = booking.getEndTime().getHour();		
-		int endMin = booking.getEndTime().getMinute();
+		String day = booking.getBookingTime().getDay();
+		int startHour = booking.getBookingTime().getStartTime().getHour();
+		int startMin = booking.getBookingTime().getStartTime().getMinute();
+		int endHour = booking.getBookingTime().getEndTime().getHour();		
+		int endMin = booking.getBookingTime().getEndTime().getMinute();
 		LocalDate bookingDate = booking.getDate();
 		int date = bookingDate.getDayOfMonth();
 		int month = bookingDate.getMonthValue();

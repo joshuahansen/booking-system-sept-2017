@@ -43,4 +43,11 @@ public class AvailableTime {
 	{
 		return this.day;
 	}
+	
+	public String getTimeslotAsString()
+	{
+		String stringTimeslot = getStartTime().toString() + "-" + getEndTime().toString();
+		
+		return stringTimeslot;
+	}
 }

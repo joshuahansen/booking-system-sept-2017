@@ -50,11 +50,12 @@ public class BookingSystem extends Application {
 		{		
 			/*Try reading from database tables customers and businesses*/
 			if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true
-					&& database.readBusinessHoursDB(session, businesses))
+					&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
 			{
 				session.addLog("Customer Database loaded");
 				session.addLog("Business Database loaded");
 				session.addLog("Business Hours Database loaded");
+				session.addLog("Booking Types loaded");
 				/*read employee availabilities only if customers and businesses are loaded correctly*/
 				if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 				{
@@ -82,11 +83,12 @@ public class BookingSystem extends Application {
 				database.initDatabase(session);
 				database.defaultValues(session);
 				if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true
-						&& database.readBusinessHoursDB(session, businesses))
+						&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
 				{
 					session.addLog("Customer Database loaded");
 					session.addLog("Business Database loaded");
 					session.addLog("Business Hours database loaded");
+					session.addLog("Booking Types loaded");
 					if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 					{
 						session.addLog("Employee Database loaded");

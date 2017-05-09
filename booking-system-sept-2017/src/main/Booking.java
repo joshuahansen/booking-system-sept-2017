@@ -17,9 +17,8 @@ public class Booking {
 	private Customer customer;
 	private Employee employee;
 	
-	private LocalTime startTime;
-	private LocalTime endTime;
-	private String day;
+	private AvailableTime bookingTime;
+	private BookingType bookingType;
 //	private int day;
 //	private int timeslot;
 //	private int endTime;
@@ -29,9 +28,7 @@ public class Booking {
 	{
 		setBookingID(bookingID);
 		setSessionType(sessionType);
-		setDay(day);
-		setStartTime(startTime);
-		setEndTime(endTime);
+		setBookingTime(startTime, endTime, day);
 		setDate(date);
 		setCustomer(customer);
 		setEmployee(employee);
@@ -55,19 +52,9 @@ public class Booking {
 		this.sessionType = sessionType;
 	}
 	
-	private void setDay(String day)
+	private void setBookingTime(LocalTime startTime, LocalTime endTime, String day)
 	{
-		this.day = day;
-	}
-	
-	private void setStartTime(LocalTime startTime)
-	{
-		this.startTime = startTime;
-	}
-	
-	private void setEndTime(LocalTime endTime)
-	{
-		this.endTime = endTime;
+		this.bookingTime = new AvailableTime(startTime, endTime, day);
 	}
 	
 	private void setDate(LocalDate date)
@@ -110,28 +97,14 @@ public class Booking {
 		return this.sessionType;
 	}
 	
-	public String getDay()
+	public AvailableTime getBookingTime()
 	{
-		return day;
+		return this.bookingTime;
 	}
 	
-//	public boolean getCompleted()
-//	{
-//		return this.completed;
-//	}
-//	
-//	public int getTimeslot()
-//	{
-//		return timeslot;
-//	}
-	public LocalTime getStartTime()
+	public BookingType getBookingType()
 	{
-		return this.startTime;
-	}
-	
-	public LocalTime getEndTime()
-	{
-		return this.endTime;
+		return this.bookingType;
 	}
 	
 	public String getCustomerName()
@@ -158,15 +131,15 @@ public class Booking {
 		return customer.getUsername();
 	}
 		
-	public String getTimeslotAsString()
-	{
-		String stringTimeslot = getStartTime().toString() + " - " + getEndTime().toString();
-		
-		return stringTimeslot;
-	}
+//	public String getTimeslotAsString()
+//	{
+//		String stringTimeslot = bookingTime.getStartTime().toString() + "-" + bookingTime.getEndTime().toString();
+//		
+//		return stringTimeslot;
+//	}
 	
 	public String toString()
 	{
-		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + getDay() + "\t" + getTimeslotAsString() + "\t" + getEmployeeName();
+		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + bookingTime.getDay() + "\t" + bookingTime.getTimeslotAsString() + "\t" + getEmployeeName();
 	}
 }

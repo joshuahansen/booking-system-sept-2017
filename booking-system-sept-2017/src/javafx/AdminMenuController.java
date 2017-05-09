@@ -29,6 +29,12 @@ public class AdminMenuController implements  Initializable{
 	private Database database;
 
 	@FXML private GridPane businessRegistration;
+//<<<<<<< HEAD
+////	@FXML private ComboBox<String> businessCombo;
+////	@FXML private Button confirmSelectedBusinessButton;
+////	
+////	private final ObservableList<String> businessesComboList = FXCollections.observableArrayList();
+//=======
 	@FXML private GridPane selectBusiness;
 	@FXML private ComboBox<String> businessCombo;
 	@FXML private Button adminLogoutButton;
@@ -68,6 +74,7 @@ public class AdminMenuController implements  Initializable{
 
 //	
 	private final ObservableList<String> businessesComboList = FXCollections.observableArrayList();
+//>>>>>>> branch 'LocalTimeUsed' of https://github.com/rmit-s3589185-joshua-hansen/booking-system-sept-2017.git
 	
 	public AdminMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
 	{
@@ -79,6 +86,27 @@ public class AdminMenuController implements  Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+//<<<<<<< HEAD
+//		try {
+//			businessRegistration.getChildren().clear();
+//	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterBusiness.fxml"));
+//			RegisterBusinessController controller = new RegisterBusinessController(session,customers, businesses, database);
+//			loader.setController(controller);
+//		
+//			businessRegistration.getChildren().add(loader.load());
+//			businessRegistration.getStylesheets().add(getClass().getResource("registrationPage.css").toExternalForm());
+//		}catch(IOException e)
+//		{
+//			System.out.println(e);
+//			session.addLog("Unable to load Customer register scenes");
+//		}
+//		
+////		for(int i = 0; i < businesses.size(); i++)
+////		{
+////			businessesComboList.add(businesses.get(i).getBusinessName());
+////		}
+////		businessCombo.setItems(businessesComboList);
+//=======
 		session.addLog("Tooltips added to registration page");
 		registerBusinessNameData.setTooltip(businessNameTooltip);
 		registerUsernameData.setTooltip(usernameTooltip);
@@ -95,8 +123,55 @@ public class AdminMenuController implements  Initializable{
 			businessesComboList.add(businesses.get(i).getBusinessName());
 		}
 		businessCombo.setItems(businessesComboList);
+//>>>>>>> branch 'LocalTimeUsed' of https://github.com/rmit-s3589185-joshua-hansen/booking-system-sept-2017.git
 	}
-	
+//	
+//<<<<<<< HEAD
+//	public void handleBusinessLogin(ActionEvent event)
+//	{
+//		String username = null;
+//		String password = null;
+//		int userPos = 0;
+//		
+//		Stage stage;
+//    	Parent root;
+//    	
+//    	stage = (Stage) confirmSelectedBusinessButton.getScene().getWindow();
+//    			
+//		for(int i = 0; i < businesses.size(); i++)
+//		{
+//			if(businesses.get(i).getBusinessName().equalsIgnoreCase(businessCombo.getValue()))
+//			{
+//				username = businesses.get(i).getUsername();
+//				password = businesses.get(i).getPassword();
+//				userPos = i;
+//				break;
+//			}
+//		}
+//		if(username == null || password == null)
+//		{
+//			session.addLog("Selection was not valid");
+//		}
+//		try{
+//			Login newLogin = new Login(username, password);
+//			newLogin.login(customers, businesses, database);
+//			session.addLog("Load business menu");
+//	  		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMenu.fxml"));
+//			BusinessMenuController controller = new BusinessMenuController(session, customers, businesses, userPos, database);
+//			loader.setController(controller);
+//			
+//			root = loader.load();
+//	  		Scene scene = new Scene(root, 860, 640);
+//	  		scene.getStylesheets().add(getClass().getResource("businessMenu.css").toExternalForm());
+//	  		stage.setScene(scene);
+//	  		stage.show();
+//		}catch(IOException e)
+//    	{
+//    		System.out.println(e);
+//    		session.addLog("Unable to load menu scenes");
+//    	}
+//	}
+//=======
 	public void handleBusinessLogin(ActionEvent event)
 	{
 		String username = null;
@@ -284,4 +359,5 @@ public class AdminMenuController implements  Initializable{
     	registerPasswordConfirmField.setText("");
     	registerPasswordField.setText("");
     }
+//>>>>>>> branch 'LocalTimeUsed' of https://github.com/rmit-s3589185-joshua-hansen/booking-system-sept-2017.git
 }

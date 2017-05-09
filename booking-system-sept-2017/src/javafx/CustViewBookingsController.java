@@ -114,7 +114,7 @@ public class CustViewBookingsController implements Initializable{
 			{
 				allBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(), 
-						businesses.get(busPos).bookings.get(i).getDay(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 			}
 		}
