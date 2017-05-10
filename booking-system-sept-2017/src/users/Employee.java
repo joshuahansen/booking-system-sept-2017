@@ -1,5 +1,9 @@
 package users;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+
+import main.AvailableTime;
 
 public class Employee
 {
@@ -14,7 +18,8 @@ public class Employee
 	boolean avaSaturday;
 	boolean avaSunday;
 	
-	public int availableTimes[][] = new int[5][10];
+//	public int availableTimes[][] = new int[5][10];
+	public ArrayList<AvailableTime> availableTimes = new ArrayList<AvailableTime>();
 	
 	//creates a new employee with ID, and name
 	public Employee(String employeeID, String firstName, String lastName) 
@@ -36,20 +41,20 @@ public class Employee
 	{
 		this.lastName = lastName;
 	}
-	//sets all available days for the employee 
-	public void setAllAvailabily(boolean monday, boolean tuesday, boolean wednesday, boolean thursday,
-								boolean friday, boolean saturday, boolean sunday)
-	{
-		this.avaMonday = monday;
-		this.avaTuesday = tuesday;
-		this.avaWednesday = wednesday;
-		this.avaThursday = thursday;
-		this.avaFriday = friday;
-		this.avaSaturday = saturday;
-		this.avaSaturday = saturday;
-		this.avaSunday = sunday;
-		
-	}
+//	//sets all available days for the employee 
+//	public void setAllAvailabily(boolean monday, boolean tuesday, boolean wednesday, boolean thursday,
+//								boolean friday, boolean saturday, boolean sunday)
+//	{
+//		this.avaMonday = monday;
+//		this.avaTuesday = tuesday;
+//		this.avaWednesday = wednesday;
+//		this.avaThursday = thursday;
+//		this.avaFriday = friday;
+//		this.avaSaturday = saturday;
+//		this.avaSaturday = saturday;
+//		this.avaSunday = sunday;
+//		
+//	}
 
 	
 	//returns each of the employee's attributes
@@ -72,84 +77,109 @@ public class Employee
 	}
 	
 	//Sets time to available given the timeslot, day and if it's booked or not
-	public boolean setAvailableTime(int day, int timeslot, String booked)
+//	public boolean setAvailableTime(int day, int timeslot, String booked)
+//	{
+//		if(booked.equalsIgnoreCase("yes"))
+//		{
+//			availableTimes[day][timeslot] = 2;
+//		}
+//		else if(booked.equalsIgnoreCase("no"))
+//		{
+//			availableTimes[day][timeslot] = 1;
+//		}
+//		return true;
+//	}
+	public boolean setAvailableTime(LocalTime startTime, LocalTime endTime, String day)
 	{
-		if(booked.equalsIgnoreCase("yes"))
+		AvailableTime newAvailTime = new AvailableTime(startTime, endTime, day);
+		for(int i = 0; i < availableTimes.size(); i++)
 		{
-			availableTimes[day][timeslot] = 2;
+			if(availableTimes.get(i).equals(newAvailTime))
+			{
+				return false;
+			}
 		}
-		else if(booked.equalsIgnoreCase("no"))
-		{
-			availableTimes[day][timeslot] = 1;
-		}
+		availableTimes.add(newAvailTime);
 		return true;
 	}
 	
 	//remove available time from employee availability array
-	public boolean removeAvailableTime(int day, int timeslot)
+//	public boolean removeAvailableTime(int day, int timeslot)
+//	{
+//		availableTimes[day][timeslot] = 0;
+//		return true;
+//	}
+	public boolean removeAvailableTime(LocalTime startTime, LocalTime endTime, String day)
 	{
-		availableTimes[day][timeslot] = 0;
+		for(int i = 0; i < availableTimes.size(); i++)
+		{
+			if(availableTimes.get(i).getStartTime().equals(startTime) && availableTimes.get(i).getEndTime().equals(endTime)
+					&& availableTimes.get(i).getDay().equalsIgnoreCase(day))
+			{
+				availableTimes.remove(i);
+			}
+		}
 		return true;
 	}
 	
 	//remove booking from employee availability array at given timeslot and day
-	public boolean removeBooking(int timeslot, int day)
-	{
-		availableTimes[day][timeslot] = 1;
-		return true;
-	}
+//	public boolean removeBooking(int timeslot, int day)
+//	{
+//		availableTimes[day][timeslot] = 1;
+//		return true;
+//	}
 	
 	/*return value of a given sport in the employee availability array
 	 * 0 for not available
 	 * 1 for available
 	 * 2 for booked
 	 */
-	public int getAvailableTime(int timeslot, int day)
-	{
-		return availableTimes[day][timeslot];
-	}
+//	public int getAvailableTime(int timeslot, int day)
+//	{
+//		return availableTimes[day][timeslot];
+//	}
 	
-	public String getTimeSlotAsString(int timeslot)
-	{
-		if(timeslot == 0)
-		{
-			return "8am - 9am";
-		}
-		else if(timeslot == 1)
-		{
-			return "9am - 10am";
-		}
-		else if(timeslot == 2)
-		{
-			return "10am - 11am";
-		}
-		else if(timeslot == 3)
-		{
-			return "11am - 12pm";
-		}
-		else if(timeslot == 4)
-		{
-			return "12pm - 1pm";
-		}
-		else if(timeslot == 5)
-		{
-			return "1pm -2pm";
-		}
-		else if(timeslot == 6)
-		{
-			return "2pm - 3pm";
-		}
-		else if(timeslot == 7)
-		{
-			return "3pm - 4pm";
-		}
-		else if(timeslot == 8)
-		{
-			return "4pm - 5pm";
-		}
-		else
-		{
-			return "5pm - 6pm";
-		}
-	}
+//	public String getTimeSlotAsString(int timeslot)
+//	{
+//		if(timeslot == 0)
+//		{
+//			return "8am - 9am";
+//		}
+//		else if(timeslot == 1)
+//		{
+//			return "9am - 10am";
+//		}
+//		else if(timeslot == 2)
+//		{
+//			return "10am - 11am";
+//		}
+//		else if(timeslot == 3)
+//		{
+//			return "11am - 12pm";
+//		}
+//		else if(timeslot == 4)
+//		{
+//			return "12pm - 1pm";
+//		}
+//		else if(timeslot == 5)
+//		{
+//			return "1pm -2pm";
+//		}
+//		else if(timeslot == 6)
+//		{
+//			return "2pm - 3pm";
+//		}
+//		else if(timeslot == 7)
+//		{
+//			return "3pm - 4pm";
+//		}
+//		else if(timeslot == 8)
+//		{
+//			return "4pm - 5pm";
+//		}
+//		else
+//		{
+//			return "5pm - 6pm";
+//		}
+//	}
 }

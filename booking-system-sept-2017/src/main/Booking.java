@@ -1,6 +1,8 @@
 package main;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+
 //import java.time.LocalTime;
 import users.Customer;
 import users.Employee;
@@ -8,35 +10,36 @@ import users.Employee;
 public class Booking {
 	
 	private String bookingID;
-	private Boolean completed;
+//	private Boolean completed;
 	private String sessionType;
 	private LocalDate date;
 //	private LocalTime time;
 	private Customer customer;
 	private Employee employee;
 	
-	private int day;
-	private int timeslot;
-	private int endTime;
+	private AvailableTime bookingTime;
+	private BookingType bookingType;
+//	private int day;
+//	private int timeslot;
+//	private int endTime;
 
-	public Booking(String bookingID, String sessionType, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
+//	public Booking(String bookingID, String sessionType, int day, int timeslot, LocalDate date, Boolean completed, Customer customer, Employee employee) 
+	public Booking(String bookingID, String sessionType, String day, LocalTime startTime, LocalTime endTime, LocalDate date, Customer customer, Employee employee)
 	{
 		setBookingID(bookingID);
 		setSessionType(sessionType);
-		setDay(day);
-		setTimeslot(timeslot);
+		setBookingTime(startTime, endTime, day);
 		setDate(date);
-		setCompleted(completed);
 		setCustomer(customer);
 		setEmployee(employee);
-		if(sessionType.equalsIgnoreCase("CROSSFIT 2HR") || sessionType.equalsIgnoreCase("CARDIO 2HR"))
-		{
-			endTime = timeslot + 1;
-		}
-		else
-		{
-			endTime = timeslot;
-		}
+//		if(sessionType.equalsIgnoreCase("CROSSFIT 2HR") || sessionType.equalsIgnoreCase("CARDIO 2HR"))
+//		{
+//			endTime = timeslot + 1;
+//		}
+//		else
+//		{
+//			endTime = timeslot;
+//		}
 	}
 	
 	private void setBookingID(String bookingID)
@@ -49,9 +52,9 @@ public class Booking {
 		this.sessionType = sessionType;
 	}
 	
-	private void setDay(int day)
+	private void setBookingTime(LocalTime startTime, LocalTime endTime, String day)
 	{
-		this.day = day;
+		this.bookingTime = new AvailableTime(startTime, endTime, day);
 	}
 	
 	private void setDate(LocalDate date)
@@ -59,16 +62,16 @@ public class Booking {
 		this.date = date;
 	}
 	
-	private void setCompleted(Boolean completed)
-	{
-		this.completed = completed;
-	}
-	
-	private void setTimeslot(int timeslot)
-	{
-		this.timeslot = timeslot;
-	}
-	
+//	private void setCompleted(Boolean completed)
+//	{
+//		this.completed = completed;
+//	}
+//	
+//	private void setTimeslot(int timeslot)
+//	{
+//		this.timeslot = timeslot;
+//	}
+//	
 	private void setCustomer(Customer customer)
 	{
 		this.customer = customer;
@@ -94,24 +97,14 @@ public class Booking {
 		return this.sessionType;
 	}
 	
-	public int getDay()
+	public AvailableTime getBookingTime()
 	{
-		return day;
+		return this.bookingTime;
 	}
 	
-	public boolean getCompleted()
+	public BookingType getBookingType()
 	{
-		return this.completed;
-	}
-	
-	public int getTimeslot()
-	{
-		return timeslot;
-	}
-	
-	public int getEndTime()
-	{
-		return endTime;
+		return this.bookingType;
 	}
 	
 	public String getCustomerName()
@@ -137,117 +130,16 @@ public class Booking {
 	{
 		return customer.getUsername();
 	}
-	
- 	public String getDayAsString()
-	{
-		String stringDay;
-		if(day == 0)
-		{
-			stringDay = "Monday";
-		}
-		else if( day == 1)
-		{
-			stringDay = "Tuesday";
-		}
-		else if(day == 2)
-		{
-			stringDay = "Wednesday";
-		}
-		else if(day == 3)
-		{
-			stringDay = "Thursday";
-		}
-		else
-		{
-			stringDay = "Friday";
-		}
-		return stringDay;
-	}
-	
-	public String getTimeslotAsString()
-	{
-		String stringTimeslot;
-		if(timeslot == 0 && endTime == 0)
-		{
-			stringTimeslot = "8am - 9am";
-		}
-		else if(timeslot == 0 && endTime == 1)
-		{
-			stringTimeslot = "8am - 10am";
-		}
-		else if(timeslot == 1 && endTime == 1)
-		{
-			stringTimeslot = "9am - 10am";
-		}
-		else if(timeslot == 1 && endTime == 2)
-		{
-			stringTimeslot = "9am - 11am";
-		}
-		else if(timeslot == 2 && endTime == 2)
-		{
-			stringTimeslot = "10am - 11am";
-		}
-		else if(timeslot == 2 && endTime == 3)
-		{
-			stringTimeslot = "10am - 12pm";
-		}
-		else if(timeslot == 3 && endTime == 3)
-		{
-			stringTimeslot = "11am - 12pm";
-		}
-		else if(timeslot == 3 && endTime == 4)
-		{
-			stringTimeslot = "11am - 1pm";
-		}
-		else if(timeslot == 4 && endTime == 4)
-		{
-			stringTimeslot = "12pm - 1pm";
-		}
-		else if(timeslot == 4 && endTime == 5)
-		{
-			stringTimeslot = "12pm - 2pm";
-		}
-		else if(timeslot == 5 && endTime == 5)
-		{
-			stringTimeslot = "1pm - 2pm";
-		}
-		else if(timeslot == 5 && endTime == 6)
-		{
-			stringTimeslot = "1pm - 3pm";
-		}
-		else if(timeslot == 6 && endTime == 6)
-		{
-			stringTimeslot = "2pm - 3pm";
-		}
-		else if(timeslot == 6 && endTime == 7)
-		{
-			stringTimeslot = "2pm - 4pm";
-		}
-		else if(timeslot == 7 && endTime == 7)
-		{
-			stringTimeslot = "3pm - 4pm";
-		}
-		else if(timeslot == 7 && endTime == 8)
-		{
-			stringTimeslot = "3pm - 5pm";
-		}
-		else if(timeslot == 8 && endTime == 8)
-		{
-			stringTimeslot = "4pm - 5pm";
-		}
-		else if(timeslot == 8 && endTime == 9)
-		{
-			stringTimeslot = "4pm - 6pm";
-		}
-		else
-		{
-			stringTimeslot = "5pm - 6pm";
-		}
-		return stringTimeslot;
-	}
+		
+//	public String getTimeslotAsString()
+//	{
+//		String stringTimeslot = bookingTime.getStartTime().toString() + "-" + bookingTime.getEndTime().toString();
+//		
+//		return stringTimeslot;
+//	}
 	
 	public String toString()
 	{
-		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + getDayAsString() + "\t" + getTimeslotAsString() + "\t" + getEmployeeName();
+		return bookingID + "\t" + date + "\t" + getCustomerName() + "\t    " + bookingTime.getDay() + "\t" + bookingTime.getTimeslotAsString() + "\t" + getEmployeeName();
 	}
 }

@@ -111,7 +111,7 @@ public class BusinessViewBookingsController implements Initializable{
     		if(businesses.get(busPos).bookings.get(i).getDate().isBefore(today))
 				pastBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}
 		busBookingTable.setItems(pastBookings);
@@ -127,7 +127,7 @@ public class BusinessViewBookingsController implements Initializable{
     		if(businesses.get(busPos).bookings.get(i).getDate().isAfter(today))
 				futureBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}
 		busBookingTable.setItems(futureBookings);
@@ -143,7 +143,7 @@ public class BusinessViewBookingsController implements Initializable{
     		if(businesses.get(busPos).bookings.get(i).getDate().equals(today))
 				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
 		}
     	busBookingTable.setItems(todaysBookings);
@@ -212,7 +212,7 @@ public class BusinessViewBookingsController implements Initializable{
     		{
 				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getDayAsString(), businesses.get(busPos).bookings.get(i).getTimeslotAsString(),
+						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
 						businesses.get(busPos).bookings.get(i).getEmployeeName()));
     		}
 		}
