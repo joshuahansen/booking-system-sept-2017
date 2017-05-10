@@ -25,8 +25,9 @@ public class Business extends User
 	 */
 	public ArrayList<Booking> bookings = new ArrayList<Booking>();
 	
-	ArrayList<String> availableTimes = new ArrayList<String>();
-	
+	/**
+	 * 
+	 */
 	public ArrayList<String> bookingTypes = new ArrayList<String>();
 	
 	/**
@@ -42,6 +43,9 @@ public class Business extends User
 	public Business(String businessName, String firstName, String lastName, String address, 
 					String contactNumber, String username, String password) 
 	{
+		/**
+		 * Passes common generic user values to the user superclass constructor.
+		 */
 		super(firstName, lastName, address, contactNumber, username, password);
 		setBusinessName(businessName);
 	}

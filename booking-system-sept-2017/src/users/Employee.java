@@ -1,6 +1,9 @@
 package users;
 
-
+/**
+ * Employee --- A class for storing data about the employees of a business.
+ * @author SEPT-Team-6
+ */
 public class Employee
 {
 	private String employeeID;
@@ -16,7 +19,12 @@ public class Employee
 	
 	public int availableTimes[][] = new int[5][10];
 	
-	//creates a new employee with ID, and name
+	/**
+	 * Constructor to make Employee object.
+	 * @param employeeID Unique ID of the employee.
+	 * @param firstName First name of the employee.
+	 * @param lastName Last name of the employee.
+	 */
 	public Employee(String employeeID, String firstName, String lastName) 
 	{
 		setEmployeeID(employeeID);
@@ -24,19 +32,43 @@ public class Employee
 		setLastName(lastName);
 	}
 	
-	private void  setEmployeeID(String employeeID)
+	/**
+	 * Mutator method for Employee ID.
+	 * @param employeeID New ID of the employee, to be set.
+	 */
+	public void setEmployeeID(String employeeID)
 	{
 		this.employeeID = employeeID;
 	}
-	private void setFirstName(String firstName)
+	
+	/**
+	 * Mutator method for first name.
+	 * @param firstName First name of the employee, to be set.
+	 */
+	public void setFirstName(String firstName)
 	{
 		this.firstName = firstName;
 	}
-	private void setLastName(String lastName)
+	
+	/**
+	 * Mutator method for last name.
+	 * @param lastName Last name of the employee, to be set.
+	 */
+	public void setLastName(String lastName)
 	{
 		this.lastName = lastName;
 	}
-	//sets all available days for the employee 
+	
+	/**
+	 * Sets the availability of each day for an employee.
+	 * @param monday True if they can work, false if they can't.
+	 * @param tuesday True if they can work, false if they can't.
+	 * @param wednesday True if they can work, false if they can't.
+	 * @param thursday True if they can work, false if they can't.
+	 * @param friday True if they can work, false if they can't.
+	 * @param saturday True if they can work, false if they can't.
+	 * @param sunday True if they can work, false if they can't.
+	 */
 	public void setAllAvailabily(boolean monday, boolean tuesday, boolean wednesday, boolean thursday,
 								boolean friday, boolean saturday, boolean sunday)
 	{
@@ -51,27 +83,49 @@ public class Employee
 		
 	}
 
-	
-	//returns each of the employee's attributes
+	/**
+	 * Accessor method for employee ID.
+	 * @return employeeID The ID of the employee.
+	 */
  	public String getEmployeeID()
 	{
 		return employeeID;
 	}
+ 	
+ 	/**
+ 	 * Accessor method for first name.
+ 	 * @return firstName First name of the employee.
+ 	 */
 	public String getFirstName()
 	{
 		return firstName;
 	}
+	
+	/**
+	 * Accessor method for last name.
+	 * @return lastName Last name of the employee.
+	 */
 	public String getLastName()
 	{
 		return lastName;
 	}
 	
+	/**
+	 * Accessor method for full name of the employee.
+	 * @return Concatenation of firstName and lastName.
+	 */
 	public String getName()
 	{
 		return firstName + " " + lastName;
 	}
 	
-	//Sets time to available given the timeslot, day and if it's booked or not
+	/**
+	 * Sets a given timeslot to booked or not based on the booked string.
+	 * @param day The day of the timeslot.
+	 * @param timeslot The timeslot to be set.
+	 * @param booked Whether to make that timeslot booked or not.
+	 * @return
+	 */
 	public boolean setAvailableTime(int day, int timeslot, String booked)
 	{
 		if(booked.equalsIgnoreCase("yes"))
@@ -85,30 +139,46 @@ public class Employee
 		return true;
 	}
 	
-	//remove available time from employee availability array
+	/**
+	 * Sets a timeslot to be unavailable.
+	 * @param day The day of the timeslot.
+	 * @param timeslot The timeslot to be made unavailable.
+	 * @return
+	 */
 	public boolean removeAvailableTime(int day, int timeslot)
 	{
 		availableTimes[day][timeslot] = 0;
 		return true;
 	}
 	
-	//remove booking from employee availability array at given timeslot and day
+	/**
+	 * Remove booking from employee available times array.
+	 * @param timeslot Timeslot of booking to be removed.
+	 * @param day Day of timeslot.
+	 * @return
+	 */
 	public boolean removeBooking(int timeslot, int day)
 	{
 		availableTimes[day][timeslot] = 1;
 		return true;
 	}
 	
-	/*return value of a given sport in the employee availability array
-	 * 0 for not available
-	 * 1 for available
-	 * 2 for booked
+	/**
+	 * Check if a given timeslot is available, not available or booked.
+	 * @param timeslot Timeslot to check.
+	 * @param day Day of timeslot.
+	 * @return 0 for not available, 1 for available, 2 for booked.
 	 */
 	public int getAvailableTime(int timeslot, int day)
 	{
 		return availableTimes[day][timeslot];
 	}
 	
+	/**
+	 * Returns a timeslot as a string value.
+	 * @param timeslot Timeslot to be converted to string.
+	 * @return Timeslot as string.
+	 */
 	public String getTimeSlotAsString(int timeslot)
 	{
 		if(timeslot == 0)
