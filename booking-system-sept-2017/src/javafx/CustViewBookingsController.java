@@ -18,7 +18,7 @@ import main.Session;
 import users.*;
 
 public class CustViewBookingsController implements Initializable{
-    private ArrayList<Customer> customers;
+    private Customer customer;
     private ArrayList<Business> businesses;
     private int custPos;
     private int busPos;
@@ -31,11 +31,10 @@ public class CustViewBookingsController implements Initializable{
     @FXML private TableView<TableViewBooking> custBookingsTable;    
     @FXML private ComboBox<String> bookingCombo = new ComboBox<String>();
         
-    public CustViewBookingsController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos, int busPos)
+    public CustViewBookingsController(Session session, Customer customer, ArrayList<Business> businesses, int busPos)
     {
-    	this.customers = customers;
+    	this.customer = customer;
     	this.businesses = businesses;
-    	this.custPos = custPos;
     	this.busPos = busPos;
     	this.session = session;
     }
@@ -110,7 +109,7 @@ public class CustViewBookingsController implements Initializable{
 		session.addLog("Custoemr view bookings");
 		for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
 		{
-			if(businesses.get(busPos).bookings.get(i).getCustUsername().equals(customers.get(custPos).getUsername()))
+			if(businesses.get(busPos).bookings.get(i).getCustUsername().equals(customer.getUsername()))
 			{
 				allBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
 						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(), 

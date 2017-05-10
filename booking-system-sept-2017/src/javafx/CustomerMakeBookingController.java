@@ -24,8 +24,7 @@ import users.*;
 
 public class CustomerMakeBookingController implements Initializable{
     private ArrayList<Business> businesses;
-    private ArrayList<Customer> customers;
-    private int custPos;
+    private Customer customer;
     private int busPos;
     private Session session;
     private LocalTime midday = LocalTime.of(12, 00);
@@ -49,11 +48,10 @@ public class CustomerMakeBookingController implements Initializable{
     		
     @FXML private TableView<AvailableBookingTable> custAvailableBookingTable;    
     
-    public CustomerMakeBookingController(Session session, ArrayList<Business> businesses, ArrayList<Customer> customers, int custPos)
+    public CustomerMakeBookingController(Session session, ArrayList<Business> businesses, Customer customer)
     {
     	this.businesses = businesses;
-    	this.customers = customers;
-    	this.custPos = custPos;
+    	this.customer = customer;
     	this.session = session;
     }
     
@@ -331,7 +329,7 @@ public class CustomerMakeBookingController implements Initializable{
 					
 			String day = newSelection.getDay();
 			
-				Booking newBooking = new Booking(generateBookingID(), classType, day, startTime, endTime, date, customers.get(custPos), employee);
+				Booking newBooking = new Booking(generateBookingID(), classType, day, startTime, endTime, date, customer, employee);
 				addBooking(businesses.get(busPos), newBooking);
 				allAvailabilities.remove(newSelection);
 				displayedAvailabilities.remove(newSelection);
@@ -400,7 +398,7 @@ public class CustomerMakeBookingController implements Initializable{
 		int dayNumber, currentDay;
 		for(currentDay = 0; currentDay < daysOfWeek.length; currentDay++)
 		{
-			if(daysOfWeek[currentDay].equalsIgnoreCase(today.getDayOfWeek().toString())) //.equalsIgnoreCase(daysOfWeek[currentDay]));
+			if(daysOfWeek[currentDay].equalsIgnoreCase(today.getDayOfWeek().toString()))
 			{	
 				break;
 			}
