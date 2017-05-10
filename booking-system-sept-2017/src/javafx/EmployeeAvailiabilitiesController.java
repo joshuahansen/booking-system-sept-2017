@@ -1,6 +1,7 @@
 package javafx;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -15,6 +16,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import main.AvailableTime;
 import main.Session;
 import users.Business;
 import users.Employee;
@@ -56,6 +58,10 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 
 	private ArrayList<MenuItem> menuButtons;
 	private Session session;
+	
+	LocalTime midday = LocalTime.of(12, 00);
+	LocalTime evening = LocalTime.of(17, 00);
+	
 
 	 public EmployeeAvailiabilitiesController(Session session, ArrayList<Business> businesses, int busPos)
 	 {
@@ -130,125 +136,476 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 		 	Button button = (Button) event.getSource();
 	        updateButton(businesses.get(busPos).employees.get(emplPos), button);
 	 }
-
-	
-	public void updateButton(Employee empl, Button button) 
-	{		
-		if(button.getText().equals("Not Availiable") || button.getText().equals(""))
-		{
-			button.setText("Availiable");
-			button.setStyle("-fx-text-fill: #00ce00");
+	 
+	 public void updateButton(Employee empl, Button but)
+	 {
+		 if(but.getText().equals("Not Available") || but.getText().equals(""))
+		 {
+			 but.setText("Available");
+			 but.setStyle("-fx-text-fill: #00ce00");
+		 }
+		 
+		 else if(but.getText().equals("Available") || but.getText().equals(""))
+		 {
+			 but.setText("Not Available");
+			 but.setStyle("-fx-text-fill: #cc0000");
+		 }
+		 	
+		 for(int i = 0; i < btn.length; i++)
+		 {
+			for(int j = 0; j < btn[i].length; j++)
+			{
+				if(i == 0 && j == 0)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Monday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Monday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 0 && j == 1)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Monday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(midday, evening , "Monday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 0 && j == 2)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Monday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Monday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 1 && j == 0)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Tuesday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Tuesday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 1 && j == 1)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Tuesday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(midday, evening , "Tuesday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 1 && j == 2)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Tuesday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Tuesday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 2 && j == 0)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Wednesday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Wednesday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 2 && j == 1)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Wednesday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(midday, evening , "Wednesday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 2 && j == 2)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Wednesday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Wednesday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 3 && j == 0)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Thursday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Thursday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 3 && j == 1)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Thursday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(midday, evening , "Thursday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 3 && j == 2)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Thursday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Thursday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 4 && j == 0)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Friday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Friday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 4 && j == 1)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Friday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(midday, evening , "Friday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 4 && j == 2)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Friday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Friday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 5 && j == 0)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Saturday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Saturday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 5 && j == 1)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Saturday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(midday, evening , "Saturday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 5 && j == 2)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Saturday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Saturday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 6 && j == 0)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Sunday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Sunday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 6 && j == 1)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Sunday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(midday, evening , "Sunday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+				if(i == 6 && j == 2)
+				{
+					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					{
+						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Sunday"))
+	        			{
+        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Sunday");
+        					empl.availableTimes.add(avail);
+	        			}	 
+					}
+	   
+				}
+				
+			}
 			
-		}
-		else if(button.getText().equals("Availiable") || button.getText().equals(""))
-		{
-			button.setText("Not Availiable");
-			button.setStyle("-fx-text-fill: #cc0000");
-
-		}	
-		
-		for(int i = 0; i <btn.length; i++) 
-		{
-	        for(int j = 0; j <btn[i].length; j++) 
-	        {	
-	        	if(btn[i][j].getText().equals("Not Availiable"))
-	        	{
-	        		if(j == 0)
-	        		{
-	        			empl.availableTimes[i][0] = 0;
-	        			empl.availableTimes[i][1] = 0;
-	        			empl.availableTimes[i][2] = 0;
-	        			empl.availableTimes[i][3] = 0;
-	        		}
-	        		else if(j == 1) 
-	        		{
-	        			empl.availableTimes[i][4] = 0;
-	        			empl.availableTimes[i][5] = 0;
-	        			empl.availableTimes[i][6] = 0;
-	        		}
-	        		else if(j == 2) 
-	        		{
-	        			empl.availableTimes[i][7] = 0;
-	        			empl.availableTimes[i][8] = 0;
-	        			empl.availableTimes[i][9] = 0;
-	        		}
-	        	}
-	        	else if(btn[i][j].getText().equals("Availiable"))
-	        	{
-	        		if(j == 0)
-	        		{
-	        			empl.availableTimes[i][0] = 1;
-	        			empl.availableTimes[i][1] = 1;
-	        			empl.availableTimes[i][2] = 1;
-	        			empl.availableTimes[i][3] = 1;
-	        		}
-	        		else if(j == 1) 
-	        		{
-	        			empl.availableTimes[i][4] = 1;
-	        			empl.availableTimes[i][5] = 1;
-	        			empl.availableTimes[i][6] = 1;
-	        		}
-	        		else if(j == 2) 
-	        		{
-	        			empl.availableTimes[i][7] = 1;
-	        			empl.availableTimes[i][8] = 1;
-	        			empl.availableTimes[i][9] = 1;
-	        		}
-	        	}
-	        }
-		}
-	}
+		 }
+		 
+	 }
 	
+	 public void loadButtons(Employee empl) 
+	 {
+		 for(int i = 0; i < empl.availableTimes.size(); i++)
+		 {
+			 if(empl.availableTimes.get(i).getDay())
+		 }
+			
+			for(int i = 0; i <empl.availableTimes.size; i++) 
+			{
+		        for(int j = 0; j <empl.availableTimes[i].length; j++) 
+		        {
+		            
+		        	if (j == 0 || j == 1 || j == 2 || j == 3) 
+		        	{
+		        		if(empl.availableTimes[i][j] == 1)
+		        		{
+		        			btn[i][0].setText("Availiable");
+		        			btn[i][0].setStyle("-fx-text-fill: #00ce00");
+		        		}
+		        		else if(empl.availableTimes[i][j] == 0)
+		        		{
+		        			btn[i][0].setText("Not Availiable");
+		        			btn[i][0].setStyle("-fx-text-fill: #cc0000");
 	
-	public void loadButtons(Employee empl) 
-	{
-		
-		for(int i = 0; i <empl.availableTimes.length; i++) 
-		{
-	        for(int j = 0; j <empl.availableTimes[i].length; j++) 
-	        {
-	            
-	        	if (j == 0 || j == 1 || j == 2 || j == 3) 
-	        	{
-	        		if(empl.availableTimes[i][j] == 1)
-	        		{
-	        			btn[i][0].setText("Availiable");
-	        			btn[i][0].setStyle("-fx-text-fill: #00ce00");
-	        		}
-	        		else if(empl.availableTimes[i][j] == 0)
-	        		{
-	        			btn[i][0].setText("Not Availiable");
-	        			btn[i][0].setStyle("-fx-text-fill: #cc0000");
-
-	        		}
-	        	}
-	        	else if (j == 4 || j == 5 || j == 6)
-	        	{
-	        		if(empl.availableTimes[i][j] == 1)
-	        		{
-	        			btn[i][1].setText("Availiable");
-	        			btn[i][1].setStyle("-fx-text-fill: #00ce00");
-	        		}
-	        		else if(empl.availableTimes[i][j] == 0)
-	        		{
-	        			btn[i][1].setText("Not Availiable");
-	        			btn[i][1].setStyle("-fx-text-fill: #cc0000");
-	        		}
-	        	}
-	        	else if (j == 7 || j == 8 || j == 9)
-	        	{
-	        		if(empl.availableTimes[i][j] == 1)
-	        		{
-	        			btn[i][2].setText("Availiable");
-	        			btn[i][2].setStyle("-fx-text-fill: #00ce00");
-	        		}
-	        		else if(empl.availableTimes[i][j] == 0)
-	        		{
-	        			btn[i][2].setText("Not Availiable");
-	        			btn[i][2].setStyle("-fx-text-fill: #cc0000");
-	        		}
-	        	}    	
-	        }
-	    }
-	}
+		        		}
+		        	}
+		        	else if (j == 4 || j == 5 || j == 6)
+		        	{
+		        		if(empl.availableTimes[i][j] == 1)
+		        		{
+		        			btn[i][1].setText("Availiable");
+		        			btn[i][1].setStyle("-fx-text-fill: #00ce00");
+		        		}
+		        		else if(empl.availableTimes[i][j] == 0)
+		        		{
+		        			btn[i][1].setText("Not Availiable");
+		        			btn[i][1].setStyle("-fx-text-fill: #cc0000");
+		        		}
+		        	}
+		        	else if (j == 7 || j == 8 || j == 9)
+		        	{
+		        		if(empl.availableTimes[i][j] == 1)
+		        		{
+		        			btn[i][2].setText("Availiable");
+		        			btn[i][2].setStyle("-fx-text-fill: #00ce00");
+		        		}
+		        		else if(empl.availableTimes[i][j] == 0)
+		        		{
+		        			btn[i][2].setText("Not Availiable");
+		        			btn[i][2].setStyle("-fx-text-fill: #cc0000");
+		        		}
+		        	}    	
+		        }
+		    }
+		}
+//	public void updateButton(Employee empl, Button button) 
+//	{		
+//		if(button.getText().equals("Not Availiable") || button.getText().equals(""))
+//		{
+//			button.setText("Availiable");
+//			button.setStyle("-fx-text-fill: #00ce00");
+//			
+//		}
+//		else if(button.getText().equals("Availiable") || button.getText().equals(""))
+//		{
+//			button.setText("Not Availiable");
+//			button.setStyle("-fx-text-fill: #cc0000");
+//
+//		}	
+//		
+//		for(int i = 0; i <btn.length; i++) 
+//		{
+//	        for(int j = 0; j <btn[i].length; j++) 
+//	        {	
+//	        	if(btn[i][j].getText().equals("Not Availiable"))
+//	        	{
+//	        		if(j == 0)
+//	        		{
+//	        			empl.availableTimes[i][0] = 0;
+//	        			empl.availableTimes[i][1] = 0;
+//	        			empl.availableTimes[i][2] = 0;
+//	        			empl.availableTimes[i][3] = 0;
+//	        		}
+//	        		else if(j == 1) 
+//	        		{
+//	        			empl.availableTimes[i][4] = 0;
+//	        			empl.availableTimes[i][5] = 0;
+//	        			empl.availableTimes[i][6] = 0;
+//	        		}
+//	        		else if(j == 2) 
+//	        		{
+//	        			empl.availableTimes[i][7] = 0;
+//	        			empl.availableTimes[i][8] = 0;
+//	        			empl.availableTimes[i][9] = 0;
+//	        		}
+//	        	}
+//	        	else if(btn[i][j].getText().equals("Availiable"))
+//	        	{
+//	        		if(j == 0)
+//	        		{
+//	        			empl.availableTimes[i][0] = 1;
+//	        			empl.availableTimes[i][1] = 1;
+//	        			empl.availableTimes[i][2] = 1;
+//	        			empl.availableTimes[i][3] = 1;
+//	        		}
+//	        		else if(j == 1) 
+//	        		{
+//	        			empl.availableTimes[i][4] = 1;
+//	        			empl.availableTimes[i][5] = 1;
+//	        			empl.availableTimes[i][6] = 1;
+//	        		}
+//	        		else if(j == 2) 
+//	        		{
+//	        			empl.availableTimes[i][7] = 1;
+//	        			empl.availableTimes[i][8] = 1;
+//	        			empl.availableTimes[i][9] = 1;
+//	        		}
+//	        	}
+//	        }
+//		}
+//	}
+//	
+//	
+//	public void loadButtons(Employee empl) 
+//	{
+//		
+//		for(int i = 0; i <empl.availableTimes.length; i++) 
+//		{
+//	        for(int j = 0; j <empl.availableTimes[i].length; j++) 
+//	        {
+//	            
+//	        	if (j == 0 || j == 1 || j == 2 || j == 3) 
+//	        	{
+//	        		if(empl.availableTimes[i][j] == 1)
+//	        		{
+//	        			btn[i][0].setText("Availiable");
+//	        			btn[i][0].setStyle("-fx-text-fill: #00ce00");
+//	        		}
+//	        		else if(empl.availableTimes[i][j] == 0)
+//	        		{
+//	        			btn[i][0].setText("Not Availiable");
+//	        			btn[i][0].setStyle("-fx-text-fill: #cc0000");
+//
+//	        		}
+//	        	}
+//	        	else if (j == 4 || j == 5 || j == 6)
+//	        	{
+//	        		if(empl.availableTimes[i][j] == 1)
+//	        		{
+//	        			btn[i][1].setText("Availiable");
+//	        			btn[i][1].setStyle("-fx-text-fill: #00ce00");
+//	        		}
+//	        		else if(empl.availableTimes[i][j] == 0)
+//	        		{
+//	        			btn[i][1].setText("Not Availiable");
+//	        			btn[i][1].setStyle("-fx-text-fill: #cc0000");
+//	        		}
+//	        	}
+//	        	else if (j == 7 || j == 8 || j == 9)
+//	        	{
+//	        		if(empl.availableTimes[i][j] == 1)
+//	        		{
+//	        			btn[i][2].setText("Availiable");
+//	        			btn[i][2].setStyle("-fx-text-fill: #00ce00");
+//	        		}
+//	        		else if(empl.availableTimes[i][j] == 0)
+//	        		{
+//	        			btn[i][2].setText("Not Availiable");
+//	        			btn[i][2].setStyle("-fx-text-fill: #cc0000");
+//	        		}
+//	        	}    	
+//	        }
+//	    }
+//	}
 }
