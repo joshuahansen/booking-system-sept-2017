@@ -152,9 +152,9 @@ public class CustomerMakeBookingController implements Initializable{
 		LocalDate today = LocalDate.now();
 		
 		classType.add("All");
-		for(int classPos = 0; classPos < businesses.get(busPos).bookingTypes.size(); classPos++)
+		for(int classPos = 0; classPos < businesses.get(busPos).getBookingTypes().size(); classPos++)
 		{
-			classType.add(businesses.get(busPos).bookingTypes.get(classPos).getBookingType());
+			classType.add(businesses.get(busPos).getBookingTypes().get(classPos).getBookingType());
 		}
 		classCombo.setItems(classType);
 		classCombo.setValue("All");
@@ -175,9 +175,9 @@ public class CustomerMakeBookingController implements Initializable{
 		timeCombo.setValue("All");
 		
 		dayList.add("All");
-		for(int pos = 0; pos < businesses.get(busPos).businessHours.size(); pos++)
+		for(int pos = 0; pos < businesses.get(busPos).getBusinessHours().size(); pos++)
 		{
-			dayList.add(businesses.get(busPos).businessHours.get(pos).getDay());
+			dayList.add(businesses.get(busPos).getBusinessHours().get(pos).getDay());
 		}
 		dayCombo.setItems(dayList);
 		dayCombo.setValue("All");
@@ -185,12 +185,12 @@ public class CustomerMakeBookingController implements Initializable{
 		for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos ++)
 		{
     		int smallestBooking = 0;
-			for(int i = 0; i < businesses.get(busPos).bookingTypes.size(); i++)
+			for(int i = 0; i < businesses.get(busPos).getBookingTypes().size(); i++)
 			{
-				smallestBooking = businesses.get(busPos).bookingTypes.get(i).getBookingLength();
-				if(businesses.get(busPos).bookingTypes.get(i).getBookingLength() < smallestBooking)
+				smallestBooking = businesses.get(busPos).getBookingTypes().get(i).getBookingLength();
+				if(businesses.get(busPos).getBookingTypes().get(i).getBookingLength() < smallestBooking)
 				{
-					smallestBooking = businesses.get(busPos).bookingTypes.get(i).getBookingLength();
+					smallestBooking = businesses.get(busPos).getBookingTypes().get(i).getBookingLength();
 				}
 			}
 			
@@ -340,8 +340,8 @@ public class CustomerMakeBookingController implements Initializable{
 	public String generateBookingID()
 	{
 		String bookingID = new String();
-		int lastBooking = businesses.get(busPos).bookings.size() - 1;
-		int nextBookingId = Integer.valueOf(businesses.get(busPos).bookings.get(lastBooking).getBookingID());
+		int lastBooking = businesses.get(busPos).getBookings().size() - 1;
+		int nextBookingId = Integer.valueOf(businesses.get(busPos).getBookings().get(lastBooking).getBookingID());
 		nextBookingId++;
 		
 		bookingID = String.valueOf(nextBookingId);
@@ -352,12 +352,12 @@ public class CustomerMakeBookingController implements Initializable{
 	{
 		boolean bookingFound = false;
 		
-		int numberOfBookings = business.bookings.size();
+		int numberOfBookings = business.getBookings().size();
 		int counter = 0;
 		
 		for (counter = 0; counter < numberOfBookings; counter++)
 		{
-			if (business.bookings.get(counter).equals(booking))
+			if (business.getBookings().get(counter).equals(booking))
 			{
 				bookingFound = true;
 			}
@@ -369,7 +369,7 @@ public class CustomerMakeBookingController implements Initializable{
 		}
 		else
 		{
-			business.bookings.add(booking);
+			business.getBookings().add(booking);
 			
 			return true;
 		}
@@ -377,14 +377,14 @@ public class CustomerMakeBookingController implements Initializable{
 	
 	public boolean removeBooking(Business business, Booking booking)
 	{
-		int numberOfBookings = business.bookings.size();
+		int numberOfBookings = business.getBookings().size();
 		int counter = 0;
 		
 		for (counter = 0; counter < numberOfBookings; counter++)
 		{
-			if (business.bookings.get(counter).equals(booking))
+			if (business.getBookings().get(counter).equals(booking))
 			{
-				business.bookings.remove(counter);
+				business.getBookings().remove(counter);
 				
 				return true;
 			}
@@ -423,9 +423,9 @@ public class CustomerMakeBookingController implements Initializable{
 		for(int availPos = 0; availPos < allAvailabilities.size(); availPos++)
 		{
 			AvailableBookingTable currentTime = allAvailabilities.get(availPos);
-			for(int bookingPos = 0; bookingPos < businesses.get(busPos).bookings.size(); bookingPos++)
+			for(int bookingPos = 0; bookingPos < businesses.get(busPos).getBookings().size(); bookingPos++)
 			{
-				Booking currentBooking = businesses.get(busPos).bookings.get(bookingPos);
+				Booking currentBooking = businesses.get(busPos).getBookings().get(bookingPos);
 				if(currentBooking.getBookingTime().getDay().equals(currentTime.getAvailableTime().getDay()) &&
 						currentBooking.getDate().equals(currentTime.getLocalDate()))
 				{

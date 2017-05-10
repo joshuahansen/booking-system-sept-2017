@@ -25,7 +25,7 @@ import users.*;
 @SuppressWarnings("restriction")
 public class BookingSystem extends Application {
 	private Database database;
-	private ArrayList<Customer> customers;
+//	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
 	private Session session;
 	
@@ -38,7 +38,7 @@ public class BookingSystem extends Application {
 			}
 	
 	public void init() throws Exception {
-	  	customers = new ArrayList<>();
+//	  	customers = new ArrayList<>();
 		businesses = new ArrayList<>();
 		session = new Session();
 		
@@ -49,7 +49,7 @@ public class BookingSystem extends Application {
 		if(database.connectDatabase(session, url) == true)
 		{		
 			/*Try reading from database tables customers and businesses*/
-			if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true
+			if(database.readCustDB(session, businesses) == true && database.readBusDB(session, businesses) == true
 					&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
 			{
 				session.addLog("Customer Database loaded");
@@ -67,7 +67,7 @@ public class BookingSystem extends Application {
 					session.addLog("Can not load employee database");
 					session.addLog("Can not load employee availabilities");
 				}
-				if(database.readBookingsDB(session, businesses, customers))
+				if(database.readBookingsDB(session, businesses))
 				{
 					session.addLog("Booking Database loaded");
 				}
@@ -82,7 +82,7 @@ public class BookingSystem extends Application {
 				database.clearTables(session);
 				database.initDatabase(session);
 				database.defaultValues(session);
-				if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true
+				if(database.readCustDB(session, businesses) == true && database.readBusDB(session, businesses) == true
 						&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
 				{
 					session.addLog("Customer Database loaded");
@@ -99,7 +99,7 @@ public class BookingSystem extends Application {
 						session.addLog("Can not load employee database");
 						session.addLog("Can not load employee availabilities");
 					}
-					if(database.readBookingsDB(session, businesses, customers))
+					if(database.readBookingsDB(session, businesses))
 					{
 						session.addLog("Booking Database loaded");
 					}
@@ -112,7 +112,7 @@ public class BookingSystem extends Application {
 		}
 				
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		LoginController controller = new LoginController(session, customers, businesses, database);
+		LoginController controller = new LoginController(session, businesses, database);
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();
@@ -135,7 +135,7 @@ public class BookingSystem extends Application {
         
         stage.setOnCloseRequest(e -> {
         session.addLog("Stage is closing");
-    	database.writeCustDB(session, customers);
+    	database.writeCustDB(session, businesses);
     	database.writeEmplToDB(session, businesses);
     	database.writeBookingToDB(session, businesses);
     	database.writeBusinessDB(session, businesses);

@@ -107,14 +107,14 @@ public class CustViewBookingsController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		session.addLog("Custoemr view bookings");
-		for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+		for(int i = 0; i < businesses.get(busPos).getBookings().size(); i ++)
 		{
-			if(businesses.get(busPos).bookings.get(i).getCustUsername().equals(customer.getUsername()))
+			if(businesses.get(busPos).getBookings().get(i).getCustUsername().equals(customer.getUsername()))
 			{
-				allBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(), 
-						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+				allBookings.add(new TableViewBooking(businesses.get(busPos).getBookings().get(i).getBookingID(), businesses.get(busPos).getBookings().get(i).getSessionType(),
+						businesses.get(busPos).getBookings().get(i).getDate(), businesses.get(busPos).getBookings().get(i).getCustomerName(), 
+						businesses.get(busPos).getBookings().get(i).getBookingTime().getDay(), businesses.get(busPos).getBookings().get(i).getBookingTime().getTimeslotAsString(),
+						businesses.get(busPos).getBookings().get(i).getEmployeeName()));
 			}
 		}
 		

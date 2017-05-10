@@ -83,13 +83,15 @@ public class Database {
 			
 			//Customer table using username as the primary key
 			String sql = "CREATE TABLE CUSTOMERS " +
-			        "(CUST_UNAME     	VARCHAR(40) NOT NULL," +
-			        " CUST_FNAME 		VARCHAR(40)     ," +
-			        " CUST_LNAME		VARCHAR(40)		," +
-			        " CUST_ADDRESS    	VARCHAR(40)     ," +
-			        " CUST_PHONE      	VARCHAR(40)     ," +
-			        " CUST_PASSWORD		VARCHAR(40)		," +
-			        " PRIMARY KEY(CUST_UNAME))";
+			        "(CUST_UNAME     	VARCHAR(40) NOT NULL,"	+
+			        " CUST_FNAME 		VARCHAR(40)     ," 		+
+			        " CUST_LNAME		VARCHAR(40)		," 		+
+			        " CUST_ADDRESS    	VARCHAR(40)     ," 		+
+			        " CUST_PHONE      	VARCHAR(40)     ," 		+
+			        " CUST_PASSWORD		VARCHAR(40)		," 		+
+			        " BUS_UNAME			VARCHAR(40) NOT NULL," 	+
+			        " PRIMARY KEY(CUST_UNAME, BUS_UNAME),"		+
+			        " FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
 			//Business table using business username as the primary key
@@ -107,10 +109,10 @@ public class Database {
 			//EMployee table using employee ID as the primary key
 			sql = "CREATE TABLE EMPLOYEES " +
 					"(EMP_ID		VARCHAR(40) NOT NULL," +
-					" EMP_FNAME		VARCHAR(40)		," +
-					" EMP_LNAME		VARCHAR(40)		," +
-					" BUS_UNAME		VARCHAR(40)		," +
-					" PRIMARY KEY(EMP_ID, BUS_UNAME),"				+
+					" EMP_FNAME		VARCHAR(40)		," 	+
+					" EMP_LNAME		VARCHAR(40)		," 	+
+					" BUS_UNAME		VARCHAR(40)		," 	+
+					" PRIMARY KEY(EMP_ID, BUS_UNAME),"	+
 					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
@@ -176,10 +178,10 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "CREATE TABLE BOOKING_TYPE " +
-					"(BUS_UNAME			VARCHAR(40) NOT NULL," +
-					" BOOKING_TYPE		VARCHAR(40)	NOT NULL," +
-					" BOOKING_LENGTH	INT			NOT NULL," +
-					" PRIMARY KEY (BUS_UNAME, BOOKING_TYPE)," +
+					"(BUS_UNAME			VARCHAR(40) NOT NULL," 	+
+					" BOOKING_TYPE		VARCHAR(40)	NOT NULL," 	+
+					" BOOKING_LENGTH	INT			NOT NULL," 	+
+					" PRIMARY KEY (BUS_UNAME, BOOKING_TYPE)," 	+
 					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
@@ -236,13 +238,13 @@ public class Database {
 			Statement stmt = connection.createStatement();
 			String sql;
 			
-			sql = "INSERT INTO CUSTOMERS VALUES('bMarley', 'Bob', 'Marley', '1 High Street Melbourne', '0423256754', 'bMarley')";
+			sql = "INSERT INTO CUSTOMERS VALUES('bMarley', 'Bob', 'Marley', '1 High Street Melbourne', '0423256754', 'bMarley', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO CUSTOMERS VALUES('VickiV', 'Vicki', 'Vale', '23 Batman Street Melbourne', '34232865', 'VickiV')";
+			sql = "INSERT INTO CUSTOMERS VALUES('VickiV', 'Vicki', 'Vale', '23 Batman Street Melbourne', '34232865', 'VickiV', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
+			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BUSINESSES VALUES('fit4purpose','Fit for Purpose', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'superfit')";
@@ -334,7 +336,7 @@ public class Database {
 	}
 	
 	//read data from CUSTOMER table into customer array
-	public boolean readCustDB(Session session, ArrayList<Customer> customers)
+	public boolean readCustDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Customer newCust;
@@ -351,9 +353,16 @@ public class Database {
 			String address = resultSet.getString("CUST_ADDRESS");
 			String phone = resultSet.getString("CUST_PHONE");
 			String password = resultSet.getString("CUST_PASSWORD");
+			String busUname = resultSet.getString("BUS_UNAME");
 
 			newCust = new Customer(fName, lName, address, phone, username, password);
-			customers.add(newCust);
+			for(int busPos = 0; busPos < businesses.size(); busPos++)
+			{
+				if(businesses.get(busPos).getUsername().equals(busUname))
+				{
+					businesses.get(busPos).getCustomers().add(newCust);
+				}
+			}
 		}
 		return true;
 		
@@ -586,7 +595,7 @@ public class Database {
 				LocalTime startTime = LocalTime.of(startHour, startMin);
 				LocalTime endTime = LocalTime.of(endHour, endMin);
 				newBooking = new Booking(bookingID, sessionType, day, startTime, endTime, bookingDate, customers.get(custPos), businesses.get(businessPos).employees.get(employeePos));
-				businesses.get(0).bookings.add(newBooking);
+				businesses.get(0).getBookings().add(newBooking);
 			}
 			return true;
 		}catch (SQLException e)
@@ -703,9 +712,9 @@ public class Database {
 					
 			for(int busNo = 0; busNo < businesses.size(); busNo++)
 			{
-				for(int i = 0; i < businesses.get(busNo).bookings.size(); i++)
+				for(int i = 0; i < businesses.get(busNo).getBookings().size(); i++)
 				{
-				    bookingToString(businesses.get(busNo).bookings.get(i), businesses.get(busNo));
+				    bookingToString(businesses.get(busNo).getBookings().get(i), businesses.get(busNo));
 					sql = "INSERT INTO BOOKINGS VALUES(" + getBookingSQL() +")";
 					stmt.executeUpdate(sql);
 				}

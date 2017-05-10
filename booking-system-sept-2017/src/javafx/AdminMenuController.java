@@ -24,7 +24,7 @@ import users.*;
 
 public class AdminMenuController implements  Initializable{
 	private Session session;
-	private ArrayList<Customer> customers;
+//	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
 	private Database database;
 
@@ -69,9 +69,9 @@ public class AdminMenuController implements  Initializable{
 
 	private final ObservableList<String> businessesComboList = FXCollections.observableArrayList();
 
-	public AdminMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
+	public AdminMenuController(Session session, ArrayList<Business> businesses, Database database)
 	{
-		this.customers = customers;
+//		this.customers = customers;
 		this.businesses = businesses;
 		this.session = session;
 		this.database = database;
@@ -131,10 +131,10 @@ public class AdminMenuController implements  Initializable{
 			}
 			try{
 				Login newLogin = new Login(username, password);
-				newLogin.login(customers, businesses, database);
+				newLogin.login(businesses, database);
 				session.addLog("Load business menu");
 		  		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMenu.fxml"));
-				BusinessMenuController controller = new BusinessMenuController(session, customers, businesses, userPos, database);
+				BusinessMenuController controller = new BusinessMenuController(session, businesses.get(userPos), database);
 				loader.setController(controller);
 				
 				root = loader.load();
@@ -159,7 +159,7 @@ public class AdminMenuController implements  Initializable{
     	stage = (Stage) adminLogoutButton.getScene().getWindow();
       	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		LoginController controller = new LoginController(session, customers, businesses, database);
+		LoginController controller = new LoginController(session, businesses, database);
 		loader.setController(controller);
 		
 		root = loader.load();
@@ -189,7 +189,7 @@ public class AdminMenuController implements  Initializable{
     		if(reg.setBusinessValues(registerBusinessNameData.getText(), registerFirstNameData.getText(), registerLastNameData.getText(),
     				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText(), customers, businesses))
     		{
-    			reg.registerNewBusiness(session, customers, businesses);
+    			reg.registerNewBusiness(session, businesses);
     			session.addLog("Registration Pass");
     			registerActiontarget.setText("Business Added please select the business to login and add times and employees");
 

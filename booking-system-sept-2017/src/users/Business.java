@@ -26,12 +26,13 @@ public class Business extends User
 	/**
 	 * Array list of bookings for the current business object.
 	 */
-	public ArrayList<Booking> bookings = new ArrayList<Booking>();
+	private ArrayList<Booking> bookings = new ArrayList<Booking>();
 	
-	public ArrayList<AvailableTime> businessHours = new ArrayList<AvailableTime>();
+	private ArrayList<AvailableTime> businessHours = new ArrayList<AvailableTime>();
 	
-	public ArrayList<BookingType> bookingTypes = new ArrayList<BookingType>();
+	private ArrayList<BookingType> bookingTypes = new ArrayList<BookingType>();
 	
+	private ArrayList<Customer> customers = new ArrayList<Customer>();
 	/**
 	 * Constructor to make business object.
 	 * @param businessName Name of the business.
@@ -83,6 +84,21 @@ public class Business extends User
 	public ArrayList<Employee> getEmployeeList() 
 	{ 
 		return this.employees; 
+	}
+	
+	public ArrayList<BookingType> getBookingTypes()
+	{
+		return this.bookingTypes;
+	}
+	
+	public ArrayList<AvailableTime> getBusinessHours()
+	{
+		return this.businessHours;
+	}
+	
+	public ArrayList<Customer> getCustomers()
+	{
+		return this.customers;
 	}
 	
 	public boolean addBusinessHours(LocalTime startTime, LocalTime endTime, String day)

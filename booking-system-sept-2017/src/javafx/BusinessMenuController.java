@@ -32,17 +32,18 @@ public class BusinessMenuController implements Initializable {
     @FXML private TabPane businessMenuTabPane;
     @FXML private Tab detailsTab;
     
-    private ArrayList<Customer> customers;
-    private ArrayList<Business> businesses;
-    private int busPos;
+//    private ArrayList<Customer> customers;
+//    private ArrayList<Business> businesses;
+//    private int busPos;
+    Business business;
     private Session session;
     private Database database;
     
-    public BusinessMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int busPos, Database database)
+    public BusinessMenuController(Session session, Business business, Database database)
     {
-    	this.customers = customers;
-    	this.businesses = businesses;
-    	this.busPos = busPos;
+//    	this.customers = customers;
+    	this.business = business;
+//    	this.busPos = busPos;
     	this.session = session;
     	this.database = database;
     }
@@ -56,7 +57,7 @@ public class BusinessMenuController implements Initializable {
 	    	stage = (Stage) busLogout.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, customers, businesses, database);
+			LoginController controller = new LoginController(session, business, database);
 			loader.setController(controller);
 			
 			root = loader.load();

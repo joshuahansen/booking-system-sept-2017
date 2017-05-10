@@ -26,19 +26,19 @@ public class CustomerMenuController implements Initializable{
     
     @FXML private GridPane custMenuContent;
     
-    private ArrayList<Customer> customers;
-    private ArrayList<Business> businesses;
-    int custPos;
+//    private ArrayList<Customer> customers;
+//    private ArrayList<Business> businesses;
+//    int custPos;
     private Session session;
     private Database database;
     private Customer customer;
     
-    public CustomerMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos, Database database)
+    public CustomerMenuController(Session session, Customer customer, Business business, Database database)
     {
-    	this.customers = customers;
-    	this.customer = customers.get(custPos);
-    	this.businesses = businesses;
-    	this.custPos = custPos;
+//    	this.customers = customers;
+    	this.customer = customer;
+//    	this.businesses = businesses;
+//    	this.custPos = custPos;
     	this.session = session;
     	this.database = database;
     }
@@ -53,7 +53,7 @@ public class CustomerMenuController implements Initializable{
 	    	stage = (Stage) custLogoutButton.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, customers, businesses, database);
+			LoginController controller = new LoginController(session, businesses, database);
 			loader.setController(controller);
 			
 			root = loader.load();
