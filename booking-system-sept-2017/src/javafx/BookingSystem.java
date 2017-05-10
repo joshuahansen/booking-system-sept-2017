@@ -49,10 +49,13 @@ public class BookingSystem extends Application {
 		if(database.connectDatabase(session, url) == true)
 		{		
 			/*Try reading from database tables customers and businesses*/
-			if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true)
+			if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true
+					&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
 			{
 				session.addLog("Customer Database loaded");
 				session.addLog("Business Database loaded");
+				session.addLog("Business Hours Database loaded");
+				session.addLog("Booking Types loaded");
 				/*read employee availabilities only if customers and businesses are loaded correctly*/
 				if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 				{
@@ -79,10 +82,13 @@ public class BookingSystem extends Application {
 				database.clearTables(session);
 				database.initDatabase(session);
 				database.defaultValues(session);
-				if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true)
+				if(database.readCustDB(session, customers) == true && database.readBusDB(session, businesses) == true
+						&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
 				{
 					session.addLog("Customer Database loaded");
 					session.addLog("Business Database loaded");
+					session.addLog("Business Hours database loaded");
+					session.addLog("Booking Types loaded");
 					if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
 					{
 						session.addLog("Employee Database loaded");
@@ -104,7 +110,7 @@ public class BookingSystem extends Application {
 				}
 			}
 		}
-		
+				
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
 		LoginController controller = new LoginController(session, customers, businesses, database);
 		loader.setController(controller);
@@ -126,6 +132,34 @@ public class BookingSystem extends Application {
         
         stage.setResizable(false);
         stage.show();
+        
+//        System.out.println("Business hours:");
+//		for(int i = 0; i < businesses.size(); i++)
+//		{
+//			System.out.println(businesses.get(i).getBusinessName());
+//			System.out.println(businesses.get(i).businessHours.size());
+//			for(int j = 0; j < businesses.get(i).businessHours.size(); j++)
+//			{
+//				System.out.println(businesses.get(i).businessHours.get(j).getDay());
+//				System.out.println(businesses.get(i).businessHours.get(j).getStartTime());
+//				System.out.println(businesses.get(i).businessHours.get(j).getEndTime());
+//			}
+//		}
+//		
+//		 System.out.println("Employee hours:");
+//			for(int i = 0; i < businesses.size(); i++)
+//			{
+//				for(int j = 0; j < businesses.get(i).employees.size(); j++)
+//				{
+//					System.out.println(businesses.get(i).employees.get(j).getName());
+//					for(int k = 0; k < businesses.get(i).employees.get(j).availableTimes.size(); k++)
+//					{
+//						System.out.println(businesses.get(i).employees.get(j).availableTimes.get(k).getDay());
+//						System.out.println(businesses.get(i).employees.get(j).availableTimes.get(k).getStartTime());
+//						System.out.println(businesses.get(i).employees.get(j).availableTimes.get(k).getEndTime());
+//					}
+//				}
+//			}
         
         stage.setOnCloseRequest(e -> {
         session.addLog("Stage is closing");
