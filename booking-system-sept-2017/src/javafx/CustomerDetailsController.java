@@ -19,14 +19,12 @@ public class CustomerDetailsController implements Initializable {
     @FXML private Text custDetailsPhoneData;
         
     private ArrayList<Customer> customers;
-//    private ArrayList<Business> businesses;
     private int custPos;
     private Session session;
    
     public CustomerDetailsController(Session session, ArrayList<Customer> customers, int custPos)
     {
     	this.customers = customers;
-//    	this.businesses = businesses;
     	this.custPos = custPos;
     	this.session = session;
     }
