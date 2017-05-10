@@ -133,34 +133,6 @@ public class BookingSystem extends Application {
         stage.setResizable(false);
         stage.show();
         
-//        System.out.println("Business hours:");
-//		for(int i = 0; i < businesses.size(); i++)
-//		{
-//			System.out.println(businesses.get(i).getBusinessName());
-//			System.out.println(businesses.get(i).businessHours.size());
-//			for(int j = 0; j < businesses.get(i).businessHours.size(); j++)
-//			{
-//				System.out.println(businesses.get(i).businessHours.get(j).getDay());
-//				System.out.println(businesses.get(i).businessHours.get(j).getStartTime());
-//				System.out.println(businesses.get(i).businessHours.get(j).getEndTime());
-//			}
-//		}
-//		
-//		 System.out.println("Employee hours:");
-//			for(int i = 0; i < businesses.size(); i++)
-//			{
-//				for(int j = 0; j < businesses.get(i).employees.size(); j++)
-//				{
-//					System.out.println(businesses.get(i).employees.get(j).getName());
-//					for(int k = 0; k < businesses.get(i).employees.get(j).availableTimes.size(); k++)
-//					{
-//						System.out.println(businesses.get(i).employees.get(j).availableTimes.get(k).getDay());
-//						System.out.println(businesses.get(i).employees.get(j).availableTimes.get(k).getStartTime());
-//						System.out.println(businesses.get(i).employees.get(j).availableTimes.get(k).getEndTime());
-//					}
-//				}
-//			}
-        
         stage.setOnCloseRequest(e -> {
         session.addLog("Stage is closing");
     	database.writeCustDB(session, customers);

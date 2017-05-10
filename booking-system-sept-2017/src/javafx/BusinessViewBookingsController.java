@@ -28,7 +28,6 @@ public class BusinessViewBookingsController implements Initializable{
     private ArrayList<Business> businesses;
     private int busPos;
     
-//    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
     private final ObservableList<TableViewBooking> pastBookings = FXCollections.observableArrayList();
     private final ObservableList<TableViewBooking> futureBookings = FXCollections.observableArrayList();
     private final ObservableList<TableViewBooking> todaysBookings = FXCollections.observableArrayList();

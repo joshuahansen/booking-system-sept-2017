@@ -32,7 +32,9 @@ public class BusinessMakeBookingController implements Initializable{
     private ArrayList<Customer> customers;
     private int busPos;
     private Session session;
-    
+    private LocalTime midday = LocalTime.of(12, 00);
+	private LocalTime evening = LocalTime.of(17, 00);
+	
     private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> displayedAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<String> employeeList = FXCollections.observableArrayList();
@@ -41,7 +43,6 @@ public class BusinessMakeBookingController implements Initializable{
     private final ObservableList<String> timeList = FXCollections.observableArrayList();
     private final ObservableList<String> customerList = FXCollections.observableArrayList();
     
-//    private String timesArray[] = new String[]{"8am - 9am", "9am - 10am", "10am - 11am", "11am - 12pm", "12pm - 1pm", "1pm - 2pm", "2pm - 3pm", "3pm - 4pm", "4pm - 5pm", "5pm - 6pm"};
     private String daysOfWeek[] = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     
     @FXML private TableView<AvailableBookingTable> busAvailableBookingTable;
@@ -99,8 +100,7 @@ public class BusinessMakeBookingController implements Initializable{
     		this.day = new SimpleStringProperty(availTime.getDay());
     		this.time = new SimpleStringProperty(availTime.getTimeslotAsString());
     		this.employee = employee;
-    		this.employeeName = new SimpleStringProperty(employee.getName());
-    		
+    		this.employeeName = new SimpleStringProperty(employee.getName());	
     	}
     	
     	/**
@@ -252,11 +252,8 @@ public class BusinessMakeBookingController implements Initializable{
 		//for each item in list check to see if it should still be in the list
 			for(int count = displayedAvailabilities.size() - 1; count >= 0 ; count--)
 				{
-//					boolean doubleTimeslot = false;	
-				
 					String timeslot = "All";
-					LocalTime midday = LocalTime.of(12, 00);
-					LocalTime evening = LocalTime.of(17, 30);
+					
 
 					if(displayedAvailabilities.get(count).getAvailableTime().getEndTime().isBefore(midday) || displayedAvailabilities.get(count).getAvailableTime().getEndTime().equals(midday))
 					{
@@ -284,6 +281,31 @@ public class BusinessMakeBookingController implements Initializable{
 					{
 						displayedAvailabilities.remove(allAvailabilities.get(count));
 					}
+//					else if(!classType.equalsIgnoreCase("All"))
+//					else if(!classType.equalsIgnoreCase("All") && (classType.equalsIgnoreCase("CROSSFIT 2HR") || classType.equalsIgnoreCase("CARDIO 2HR")))
+//					{
+//						try{
+//							if(allAvailabilities.get(count).getEmployeeName().equalsIgnoreCase(allAvailabilities.get(count + 1).getEmployeeName()) 
+//									&& allAvailabilities.get(count).getDay().equalsIgnoreCase(allAvailabilities.get(count + 1).getDay()))
+//							{
+//								for(int i = 0; i < timesArray.length; i++)
+//								{
+//									if(timesArray[i].equalsIgnoreCase(allAvailabilities.get(count).getTime()) && timesArray[i + 1].equalsIgnoreCase(allAvailabilities.get(count + 1).getTime()))
+//									{
+//										doubleTimeslot = true;
+//										break;
+//									}
+//								}
+//							}
+//							}catch(IndexOutOfBoundsException e)
+//							{
+//								doubleTimeslot = false;
+//							}
+//						if(!doubleTimeslot)
+//						{
+//							displayedAvailabilities.remove(allAvailabilities.get(count));
+//						}
+//					}
 				}
 			busAvailableBookingTable.setItems(displayedAvailabilities);
 	}

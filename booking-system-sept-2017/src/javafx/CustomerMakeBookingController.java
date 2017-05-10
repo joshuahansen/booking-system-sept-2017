@@ -28,8 +28,9 @@ public class CustomerMakeBookingController implements Initializable{
     private int custPos;
     private int busPos;
     private Session session;
-    
-//    private final ObservableList<TableViewBooking> bookings = FXCollections.observableArrayList();
+    private LocalTime midday = LocalTime.of(12, 00);
+	private LocalTime evening = LocalTime.of(17, 00);
+
     private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> displayedAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<String> employeeList = FXCollections.observableArrayList();
@@ -37,7 +38,6 @@ public class CustomerMakeBookingController implements Initializable{
     private final ObservableList<String> dayList = FXCollections.observableArrayList();
     private final ObservableList<String> timeList = FXCollections.observableArrayList();
    
-//    private String timesArray[] = new String[]{"8am - 9am", "9am - 10am", "10am - 11am", "11am - 12pm", "12pm - 1pm", "1pm - 2pm", "2pm - 3pm", "3pm - 4pm", "4pm - 5pm", "5pm - 6pm"};
     private String daysOfWeek[] = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     
     @FXML private ComboBox<String> classCombo = new ComboBox<String>();
@@ -201,75 +201,11 @@ public class CustomerMakeBookingController implements Initializable{
    		
     		removeBookedTimes();
 
-		}
-//    	for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos ++)
-//		{
-//    		int smallestBooking = 0;
-//			for(int i = 0; i < businesses.get(busPos).bookingTypes.size(); i++)
-//			{
-//				smallestBooking = businesses.get(busPos).bookingTypes.get(i).getBookingLength();
-//				if(businesses.get(busPos).bookingTypes.get(i).getBookingLength() < smallestBooking)
-//				{
-//					smallestBooking = businesses.get(busPos).bookingTypes.get(i).getBookingLength();
-//				}
-//			}
-//			
-//    		Employee currentEmployee = businesses.get(busPos).employees.get(empPos);
-//    		for(int availTime = 0; availTime < currentEmployee.availableTimes.size(); availTime++)
-//    		{    
-//    			AvailableBookingTable newBooking = new AvailableBookingTable(today, 
-//    					currentEmployee.availableTimes.get(availTime).getStartTime(), currentEmployee.availableTimes.get(availTime).getStartTime().plusMinutes(smallestBooking), 
-//    					currentEmployee.availableTimes.get(availTime).getDay(), currentEmployee);
-//    			allAvailabilities.add(newBooking);
-//    			
-//    			while(newBooking.availTime.getEndTime().isBefore(currentEmployee.availableTimes.get(availTime).getEndTime()) )
-//    			{
-//    				newBooking = new AvailableBookingTable(today, 
-//    						newBooking.availTime.getEndTime(), newBooking.availTime.getEndTime().plusMinutes(smallestBooking), 
-//    					currentEmployee.availableTimes.get(availTime).getDay(), currentEmployee);
-//    				allAvailabilities.add(newBooking);
-//    			}
-//    		}
-//    		for(int availPos = 0; availPos < allAvailabilities.size(); availPos++)
-//    		{
-//    			AvailableBookingTable currentTime = allAvailabilities.get(availPos);
-//    			for(int bookingPos = 0; bookingPos < businesses.get(busPos).bookings.size(); bookingPos++)
-//    			{
-//    				Booking currentBooking = businesses.get(busPos).bookings.get(bookingPos);
-//    				if(currentBooking.getBookingTime().getDay().equals(currentTime.getAvailableTime().getDay()) &&
-//    						currentBooking.getDate().equals(currentTime.getLocalDate()))
-//    				{
-//	    				if(currentBooking.getBookingTime().getStartTime().isBefore(currentTime.getAvailableTime().getStartTime()) &&
-//	    						currentBooking.getBookingTime().getEndTime().isAfter(currentTime.getAvailableTime().getStartTime()))
-//	    				{
-//	    					allAvailabilities.remove(currentTime);
-//	    					availPos--;
-//	    					break;
-//	    				}
-//	    				else if(currentBooking.getBookingTime().equals(currentTime.getAvailableTime()))
-//	    				{
-//	    					allAvailabilities.remove(currentTime);
-//	    					availPos--;
-//	    					break;
-//	    				}
-//	    				else if((currentBooking.getBookingTime().getStartTime().equals(currentTime.getAvailableTime().getStartTime()) || 
-//	    						currentBooking.getBookingTime().getStartTime().isAfter(currentTime.getAvailableTime().getStartTime())) && 
-//	    						currentBooking.getBookingTime().getStartTime().isBefore(currentTime.getAvailableTime().getEndTime()))
-//	    				{
-//	    					allAvailabilities.remove(currentTime);
-//	    					availPos--;
-//	    					break;
-//	    				}
-//    				}
-//    			}
-//    		}
-//		}	
+		}	
     	custAvailableBookingTable.setItems(allAvailabilities);
     	session.addLog("Display availabilities");
 	}
-//    	custAvailableBookingTable.setItems(allAvailabilities);
-//	}
-//	
+
 	public void handleSortAvailability(ActionEvent event)
 	{
 		session.addLog("Sort availabilities");
@@ -288,11 +224,7 @@ public class CustomerMakeBookingController implements Initializable{
 		//for each item in list check to see if it should still be in the list
 			for(int count = displayedAvailabilities.size() - 1; count >= 0 ; count--)
 				{
-//					boolean doubleTimeslot = false;	
-				
 					String timeslot = "All";
-					LocalTime midday = LocalTime.of(12, 00);
-					LocalTime evening = LocalTime.of(17, 30);
 
 					if(displayedAvailabilities.get(count).getAvailableTime().getEndTime().isBefore(midday) || displayedAvailabilities.get(count).getAvailableTime().getEndTime().equals(midday))
 					{
@@ -348,9 +280,7 @@ public class CustomerMakeBookingController implements Initializable{
 				}
 			custAvailableBookingTable.setItems(displayedAvailabilities);
 	}
-//			custAvailableBookingTable.setItems(displayedAvailabilities);
-//	}
-//	
+	
 	public void handleMakeBookingButtonAction(ActionEvent event)
 	{
 		session.addLog("Make Booking Button Pressed");
