@@ -438,57 +438,262 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	 {
 		 for(int i = 0; i < empl.availableTimes.size(); i++)
 		 {
-			 if(empl.availableTimes.get(i).getDay())
+			 if(empl.availableTimes.get(i).getDay().equals("Monday"))
+			 {
+				if(empl.availableTimes.get(i).getEndTime().equals(midday))
+				{
+					 btn[0][0].setText("Availiable");
+					 btn[0][0].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[0][0].setText("Not Availiable");
+        			btn[0][0].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getEndTime().equals(evening))
+				{
+					 btn[0][1].setText("Availiable");
+					 btn[0][1].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[0][1].setText("Not Availiable");
+        			btn[0][1].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getStartTime().equals(evening))
+				{
+					 btn[0][2].setText("Availiable");
+					 btn[0][2].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[0][2].setText("Not Availiable");
+        			btn[0][2].setStyle("-fx-text-fill: #cc0000");
+				}
+			 }
+			 
+			 if(empl.availableTimes.get(i).getDay().equals("Tuesday"))
+			 {
+				if(empl.availableTimes.get(i).getEndTime().equals(midday))
+				{
+					 btn[1][0].setText("Availiable");
+					 btn[1][0].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[1][0].setText("Not Availiable");
+        			btn[1][0].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getEndTime().equals(evening))
+				{
+					 btn[1][1].setText("Availiable");
+					 btn[1][1].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[1][1].setText("Not Availiable");
+        			btn[1][1].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getStartTime().equals(evening))
+				{
+					 btn[1][2].setText("Availiable");
+					 btn[1][2].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[1][2].setText("Not Availiable");
+        			btn[1][2].setStyle("-fx-text-fill: #cc0000");
+				}
+			 }
+			 
+			 if(empl.availableTimes.get(i).getDay().equals("Wednesday"))
+			 {
+				if(empl.availableTimes.get(i).getEndTime().equals(midday))
+				{
+					 btn[2][0].setText("Availiable");
+					 btn[2][0].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[2][0].setText("Not Availiable");
+        			btn[2][0].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getEndTime().equals(evening))
+				{
+					 btn[2][1].setText("Availiable");
+					 btn[2][1].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[2][1].setText("Not Availiable");
+        			btn[2][1].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getStartTime().equals(evening))
+				{
+					 btn[2][2].setText("Availiable");
+					 btn[2][2].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[2][2].setText("Not Availiable");
+        			btn[2][2].setStyle("-fx-text-fill: #cc0000");
+				}
+			 }
+			 
+			 if(empl.availableTimes.get(i).getDay().equals("Thursday"))
+			 {
+				if(empl.availableTimes.get(i).getEndTime().equals(midday))
+				{
+					 btn[3][0].setText("Availiable");
+					 btn[3][0].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[3][0].setText("Not Availiable");
+        			btn[3][0].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getEndTime().equals(evening))
+				{
+					 btn[3][1].setText("Availiable");
+					 btn[3][1].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[3][1].setText("Not Availiable");
+        			btn[3][1].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getStartTime().equals(evening))
+				{
+					 btn[3][2].setText("Availiable");
+					 btn[3][2].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[3][2].setText("Not Availiable");
+        			btn[3][2].setStyle("-fx-text-fill: #cc0000");
+				}
+			 }
+			 
+			 if(empl.availableTimes.get(i).getDay().equals("Friday"))
+			 {
+				if(empl.availableTimes.get(i).getEndTime().equals(midday))
+				{
+					 btn[4][0].setText("Availiable");
+					 btn[4][0].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[4][0].setText("Not Availiable");
+        			btn[4][0].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getEndTime().equals(evening))
+				{
+					 btn[4][1].setText("Availiable");
+					 btn[4][1].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[4][1].setText("Not Availiable");
+        			btn[4][1].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getStartTime().equals(evening))
+				{
+					 btn[4][2].setText("Availiable");
+					 btn[4][2].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[4][2].setText("Not Availiable");
+        			btn[4][2].setStyle("-fx-text-fill: #cc0000");
+				}
+			 }
+			 
+			 if(empl.availableTimes.get(i).getDay().equals("Saturday"))
+			 {
+				if(empl.availableTimes.get(i).getEndTime().equals(midday))
+				{
+					 btn[5][0].setText("Availiable");
+					 btn[5][0].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[5][0].setText("Not Availiable");
+        			btn[5][0].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getEndTime().equals(evening))
+				{
+					btn[5][1].setText("Availiable");
+					btn[5][1].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[5][1].setText("Not Availiable");
+        			btn[5][1].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getStartTime().equals(evening))
+				{
+					 btn[5][2].setText("Availiable");
+					 btn[5][2].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[5][2].setText("Not Availiable");
+        			btn[5][2].setStyle("-fx-text-fill: #cc0000");
+				}
+			 }
+			 
+			 if(empl.availableTimes.get(i).getDay().equals("Sunday"))
+			 {
+				if(empl.availableTimes.get(i).getEndTime().equals(midday))
+				{
+					 btn[6][0].setText("Availiable");
+					 btn[6][0].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[6][0].setText("Not Availiable");
+        			btn[6][0].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getEndTime().equals(evening))
+				{
+					 btn[6][1].setText("Availiable");
+					 btn[6][1].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[6][1].setText("Not Availiable");
+        			btn[6][1].setStyle("-fx-text-fill: #cc0000");
+				}
+				
+				if(empl.availableTimes.get(i).getStartTime().equals(evening))
+				{
+					 btn[6][2].setText("Availiable");
+					 btn[6][2].setStyle("-fx-text-fill: #00ce00");
+				}
+				else
+				{
+					btn[6][2].setText("Not Availiable");
+        			btn[6][2].setStyle("-fx-text-fill: #cc0000");
+				}
+			 }
+			 
 		 }
 			
-			for(int i = 0; i <empl.availableTimes.size; i++) 
-			{
-		        for(int j = 0; j <empl.availableTimes[i].length; j++) 
-		        {
-		            
-		        	if (j == 0 || j == 1 || j == 2 || j == 3) 
-		        	{
-		        		if(empl.availableTimes[i][j] == 1)
-		        		{
-		        			btn[i][0].setText("Availiable");
-		        			btn[i][0].setStyle("-fx-text-fill: #00ce00");
-		        		}
-		        		else if(empl.availableTimes[i][j] == 0)
-		        		{
-		        			btn[i][0].setText("Not Availiable");
-		        			btn[i][0].setStyle("-fx-text-fill: #cc0000");
-	
-		        		}
-		        	}
-		        	else if (j == 4 || j == 5 || j == 6)
-		        	{
-		        		if(empl.availableTimes[i][j] == 1)
-		        		{
-		        			btn[i][1].setText("Availiable");
-		        			btn[i][1].setStyle("-fx-text-fill: #00ce00");
-		        		}
-		        		else if(empl.availableTimes[i][j] == 0)
-		        		{
-		        			btn[i][1].setText("Not Availiable");
-		        			btn[i][1].setStyle("-fx-text-fill: #cc0000");
-		        		}
-		        	}
-		        	else if (j == 7 || j == 8 || j == 9)
-		        	{
-		        		if(empl.availableTimes[i][j] == 1)
-		        		{
-		        			btn[i][2].setText("Availiable");
-		        			btn[i][2].setStyle("-fx-text-fill: #00ce00");
-		        		}
-		        		else if(empl.availableTimes[i][j] == 0)
-		        		{
-		        			btn[i][2].setText("Not Availiable");
-		        			btn[i][2].setStyle("-fx-text-fill: #cc0000");
-		        		}
-		        	}    	
-		        }
-		    }
-		}
+	 }		
+
 //	public void updateButton(Employee empl, Button button) 
 //	{		
 //		if(button.getText().equals("Not Availiable") || button.getText().equals(""))
