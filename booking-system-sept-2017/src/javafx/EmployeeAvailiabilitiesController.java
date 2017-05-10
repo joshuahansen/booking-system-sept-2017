@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import main.Session;
 import users.Business;
 import users.Employee;
@@ -136,11 +137,14 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 		if(button.getText().equals("Not Availiable") || button.getText().equals(""))
 		{
 			button.setText("Availiable");
+			button.setStyle("-fx-text-fill: #00ce00");
 			
 		}
 		else if(button.getText().equals("Availiable") || button.getText().equals(""))
 		{
 			button.setText("Not Availiable");
+			button.setStyle("-fx-text-fill: #cc0000");
+
 		}	
 		
 		for(int i = 0; i <btn.length; i++) 
@@ -209,10 +213,13 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	        		if(empl.availableTimes[i][j] == 1)
 	        		{
 	        			btn[i][0].setText("Availiable");
+	        			btn[i][0].setStyle("-fx-text-fill: #00ce00");
 	        		}
 	        		else if(empl.availableTimes[i][j] == 0)
 	        		{
 	        			btn[i][0].setText("Not Availiable");
+	        			btn[i][0].setStyle("-fx-text-fill: #cc0000");
+
 	        		}
 	        	}
 	        	else if (j == 4 || j == 5 || j == 6)
@@ -220,10 +227,12 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	        		if(empl.availableTimes[i][j] == 1)
 	        		{
 	        			btn[i][1].setText("Availiable");
+	        			btn[i][1].setStyle("-fx-text-fill: #00ce00");
 	        		}
 	        		else if(empl.availableTimes[i][j] == 0)
 	        		{
 	        			btn[i][1].setText("Not Availiable");
+	        			btn[i][1].setStyle("-fx-text-fill: #cc0000");
 	        		}
 	        	}
 	        	else if (j == 7 || j == 8 || j == 9)
@@ -231,10 +240,12 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	        		if(empl.availableTimes[i][j] == 1)
 	        		{
 	        			btn[i][2].setText("Availiable");
+	        			btn[i][2].setStyle("-fx-text-fill: #00ce00");
 	        		}
 	        		else if(empl.availableTimes[i][j] == 0)
 	        		{
 	        			btn[i][2].setText("Not Availiable");
+	        			btn[i][2].setStyle("-fx-text-fill: #cc0000");
 	        		}
 	        	}    	
 	        }
