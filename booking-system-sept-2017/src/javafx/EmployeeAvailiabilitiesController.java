@@ -434,6 +434,61 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 		 
 	 }
 	
+	 public void loadButtons(Employee empl) 
+	 {
+		 for(int i = 0; i < empl.availableTimes.size(); i++)
+		 {
+			 if(empl.availableTimes.get(i).getDay())
+		 }
+			
+			for(int i = 0; i <empl.availableTimes.size; i++) 
+			{
+		        for(int j = 0; j <empl.availableTimes[i].length; j++) 
+		        {
+		            
+		        	if (j == 0 || j == 1 || j == 2 || j == 3) 
+		        	{
+		        		if(empl.availableTimes[i][j] == 1)
+		        		{
+		        			btn[i][0].setText("Availiable");
+		        			btn[i][0].setStyle("-fx-text-fill: #00ce00");
+		        		}
+		        		else if(empl.availableTimes[i][j] == 0)
+		        		{
+		        			btn[i][0].setText("Not Availiable");
+		        			btn[i][0].setStyle("-fx-text-fill: #cc0000");
+	
+		        		}
+		        	}
+		        	else if (j == 4 || j == 5 || j == 6)
+		        	{
+		        		if(empl.availableTimes[i][j] == 1)
+		        		{
+		        			btn[i][1].setText("Availiable");
+		        			btn[i][1].setStyle("-fx-text-fill: #00ce00");
+		        		}
+		        		else if(empl.availableTimes[i][j] == 0)
+		        		{
+		        			btn[i][1].setText("Not Availiable");
+		        			btn[i][1].setStyle("-fx-text-fill: #cc0000");
+		        		}
+		        	}
+		        	else if (j == 7 || j == 8 || j == 9)
+		        	{
+		        		if(empl.availableTimes[i][j] == 1)
+		        		{
+		        			btn[i][2].setText("Availiable");
+		        			btn[i][2].setStyle("-fx-text-fill: #00ce00");
+		        		}
+		        		else if(empl.availableTimes[i][j] == 0)
+		        		{
+		        			btn[i][2].setText("Not Availiable");
+		        			btn[i][2].setStyle("-fx-text-fill: #cc0000");
+		        		}
+		        	}    	
+		        }
+		    }
+		}
 //	public void updateButton(Employee empl, Button button) 
 //	{		
 //		if(button.getText().equals("Not Availiable") || button.getText().equals(""))
