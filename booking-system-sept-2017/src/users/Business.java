@@ -30,8 +30,6 @@ public class Business extends User
 	
 	private ArrayList<AvailableTime> businessHours = new ArrayList<AvailableTime>();
 	
-	private ArrayList<BookingType> bookingTypes = new ArrayList<BookingType>();
-	
 	private ArrayList<Customer> customers = new ArrayList<Customer>();
 	/**
 	 * Constructor to make business object.
@@ -46,6 +44,9 @@ public class Business extends User
 	public Business(String businessName, String firstName, String lastName, String address, 
 					String contactNumber, String username, String password) 
 	{
+		/**
+		 * Passes common generic user values to the user superclass constructor.
+		 */
 		super(firstName, lastName, address, contactNumber, username, password);
 		setBusinessName(businessName);
 	}
@@ -101,6 +102,15 @@ public class Business extends User
 		return this.customers;
 	}
 	
+
+	/**
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @param day
+	 * @return
+	 */
+
 	public boolean addBusinessHours(LocalTime startTime, LocalTime endTime, String day)
 	{
 		AvailableTime newAvailTime = new AvailableTime(startTime, endTime, day);
@@ -121,6 +131,12 @@ public class Business extends User
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param bookingType
+	 * @param bookingLength
+	 * @return
+	 */
 	public boolean addBookingType(String bookingType, int bookingLength)
 	{
 		BookingType newBookingType = new BookingType(bookingType, bookingLength);
