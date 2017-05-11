@@ -156,11 +156,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 			{
 				if(i == 0 && j == 0)
 				{
-					for(int k = 0; k < businesses.get(busPos).businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(businesses.get(busPos).businessHours.get(k).getDay().equals("Monday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Monday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Monday");
+        					AvailableTime avail = new AvailableTime(business.getBusinessHours().get(k).getStartTime(), midday , "Monday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -169,9 +169,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 0 && j == 1)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Monday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Monday"))
 	        			{
         					AvailableTime avail = new AvailableTime(midday, evening , "Monday");
         					empl.availableTimes.add(avail);
@@ -182,11 +182,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 0 && j == 2)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Monday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Monday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Monday");
+        					AvailableTime avail = new AvailableTime(evening, business.getBusinessHours().get(k).getEndTime() , "Monday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -195,11 +195,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 1 && j == 0)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Tuesday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Tuesday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Tuesday");
+        					AvailableTime avail = new AvailableTime(business.getBusinessHours().get(k).getStartTime(), midday , "Tuesday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -208,9 +208,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 1 && j == 1)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Tuesday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Tuesday"))
 	        			{
         					AvailableTime avail = new AvailableTime(midday, evening , "Tuesday");
         					empl.availableTimes.add(avail);
@@ -221,11 +221,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 1 && j == 2)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Tuesday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Tuesday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Tuesday");
+        					AvailableTime avail = new AvailableTime(evening, business.getBusinessHours().get(k).getEndTime() , "Tuesday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -234,11 +234,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 2 && j == 0)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Wednesday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Wednesday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Wednesday");
+        					AvailableTime avail = new AvailableTime(business.getBusinessHours().get(k).getStartTime(), midday , "Wednesday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -247,9 +247,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 2 && j == 1)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Wednesday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Wednesday"))
 	        			{
         					AvailableTime avail = new AvailableTime(midday, evening , "Wednesday");
         					empl.availableTimes.add(avail);
@@ -260,11 +260,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 2 && j == 2)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Wednesday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Wednesday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Wednesday");
+        					AvailableTime avail = new AvailableTime(evening, business.getBusinessHours().get(k).getEndTime() , "Wednesday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -273,11 +273,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 3 && j == 0)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Thursday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Thursday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Thursday");
+        					AvailableTime avail = new AvailableTime(business.getBusinessHours().get(k).getStartTime(), midday , "Thursday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -286,9 +286,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 3 && j == 1)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Thursday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Thursday"))
 	        			{
         					AvailableTime avail = new AvailableTime(midday, evening , "Thursday");
         					empl.availableTimes.add(avail);
@@ -299,11 +299,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 3 && j == 2)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Thursday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Thursday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Thursday");
+        					AvailableTime avail = new AvailableTime(evening, business.getBusinessHours().get(k).getEndTime() , "Thursday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -312,11 +312,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 4 && j == 0)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Friday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Friday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Friday");
+        					AvailableTime avail = new AvailableTime(business.getBusinessHours().get(k).getStartTime(), midday , "Friday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -325,9 +325,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 4 && j == 1)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Friday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Friday"))
 	        			{
         					AvailableTime avail = new AvailableTime(midday, evening , "Friday");
         					empl.availableTimes.add(avail);
@@ -338,11 +338,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 4 && j == 2)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Friday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Friday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Friday");
+        					AvailableTime avail = new AvailableTime(evening, business.getBusinessHours().get(k).getEndTime() , "Friday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -351,11 +351,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 5 && j == 0)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Saturday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Saturday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Saturday");
+        					AvailableTime avail = new AvailableTime(business.getBusinessHours().get(k).getStartTime(), midday , "Saturday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -364,9 +364,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 5 && j == 1)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Saturday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Saturday"))
 	        			{
         					AvailableTime avail = new AvailableTime(midday, evening , "Saturday");
         					empl.availableTimes.add(avail);
@@ -377,11 +377,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 5 && j == 2)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Saturday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Saturday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Saturday");
+        					AvailableTime avail = new AvailableTime(evening, business.getBusinessHours().get(k).getEndTime() , "Saturday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -390,11 +390,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 6 && j == 0)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Sunday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Sunday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(businesses.get(busPos).businessHours.get(k).getStartTime(), midday , "Sunday");
+        					AvailableTime avail = new AvailableTime(business.getBusinessHours().get(k).getStartTime(), midday , "Sunday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}
@@ -403,9 +403,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 6 && j == 1)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Sunday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Sunday"))
 	        			{
         					AvailableTime avail = new AvailableTime(midday, evening , "Sunday");
         					empl.availableTimes.add(avail);
@@ -416,11 +416,11 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 				
 				if(i == 6 && j == 2)
 				{
-					for(int k = 0; k < business.businessHours.size(); k++)
+					for(int k = 0; k < business.getBusinessHours().size(); k++)
 					{
-						if(business.businessHours.get(k).getDay().equals("Sunday"))
+						if(business.getBusinessHours().get(k).getDay().equals("Sunday"))
 	        			{
-        					AvailableTime avail = new AvailableTime(evening, businesses.get(busPos).businessHours.get(k).getEndTime() , "Sunday");
+        					AvailableTime avail = new AvailableTime(evening, business.getBusinessHours().get(k).getEndTime() , "Sunday");
         					empl.availableTimes.add(avail);
 	        			}	 
 					}

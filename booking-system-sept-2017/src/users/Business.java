@@ -30,6 +30,8 @@ public class Business extends User
 	
 	private ArrayList<AvailableTime> businessHours = new ArrayList<AvailableTime>();
 	
+	private ArrayList<BookingType> bookingTypes = new ArrayList<BookingType>();
+	
 	private ArrayList<Customer> customers = new ArrayList<Customer>();
 	/**
 	 * Constructor to make business object.
