@@ -60,7 +60,7 @@ public class DatabaseTest {
 	{
 		database.initDatabase(session);
 		database.defaultValues(session);
-		assertTrue(database.readCustDB(session, customers));
+		assertTrue(database.readCustDB(session, businesses));
 	}
 	
 	@Test

@@ -50,16 +50,16 @@ public class RegisterCustomerController implements Initializable{
 	@FXML private Tooltip phoneTooltip;
 	@FXML private Tooltip passwordTooltip;
 	
-	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
+	private Business business;
 	private Registration reg = new Registration();
 	private Session session;
 	private Database database;
     
-    public RegisterCustomerController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
+    public RegisterCustomerController(Session session, ArrayList<Business> businesses, Business business, Database database)
     {
-    	this.customers = customers;
     	this.businesses = businesses;
+    	this.business = business;
     	this.session = session;
     	this.database = database;
     }
@@ -81,13 +81,13 @@ public class RegisterCustomerController implements Initializable{
 	    	else
 	    	{
 	    		if(reg.setValues(registerFirstNameData.getText(), registerLastNameData.getText(),
-	    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText(), customers, businesses))
+	    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText(), business))
 	    		{
-	    			reg.registerNewCustGUI(customers, businesses, registerFirstNameData.getText(), registerLastNameData.getText(),
+	    			reg.registerNewCustGUI(business, registerFirstNameData.getText(), registerLastNameData.getText(),
 		    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText());
 	    			session.addLog("Registration Pass");
 	    			FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-					LoginController controller = new LoginController(session, customers, businesses, database);
+					LoginController controller = new LoginController(session, businesses, business, database);
 					loader.setController(controller);
 					
 					root = loader.load();
@@ -100,7 +100,7 @@ public class RegisterCustomerController implements Initializable{
 	    		{
 	    			session.addLog("Registration fail");
 	    			registerActiontarget.setText("Registration failed");
-	    			if(!reg.validUsername(customers, businesses))
+	    			if(!reg.validUsername(business))
 	    			{
 	    				usernameFail.setText("Username Not Valid");
 	    			}
@@ -169,7 +169,7 @@ public class RegisterCustomerController implements Initializable{
 	    	stage = (Stage) cancelButton.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, customers, businesses, database);
+			LoginController controller = new LoginController(session, businesses, business, database);
 			loader.setController(controller);
 			
 			root = loader.load();

@@ -18,10 +18,8 @@ import main.Session;
 import users.*;
 
 public class CustViewBookingsController implements Initializable{
-    private ArrayList<Customer> customers;
-    private ArrayList<Business> businesses;
-    private int custPos;
-    private int busPos;
+    private Customer customer;
+    private Business business;
     private Session session;
     
     private final ObservableList<TableViewBooking> allBookings = FXCollections.observableArrayList();
@@ -31,12 +29,10 @@ public class CustViewBookingsController implements Initializable{
     @FXML private TableView<TableViewBooking> custBookingsTable;    
     @FXML private ComboBox<String> bookingCombo = new ComboBox<String>();
         
-    public CustViewBookingsController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, int custPos, int busPos)
+    public CustViewBookingsController(Session session, Customer customer, Business business)
     {
-    	this.customers = customers;
-    	this.businesses = businesses;
-    	this.custPos = custPos;
-    	this.busPos = busPos;
+    	this.customer = customer;
+    	this.business = business;;
     	this.session = session;
     }
     
@@ -108,14 +104,14 @@ public class CustViewBookingsController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		session.addLog("Custoemr view bookings");
-		for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+		for(int i = 0; i < business.getBookings().size(); i ++)
 		{
-			if(businesses.get(busPos).bookings.get(i).getCustUsername().equals(customers.get(custPos).getUsername()))
+			if(business.getBookings().get(i).getCustUsername().equals(customer.getUsername()))
 			{
-				allBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(), 
-						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+				allBookings.add(new TableViewBooking(business.getBookings().get(i).getBookingID(), business.getBookings().get(i).getSessionType(),
+						business.getBookings().get(i).getDate(), business.getBookings().get(i).getCustomerName(), 
+						business.getBookings().get(i).getBookingTime().getDay(), business.getBookings().get(i).getBookingTime().getTimeslotAsString(),
+						business.getBookings().get(i).getEmployeeName()));
 			}
 		}
 		

@@ -4,10 +4,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -28,9 +25,7 @@ import users.*;
  *
  */
 public class BusinessMakeBookingController implements Initializable{
-    private ArrayList<Business> businesses;
-    private ArrayList<Customer> customers;
-    private int busPos;
+    private Business business;
     private Session session;
     private LocalTime midday = LocalTime.of(12, 00);
 	private LocalTime evening = LocalTime.of(17, 00);
@@ -60,11 +55,9 @@ public class BusinessMakeBookingController implements Initializable{
      * @param customers Passes reference to customers array created in BookingSystem class
      * @param busPos Passes value of logging in user and sets it to local variable
      */
-    public BusinessMakeBookingController(Session session, ArrayList<Business> businesses, ArrayList<Customer> customers, int busPos)
+    public BusinessMakeBookingController(Session session, Business business)
     {
-    	this.businesses = businesses;
-    	this.customers = customers;
-    	this.busPos = busPos;
+    	this.business = business;
     	this.session = session;
     }
     
@@ -84,6 +77,7 @@ public class BusinessMakeBookingController implements Initializable{
     	private final SimpleStringProperty day;
     	private final SimpleStringProperty time;
     	private final Employee employee;
+    	
     	/**
     	 * Constructor for new row in TableView
     	 * @param date passes LocalDate object and changes to String for displaying
@@ -172,17 +166,17 @@ public class BusinessMakeBookingController implements Initializable{
 		LocalDate today = LocalDate.now();
 		
 		classType.add("All");
-		for(int classPos = 0; classPos < businesses.get(busPos).bookingTypes.size(); classPos++)
+		for(int classPos = 0; classPos < business.getBookingTypes().size(); classPos++)
 		{
-			classType.add(businesses.get(busPos).bookingTypes.get(classPos).getBookingType());
+			classType.add(business.getBookingTypes().get(classPos).getBookingType());
 		}
 		classCombo.setItems(classType);
 		classCombo.setValue("All");
 		
 		employeeList.add("All");
-		for(int empNo = 0; empNo < businesses.get(busPos).employees.size(); empNo++)
+		for(int empNo = 0; empNo < business.getEmployees().size(); empNo++)
 		{
-			employeeList.add(businesses.get(busPos).employees.get(empNo).getName());
+			employeeList.add(business.getEmployees().get(empNo).getName());
 		}
 		employeeCombo.setItems(employeeList);
 		employeeCombo.setValue("All");
@@ -195,32 +189,32 @@ public class BusinessMakeBookingController implements Initializable{
 		timeCombo.setValue("All");
 		
 		dayList.add("All");
-		for(int pos = 0; pos < businesses.get(busPos).businessHours.size(); pos++)
+		for(int pos = 0; pos < business.getBusinessHours().size(); pos++)
 		{
-			dayList.add(businesses.get(busPos).businessHours.get(pos).getDay());
+			dayList.add(business.getBusinessHours().get(pos).getDay());
 		}
 		dayCombo.setItems(dayList);
 		dayCombo.setValue("All");
 		
-		for(int i = 0; i < customers.size(); i++)
+		for(int i = 0; i < business.getCustomers().size(); i++)
 		{
-			customerList.add(customers.get(i).getUsername() + " " + customers.get(i).getFullName());
+			customerList.add(business.getCustomers().get(i).getUsername() + " " + business.getCustomers().get(i).getFullName());
 		}
 		customerCombo.setItems(customerList);
 		
-    	for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos ++)
+    	for(int empPos = 0; empPos < business.getEmployees().size(); empPos ++)
 		{
     		int smallestBooking = 0;
-			for(int i = 0; i < businesses.get(busPos).bookingTypes.size(); i++)
+			for(int i = 0; i < business.getBookingTypes().size(); i++)
 			{
-				smallestBooking = businesses.get(busPos).bookingTypes.get(i).getBookingLength();
-				if(businesses.get(busPos).bookingTypes.get(i).getBookingLength() < smallestBooking)
+				smallestBooking = business.getBookingTypes().get(i).getBookingLength();
+				if(business.getBookingTypes().get(i).getBookingLength() < smallestBooking)
 				{
-					smallestBooking = businesses.get(busPos).bookingTypes.get(i).getBookingLength();
+					smallestBooking = business.getBookingTypes().get(i).getBookingLength();
 				}
 			}
 			
-    		Employee currentEmployee = businesses.get(busPos).employees.get(empPos);
+    		Employee currentEmployee = business.getEmployees().get(empPos);
     		addAvailableTime(currentEmployee, today, smallestBooking);
    		
     		removeBookedTimes();
@@ -343,19 +337,19 @@ public class BusinessMakeBookingController implements Initializable{
 		else
 		{
 			String selectedCustomersValues[] = customerCombo.getValue().split(" ");
-			for(int custPos = 0; custPos < customers.size(); custPos++)
+			for(int custPos = 0; custPos < business.getCustomers().size(); custPos++)
 			{
-				if(customers.get(custPos).getUsername().equalsIgnoreCase(selectedCustomersValues[0]))
+				if(business.getCustomers().get(custPos).getUsername().equalsIgnoreCase(selectedCustomersValues[0]))
 				{
-					selectedCustomer = customers.get(custPos);
+					selectedCustomer = business.getCustomers().get(custPos);
 				}
 			}
 			
-			for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos++)
+			for(int empPos = 0; empPos < business.getEmployees().size(); empPos++)
 			{
-				if(businesses.get(busPos).employees.get(empPos).getName().equalsIgnoreCase(newSelection.getEmployeeName()))
+				if(business.getEmployees().get(empPos).getName().equalsIgnoreCase(newSelection.getEmployeeName()))
 				{
-					employee = businesses.get(busPos).employees.get(empPos);
+					employee = business.getEmployees().get(empPos);
 				}
 			}
 			
@@ -382,7 +376,7 @@ public class BusinessMakeBookingController implements Initializable{
 			String day = newSelection.getDay();
 			
 				Booking newBooking = new Booking(generateBookingID(), classType, day, startTime, endTime, date, selectedCustomer, employee);
-				addBooking(businesses.get(busPos), newBooking);
+				addBooking(business, newBooking);
 				allAvailabilities.remove(newSelection);
 				displayedAvailabilities.remove(newSelection);
 				addBookingLabel.setText("Booked with " + employee.getName() + " at " + newSelection.getTime() + " on the " + date);
@@ -396,7 +390,7 @@ public class BusinessMakeBookingController implements Initializable{
 	public String generateBookingID()
 	{
 		String bookingID = new String();
-		int lastBooking = businesses.get(busPos).bookings.size() - 1;
+		int lastBooking = business.getBookings().size() - 1;
 		int nextBookingId;
 		if(lastBooking < 0)
 		{
@@ -404,7 +398,7 @@ public class BusinessMakeBookingController implements Initializable{
 		}
 		else
 		{
-			nextBookingId = Integer.valueOf(businesses.get(busPos).bookings.get(lastBooking).getBookingID());
+			nextBookingId = Integer.valueOf(business.getBookings().get(lastBooking).getBookingID());
 			nextBookingId++;
 		}
 		
@@ -422,12 +416,12 @@ public class BusinessMakeBookingController implements Initializable{
 	{
 		boolean bookingFound = false;
 		
-		int numberOfBookings = business.bookings.size();
+		int numberOfBookings = business.getBookings().size();
 		int counter = 0;
 		
 		for (counter = 0; counter < numberOfBookings; counter++)
 		{
-			if (business.bookings.get(counter).equals(booking))
+			if (business.getBookings().get(counter).equals(booking))
 			{
 				bookingFound = true;
 			}
@@ -439,7 +433,7 @@ public class BusinessMakeBookingController implements Initializable{
 		}
 		else
 		{
-			business.bookings.add(booking);
+			business.getBookings().add(booking);
 			
 			return true;
 		}
@@ -453,14 +447,14 @@ public class BusinessMakeBookingController implements Initializable{
 	 */
 	public boolean removeBooking(Business business, Booking booking)
 	{
-		int numberOfBookings = business.bookings.size();
+		int numberOfBookings = business.getBookings().size();
 		int counter = 0;
 		
 		for (counter = 0; counter < numberOfBookings; counter++)
 		{
-			if (business.bookings.get(counter).equals(booking))
+			if (business.getBookings().get(counter).equals(booking))
 			{
-				business.bookings.remove(counter);
+				business.getBookings().remove(counter);
 				
 				return true;
 			}
@@ -499,9 +493,9 @@ public class BusinessMakeBookingController implements Initializable{
 		for(int availPos = 0; availPos < allAvailabilities.size(); availPos++)
 		{
 			AvailableBookingTable currentTime = allAvailabilities.get(availPos);
-			for(int bookingPos = 0; bookingPos < businesses.get(busPos).bookings.size(); bookingPos++)
+			for(int bookingPos = 0; bookingPos < business.getBookings().size(); bookingPos++)
 			{
-				Booking currentBooking = businesses.get(busPos).bookings.get(bookingPos);
+				Booking currentBooking = business.getBookings().get(bookingPos);
 				if(currentBooking.getBookingTime().getDay().equals(currentTime.getAvailableTime().getDay()) &&
 						currentBooking.getDate().equals(currentTime.getLocalDate()))
 				{

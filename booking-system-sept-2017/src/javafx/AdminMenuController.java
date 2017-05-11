@@ -24,8 +24,9 @@ import users.*;
 
 public class AdminMenuController implements  Initializable{
 	private Session session;
-	private ArrayList<Customer> customers;
+//	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
+//	private Business business;
 	private Database database;
 
 	@FXML private GridPane businessRegistration;
@@ -69,10 +70,11 @@ public class AdminMenuController implements  Initializable{
 
 	private final ObservableList<String> businessesComboList = FXCollections.observableArrayList();
 
-	public AdminMenuController(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
+	public AdminMenuController(Session session, ArrayList<Business> businesses, Database database)
 	{
-		this.customers = customers;
+//		this.customers = customers;
 		this.businesses = businesses;
+//		this.business = business;
 		this.session = session;
 		this.database = database;
 	}
@@ -131,10 +133,10 @@ public class AdminMenuController implements  Initializable{
 			}
 			try{
 				Login newLogin = new Login(username, password);
-				newLogin.login(customers, businesses, database);
+				newLogin.login(businesses.get(userPos), database);
 				session.addLog("Load business menu");
 		  		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMenu.fxml"));
-				BusinessMenuController controller = new BusinessMenuController(session, customers, businesses, userPos, database);
+				BusinessMenuController controller = new BusinessMenuController(session, businesses, businesses.get(userPos), database);
 				loader.setController(controller);
 				
 				root = loader.load();
@@ -158,13 +160,20 @@ public class AdminMenuController implements  Initializable{
     	
     	stage = (Stage) adminLogoutButton.getScene().getWindow();
       	
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		LoginController controller = new LoginController(session, customers, businesses, database);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("SelectABusiness.fxml"));
+		SelectABusinessController controller = new SelectABusinessController(session, businesses, database);
 		loader.setController(controller);
 		
 		root = loader.load();
-		
-    	Scene scene = new Scene(root, 860, 640);
+		Scene scene = new Scene(root, 860, 640);        
+		scene.getStylesheets().add(getClass().getResource("bookingSystem.css").toExternalForm());
+//    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+//		LoginController controller = new LoginController(session, businesses, business, database);
+//		loader.setController(controller);
+//		
+//		root = loader.load();
+//		
+//    	Scene scene = new Scene(root, 860, 640);
     	stage.setScene(scene);
     	stage.show();
 		}catch(IOException e)
@@ -187,9 +196,9 @@ public class AdminMenuController implements  Initializable{
     	else
     	{
     		if(reg.setBusinessValues(registerBusinessNameData.getText(), registerFirstNameData.getText(), registerLastNameData.getText(),
-    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText(), customers, businesses))
+    				registerAddressData.getText(), registerPhoneData.getText(), registerUsernameData.getText(), registerPasswordField.getText(), businesses))
     		{
-    			reg.registerNewBusiness(session, customers, businesses);
+    			reg.registerNewBusiness(session, businesses);
     			session.addLog("Registration Pass");
     			registerActiontarget.setText("Business Added please select the business to login and add times and employees");
 
@@ -213,7 +222,7 @@ public class AdminMenuController implements  Initializable{
     		{
     			session.addLog("Registration fail");
     			registerActiontarget.setText("Registration failed");
-    			if(!reg.validBusinessName(customers, businesses))
+    			if(!reg.validBusinessName())
     			{
     				businessNameFail.setText("Business Name Not Valid");
     			}
@@ -221,7 +230,7 @@ public class AdminMenuController implements  Initializable{
     			{
     				businessNameFail.setText("");
     			}
-    			if(!reg.validUsername(customers, businesses))
+    			if(!reg.validBusinessUsername(businesses))
     			{
     				usernameFail.setText("Username Not Valid");
     			}

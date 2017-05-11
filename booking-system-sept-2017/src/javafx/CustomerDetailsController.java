@@ -18,14 +18,16 @@ public class CustomerDetailsController implements Initializable {
     @FXML private Text custDetailsAddressData;
     @FXML private Text custDetailsPhoneData;
         
-    private ArrayList<Customer> customers;
-    private int custPos;
+//    private ArrayList<Customer> customers;
+//    private int custPos;
     private Session session;
+    private Customer customer;
    
-    public CustomerDetailsController(Session session, ArrayList<Customer> customers, int custPos)
+    public CustomerDetailsController(Session session, Customer customer)
     {
-    	this.customers = customers;
-    	this.custPos = custPos;
+    	this.customer = customer;
+//    	this.customers = customers;
+//    	this.custPos = custPos;
     	this.session = session;
     }
     
@@ -57,11 +59,11 @@ public class CustomerDetailsController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		session.addLog("Load custoemr details");
-		setUsername(customers.get(custPos).getUsername());
-		setFirstName(customers.get(custPos).getFirstName());
-		setLastName(customers.get(custPos).getLastName());
-		setAddress(customers.get(custPos).getAddress());
-		setPhone(customers.get(custPos).getContactNumber());	
+		setUsername(customer.getUsername());
+		setFirstName(customer.getFirstName());
+		setLastName(customer.getLastName());
+		setAddress(customer.getAddress());
+		setPhone(customer.getContactNumber());	
 	}
     
 }

@@ -25,8 +25,7 @@ import main.Session;
 import users.*;
 
 public class BusinessViewBookingsController implements Initializable{
-    private ArrayList<Business> businesses;
-    private int busPos;
+    private Business business;
     
     private final ObservableList<TableViewBooking> pastBookings = FXCollections.observableArrayList();
     private final ObservableList<TableViewBooking> futureBookings = FXCollections.observableArrayList();
@@ -35,10 +34,9 @@ public class BusinessViewBookingsController implements Initializable{
     @FXML private TableView<TableViewBooking> busBookingTable;    
     private Session session;
     
-    public BusinessViewBookingsController(Session session, ArrayList<Business> businesses, int busPos)
+    public BusinessViewBookingsController(Session session, Business business)
     {
-    	this.businesses = businesses;
-    	this.busPos = busPos;
+    	this.business = business;
     	this.session = session;
     }
     
@@ -105,13 +103,13 @@ public class BusinessViewBookingsController implements Initializable{
     	session.addLog("Past bookings Button Pressed");
     	pastBookings.clear();
     	LocalDate today = LocalDate.now();
-    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+    	for(int i = 0; i < business.getBookings().size(); i ++)
 		{
-    		if(businesses.get(busPos).bookings.get(i).getDate().isBefore(today))
-				pastBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+    		if(business.getBookings().get(i).getDate().isBefore(today))
+				pastBookings.add(new TableViewBooking(business.getBookings().get(i).getBookingID(), business.getBookings().get(i).getSessionType(),
+						business.getBookings().get(i).getDate(), business.getBookings().get(i).getCustomerName(),
+						business.getBookings().get(i).getBookingTime().getDay(), business.getBookings().get(i).getBookingTime().getTimeslotAsString(),
+						business.getBookings().get(i).getEmployeeName()));
 		}
 		busBookingTable.setItems(pastBookings);
     }
@@ -121,13 +119,13 @@ public class BusinessViewBookingsController implements Initializable{
     	session.addLog("Future bookings Button Pressed");
     	futureBookings.clear();
     	LocalDate today = LocalDate.now();
-    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+    	for(int i = 0; i < business.getBookings().size(); i ++)
 		{
-    		if(businesses.get(busPos).bookings.get(i).getDate().isAfter(today))
-				futureBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+    		if(business.getBookings().get(i).getDate().isAfter(today))
+				futureBookings.add(new TableViewBooking(business.getBookings().get(i).getBookingID(), business.getBookings().get(i).getSessionType(),
+						business.getBookings().get(i).getDate(), business.getBookings().get(i).getCustomerName(),
+						business.getBookings().get(i).getBookingTime().getDay(), business.getBookings().get(i).getBookingTime().getTimeslotAsString(),
+						business.getBookings().get(i).getEmployeeName()));
 		}
 		busBookingTable.setItems(futureBookings);
     }
@@ -137,13 +135,13 @@ public class BusinessViewBookingsController implements Initializable{
     	session.addLog("todays bookings Button Pressed");
     	todaysBookings.clear();
     	LocalDate today = LocalDate.now();
-    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+    	for(int i = 0; i < business.getBookings().size(); i ++)
 		{
-    		if(businesses.get(busPos).bookings.get(i).getDate().equals(today))
-				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+    		if(business.getBookings().get(i).getDate().equals(today))
+				todaysBookings.add(new TableViewBooking(business.getBookings().get(i).getBookingID(), business.getBookings().get(i).getSessionType(),
+						business.getBookings().get(i).getDate(), business.getBookings().get(i).getCustomerName(),
+						business.getBookings().get(i).getBookingTime().getDay(), business.getBookings().get(i).getBookingTime().getTimeslotAsString(),
+						business.getBookings().get(i).getEmployeeName()));
 		}
     	busBookingTable.setItems(todaysBookings);
     }
@@ -184,11 +182,11 @@ public class BusinessViewBookingsController implements Initializable{
 	    	Optional<ButtonType> result = alert.showAndWait();
 	    	if (result.get() == ButtonType.OK){
 	        	String bookingID = newSelection.getBookingId();
-	        	for(int i = 0; i < businesses.get(busPos).bookings.size(); i++)
+	        	for(int i = 0; i < business.getBookings().size(); i++)
 	        	{
-	        		if(businesses.get(busPos).bookings.get(i).getBookingID().equalsIgnoreCase(bookingID))
+	        		if(business.getBookings().get(i).getBookingID().equalsIgnoreCase(bookingID))
 	        		{
-	        			businesses.get(busPos).bookings.remove(businesses.get(busPos).bookings.get(i));
+	        			business.getBookings().remove(business.getBookings().get(i));
 	        			busBookingTable.getItems().remove(newSelection);
 	        		}
 	        	}
@@ -205,14 +203,14 @@ public class BusinessViewBookingsController implements Initializable{
 		session.addLog("Initialize with today's bookings");
 		LocalDate today = LocalDate.now();
     	
-    	for(int i = 0; i < businesses.get(busPos).bookings.size(); i ++)
+    	for(int i = 0; i < business.getBookings().size(); i ++)
 		{
-    		if(businesses.get(busPos).bookings.get(i).getDate().equals(today))
+    		if(business.getBookings().get(i).getDate().equals(today))
     		{
-				todaysBookings.add(new TableViewBooking(businesses.get(busPos).bookings.get(i).getBookingID(), businesses.get(busPos).bookings.get(i).getSessionType(),
-						businesses.get(busPos).bookings.get(i).getDate(), businesses.get(busPos).bookings.get(i).getCustomerName(),
-						businesses.get(busPos).bookings.get(i).getBookingTime().getDay(), businesses.get(busPos).bookings.get(i).getBookingTime().getTimeslotAsString(),
-						businesses.get(busPos).bookings.get(i).getEmployeeName()));
+				todaysBookings.add(new TableViewBooking(business.getBookings().get(i).getBookingID(), business.getBookings().get(i).getSessionType(),
+						business.getBookings().get(i).getDate(), business.getBookings().get(i).getCustomerName(),
+						business.getBookings().get(i).getBookingTime().getDay(), business.getBookings().get(i).getBookingTime().getTimeslotAsString(),
+						business.getBookings().get(i).getEmployeeName()));
     		}
 		}
 		

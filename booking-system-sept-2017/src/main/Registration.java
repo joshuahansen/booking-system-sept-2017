@@ -8,6 +8,7 @@ import users.Employee;
 
 public class Registration {
 	
+	private Business business;
 	private String firstName;
 	private String lastName;
 	private String username;
@@ -17,12 +18,12 @@ public class Registration {
 	private String employeeID;
 	private String businessName;
 	
-	String days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+	String days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
 	//This function will be used for when GUI is implemented, to replace the getValues function
 	public boolean setValues(String firstName, String lastName, String address,
-			String phone, String username, String password, ArrayList<Customer> cust, ArrayList<Business> busi) {
-			
+			String phone, String username, String password, Business business) {
+		this.business = business;
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -30,7 +31,7 @@ public class Registration {
 		this.phone = phone;
 		this.password = password;
 		
-		if(!validUsername(cust, busi)) {
+		if(!validUsername(business)) {
 			 return false; 
 		}
 		
@@ -58,7 +59,7 @@ public class Registration {
 	}
 	
 	public boolean setBusinessValues(String businessName, String firstName, String lastName, String address,
-			String phone, String username, String password, ArrayList<Customer> cust, ArrayList<Business> busi) {
+			String phone, String username, String password, ArrayList<Business> businesses) {
 			
 		this.username = username;
 		this.firstName = firstName;
@@ -68,12 +69,12 @@ public class Registration {
 		this.password = password;
 		this.businessName = businessName;
 		
-		if(!validBusinessName(cust, busi))
+		if(!validBusinessName())
 		{
 			return false;
 		}
 		
-		if(!validUsername(cust, busi)) {
+		if(!validBusinessUsername(businesses)) {
 			 return false; 
 		}
 		
@@ -123,7 +124,7 @@ public class Registration {
 	}
 
 	//This function is used while the program is running on the command line
-	public boolean getUserValues(Scanner userInput, ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean getUserValues(Scanner userInput, Business business) {
 		
 		boolean valid = false;
 		System.out.println("\n--- Register ---\n");
@@ -168,7 +169,7 @@ public class Registration {
 			//prompts the user to enter their username and assigns it to the username variable
 			System.out.print("Enter Username (Minimum 4 characters): ");
 			this.username = userInput.nextLine();
-			if(validUsername(cust, busi)) {
+			if(validUsername(business)) {
 				valid = true; 
 			}
 		}
@@ -185,7 +186,7 @@ public class Registration {
 		return true;
 	}
 	
-	public boolean registerNewCust(Session session, ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean registerNewCust(Session session, Business busi) {
 		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
 		 *If one of the inputs is invalid, the function will return false, causing this function 
 		 * to return false and send the user back to registration.
@@ -194,14 +195,14 @@ public class Registration {
 		//If all input is valid, the new customer is created, and then added to the array list.
 		Customer newCust = new Customer(firstName, lastName, address, phone, username, password);
 		session.addLog("Customer object created");
-		cust.add(newCust);
+		busi.getCustomers().add(newCust);
 		session.addLog("Customer added");
 		
 		System.out.println("\nRegistration success!");
 		return true;		
 	}
 	
-	public boolean registerNewCustGUI(ArrayList<Customer> cust, ArrayList<Business> busi, String firstName, String lastName, String address, String phone, String username, String password) {
+	public boolean registerNewCustGUI(Business busi, String firstName, String lastName, String address, String phone, String username, String password) {
 		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
 		 *If one of the inputs is invalid, the function will return false, causing this function 
 		 * to return false and send the user back to registration.
@@ -209,13 +210,13 @@ public class Registration {
 		
 		//If all input is valid, the new customer is created, and then added to the array list.
 		Customer newCust = new Customer(firstName, lastName, address, phone, username, password);
-		cust.add(newCust);
+		busi.getCustomers().add(newCust);
 		
 		System.out.println("\nRegistration success!");
 		return true;		
 	}
 	
-	public boolean registerNewBusiness(Session session, ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean registerNewBusiness(Session session, ArrayList<Business> busi) {
 		/*Runs the checkValid function to see if all inputs provided by the user is valid for registration
 		 *If one of the inputs is invalid, the function will return false, causing this function 
 		 * to return false and send the user back to registration.
@@ -231,7 +232,33 @@ public class Registration {
 		return true;		
 	}
 	
-	public boolean validUsername(ArrayList<Customer> cust, ArrayList<Business> busi) {
+	public boolean validBusinessUsername(ArrayList<Business> businesses)
+	{
+		if(username == null)
+		{
+			return false;
+		}
+		for(int i = 0; i < businesses.size(); i++) {	
+			if(this.username.equals(businesses.get(i).getUsername())) {			
+				System.out.println("\nUsername already exists!");
+				return false;
+			}
+			for(int j= 0; j < businesses.get(i).getCustomers().size(); j++) {	
+				if(this.username.equals(businesses.get(i).getCustomers().get(j).getUsername())) {					
+					System.out.println("\nUsername already exists!");
+					return false;
+				}
+			}
+		}
+		//Validates the username length
+		if(this.username.length() < 4) {
+			System.out.println("\nUsername length must be at least 4 characters!");
+			return false;
+		}
+		return true;
+		
+	}
+	public boolean validUsername(Business business) {
 		/*This runs through the customer and the business array list and compares the username of each index to the username 
 		 * entered by the user, and if it matches with an already existing username, it will return false
 		 */		
@@ -239,19 +266,25 @@ public class Registration {
 		{
 			return false;
 		}
-		for(int i = 0; i < cust.size(); i++) {	
-				if(this.username.equals(cust.get(i).getUsername())) {					
-					System.out.println("\nUsername already exists!");
-					return false;
-				}
-		}
+//		for(int i = 0; i < cust.size(); i++) {	
+//				if(this.username.equals(cust.get(i).getUsername())) {					
+//					System.out.println("\nUsername already exists!");
+//					return false;
+//				}
+//		}
 		
-		for(int i = 0; i < busi.size(); i++) {	
-			if(this.username.equals(busi.get(i).getUsername())) {			
+//		for(int i = 0; i < businesses.size(); i++) {	
+			if(this.username.equals(business.getUsername())) {			
 				System.out.println("\nUsername already exists!");
 				return false;
 			}
-		}
+			for(int j= 0; j < business.getCustomers().size(); j++) {	
+				if(this.username.equals(business.getCustomers().get(j).getUsername())) {					
+					System.out.println("\nUsername already exists!");
+					return false;
+				}
+			}
+//		}
 		//Validates the username length
 		if(this.username.length() < 4) {
 			System.out.println("\nUsername length must be at least 4 characters!");
@@ -315,7 +348,7 @@ public class Registration {
 		return true;
 	}
 	
-	public boolean validBusinessName(ArrayList<Customer> customers, ArrayList<Business> businesses)
+	public boolean validBusinessName()
 	{
 		//Validates the business name length
 				if(businessName == null)

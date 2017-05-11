@@ -1,7 +1,6 @@
 package javafx;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -33,9 +32,8 @@ public class AddEmployeeController implements Initializable{
 	@FXML private Tooltip firstNameTooltip;
 	@FXML private Tooltip lastNameTooltip;
 	
-	private ArrayList<Business> businesses;
+	private Business business;
 	private Registration reg = new Registration();
-	private int busPos;
 	private Session session;
 
 	/**
@@ -43,10 +41,9 @@ public class AddEmployeeController implements Initializable{
 	 * @param businesses The array of Businesses is passed in
 	 * @param busPos the current logged in business position in the business array is pass in.
 	 */
-	 public AddEmployeeController(Session session, ArrayList<Business> businesses, int busPos)
+	 public AddEmployeeController(Session session, Business business)
 	    {
-	    	this.businesses = businesses;
-	    	this.busPos = busPos;
+	    	this.business = business;
 	    	this.session = session;
 	    }
 	 
@@ -70,9 +67,9 @@ public class AddEmployeeController implements Initializable{
 	{
 		session.addLog("Add Employee Button Pressed");
 		if(reg.setEmployeeValues(employeeNumberData.getText(), 
-				employeeFirstNameData.getText(), employeeLastNameData.getText(), businesses.get(busPos).employees)) {
+				employeeFirstNameData.getText(), employeeLastNameData.getText(), business.getEmployees())) {
 
-			reg.addNewEmployeeGui(businesses.get(busPos).employees);
+			reg.addNewEmployeeGui(business.getEmployees());
 			addEmployeeActiontarget.setText("Employee added");
 			employeeNumberData.setText("");
 			employeeFirstNameData.setText("");
@@ -81,7 +78,7 @@ public class AddEmployeeController implements Initializable{
 		}
 		else
 		{
-			if(!reg.validEmployeeID(businesses.get(busPos).employees))
+			if(!reg.validEmployeeID(business.getEmployees()))
 			{
 				session.addLog("Invalid employee ID");
 				employeeIDFail.setText("ID Not Valid");

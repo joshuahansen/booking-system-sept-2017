@@ -1,7 +1,6 @@
 package javafx;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -23,18 +22,16 @@ public class BusinessDetailsController implements Initializable {
     @FXML private Text busDetailsAddressData;
     @FXML private Text busDetailsPhoneData;
     
-    private ArrayList<Business> businesses;
-    private int busPos;
+    private Business business;
     private Session session;
     /**
      * Constructor for the BusinessDetailsController
      * @param businesses Array of Businesses passed by reference to controller
      * @param busPos current user position in array passed to controller
      */
-    public BusinessDetailsController(Session session, ArrayList<Business> businesses, int busPos)
+    public BusinessDetailsController(Session session, Business business)
     {
-    	this.businesses = businesses;
-    	this.busPos = busPos;
+    	this.business = business;
     	this.session = session;
     }
     
@@ -98,12 +95,12 @@ public class BusinessDetailsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		session.addLog("Load Business details");
-		setUsername(businesses.get(busPos).getUsername());
-		setBusName(businesses.get(busPos).getBusinessName());
-		setFirstName(businesses.get(busPos).getFirstName());
-		setLastName(businesses.get(busPos).getLastName());
-		setAddress(businesses.get(busPos).getAddress());
-		setPhone(businesses.get(busPos).getContactNumber());
+		setUsername(business.getUsername());
+		setBusName(business.getBusinessName());
+		setFirstName(business.getFirstName());
+		setLastName(business.getLastName());
+		setAddress(business.getAddress());
+		setPhone(business.getContactNumber());
 	}
     
 }

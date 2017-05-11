@@ -83,13 +83,15 @@ public class Database {
 			
 			//Customer table using username as the primary key
 			String sql = "CREATE TABLE CUSTOMERS " +
-			        "(CUST_UNAME     	VARCHAR(40) NOT NULL," +
-			        " CUST_FNAME 		VARCHAR(40)     ," +
-			        " CUST_LNAME		VARCHAR(40)		," +
-			        " CUST_ADDRESS    	VARCHAR(40)     ," +
-			        " CUST_PHONE      	VARCHAR(40)     ," +
-			        " CUST_PASSWORD		VARCHAR(40)		," +
-			        " PRIMARY KEY(CUST_UNAME))";
+			        "(CUST_UNAME     	VARCHAR(40) NOT NULL,"	+
+			        " CUST_FNAME 		VARCHAR(40)     ," 		+
+			        " CUST_LNAME		VARCHAR(40)		," 		+
+			        " CUST_ADDRESS    	VARCHAR(40)     ," 		+
+			        " CUST_PHONE      	VARCHAR(40)     ," 		+
+			        " CUST_PASSWORD		VARCHAR(40)		," 		+
+			        " BUS_UNAME			VARCHAR(40) NOT NULL," 	+
+			        " PRIMARY KEY(CUST_UNAME, BUS_UNAME),"		+
+			        " FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
 			//Business table using business username as the primary key
@@ -107,10 +109,10 @@ public class Database {
 			//EMployee table using employee ID as the primary key
 			sql = "CREATE TABLE EMPLOYEES " +
 					"(EMP_ID		VARCHAR(40) NOT NULL," +
-					" EMP_FNAME		VARCHAR(40)		," +
-					" EMP_LNAME		VARCHAR(40)		," +
-					" BUS_UNAME		VARCHAR(40)		," +
-					" PRIMARY KEY(EMP_ID, BUS_UNAME),"				+
+					" EMP_FNAME		VARCHAR(40)		," 	+
+					" EMP_LNAME		VARCHAR(40)		," 	+
+					" BUS_UNAME		VARCHAR(40)		," 	+
+					" PRIMARY KEY(EMP_ID, BUS_UNAME),"	+
 					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
@@ -176,10 +178,10 @@ public class Database {
 			stmt.executeUpdate(sql);
 			
 			sql = "CREATE TABLE BOOKING_TYPE " +
-					"(BUS_UNAME			VARCHAR(40) NOT NULL," +
-					" BOOKING_TYPE		VARCHAR(40)	NOT NULL," +
-					" BOOKING_LENGTH	INT			NOT NULL," +
-					" PRIMARY KEY (BUS_UNAME, BOOKING_TYPE)," +
+					"(BUS_UNAME			VARCHAR(40) NOT NULL," 	+
+					" BOOKING_TYPE		VARCHAR(40)	NOT NULL," 	+
+					" BOOKING_LENGTH	INT			NOT NULL," 	+
+					" PRIMARY KEY (BUS_UNAME, BOOKING_TYPE)," 	+
 					" FOREIGN KEY (BUS_UNAME) REFERENCES BUSINESSES (BUS_UNAME))";
 			stmt.executeUpdate(sql);
 			
@@ -236,13 +238,13 @@ public class Database {
 			Statement stmt = connection.createStatement();
 			String sql;
 			
-			sql = "INSERT INTO CUSTOMERS VALUES('bMarley', 'Bob', 'Marley', '1 High Street Melbourne', '0423256754', 'bMarley')";
+			sql = "INSERT INTO CUSTOMERS VALUES('bMarley', 'Bob', 'Marley', '1 High Street Melbourne', '0423256754', 'bMarley', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO CUSTOMERS VALUES('VickiV', 'Vicki', 'Vale', '23 Batman Street Melbourne', '34232865', 'VickiV')";
+			sql = "INSERT INTO CUSTOMERS VALUES('VickiV', 'Vicki', 'Vale', '23 Batman Street Melbourne', '34232865', 'VickiV', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666')";
+			sql = "INSERT INTO CUSTOMERS VALUES('jd666', 'John', 'Doe', '6 Cemetery Drive Melbourne', '0423254323', 'jd666', 'fit4purpose')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BUSINESSES VALUES('fit4purpose','Fit for Purpose', 'Henry', 'Gray', 'Blackshaw Road Melbourne', '86721255', 'superfit')";
@@ -334,7 +336,7 @@ public class Database {
 	}
 	
 	//read data from CUSTOMER table into customer array
-	public boolean readCustDB(Session session, ArrayList<Customer> customers)
+	public boolean readCustDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Customer newCust;
@@ -351,9 +353,16 @@ public class Database {
 			String address = resultSet.getString("CUST_ADDRESS");
 			String phone = resultSet.getString("CUST_PHONE");
 			String password = resultSet.getString("CUST_PASSWORD");
+			String busUname = resultSet.getString("BUS_UNAME");
 
 			newCust = new Customer(fName, lName, address, phone, username, password);
-			customers.add(newCust);
+			for(int busPos = 0; busPos < businesses.size(); busPos++)
+			{
+				if(businesses.get(busPos).getUsername().equals(busUname))
+				{
+					businesses.get(busPos).getCustomers().add(newCust);
+				}
+			}
 		}
 		return true;
 		
@@ -413,7 +422,7 @@ public class Database {
 				{
 					if(businesses.get(i).getUsername().equals(busUname))
 					{
-						businesses.get(i).employees.add(newEmpl);
+						businesses.get(i).getEmployees().add(newEmpl);
 					}
 				}
 			}
@@ -451,11 +460,11 @@ public class Database {
 				{
 					if(businesses.get(busNo).getUsername().equalsIgnoreCase(businessUsername))
 					{
-						for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
+						for(int i = 0; i < businesses.get(busNo).getEmployees().size(); i++)
 						{
-							if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+							if(businesses.get(busNo).getEmployees().get(i).getEmployeeID().equals(employeeID))
 							{
-								businesses.get(busNo).employees.get(i).setAvailableTime(startTime, endTime, day);
+								businesses.get(busNo).getEmployees().get(i).setAvailableTime(startTime, endTime, day);
 								break;
 							}
 						}
@@ -534,7 +543,7 @@ public class Database {
 	}
 	
 	
-	public boolean readBookingsDB(Session session, ArrayList<Business> businesses, ArrayList<Customer> customers)
+	public boolean readBookingsDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Booking newBooking;
@@ -559,20 +568,14 @@ public class Database {
 				
 				int custPos = 0, employeePos = 0, businessPos = 0;
 				
-				for(int i = 0; i < customers.size(); i++)
-				{
-					if(customers.get(i).getUsername().equals(custUname))
-					{
-						custPos = i;
-					}
-				}
+			
 				for(int busNo = 0; busNo < businesses.size(); busNo++)
 				{
-					if(businesses.get(busNo).getUsername().equalsIgnoreCase(busUname))
+					if(businesses.get(busNo).getUsername().equals(busUname))
 					{
-						for(int i = 0; i < businesses.get(busNo).employees.size(); i++)
+						for(int i = 0; i < businesses.get(busNo).getEmployees().size(); i++)
 						{
-							if(businesses.get(busNo).employees.get(i).getEmployeeID().equals(employeeID))
+							if(businesses.get(busNo).getEmployees().get(i).getEmployeeID().equals(employeeID))
 							{
 								employeePos = i;
 								businessPos = busNo;
@@ -580,13 +583,20 @@ public class Database {
 							}
 						}
 					}
+					for(int i = 0; i < businesses.get(busNo).getCustomers().size(); i++)
+					{
+						if(businesses.get(busNo).getCustomers().get(i).getUsername().equals(custUname))
+						{
+							custPos = i;
+						}
+					}
 				}
-				
+				Business business = businesses.get(businessPos);
 				LocalDate bookingDate = LocalDate.of(year, month, date);
 				LocalTime startTime = LocalTime.of(startHour, startMin);
 				LocalTime endTime = LocalTime.of(endHour, endMin);
-				newBooking = new Booking(bookingID, sessionType, day, startTime, endTime, bookingDate, customers.get(custPos), businesses.get(businessPos).employees.get(employeePos));
-				businesses.get(0).bookings.add(newBooking);
+				newBooking = new Booking(bookingID, sessionType, day, startTime, endTime, bookingDate, business.getCustomers().get(custPos), business.getEmployees().get(employeePos));
+				businesses.get(0).getBookings().add(newBooking);
 			}
 			return true;
 		}catch (SQLException e)
@@ -597,20 +607,23 @@ public class Database {
 	}
 
 	//write whole customer array to the database
- 	public void writeCustDB(Session session, ArrayList<Customer> customers)
-	{		
-		for(int i = 0; i < customers.size(); i++)
-		{
-			try{
-				custToString(customers, i);
-				String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
-			    Statement stmt = connection.createStatement();
-			    stmt.executeUpdate(sql);
-			    
-			}catch (SQLException ex) {
-				session.addLog("Customer record already exists. No changes were made.");
+ 	public void writeCustDB(Session session, ArrayList<Business> businesses)
+	{	
+ 		for(int busPos = 0; busPos < businesses.size(); busPos++)
+ 		{
+			for(int i = 0; i < businesses.get(busPos).getCustomers().size(); i++)
+			{
+				try{
+					custToString(businesses.get(busPos).getCustomers().get(i), businesses.get(busPos));
+					String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
+				    Statement stmt = connection.createStatement();
+				    stmt.executeUpdate(sql);
+				    
+				}catch (SQLException ex) {
+					session.addLog("Customer record already exists. No changes were made.");
+				}
 			}
-		}
+ 		}
 	}
  	
  	public void writeBusinessDB(Session session, ArrayList<Business> businesses)
@@ -618,7 +631,7 @@ public class Database {
 		for(int i = 0; i < businesses.size(); i++)
 		{
 			try{
-				businessToString(businesses, i);
+				businessToString(businesses.get(i));
 				String sql = "INSERT INTO BUSINESSES VALUES(" + getBusiSQL() +")";
 			    Statement stmt = connection.createStatement();
 			    stmt.executeUpdate(sql);
@@ -630,37 +643,37 @@ public class Database {
 	}
 	
  	//only write last customer in array (New Customer) into database
-	public boolean writeNewCustToDB(Session session, ArrayList<Customer> customers, int position)
-	{
-		try{
-			custToString(customers, position);
-			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
-		    Statement stmt = connection.createStatement();
-		    stmt.executeUpdate(sql);
-		    session.addLog("Customer added to database.");
-		    return true;
-
-		}catch (SQLException ex) {
-			session.addLog("Customer record already exists. No changes were made.");
-			
-			return false;
-		}
-	}
+//	public boolean writeNewCustToDB(Session session, Customer customer)
+//	{
+//		try{
+//			custToString(customer);
+//			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
+//		    Statement stmt = connection.createStatement();
+//		    stmt.executeUpdate(sql);
+//		    session.addLog("Customer added to database.");
+//		    return true;
+//
+//		}catch (SQLException ex) {
+//			session.addLog("Customer record already exists. No changes were made.");
+//			
+//			return false;
+//		}
+//	}
 	
 	//write employee array into database including available times array
 	public boolean writeEmplToDB(Session session, ArrayList<Business> businesses)
 	{
 		for(int busNo = 0; busNo < businesses.size(); busNo++)
 		{
-			for(int empPos = 0; empPos < businesses.get(busNo).employees.size(); empPos++)
+			for(int empPos = 0; empPos < businesses.get(busNo).getEmployees().size(); empPos++)
 			{
 				try{
 					String sql;
 					Statement stmt = connection.createStatement();
-					for(int timePos = 0; timePos < businesses.get(busNo).employees.get(empPos).availableTimes.size(); timePos++)
+					for(int timePos = 0; timePos < businesses.get(busNo).getEmployees().get(empPos).availableTimes.size(); timePos++)
 					{
-						emplAvailToString(businesses.get(busNo), businesses.get(busNo).employees.get(empPos),
-										businesses.get(busNo).employees.get(empPos).availableTimes.get(timePos));
+						emplAvailToString(businesses.get(busNo), businesses.get(busNo).getEmployees().get(empPos),
+										businesses.get(busNo).getEmployees().get(empPos).availableTimes.get(timePos));
 //				    for(int day = 0; day < businesses.get(busNo).employees.get(i).availableTimes.length; day++)
 //				    {
 //				    	for(int timeslot = 0; timeslot < businesses.get(busNo).employees.get(i).availableTimes[day].length; timeslot++)
@@ -679,7 +692,7 @@ public class Database {
 //				    		}
 //				    	}
 				    }
-				    emplToString(businesses.get(busNo), businesses.get(busNo).employees, empPos);
+				    emplToString(businesses.get(busNo), businesses.get(busNo).getEmployees().get(empPos));
 					sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
 				    stmt.executeUpdate(sql);
 				    
@@ -703,9 +716,9 @@ public class Database {
 					
 			for(int busNo = 0; busNo < businesses.size(); busNo++)
 			{
-				for(int i = 0; i < businesses.get(busNo).bookings.size(); i++)
+				for(int i = 0; i < businesses.get(busNo).getBookings().size(); i++)
 				{
-				    bookingToString(businesses.get(busNo).bookings.get(i), businesses.get(busNo));
+				    bookingToString(businesses.get(busNo).getBookings().get(i), businesses.get(busNo));
 					sql = "INSERT INTO BOOKINGS VALUES(" + getBookingSQL() +")";
 					stmt.executeUpdate(sql);
 				}
@@ -717,40 +730,40 @@ public class Database {
 	}
 	
 	//convert objects to strings for SQL commands
-	public boolean custToString(ArrayList<Customer> customers, int position)
+	public boolean custToString(Customer customer, Business business)
 	{
-		String uName = customers.get(position).getUsername();
-		String fName = customers.get(position).getFirstName();
-		String lName = customers.get(position).getLastName();
-		String address = customers.get(position).getAddress();
-		String phone = customers.get(position).getContactNumber();
-		String password = customers.get(position).getPassword();
+		String uName = customer.getUsername();
+		String fName = customer.getFirstName();
+		String lName = customer.getLastName();
+		String address = customer.getAddress();
+		String phone = customer.getContactNumber();
+		String password = customer.getPassword();
+		String businessName = business.getUsername();
 		
-		this.custSQL = "'"+ uName + "', '" + fName + "', '" + lName + "', '" + address + "', '" + phone + "', '" + password + "'";
-		
+		this.custSQL = "'"+ uName + "', '" + fName + "', '" + lName + "', '" + address + "', '" + phone + "', '" + password + "', '" + businessName + "'";
 		return true;
 	}
 	
 	//convert objects to strings for SQL commands
-		public boolean businessToString(ArrayList<Business> businesses, int position)
+		public boolean businessToString(Business business)
 		{
-			String businessName = businesses.get(position).getBusinessName();
-			String uName = businesses.get(position).getUsername();
-			String fName = businesses.get(position).getFirstName();
-			String lName = businesses.get(position).getLastName();
-			String address = businesses.get(position).getAddress();
-			String phone = businesses.get(position).getContactNumber();
-			String password = businesses.get(position).getPassword();
+			String businessName = business.getBusinessName();
+			String uName = business.getUsername();
+			String fName = business.getFirstName();
+			String lName = business.getLastName();
+			String address = business.getAddress();
+			String phone = business.getContactNumber();
+			String password = business.getPassword();
 			
 			this.busiSQL = "'"  + uName + "', '" + businessName + "', '" + fName + "', '" + lName + "', '" + address + "', '" + phone + "', '" + password + "'";
 			return true;
 		}
 	
-	public boolean emplToString(Business business, ArrayList<Employee> employees, int position)
+	public boolean emplToString(Business business, Employee employee)
 	{
-		String empID = employees.get(position).getEmployeeID();
-		String fName = employees.get(position).getFirstName();
-		String lName = employees.get(position).getLastName();
+		String empID = employee.getEmployeeID();
+		String fName = employee.getFirstName();
+		String lName = employee.getLastName();
 		
 		this.emplSQL = "'" + empID + "', '" + fName + "', '" + lName + "', '" + business.getUsername() + "'"; 
 		return true;
