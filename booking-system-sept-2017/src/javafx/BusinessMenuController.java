@@ -33,16 +33,17 @@ public class BusinessMenuController implements Initializable {
     @FXML private Tab detailsTab;
     
 //    private ArrayList<Customer> customers;
-//    private ArrayList<Business> businesses;
+    private ArrayList<Business> businesses;
 //    private int busPos;
     Business business;
     private Session session;
     private Database database;
     
-    public BusinessMenuController(Session session, Business business, Database database)
+    public BusinessMenuController(Session session, ArrayList<Business> businesses, Business business, Database database)
     {
 //    	this.customers = customers;
     	this.business = business;
+    	this.businesses = businesses;
 //    	this.busPos = busPos;
     	this.session = session;
     	this.database = database;
@@ -57,13 +58,13 @@ public class BusinessMenuController implements Initializable {
 	    	stage = (Stage) busLogout.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, business, database);
+			LoginController controller = new LoginController(session, businesses, business, database);
 			loader.setController(controller);
 			
 			root = loader.load();
 			
 	    	Scene scene = new Scene(root, 860, 640);
-	    	root.getStylesheets().add(getClass().getResource("bookingSystem.css").toExternalForm());
+	    	root.getStylesheets().add(getClass().getResource("customerMenu.css").toExternalForm());
 	    	stage.setScene(scene);
 	    	stage.show();
     	}catch(IOException e)
@@ -77,7 +78,7 @@ public class BusinessMenuController implements Initializable {
 		try {
     		businessDetails.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
-    		BusinessDetailsController controller = new BusinessDetailsController(session, businesses, busPos);
+    		BusinessDetailsController controller = new BusinessDetailsController(session, business);
     		loader.setController(controller);
     		
     		businessDetails.getChildren().add(loader.load());
@@ -94,7 +95,7 @@ public class BusinessMenuController implements Initializable {
 		try {
     		busMakeBooking.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessMakeBooking.fxml"));
-    		BusinessMakeBookingController controller = new BusinessMakeBookingController(session, businesses, customers, busPos);
+    		BusinessMakeBookingController controller = new BusinessMakeBookingController(session, business);
     		loader.setController(controller);
     		
     		busMakeBooking.getChildren().add(loader.load());
@@ -110,7 +111,7 @@ public class BusinessMenuController implements Initializable {
 		try {
     		businessDetails.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
-    		BusinessDetailsController controller = new BusinessDetailsController(session, businesses, busPos);
+    		BusinessDetailsController controller = new BusinessDetailsController(session, business);
     		loader.setController(controller);
     		
     		businessDetails.getChildren().add(loader.load());
@@ -126,7 +127,7 @@ public class BusinessMenuController implements Initializable {
 		try {
     		busViewBooking.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessViewBookings.fxml"));
-    		BusinessViewBookingsController controller = new BusinessViewBookingsController(session, businesses, busPos);
+    		BusinessViewBookingsController controller = new BusinessViewBookingsController(session, business);
     		loader.setController(controller);
     		
     		busViewBooking.getChildren().add(loader.load());
@@ -142,7 +143,7 @@ public class BusinessMenuController implements Initializable {
 		try {
     		addEmployeeForm.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddEmployees.fxml"));
-    		AddEmployeeController controller = new AddEmployeeController(session, businesses, busPos);
+    		AddEmployeeController controller = new AddEmployeeController(session, business);
     		loader.setController(controller);
     		
     		addEmployeeForm.getChildren().add(loader.load());
@@ -158,7 +159,7 @@ public class BusinessMenuController implements Initializable {
 		try {
 			busEmployeeAvail.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeAvailabilities.fxml"));
-    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(session, businesses, busPos);
+    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(session, business);
     		loader.setController(controller);
     		
     		busEmployeeAvail.getChildren().add(loader.load());

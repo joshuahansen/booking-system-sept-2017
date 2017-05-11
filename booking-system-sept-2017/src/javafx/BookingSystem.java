@@ -49,70 +49,88 @@ public class BookingSystem extends Application {
 		if(database.connectDatabase(session, url) == true)
 		{		
 			/*Try reading from database tables customers and businesses*/
-			if(database.readCustDB(session, businesses) == true && database.readBusDB(session, businesses) == true
-					&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
+			if(database.readBusDB(session, businesses))
 			{
-				session.addLog("Customer Database loaded");
 				session.addLog("Business Database loaded");
-				session.addLog("Business Hours Database loaded");
-				session.addLog("Booking Types loaded");
-				/*read employee availabilities only if customers and businesses are loaded correctly*/
-				if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
-				{
+				
+				if(database.readBusinessHoursDB(session, businesses))
+					session.addLog("Business Hours Database loaded");
+				else
+					session.addLog("Business Hours Database not loaded");
+				
+				if(database.readBookingTypesDB(session, businesses))
+					session.addLog("Booking Types loaded");
+				else
+					session.addLog("Booking Types Database not loaded");
+				
+				if(database.readCustDB(session, businesses))
+						session.addLog("Customer Database loaded");
+				else
+					session.addLog("Customer Database not loaded");
+				
+				if(database.readEmplDB(session, businesses))
 					session.addLog("Employee Database loaded");
-					session.addLog("Employee available times loaded");
-				}
 				else
-				{
 					session.addLog("Can not load employee database");
-					session.addLog("Can not load employee availabilities");
-				}
-				if(database.readBookingsDB(session, businesses))
-				{
-					session.addLog("Booking Database loaded");
-				}
+				
+				if(database.readAvailablityTimes(session, businesses))
+					session.addLog("Employee available times loaded");
 				else
-				{
+					session.addLog("Can not load employee availabilities");
+	
+				if(database.readBookingsDB(session, businesses))
+					session.addLog("Booking Database loaded");
+				else
 					session.addLog("Can not load Bookings");
-				}
 			}
+		
 			else
 			{
 				/*if database doesn't exist initialize new database with default values and read database into arrays*/
 				database.clearTables(session);
 				database.initDatabase(session);
 				database.defaultValues(session);
-				if(database.readCustDB(session, businesses) == true && database.readBusDB(session, businesses) == true
-						&& database.readBusinessHoursDB(session, businesses) && database.readBookingTypesDB(session, businesses))
+				
+				/*Try reading from database table businesses*/
+				if(database.readBusDB(session, businesses))
 				{
-					session.addLog("Customer Database loaded");
 					session.addLog("Business Database loaded");
-					session.addLog("Business Hours database loaded");
-					session.addLog("Booking Types loaded");
-					if(database.readEmplDB(session, businesses) && database.readAvailablityTimes(session, businesses))
-					{
+					
+					if(database.readBusinessHoursDB(session, businesses))
+						session.addLog("Business Hours Database loaded");
+					else
+						session.addLog("Business Hours Database not loaded");
+					
+					if(database.readBookingTypesDB(session, businesses))
+						session.addLog("Booking Types loaded");
+					else
+						session.addLog("Booking Types Database not loaded");
+					
+					if(database.readCustDB(session, businesses))
+							session.addLog("Customer Database loaded");
+					else
+						session.addLog("Customer Database not loaded");
+					
+					if(database.readEmplDB(session, businesses))
 						session.addLog("Employee Database loaded");
-						session.addLog("Employee available times loaded");
-					}
 					else
-					{
 						session.addLog("Can not load employee database");
-						session.addLog("Can not load employee availabilities");
-					}
-					if(database.readBookingsDB(session, businesses))
-					{
-						session.addLog("Booking Database loaded");
-					}
+					
+					if(database.readAvailablityTimes(session, businesses))
+						session.addLog("Employee available times loaded");
 					else
-					{
+						session.addLog("Can not load employee availabilities");
+		
+					if(database.readBookingsDB(session, businesses))
+						session.addLog("Booking Database loaded");
+					else
 						session.addLog("Can not load Bookings");
 					}
 				}
-			}
 		}
-				
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		LoginController controller = new LoginController(session, businesses, database);
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("SelectABusiness.fxml"));
+		SelectABusinessController controller = new SelectABusinessController(session, businesses, database);
 		loader.setController(controller);
 		
 		Parent bookingSystem = loader.load();

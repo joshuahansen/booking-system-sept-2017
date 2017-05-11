@@ -42,9 +42,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses, database);
+		loginTest.login(businesses.get(0), database);
 		
-		assertEquals(1, loginTest.login(customers, businesses, database));
+		assertEquals(1, loginTest.login( businesses.get(0), database));
 	}
 	
 	@Test
@@ -63,9 +63,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses, database);
+		loginTest.login( businesses.get(0), database);
 		
-		assertEquals(2, loginTest.login(customers, businesses, database));
+		assertEquals(2, loginTest.login(businesses.get(0), database));
 	}
 	
 	@Test
@@ -84,9 +84,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses, database);
+		loginTest.login(businesses.get(0), database);
 		
-		assertEquals(0, loginTest.login(customers, businesses, database));
+		assertEquals(0, loginTest.login(businesses.get(0), database));
 	}
 	
 	@Test
@@ -105,9 +105,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses, database);
+		loginTest.login(businesses.get(0), database);
 		
-		assertEquals(0, loginTest.login(customers, businesses, database));
+		assertEquals(0, loginTest.login(businesses.get(0), database));
 	}
 	
 	@Test
@@ -126,9 +126,9 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses, database);
+		loginTest.login(businesses.get(0), database);
 		
-		assertEquals(0, loginTest.login(customers, businesses, database));
+		assertEquals(0, loginTest.login(businesses.get(0), database));
 	}
 	
 	@Test
@@ -147,8 +147,8 @@ public class LoginTest
 		
 		Login loginTest = new Login(username, password);
 		
-		loginTest.login(customers, businesses, database);
+		loginTest.login(businesses.get(0), database);
 		
-		assertEquals(0, loginTest.login(customers, businesses, database));
+		assertEquals(0, loginTest.login(businesses.get(0), database));
 	}
 }

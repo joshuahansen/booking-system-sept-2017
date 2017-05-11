@@ -19,10 +19,9 @@ import users.Employee;
 
 public class EmployeeAvailiabilitiesController implements Initializable{
 	
-	private ArrayList<Business> businesses;
+	private Business business;
 	public Button btn[][] = new Button[5][4];
 
-	private int busPos;
 	private int emplPos;
 	
 	@FXML private Button button1;
@@ -53,10 +52,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	private ArrayList<MenuItem> menuButtons;
 	private Session session;
 
-	 public EmployeeAvailiabilitiesController(Session session, ArrayList<Business> businesses, int busPos)
+	 public EmployeeAvailiabilitiesController(Session session, Business business)
 	 {
-	    	this.businesses = businesses;
-	    	this.busPos = busPos;
+	    	this.business = business;
 	    	this.session = session;
 	 }
 	 
@@ -87,9 +85,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	 public void addEmployeeDropdown() 
 	 {
 		 
-		 for (int i = 0; i <= businesses.get(busPos).employees.size(); i++)
+		 for (int i = 0; i <= business.getEmployees().size(); i++)
 		 {
-			 MenuItem menuItem = new MenuItem(businesses.get(busPos).employees.get(i).getFirstName());
+			 MenuItem menuItem = new MenuItem(business.getEmployees().get(i).getFirstName());
 			 menuButtons.add(menuItem);
 			 employeeDropdown.getItems().add(menuItem);
 		 }
@@ -99,9 +97,9 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		initializeButtonArray();
-		for(int empNo = 0; empNo < businesses.get(busPos).employees.size(); empNo++)
+		for(int empNo = 0; empNo < business.getEmployees().size(); empNo++)
 		{
-			employeeList.add(businesses.get(busPos).employees.get(empNo).getName());
+			employeeList.add(business.getEmployees().get(empNo).getName());
 		}
 		employeeCombo.setItems(employeeList);
 	}
@@ -110,10 +108,10 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	{
 		String employeeSelected = employeeCombo.getValue();
 		
-		for(int count = businesses.get(busPos).employees.size() - 1; count >= 0 ; count--)
-			if(!employeeSelected.equalsIgnoreCase("Select") && employeeSelected.equals(businesses.get(busPos).employees.get(count).getName()))
+		for(int count = business.getEmployees().size() - 1; count >= 0 ; count--)
+			if(!employeeSelected.equalsIgnoreCase("Select") && employeeSelected.equals(business.getEmployees().get(count).getName()))
 			{
-				loadButtons(businesses.get(busPos).employees.get(count));
+				loadButtons(business.getEmployees().get(count));
 				emplPos = count;
 			}
 	}
@@ -122,7 +120,7 @@ public class EmployeeAvailiabilitiesController implements Initializable{
 	 protected void handleUpdateButtonAction(ActionEvent event) {
 		 	session.addLog("Availability Button pressed");
 		 	Button button = (Button) event.getSource();
-	        updateButton(businesses.get(busPos).employees.get(emplPos), button);
+	        updateButton(business.getEmployees().get(emplPos), button);
 	 }
 
 	

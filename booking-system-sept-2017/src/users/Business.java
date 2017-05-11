@@ -21,7 +21,7 @@ public class Business extends User
 	/**
 	 * Array list of employees for the business object.
 	 */
-	public ArrayList<Employee> employees = new ArrayList<Employee>();
+	private ArrayList<Employee> employees = new ArrayList<Employee>();
 	
 	/**
 	 * Array list of bookings for the current business object.
@@ -81,7 +81,7 @@ public class Business extends User
 	 * Accessor method for the employees array.
 	 * @return employees Returns the employees array for the current business object.
 	 */
-	public ArrayList<Employee> getEmployeeList() 
+	public ArrayList<Employee> getEmployees() 
 	{ 
 		return this.employees; 
 	}

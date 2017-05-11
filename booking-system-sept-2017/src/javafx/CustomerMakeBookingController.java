@@ -23,9 +23,10 @@ import main.Session;
 import users.*;
 
 public class CustomerMakeBookingController implements Initializable{
-    private ArrayList<Business> businesses;
+//    private ArrayList<Business> businesses;
+    private Business business;
     private Customer customer;
-    private int busPos;
+//    private int busPos;
     private Session session;
     private LocalTime midday = LocalTime.of(12, 00);
 	private LocalTime evening = LocalTime.of(17, 00);
@@ -48,9 +49,9 @@ public class CustomerMakeBookingController implements Initializable{
     		
     @FXML private TableView<AvailableBookingTable> custAvailableBookingTable;    
     
-    public CustomerMakeBookingController(Session session, ArrayList<Business> businesses, Customer customer)
+    public CustomerMakeBookingController(Session session, Business business, Customer customer)
     {
-    	this.businesses = businesses;
+    	this.business = business;
     	this.customer = customer;
     	this.session = session;
     }
@@ -152,17 +153,17 @@ public class CustomerMakeBookingController implements Initializable{
 		LocalDate today = LocalDate.now();
 		
 		classType.add("All");
-		for(int classPos = 0; classPos < businesses.get(busPos).getBookingTypes().size(); classPos++)
+		for(int classPos = 0; classPos < business.getBookingTypes().size(); classPos++)
 		{
-			classType.add(businesses.get(busPos).getBookingTypes().get(classPos).getBookingType());
+			classType.add(business.getBookingTypes().get(classPos).getBookingType());
 		}
 		classCombo.setItems(classType);
 		classCombo.setValue("All");
 		
 		employeeList.add("All");
-		for(int empNo = 0; empNo < businesses.get(busPos).employees.size(); empNo++)
+		for(int empNo = 0; empNo < business.getEmployees().size(); empNo++)
 		{
-			employeeList.add(businesses.get(busPos).employees.get(empNo).getName());
+			employeeList.add(business.getEmployees().get(empNo).getName());
 		}
 		employeeCombo.setItems(employeeList);
 		employeeCombo.setValue("All");
@@ -175,26 +176,26 @@ public class CustomerMakeBookingController implements Initializable{
 		timeCombo.setValue("All");
 		
 		dayList.add("All");
-		for(int pos = 0; pos < businesses.get(busPos).getBusinessHours().size(); pos++)
+		for(int pos = 0; pos < business.getBusinessHours().size(); pos++)
 		{
-			dayList.add(businesses.get(busPos).getBusinessHours().get(pos).getDay());
+			dayList.add(business.getBusinessHours().get(pos).getDay());
 		}
 		dayCombo.setItems(dayList);
 		dayCombo.setValue("All");
 		
-		for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos ++)
+		for(int empPos = 0; empPos < business.getEmployees().size(); empPos ++)
 		{
     		int smallestBooking = 0;
-			for(int i = 0; i < businesses.get(busPos).getBookingTypes().size(); i++)
+			for(int i = 0; i < business.getBookingTypes().size(); i++)
 			{
-				smallestBooking = businesses.get(busPos).getBookingTypes().get(i).getBookingLength();
-				if(businesses.get(busPos).getBookingTypes().get(i).getBookingLength() < smallestBooking)
+				smallestBooking = business.getBookingTypes().get(i).getBookingLength();
+				if(business.getBookingTypes().get(i).getBookingLength() < smallestBooking)
 				{
-					smallestBooking = businesses.get(busPos).getBookingTypes().get(i).getBookingLength();
+					smallestBooking = business.getBookingTypes().get(i).getBookingLength();
 				}
 			}
 			
-    		Employee currentEmployee = businesses.get(busPos).employees.get(empPos);
+    		Employee currentEmployee = business.getEmployees().get(empPos);
     		addAvailableTime(currentEmployee, today, smallestBooking);
    		
     		removeBookedTimes();
@@ -299,11 +300,11 @@ public class CustomerMakeBookingController implements Initializable{
 		//otherwise create a booking
 		else
 		{		
-			for(int empPos = 0; empPos < businesses.get(busPos).employees.size(); empPos++)
+			for(int empPos = 0; empPos < business.getEmployees().size(); empPos++)
 			{
-				if(businesses.get(busPos).employees.get(empPos).getName().equalsIgnoreCase(newSelection.getEmployeeName()))
+				if(business.getEmployees().get(empPos).getName().equalsIgnoreCase(newSelection.getEmployeeName()))
 				{
-					employee = businesses.get(busPos).employees.get(empPos);
+					employee = business.getEmployees().get(empPos);
 				}
 			}
 			
@@ -330,7 +331,7 @@ public class CustomerMakeBookingController implements Initializable{
 			String day = newSelection.getDay();
 			
 				Booking newBooking = new Booking(generateBookingID(), classType, day, startTime, endTime, date, customer, employee);
-				addBooking(businesses.get(busPos), newBooking);
+				addBooking(business, newBooking);
 				allAvailabilities.remove(newSelection);
 				displayedAvailabilities.remove(newSelection);
 				addBookingLabel.setText("Booked with " + employee.getName() + " at " + newSelection.getTime() + " on the " + date);
@@ -340,8 +341,8 @@ public class CustomerMakeBookingController implements Initializable{
 	public String generateBookingID()
 	{
 		String bookingID = new String();
-		int lastBooking = businesses.get(busPos).getBookings().size() - 1;
-		int nextBookingId = Integer.valueOf(businesses.get(busPos).getBookings().get(lastBooking).getBookingID());
+		int lastBooking = business.getBookings().size() - 1;
+		int nextBookingId = Integer.valueOf(business.getBookings().get(lastBooking).getBookingID());
 		nextBookingId++;
 		
 		bookingID = String.valueOf(nextBookingId);
@@ -423,9 +424,9 @@ public class CustomerMakeBookingController implements Initializable{
 		for(int availPos = 0; availPos < allAvailabilities.size(); availPos++)
 		{
 			AvailableBookingTable currentTime = allAvailabilities.get(availPos);
-			for(int bookingPos = 0; bookingPos < businesses.get(busPos).getBookings().size(); bookingPos++)
+			for(int bookingPos = 0; bookingPos < business.getBookings().size(); bookingPos++)
 			{
-				Booking currentBooking = businesses.get(busPos).getBookings().get(bookingPos);
+				Booking currentBooking = business.getBookings().get(bookingPos);
 				if(currentBooking.getBookingTime().getDay().equals(currentTime.getAvailableTime().getDay()) &&
 						currentBooking.getDate().equals(currentTime.getLocalDate()))
 				{

@@ -69,10 +69,11 @@ public class Login
 		this.password = userInput.next();
 	}
 	
-	public int login(ArrayList<Customer> customers, ArrayList<Business> businesses, Database database)
+	public int login(Business business, Database database)
 	{
-		int customersLength = customers.size();
-		int businessesLength = businesses.size();
+		
+		int customersLength = business.getCustomers().size();
+//		int businessesLength = businesses.size();
 		int counter = 0;
 		
 		String username = this.username;
@@ -87,13 +88,13 @@ public class Login
 		{
 			for (counter = 0; counter < customersLength; counter++)
 			{
-				String customerUsername = (customers.get(counter)).getUsername();
+				String customerUsername = business.getCustomers().get(counter).getUsername();
 				
 				if (customerUsername.equals(username))
 				{
 					setUserPosition(counter);
 					
-					correctPassword = (customers.get(getUserPosition())).getPassword();
+					correctPassword = business.getCustomers().get(counter).getPassword();
 					
 					if (password.equals(correctPassword))
 					{
@@ -106,15 +107,13 @@ public class Login
 				}
 			}
 			
-			for (counter = 0; counter < businessesLength; counter++)
-			{
-				String businessUsername = (businesses.get(counter)).getUsername();
+//			for (counter = 0; counter < businessesLength; counter++)
+//			{
+				String businessUsername = business.getUsername();
 				
 				if (businessUsername.equals(username))
-				{
-					setUserPosition(counter);
-					
-					correctPassword = (businesses.get(getUserPosition())).getPassword();
+				{					
+					correctPassword = business.getPassword();
 					
 					if (password.equals(correctPassword))
 					{
@@ -125,7 +124,7 @@ public class Login
 						return 0;
 					}
 				}
-			}
+//			}
 			try{
 				ResultSet resultSet = database.getConnection().createStatement().executeQuery("SELECT * FROM ADMIN");
 			

@@ -27,17 +27,19 @@ public class CustomerMenuController implements Initializable{
     @FXML private GridPane custMenuContent;
     
 //    private ArrayList<Customer> customers;
-//    private ArrayList<Business> businesses;
+    private ArrayList<Business> businesses;
+    private Business business;
 //    int custPos;
     private Session session;
     private Database database;
     private Customer customer;
     
-    public CustomerMenuController(Session session, Customer customer, Business business, Database database)
+    public CustomerMenuController(Session session, Customer customer, ArrayList<Business> businesses, Business business, Database database)
     {
 //    	this.customers = customers;
     	this.customer = customer;
-//    	this.businesses = businesses;
+    	this.businesses = businesses;
+    	this.business = business;
 //    	this.custPos = custPos;
     	this.session = session;
     	this.database = database;
@@ -53,7 +55,7 @@ public class CustomerMenuController implements Initializable{
 	    	stage = (Stage) custLogoutButton.getScene().getWindow();
 	      	
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-			LoginController controller = new LoginController(session, businesses, database);
+			LoginController controller = new LoginController(session, businesses, business, database);
 			loader.setController(controller);
 			
 			root = loader.load();
@@ -91,7 +93,7 @@ public class CustomerMenuController implements Initializable{
     	try {
     		custMenuContent.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerMakeBooking.fxml"));
-    		CustomerMakeBookingController controller = new CustomerMakeBookingController(session, businesses, customer);
+    		CustomerMakeBookingController controller = new CustomerMakeBookingController(session, business, customer);
     		loader.setController(controller);
     		
     		custMenuContent.getChildren().add(loader.load());
@@ -109,7 +111,7 @@ public class CustomerMenuController implements Initializable{
     		custMenuContent.getChildren().clear();
     		
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("CustViewBookings.fxml"));
-    		CustViewBookingsController controller = new CustViewBookingsController(session, customer, businesses, 0);
+    		CustViewBookingsController controller = new CustViewBookingsController(session, customer, business);
     		loader.setController(controller);
     		
     		custMenuContent.getChildren().add(loader.load());
