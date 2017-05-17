@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.CheckBox?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+	<center>
+		<GridPane alignment="center" hgap="10" vgap="10">
+			<padding>
+                  <Insets bottom="10" left="25" right="25" top="25" />
+             </padding>
+             
+			<Label fx:id="dayLabel" text="Day" GridPane.columnIndex="0"
+				GridPane.rowIndex="1"/>
+			<Label fx:id="startTime" text="Start Time" GridPane.columnIndex="1"
+				GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+			<Label fx:id="startAmPmOption" text="AM/PM" GridPane.columnIndex="3"
+				GridPane.rowIndex="1"/>
+			<Label fx:id="startTime" text="End Time" GridPane.columnIndex="4"
+				GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+			<Label fx:id="startTimeHourLabel" text="Hours" GridPane.columnIndex="1"
+				GridPane.rowIndex="1"/>
+			<Label fx:id="startTimeMinLabel" text="Minutes" GridPane.columnIndex="2"
+				GridPane.rowIndex="1"/>
+			<Label fx:id="endTimeHourLabel" text="Hours" GridPane.columnIndex="4"
+				GridPane.rowIndex="1"/>
+			<Label fx:id="endTimeMinLabel" text="Minutes" GridPane.columnIndex="5"
+				GridPane.rowIndex="1"/>
+			<Label fx:id="endAmPmOption" text="AM/PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="1"/>
+			
+			<Label fx:id="mondayLabel" text="Monday" GridPane.columnIndex="0"
+				GridPane.rowIndex="2"/>
+			<ComboBox fx:id="mondayStartHour" prefWidth="75" GridPane.columnIndex="1"
+				GridPane.rowIndex="2"/>
+			<ComboBox fx:id="mondayStartMin" prefWidth="75" GridPane.columnIndex="2"
+				GridPane.rowIndex="2"/>
+			<Button fx:id="mondayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+				GridPane.rowIndex="2" onAction="#changeMondayStartAmPm"/>
+			<ComboBox fx:id="mondayEndHour" prefWidth="75" GridPane.columnIndex="4"
+				GridPane.rowIndex="2"/>
+			<ComboBox fx:id="mondayEndMin" prefWidth="75" GridPane.columnIndex="5"
+				GridPane.rowIndex="2"/>
+			<Button fx:id="mondayEndAmPmButton" text="PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="2" onAction="#changeMondayEndAmPm"/>
+			<CheckBox fx:id="mondayClosed" text="Closed" GridPane.columnIndex="7"
+				GridPane.rowIndex="2" onAction="#disableMondayRow"/>
+				
+			<Label fx:id="tuesdayLabel" text="Tuesday" GridPane.columnIndex="0"
+				GridPane.rowIndex="3"/>
+			<ComboBox fx:id="tuesdayStartHour" prefWidth="75" GridPane.columnIndex="1"
+				GridPane.rowIndex="3"/>
+			<ComboBox fx:id="tuesdayStartMin" prefWidth="75" GridPane.columnIndex="2"
+				GridPane.rowIndex="3"/>
+				<Button fx:id="tuesdayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+				GridPane.rowIndex="3" onAction="#changeTuesdayStartAmPm"/>
+			<ComboBox fx:id="tuesdayEndHour" prefWidth="75" GridPane.columnIndex="4"
+				GridPane.rowIndex="3"/>
+			<ComboBox fx:id="tuesdayEndMin" prefWidth="75" GridPane.columnIndex="5"
+				GridPane.rowIndex="3"/>
+			<Button fx:id="tuesdayEndAmPmButton" text="PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="3" onAction="#changeTuesdayEndAmPm"/>
+			<CheckBox fx:id="tuesdayClosed" text="Closed" GridPane.columnIndex="7"
+				GridPane.rowIndex="3" onAction="#disableTuesdayRow"/>
+				
+			<Label fx:id="wednesdayLabel" text="Wednesday" GridPane.columnIndex="0"
+				GridPane.rowIndex="4"/>
+			<ComboBox fx:id="wednesdayStartHour" prefWidth="75" GridPane.columnIndex="1"
+				GridPane.rowIndex="4"/>
+			<ComboBox fx:id="wednesdayStartMin" prefWidth="75" GridPane.columnIndex="2"
+				GridPane.rowIndex="4"/>
+			<Button fx:id="mondayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+				GridPane.rowIndex="4" onAction="#changeWednesdayStartAmPm"/>
+			<ComboBox fx:id="wednesdayEndHour" prefWidth="75" GridPane.columnIndex="4"
+				GridPane.rowIndex="4"/>
+			<ComboBox fx:id="wednesdayEndMin" prefWidth="75" GridPane.columnIndex="5"
+				GridPane.rowIndex="4"/>
+			<Button fx:id="wednesdayEndAmPmButton" text="PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="4" onAction="#changeWednesdayEndAmPm"/>
+			<CheckBox fx:id="wednesdayClosed" text="Closed" GridPane.columnIndex="7"
+				GridPane.rowIndex="4" onAction="#disableWednesdayRow"/>
+				
+				<Label fx:id="thursdayLabel" text="Thursday" GridPane.columnIndex="0"
+				GridPane.rowIndex="5"/>
+			<ComboBox fx:id="thursdayStartHour" prefWidth="75" GridPane.columnIndex="1"
+				GridPane.rowIndex="5"/>
+			<ComboBox fx:id="thursdayStartMin" prefWidth="75" GridPane.columnIndex="2"
+				GridPane.rowIndex="5"/>
+			<Button fx:id="thursdayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+				GridPane.rowIndex="5" onAction="#changeThursdayStartAmPm"/>
+			<ComboBox fx:id="thursdayEndHour" prefWidth="75" GridPane.columnIndex="4"
+				GridPane.rowIndex="5"/>
+			<ComboBox fx:id="thursdayEndMin" prefWidth="75" GridPane.columnIndex="5"
+				GridPane.rowIndex="5"/>
+			<Button fx:id="thursdayEndAmPmButton" text="PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="5" onAction="#changeThursdayEndAmPm"/>
+			<CheckBox fx:id="thursdayClosed" text="Closed" GridPane.columnIndex="7"
+				GridPane.rowIndex="5" onAction="#disableThursdayRow"/>
+				
+			<Label fx:id="fridayLabel" text="Friday" GridPane.columnIndex="0"
+				GridPane.rowIndex="6"/>
+			<ComboBox fx:id="fridayStartHour" prefWidth="75" GridPane.columnIndex="1"
+				GridPane.rowIndex="6"/>
+			<ComboBox fx:id="fridayStartMin" prefWidth="75" GridPane.columnIndex="2"
+				GridPane.rowIndex="6"/>
+			<Button fx:id="fridayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+				GridPane.rowIndex="6" onAction="#changeFridayStartAmPm"/>
+			<ComboBox fx:id="fridayEndHour" prefWidth="75" GridPane.columnIndex="4"
+				GridPane.rowIndex="6"/>
+			<ComboBox fx:id="fridayEndMin" prefWidth="75" GridPane.columnIndex="5"
+				GridPane.rowIndex="6"/>
+			<Button fx:id="fridayEndAmPmButton" text="PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="6" onAction="#changeFridayEndAmPm"/>
+			<CheckBox fx:id="fridayClosed" text="Closed" GridPane.columnIndex="7"
+				GridPane.rowIndex="6" onAction="#disableFridayRow"/>
+				
+			<Label fx:id="saturdayLabel" text="Saturday" GridPane.columnIndex="0"
+				GridPane.rowIndex="7"/>
+			<ComboBox fx:id="saturdayStartHour" prefWidth="75" GridPane.columnIndex="1"
+				GridPane.rowIndex="7"/>
+			<ComboBox fx:id="saturdayStartMin" prefWidth="75" GridPane.columnIndex="2"
+				GridPane.rowIndex="7"/>
+			<Button fx:id="saturdayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+				GridPane.rowIndex="7" onAction="#changeSaturdayStartAmPm"/>
+			<ComboBox fx:id="saturdayEndHour" prefWidth="75" GridPane.columnIndex="4"
+				GridPane.rowIndex="7"/>
+			<ComboBox fx:id="saturdayEndMin" prefWidth="75" GridPane.columnIndex="5"
+				GridPane.rowIndex="7"/>
+			<Button fx:id="saturdayEndAmPmButton" text="PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="7" onAction="#changeSaturdayEndAmPm"/>
+			<CheckBox fx:id="saturdayClosed" text="Closed" GridPane.columnIndex="7"
+				GridPane.rowIndex="7" onAction="#disableSaturdayRow"/>
+				
+			<Label fx:id="sundayLabel" text="Sunday" GridPane.columnIndex="0"
+				GridPane.rowIndex="8"/>
+			<ComboBox fx:id="sundayStartHour" prefWidth="75" GridPane.columnIndex="1"
+				GridPane.rowIndex="8"/>
+			<ComboBox fx:id="sundayStartMin" prefWidth="75" GridPane.columnIndex="2"
+				GridPane.rowIndex="8"/>
+			<Button fx:id="sundayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+				GridPane.rowIndex="8" onAction="#changeSundayStartAmPm"/>
+			<ComboBox fx:id="sundayEndHour" prefWidth="75" GridPane.columnIndex="4"
+				GridPane.rowIndex="8"/>
+			<ComboBox fx:id="sundayEndMin" prefWidth="75" GridPane.columnIndex="5"
+				GridPane.rowIndex="8"/>
+			<Button fx:id="sundayEndAmPmButton" text="PM" GridPane.columnIndex="6"
+				GridPane.rowIndex="8" onAction="#changeSundayEndAmPm"/>
+			<CheckBox fx:id="sundayClosed" text="Closed" GridPane.columnIndex="7"
+				GridPane.rowIndex="8" onAction="#disableSundayRow"/>
+				
+			<Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Update Open Hours" fx:id="openHoursButton"
+			onAction="#handleOpenHoursButtonAction"
+			GridPane.columnIndex="3" GridPane.rowIndex="9" GridPane.columnSpan="2"/>
+			<Text fx:id="openHoursNotify" text="" GridPane.columnIndex="3" GridPane.rowIndex="10"
+				GridPane.columnSpan="2"/>
+		</GridPane>
+	</center>
+</BorderPane>
+

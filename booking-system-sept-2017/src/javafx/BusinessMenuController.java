@@ -29,6 +29,8 @@ public class BusinessMenuController implements Initializable {
     @FXML private GridPane busViewBooking;
     @FXML private GridPane busEmployeeAvail;
     @FXML private GridPane busMakeBooking;
+    @FXML private GridPane updateBusinessDetails;
+    @FXML private GridPane updateBookingType;
     @FXML private TabPane businessMenuTabPane;
     @FXML private Tab detailsTab;
     
@@ -168,5 +170,38 @@ public class BusinessMenuController implements Initializable {
     		System.out.println(e);
     		session.addLog("Unable to load Employee Availabilities Tab");
     	}
+	}
+	
+	@FXML protected void onSelectionUpdateBusinessDetails(Event event)
+	{
+		try {
+				updateBusinessDetails.getChildren().clear();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateBusinessDetails.fxml"));
+				BusinessHoursController controller = new BusinessHoursController(session, business);
+				loader.setController(controller);
+				
+				updateBusinessDetails.getChildren().add(loader.load());
+		}catch(IOException e)
+		{
+			System.out.println(e);
+			session.addLog("Unable to load Update Business Details");
+		}
+	}
+	
+	@FXML protected void onSelectionUpdateBookingTypes(Event event)
+	{
+		
+		try {
+			updateBookingType.getChildren().clear();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingTypes.fxml"));
+			BookingTypesController controller = new BookingTypesController(session, business);
+			loader.setController(controller);
+			
+			updateBookingType.getChildren().add(loader.load());
+	}catch(IOException e)
+	{
+		System.out.println(e);
+		session.addLog("Unable to load Update Business Details");
+	}
 	}
 }

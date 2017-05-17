@@ -19,7 +19,7 @@
 			<ComboBox fx:id="classCombo" prefWidth="150.0"
 					onAction="#handleSortAvailability"
 					GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-			<Label text="Choose a Trainer"
+			<Label text="Choose an Employee"
 					GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 			<ComboBox fx:id="employeeCombo" prefWidth="150.0"
 					onAction="#handleSortAvailability"
