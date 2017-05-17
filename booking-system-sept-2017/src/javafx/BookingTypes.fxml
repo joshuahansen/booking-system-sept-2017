@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1">
+	<Label fx:id="headingLabel" text="Add new booking types and Lengths"
+		GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+	
+	<Label fx:id="nameLabel" text="Name of Booking Type" GridPane.columnIndex="0"
+		GridPane.rowIndex="1"/>
+	<TextField fx:id="nameText" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+	
+	<Label fx:id="hourLabel" text="Hours" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+	<ComboBox fx:id="hoursCombo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+	<Label fx:id="minsLabel" text="Minutes" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+	<ComboBox fx:id="minsCombo" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+	
+	<Button fx:id="clearButton" text="Clear" onAction="#clearButtonAction" GridPane.columnIndex="0"
+		GridPane.rowIndex="3"/>
+	<Button fx:id="confirmButton" text="Confirm" onAction="#confirmButtonAction" GridPane.columnIndex="3"
+		GridPane.rowIndex="3"/>	
+</GridPane>
+

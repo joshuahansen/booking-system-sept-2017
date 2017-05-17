@@ -20,7 +20,7 @@ public class Database {
 	private String emplAvailSQL;
 	private String bookingSQL;
 	private String busiSQL;
-	
+	private String businessHourSQL;
 	
  	public Connection getConnection()
 	{
@@ -50,6 +50,11 @@ public class Database {
 	public String getBookingSQL()
 	{
 		return bookingSQL;
+	}
+	
+	public String getBusinessHourSQL()
+	{
+		return businessHourSQL;
 	}
 
 	//connect to the database. return false if unable to connect
@@ -729,6 +734,30 @@ public class Database {
 		return true;
 	}
 	
+	public boolean writeBusinessHoursToDB(Session session, ArrayList<Business> businesses)
+	{
+		try{
+			String sql;
+			Statement stmt = connection.createStatement();
+	
+			sql = "DELETE FROM BUSINESS_HOURS";
+			stmt.executeUpdate(sql);
+					
+			for(int busNo = 0; busNo < businesses.size(); busNo++)
+			{
+				for(int i = 0; i < businesses.get(busNo).getBusinessHours().size(); i++)
+				{
+				    businessHoursToString(businesses.get(busNo), businesses.get(busNo).getBusinessHours().get(i));
+					sql = "INSERT INTO BUSINESS_HOURS VALUES(" + getBusinessHourSQL() +")";
+					stmt.executeUpdate(sql);
+				}
+			}
+			}catch (SQLException ex) {
+				session.addLog("Business Hours record already exists. No changes were made.");
+			}
+		return true;
+	}
+	
 	//convert objects to strings for SQL commands
 	public boolean custToString(Customer customer, Business business)
 	{
@@ -784,7 +813,7 @@ public class Database {
 //		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot + ", '" + isBooked + "', '" + business.getUsername() + "'";
 //		return true;
 //	}
-	public boolean emplAvailToString(Business business, Employee employee, AvailableTime availTime)
+	private boolean emplAvailToString(Business business, Employee employee, AvailableTime availTime)
 	{
 		String day = availTime.getDay();
 		int startHour = availTime.getStartTime().getHour();
@@ -794,6 +823,19 @@ public class Database {
 		
 		this.emplAvailSQL = "'" + employee.getEmployeeID() + "', " + business.getUsername() + "', "+ startHour + "', " + startMin 
 				+ "', " + endHour + "', " + endMin + "', " + day + "'";
+		return true;
+	}
+	
+	private boolean businessHoursToString(Business business, AvailableTime businessHour)
+	{
+		String businessUname = business.getUsername();
+		String day = businessHour.getDay();
+		int startHour = businessHour.getStartTime().getHour();
+		int startMin = businessHour.getStartTime().getMinute();
+		int endHour = businessHour.getEndTime().getHour();
+		int endMin = businessHour.getEndTime().getMinute();
+		
+		this.businessHourSQL = "'" + businessUname + "', " + startHour + ", " + startMin + ", " + endHour + ", " + endMin + ", '" + day + "'";
 		return true;
 	}
 	
