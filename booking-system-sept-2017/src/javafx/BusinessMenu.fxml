@@ -45,14 +45,14 @@
 						<GridPane fx:id="busMakeBooking"/>
 					</content>
 				</Tab>
-				<Tab text="Change Details" onSelectionChanged="#onSelectionUpdateBusinessDetails">
+				<Tab text="Business Hours" onSelectionChanged="#onSelectionBusinessHours">
 					<content>
-						<GridPane fx:id="updateBusinessDetails"/>
+						<GridPane fx:id="businessHours"/>
 					</content>
 				</Tab>
-				<Tab text="Booking Types" onSelectionChanged="#onSelectionUpdateBookingTypes">
+				<Tab text="Booking Types" onSelectionChanged="#onSelectionBookingTypes">
 					<content>
-						<GridPane fx:id="updateBookingType"/>
+						<GridPane fx:id="bookingType"/>
 					</content>
 				</Tab>
 			</tabs>

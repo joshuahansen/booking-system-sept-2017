@@ -8,6 +8,7 @@
 
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1">
+	<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 	<Label fx:id="headingLabel" text="Add new booking types and Lengths"
 		GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
 	
@@ -20,9 +21,11 @@
 	<Label fx:id="minsLabel" text="Minutes" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
 	<ComboBox fx:id="minsCombo" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
 	
-	<Button fx:id="clearButton" text="Clear" onAction="#clearButtonAction" GridPane.columnIndex="0"
+	<Button fx:id="clearButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+		 text="Clear" onAction="#clearButtonAction" GridPane.columnIndex="0"
 		GridPane.rowIndex="3"/>
-	<Button fx:id="confirmButton" text="Confirm" onAction="#confirmButtonAction" GridPane.columnIndex="3"
+	<Button fx:id="confirmButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+		 text="Confirm" onAction="#confirmButtonAction" GridPane.columnIndex="3"
 		GridPane.rowIndex="3"/>	
 </GridPane>
 

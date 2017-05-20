@@ -29,8 +29,8 @@ public class BusinessMenuController implements Initializable {
     @FXML private GridPane busViewBooking;
     @FXML private GridPane busEmployeeAvail;
     @FXML private GridPane busMakeBooking;
-    @FXML private GridPane updateBusinessDetails;
-    @FXML private GridPane updateBookingType;
+    @FXML private GridPane businessHours;
+    @FXML private GridPane bookingType;
     @FXML private TabPane businessMenuTabPane;
     @FXML private Tab detailsTab;
     
@@ -172,36 +172,36 @@ public class BusinessMenuController implements Initializable {
     	}
 	}
 	
-	@FXML protected void onSelectionUpdateBusinessDetails(Event event)
+	@FXML protected void onSelectionBusinessHours(Event event)
 	{
 		try {
-				updateBusinessDetails.getChildren().clear();
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateBusinessDetails.fxml"));
+				businessHours.getChildren().clear();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessHours.fxml"));
 				BusinessHoursController controller = new BusinessHoursController(session, business);
 				loader.setController(controller);
 				
-				updateBusinessDetails.getChildren().add(loader.load());
+				businessHours.getChildren().add(loader.load());
 		}catch(IOException e)
 		{
 			System.out.println(e);
-			session.addLog("Unable to load Update Business Details");
+			session.addLog("Unable to load Business Hours tab");
 		}
 	}
 	
-	@FXML protected void onSelectionUpdateBookingTypes(Event event)
+	@FXML protected void onSelectionBookingTypes(Event event)
 	{
 		
 		try {
-			updateBookingType.getChildren().clear();
+			bookingType.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingTypes.fxml"));
 			BookingTypesController controller = new BookingTypesController(session, business);
 			loader.setController(controller);
 			
-			updateBookingType.getChildren().add(loader.load());
+			bookingType.getChildren().add(loader.load());
 	}catch(IOException e)
 	{
 		System.out.println(e);
-		session.addLog("Unable to load Update Business Details");
+		session.addLog("Unable to load Booking types tab");
 	}
 	}
 }
