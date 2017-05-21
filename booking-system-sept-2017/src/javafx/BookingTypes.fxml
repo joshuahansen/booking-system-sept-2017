@@ -5,27 +5,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 
-
-<GridPane xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment = "center" hgap = "10" vgap = "10">
 	<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-	<Label fx:id="headingLabel" text="Add new booking types and Lengths"
-		GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+	<children>
+		<Label fx:id="headingLabel" text="Add new booking types and Lengths"
+			GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="3"/>
+		
+		<Label fx:id="nameLabel" text="Name of Booking Type" GridPane.columnIndex="0"
+			GridPane.rowIndex="1"/>
 	
-	<Label fx:id="nameLabel" text="Name of Booking Type" GridPane.columnIndex="0"
-		GridPane.rowIndex="1"/>
-	<TextField fx:id="nameText" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-	
-	<Label fx:id="hourLabel" text="Hours" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-	<ComboBox fx:id="hoursCombo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-	<Label fx:id="minsLabel" text="Minutes" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-	<ComboBox fx:id="minsCombo" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-	
-	<Button fx:id="clearButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
-		 text="Clear" onAction="#clearButtonAction" GridPane.columnIndex="0"
-		GridPane.rowIndex="3"/>
-	<Button fx:id="confirmButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
-		 text="Confirm" onAction="#confirmButtonAction" GridPane.columnIndex="3"
-		GridPane.rowIndex="3"/>	
+		<TextField fx:id="nameText" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+		
+		<Label fx:id="hourLabel" text="Hours" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+		<ComboBox fx:id="hoursCombo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+		<Label fx:id="minsLabel" text="Minutes" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+		<ComboBox fx:id="minsCombo" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+		
+		<Button fx:id="clearButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+			 text="Clear" onAction="#clearButtonAction" GridPane.columnIndex="0"
+			GridPane.rowIndex="3"/>
+		<Button fx:id="confirmButton" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
+			 text="Confirm" onAction="#confirmButtonAction" GridPane.columnIndex="3"
+			GridPane.rowIndex="3"/>
+		<Text fx:id="confirmText" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="2"/>
+	</children>
 </GridPane>
 

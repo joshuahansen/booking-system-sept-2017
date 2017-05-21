@@ -42,17 +42,17 @@
 				</Tab>
 				<Tab text="Make Bookings" onSelectionChanged="#onSelectionMakeBooking">
 					<content>
-						<GridPane fx:id="busMakeBooking"/>
+						<GridPane fx:id="busMakeBooking" alignment="center"/>
 					</content>
 				</Tab>
 				<Tab text="Business Hours" onSelectionChanged="#onSelectionBusinessHours">
 					<content>
-						<GridPane fx:id="businessHours"/>
+						<GridPane fx:id="businessHours" alignment="center"/>
 					</content>
 				</Tab>
 				<Tab text="Booking Types" onSelectionChanged="#onSelectionBookingTypes">
 					<content>
-						<GridPane fx:id="bookingType"/>
+						<GridPane fx:id="bookingType" alignment="center"/>
 					</content>
 				</Tab>
 			</tabs>

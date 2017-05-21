@@ -4,12 +4,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javafx.BusinessMakeBookingController.AvailableBookingTable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.AvailableTime;
 import main.Booking;
+import main.BookingType;
 import main.Session;
 import users.*;
 
@@ -30,6 +27,7 @@ public class CustomerMakeBookingController implements Initializable{
     private Session session;
     private LocalTime midday = LocalTime.of(12, 00);
 	private LocalTime evening = LocalTime.of(17, 00);
+	private int smallestBooking;
 
     private final ObservableList<AvailableBookingTable> allAvailabilities = FXCollections.observableArrayList();
     private final ObservableList<AvailableBookingTable> displayedAvailabilities = FXCollections.observableArrayList();
@@ -185,7 +183,7 @@ public class CustomerMakeBookingController implements Initializable{
 		
 		for(int empPos = 0; empPos < business.getEmployees().size(); empPos ++)
 		{
-    		int smallestBooking = 0;
+    		smallestBooking = 0;
 			for(int i = 0; i < business.getBookingTypes().size(); i++)
 			{
 				smallestBooking = business.getBookingTypes().get(i).getBookingLength();
@@ -251,31 +249,52 @@ public class CustomerMakeBookingController implements Initializable{
 					{
 						displayedAvailabilities.remove(allAvailabilities.get(count));
 					}
-//					else if(!classType.equalsIgnoreCase("All"))
-//					else if(!classType.equalsIgnoreCase("All") && (classType.equalsIgnoreCase("CROSSFIT 2HR") || classType.equalsIgnoreCase("CARDIO 2HR")))
-//					{
-//						try{
-//							if(allAvailabilities.get(count).getEmployeeName().equalsIgnoreCase(allAvailabilities.get(count + 1).getEmployeeName()) 
-//									&& allAvailabilities.get(count).getDay().equalsIgnoreCase(allAvailabilities.get(count + 1).getDay()))
-//							{
-//								for(int i = 0; i < timesArray.length; i++)
-//								{
-//									if(timesArray[i].equalsIgnoreCase(allAvailabilities.get(count).getTime()) && timesArray[i + 1].equalsIgnoreCase(allAvailabilities.get(count + 1).getTime()))
-//									{
-//										doubleTimeslot = true;
-//										break;
-//									}
-//								}
-//							}
-//							}catch(IndexOutOfBoundsException e)
-//							{
-//								doubleTimeslot = false;
-//							}
-//						if(!doubleTimeslot)
-//						{
-//							displayedAvailabilities.remove(allAvailabilities.get(count));
-//						}
-//					}
+					else if(!classType.equalsIgnoreCase("All"))
+					{
+						BookingType newBookingType = null;
+						for(int i = 0; i < business.getBookingTypes().size(); i++)
+						{
+							if(classType.equalsIgnoreCase(business.getBookingTypes().get(i).getBookingType()))
+							{
+								newBookingType = business.getBookingTypes().get(i);
+								System.out.println(newBookingType.getBookingType() + " " + newBookingType.getBookingLength());
+								break;
+							}
+						}
+						if(newBookingType != null)
+						{	
+							int ratio = newBookingType.getBookingLength()/smallestBooking;
+							ratio -= 1;
+							if(ratio == 0)
+							{
+								continue;
+							}
+			
+							if(count + ratio >= allAvailabilities.size())
+							{
+								displayedAvailabilities.remove(allAvailabilities.get(count));
+							}
+							else if(displayedAvailabilities.get(count).getAvailableTime().getDay().equalsIgnoreCase(allAvailabilities.get(count + ratio).getAvailableTime().getDay()) &&
+									displayedAvailabilities.get(count).getEmployee().equals(allAvailabilities.get(count + ratio).getEmployee()))
+							{
+								System.out.println(displayedAvailabilities.get(count).getAvailableTime().getDay() + "\t" + allAvailabilities.get(count + ratio).getAvailableTime().getDay());
+								System.out.println(displayedAvailabilities.get(count).getAvailableTime().getStartTime());
+								if(displayedAvailabilities.get(count).getAvailableTime().getStartTime().plusMinutes(newBookingType.getBookingLength())
+										.equals(allAvailabilities.get(count + ratio).getAvailableTime().getEndTime()))
+								{
+									System.out.println("Working");
+								}
+								else
+									displayedAvailabilities.remove(allAvailabilities.get(count));
+							}
+							else
+							{
+								displayedAvailabilities.remove(allAvailabilities.get(count));
+							}
+								
+						}
+							
+					}
 				}
 			custAvailableBookingTable.setItems(displayedAvailabilities);
 	}

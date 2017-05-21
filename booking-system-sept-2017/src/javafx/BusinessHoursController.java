@@ -130,92 +130,95 @@ public class BusinessHoursController implements Initializable {
 		
 		boolean mondaySet = false, tuesdaySet = false, wednesdaySet = false, thursdaySet = false, fridaySet = false,
 				saturdaySet = false, sundaySet = false;
-		for(int i = 0; i < business.getBusinessHours().size(); i++)
+		if(!business.getBusinessHours().isEmpty())
 		{
-			AvailableTime businessHour = business.getBusinessHours().get(i);
-			if(businessHour.getDay().equalsIgnoreCase("MONDAY"))
+			for(int i = 0; i < business.getBusinessHours().size(); i++)
 			{
-				mondayStartHour.setValue(businessHour.getStartTime().getHour());
-				mondayStartMin.setValue(businessHour.getStartTime().getMinute());
-				if(businessHour.getStartTime().getHour() > 11)
-					mondayStartAmPmButton.setText("PM");
-				mondayEndHour.setValue(businessHour.getEndTime().getHour());
-				mondayEndMin.setValue(businessHour.getEndTime().getMinute());
-				if(businessHour.getEndTime().getHour() < 12)
-					mondayEndAmPmButton.setText("AM");
-				mondaySet = true;
-			}
-			if(businessHour.getDay().equalsIgnoreCase("TUESDAY"))
-			{
-				tuesdayStartHour.setValue(businessHour.getStartTime().getHour());
-				tuesdayStartMin.setValue(businessHour.getStartTime().getMinute());
-				if(businessHour.getStartTime().getHour() > 11)
-					tuesdayStartAmPmButton.setText("PM");
-				tuesdayEndHour.setValue(businessHour.getEndTime().getHour());
-				tuesdayEndMin.setValue(businessHour.getEndTime().getMinute());
-				if(businessHour.getEndTime().getHour() < 12)
-					tuesdayEndAmPmButton.setText("AM");
-				tuesdaySet = true;
-			}
-			if(businessHour.getDay().equalsIgnoreCase("WEDNESDAY"))
-			{
-				wednesdayStartHour.setValue(businessHour.getStartTime().getHour());
-				wednesdayStartMin.setValue(businessHour.getStartTime().getMinute());
-				if(businessHour.getStartTime().getHour() > 11)
-					wednesdayStartAmPmButton.setText("PM");
-				wednesdayEndHour.setValue(businessHour.getEndTime().getHour());
-				wednesdayEndMin.setValue(businessHour.getEndTime().getMinute());
-				if(businessHour.getEndTime().getHour() < 12)
-					wednesdayEndAmPmButton.setText("AM");
-				wednesdaySet = true;
-			}
-			if(businessHour.getDay().equalsIgnoreCase("THURSDAY"))
-			{
-				thursdayStartHour.setValue(businessHour.getStartTime().getHour());
-				thursdayStartMin.setValue(businessHour.getStartTime().getMinute());
-				if(businessHour.getStartTime().getHour() > 11)
-					thursdayStartAmPmButton.setText("PM");
-				thursdayEndHour.setValue(businessHour.getEndTime().getHour());
-				thursdayEndMin.setValue(businessHour.getEndTime().getMinute());
-				if(businessHour.getEndTime().getHour() < 12)
-					thursdayEndAmPmButton.setText("AM");
-				thursdaySet = true;
-			}
-			if(businessHour.getDay().equalsIgnoreCase("FRIDAY"))
-			{
-				fridayStartHour.setValue(businessHour.getStartTime().getHour());
-				fridayStartMin.setValue(businessHour.getStartTime().getMinute());
-				if(businessHour.getStartTime().getHour() > 11)
-					fridayStartAmPmButton.setText("PM");
-				fridayEndHour.setValue(businessHour.getEndTime().getHour());
-				fridayEndMin.setValue(businessHour.getEndTime().getMinute());
-				if(businessHour.getEndTime().getHour() < 12)
-					fridayEndAmPmButton.setText("AM");
-				fridaySet = true;
-			}
-			if(businessHour.getDay().equalsIgnoreCase("SATURDAY"))
-			{
-				saturdayStartHour.setValue(businessHour.getStartTime().getHour());
-				saturdayStartMin.setValue(businessHour.getStartTime().getMinute());
-				if(businessHour.getStartTime().getHour() > 11)
-					saturdayStartAmPmButton.setText("PM");
-				saturdayEndHour.setValue(businessHour.getEndTime().getHour());
-				saturdayEndMin.setValue(businessHour.getEndTime().getMinute());
-				if(businessHour.getEndTime().getHour() < 12)
-					saturdayEndAmPmButton.setText("AM");
-				saturdaySet = true;
-			}
-			if(businessHour.getDay().equalsIgnoreCase("SUNDAY"))
-			{
-				sundayStartHour.setValue(businessHour.getStartTime().getHour());
-				sundayStartMin.setValue(businessHour.getStartTime().getMinute());
-				if(businessHour.getStartTime().getHour() > 11)
-					sundayStartAmPmButton.setText("PM");
-				sundayEndHour.setValue(businessHour.getEndTime().getHour());
-				sundayEndMin.setValue(businessHour.getEndTime().getMinute());
-				if(businessHour.getEndTime().getHour() < 12)
-					sundayEndAmPmButton.setText("AM");
-				sundaySet = true;
+				AvailableTime businessHour = business.getBusinessHours().get(i);
+				if(businessHour.getDay().equalsIgnoreCase("MONDAY"))
+				{
+					mondayStartHour.setValue(businessHour.getStartTime().getHour());
+					mondayStartMin.setValue(businessHour.getStartTime().getMinute());
+					if(businessHour.getStartTime().getHour() > 11)
+						mondayStartAmPmButton.setText("PM");
+					mondayEndHour.setValue(businessHour.getEndTime().getHour());
+					mondayEndMin.setValue(businessHour.getEndTime().getMinute());
+					if(businessHour.getEndTime().getHour() < 12)
+						mondayEndAmPmButton.setText("AM");
+					mondaySet = true;
+				}
+				if(businessHour.getDay().equalsIgnoreCase("TUESDAY"))
+				{
+					tuesdayStartHour.setValue(businessHour.getStartTime().getHour());
+					tuesdayStartMin.setValue(businessHour.getStartTime().getMinute());
+					if(businessHour.getStartTime().getHour() > 11)
+						tuesdayStartAmPmButton.setText("PM");
+					tuesdayEndHour.setValue(businessHour.getEndTime().getHour());
+					tuesdayEndMin.setValue(businessHour.getEndTime().getMinute());
+					if(businessHour.getEndTime().getHour() < 12)
+						tuesdayEndAmPmButton.setText("AM");
+					tuesdaySet = true;
+				}
+				if(businessHour.getDay().equalsIgnoreCase("WEDNESDAY"))
+				{
+					wednesdayStartHour.setValue(businessHour.getStartTime().getHour());
+					wednesdayStartMin.setValue(businessHour.getStartTime().getMinute());
+					if(businessHour.getStartTime().getHour() > 11)
+						wednesdayStartAmPmButton.setText("PM");
+					wednesdayEndHour.setValue(businessHour.getEndTime().getHour());
+					wednesdayEndMin.setValue(businessHour.getEndTime().getMinute());
+					if(businessHour.getEndTime().getHour() < 12)
+						wednesdayEndAmPmButton.setText("AM");
+					wednesdaySet = true;
+				}
+				if(businessHour.getDay().equalsIgnoreCase("THURSDAY"))
+				{
+					thursdayStartHour.setValue(businessHour.getStartTime().getHour());
+					thursdayStartMin.setValue(businessHour.getStartTime().getMinute());
+					if(businessHour.getStartTime().getHour() > 11)
+						thursdayStartAmPmButton.setText("PM");
+					thursdayEndHour.setValue(businessHour.getEndTime().getHour());
+					thursdayEndMin.setValue(businessHour.getEndTime().getMinute());
+					if(businessHour.getEndTime().getHour() < 12)
+						thursdayEndAmPmButton.setText("AM");
+					thursdaySet = true;
+				}
+				if(businessHour.getDay().equalsIgnoreCase("FRIDAY"))
+				{
+					fridayStartHour.setValue(businessHour.getStartTime().getHour());
+					fridayStartMin.setValue(businessHour.getStartTime().getMinute());
+					if(businessHour.getStartTime().getHour() > 11)
+						fridayStartAmPmButton.setText("PM");
+					fridayEndHour.setValue(businessHour.getEndTime().getHour());
+					fridayEndMin.setValue(businessHour.getEndTime().getMinute());
+					if(businessHour.getEndTime().getHour() < 12)
+						fridayEndAmPmButton.setText("AM");
+					fridaySet = true;
+				}
+				if(businessHour.getDay().equalsIgnoreCase("SATURDAY"))
+				{
+					saturdayStartHour.setValue(businessHour.getStartTime().getHour());
+					saturdayStartMin.setValue(businessHour.getStartTime().getMinute());
+					if(businessHour.getStartTime().getHour() > 11)
+						saturdayStartAmPmButton.setText("PM");
+					saturdayEndHour.setValue(businessHour.getEndTime().getHour());
+					saturdayEndMin.setValue(businessHour.getEndTime().getMinute());
+					if(businessHour.getEndTime().getHour() < 12)
+						saturdayEndAmPmButton.setText("AM");
+					saturdaySet = true;
+				}
+				if(businessHour.getDay().equalsIgnoreCase("SUNDAY"))
+				{
+					sundayStartHour.setValue(businessHour.getStartTime().getHour());
+					sundayStartMin.setValue(businessHour.getStartTime().getMinute());
+					if(businessHour.getStartTime().getHour() > 11)
+						sundayStartAmPmButton.setText("PM");
+					sundayEndHour.setValue(businessHour.getEndTime().getHour());
+					sundayEndMin.setValue(businessHour.getEndTime().getMinute());
+					if(businessHour.getEndTime().getHour() < 12)
+						sundayEndAmPmButton.setText("AM");
+					sundaySet = true;
+				}
 			}
 		}
 			if(!mondaySet)
