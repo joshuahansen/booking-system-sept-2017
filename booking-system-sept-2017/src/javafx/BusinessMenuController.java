@@ -86,6 +86,7 @@ public class BusinessMenuController implements Initializable {
 		try {
     		businessDetails.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
+    		busMenuHeading.setText(business.getBusinessName());
     		BusinessDetailsController controller = new BusinessDetailsController(session, business);
     		loader.setController(controller);
     		businessDetails.getChildren().add(loader.load());
