@@ -1,56 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
-		<HBox spacing="10" alignment="top_right"> 
+		<HBox alignment="top_right" spacing="10"> 
 			<BorderPane.margin>
-	             <Insets bottom="2.0" left="25.0" right="10.0" top="2.0" />
+	             <Insets bottom="2.0" right="10.0" top="2.0" />
 	        </BorderPane.margin>
-        	<Label fx:id="busMenuHeading"/>
-			<Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" text="Logout" fx:id="busLogout" onAction="#busLogoutAction" />
+         <Label prefHeight="28.0" prefWidth="139.0" text="Logged in as:">
+            <font>
+               <Font size="20.0" />
+            </font>
+            <padding>
+               <Insets bottom="2.0" left="10.0" />
+            </padding>
+         </Label>
+        	<Label fx:id="busMenuHeading" prefHeight="28.0" prefWidth="196.0">
+            <font>
+               <Font size="19.0" />
+            </font>
+         </Label>
+         <ImageView fx:id="busImageView" fitHeight="81.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+            <HBox.margin>
+               <Insets right="100.0" />
+            </HBox.margin>
+         </ImageView>
+         <Button mnemonicParsing="false" onAction="#handleAddImageButtonAction" prefHeight="24.0" prefWidth="110.0" text="Add Image" />
+			<Button fx:id="busLogout" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#busLogoutAction" text="Logout" />
 		</HBox>
 	</top>
 	<center>
-		<TabPane tabClosingPolicy="UNAVAILABLE" fx:id="businessMenuTabPane">
+		<TabPane fx:id="businessMenuTabPane" tabClosingPolicy="UNAVAILABLE">
 			<tabs>
-				<Tab text="Details" fx:id="detailsTab" onSelectionChanged="#onSelectionDetails">
+				<Tab fx:id="detailsTab" onSelectionChanged="#onSelectionDetails" text="Details">
 					<content>
-						<GridPane fx:id="businessDetails" alignment="center"/>
+						<GridPane fx:id="businessDetails" alignment="center" />
 					</content>
 				</Tab>
-				<Tab text="Add Employee" onSelectionChanged="#onSelectionAddEmployee">
+				<Tab onSelectionChanged="#onSelectionAddEmployee" text="Add Employee">
 					<content>
-						<GridPane fx:id="addEmployeeForm" alignment="center"/>
+						<GridPane fx:id="addEmployeeForm" alignment="center" />
 					</content>
 				</Tab>
-				<Tab text="Employee Availability" onSelectionChanged="#onSelectionEmployeeAvailability">
+				<Tab onSelectionChanged="#onSelectionEmployeeAvailability" text="Employee Availability">
 					<content>
-						<GridPane fx:id="busEmployeeAvail" alignment="top_center"/>
+						<GridPane fx:id="busEmployeeAvail" alignment="top_center" />
 					</content>
 				</Tab>
-				<Tab text="View Bookings" onSelectionChanged="#onSelectionViewBookings">
+				<Tab onSelectionChanged="#onSelectionViewBookings" text="View Bookings">
 					<content>
-						<GridPane fx:id="busViewBooking"/>
+						<GridPane fx:id="busViewBooking" alignment="center"/>
 					</content>
 				</Tab>
-				<Tab text="Make Bookings" onSelectionChanged="#onSelectionMakeBooking">
+				<Tab onSelectionChanged="#onSelectionMakeBooking" text="Make Bookings">
 					<content>
 						<GridPane fx:id="busMakeBooking" alignment="center"/>
 					</content>
 				</Tab>
-				<Tab text="Business Hours" onSelectionChanged="#onSelectionBusinessHours">
+				<Tab onSelectionChanged="#onSelectionBusinessHours" text="Business Hours">
 					<content>
 						<GridPane fx:id="businessHours" alignment="center"/>
 					</content>
 				</Tab>
-				<Tab text="Booking Types" onSelectionChanged="#onSelectionBookingTypes">
+				<Tab onSelectionChanged="#onSelectionBookingTypes" text="Booking Types">
 					<content>
 						<GridPane fx:id="bookingType" alignment="center"/>
 					</content>
