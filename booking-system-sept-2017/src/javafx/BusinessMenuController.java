@@ -1,5 +1,6 @@
 package javafx;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,7 +14,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import users.*;
@@ -33,6 +37,8 @@ public class BusinessMenuController implements Initializable {
     @FXML private GridPane bookingType;
     @FXML private TabPane businessMenuTabPane;
     @FXML private Tab detailsTab;
+    @FXML private ImageView busImageView;
+    @FXML private Button addImageButton;
     
 //    private ArrayList<Customer> customers;
     private ArrayList<Business> businesses;
@@ -82,7 +88,6 @@ public class BusinessMenuController implements Initializable {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("BusinessDetails.fxml"));
     		BusinessDetailsController controller = new BusinessDetailsController(session, business);
     		loader.setController(controller);
-    		
     		businessDetails.getChildren().add(loader.load());
     		
     	}catch(IOException e)
@@ -203,5 +208,23 @@ public class BusinessMenuController implements Initializable {
 		System.out.println(e);
 		session.addLog("Unable to load Booking types tab");
 	}
+	}
+	@FXML protected void handleAddImageButtonAction (Event event) {
+		FileChooser fc = new FileChooser();
+		File selectedFile = fc.showOpenDialog(new Stage());
+		 
+		if(fc != null) {
+			fc.getExtensionFilters().addAll(
+					new FileChooser.ExtensionFilter("All Images", "*.*"),
+		    	    new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+		    	    new FileChooser.ExtensionFilter("PNG", "*.png")
+					);
+		    if(selectedFile != null) {
+		    	String filepath = selectedFile.toURI().toString();
+		    	Image busImage = new Image(filepath);
+		    	busImageView.setImage(busImage);
+		    			
+		    }
+		}
 	}
 }
