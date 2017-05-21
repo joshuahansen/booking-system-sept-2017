@@ -161,7 +161,7 @@ public class BusinessMenuController implements Initializable {
 		try {
 			busEmployeeAvail.getChildren().clear();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeAvailabilities.fxml"));
-    		EmployeeAvailiabilitiesController controller = new EmployeeAvailiabilitiesController(session, business);
+    		EmployeeAvailabilitiesController controller = new EmployeeAvailabilitiesController(session, business);
     		loader.setController(controller);
     		
     		busEmployeeAvail.getChildren().add(loader.load());
