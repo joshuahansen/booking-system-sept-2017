@@ -157,6 +157,7 @@ public class BookingSystem extends Application {
     	database.writeBookingToDB(session, businesses);
     	database.writeBusinessDB(session, businesses);
     	database.writeBusinessHoursToDB(session, businesses);
+    	database.writeBookingTypeToDB(session, businesses);
     	try {
 			session.terminateSession();
 		} catch (IOException e1) {

@@ -21,6 +21,7 @@ public class Database {
 	private String bookingSQL;
 	private String busiSQL;
 	private String businessHourSQL;
+	private String bookingTypeSQL;
 	
  	public Connection getConnection()
 	{
@@ -55,6 +56,10 @@ public class Database {
 	public String getBusinessHourSQL()
 	{
 		return businessHourSQL;
+	}
+	public String getBookingTypeSQL()
+	{
+		return this.bookingTypeSQL;
 	}
 
 	//connect to the database. return false if unable to connect
@@ -652,25 +657,7 @@ public class Database {
 			}
 		}
 	}
-	
- 	//only write last customer in array (New Customer) into database
-//	public boolean writeNewCustToDB(Session session, Customer customer)
-//	{
-//		try{
-//			custToString(customer);
-//			String sql = "INSERT INTO CUSTOMERS VALUES(" + getCustSQL() +")";
-//		    Statement stmt = connection.createStatement();
-//		    stmt.executeUpdate(sql);
-//		    session.addLog("Customer added to database.");
-//		    return true;
-//
-//		}catch (SQLException ex) {
-//			session.addLog("Customer record already exists. No changes were made.");
-//			
-//			return false;
-//		}
-//	}
-	
+		
 	//write employee array into database including available times array
 	public boolean writeEmplToDB(Session session, ArrayList<Business> businesses)
 	{
@@ -682,32 +669,16 @@ public class Database {
 					String sql;
 					Statement stmt = connection.createStatement();
 					
-					System.out.println(businesses.get(busNo).getEmployees().get(empPos).availableTimes.size());
-					
 					for(int timePos = 0; timePos < businesses.get(busNo).getEmployees().get(empPos).availableTimes.size(); timePos++)
 					{
-						emplAvailToString(businesses.get(busNo), businesses.get(busNo).getEmployees().get(empPos),
-										businesses.get(busNo).getEmployees().get(empPos).availableTimes.get(timePos));
-						sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplAvailSQL() +")";
-						stmt.executeUpdate(sql);
-
-//				    for(int day = 0; day < businesses.get(busNo).employees.get(i).availableTimes.length; day++)
-//				    {
-//				    	for(int timeslot = 0; timeslot < businesses.get(busNo).employees.get(i).availableTimes[day].length; timeslot++)
-//				    	{
-//				    		int booked = businesses.get(busNo).employees.get(i).availableTimes[day][timeslot];
-//				    		if(booked == 1 || booked == 2)
-//				    		{
-//				    			try{
-//					    			emplAvailToString(businesses.get(busNo), businesses.get(busNo).employees.get(i).getEmployeeID(), day, timeslot, booked);
-//									sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
-//								    stmt.executeUpdate(sql);
-//				    			}catch (SQLException e)
-//				    			{
-//				    				session.addLog("Employee already available in that timeslot.");
-//				    			}
-//				    		}
-//				    	}
+						try{
+							emplAvailToString(businesses.get(busNo), businesses.get(busNo).getEmployees().get(empPos),
+											businesses.get(busNo).getEmployees().get(empPos).availableTimes.get(timePos));
+							sql = "INSERT INTO EMP_AVAIL VALUES(" + getEmplAvailSQL() +")";
+							stmt.executeUpdate(sql);
+						}catch (SQLException ex) {
+							session.addLog("Employee already at that time. No changes were made.");
+						}
 				    }
 				    emplToString(businesses.get(busNo), businesses.get(busNo).getEmployees().get(empPos));
 					sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplSQL() +")";
@@ -742,6 +713,33 @@ public class Database {
 			}
 			}catch (SQLException ex) {
 				session.addLog("Booking record already exists. No changes were made.");
+			}
+		return true;
+	}
+	
+	public boolean writeBookingTypeToDB(Session session, ArrayList<Business> businesses)
+	{
+		try{
+			String sql;
+			Statement stmt = connection.createStatement();
+					
+			for(int busNo = 0; busNo < businesses.size(); busNo++)
+			{
+				
+				for(int i = 0; i < businesses.get(busNo).getBookingTypes().size(); i++)
+				{
+					try{
+					    bookingTypesToString(businesses.get(busNo).getUsername(), businesses.get(busNo).getBookingTypes().get(i).getBookingType(), 
+					    		businesses.get(busNo).getBookingTypes().get(i).getBookingLength());
+						sql = "INSERT INTO BOOKING_TYPE VALUES(" + getBookingTypeSQL() +")";
+						stmt.executeUpdate(sql);
+					}catch (SQLException ex) {
+						session.addLog("Booking type record already exists. No changes were made.");
+					}
+				}
+			}
+			}catch (SQLException ex) {
+				session.addLog("Statement cannot connect");
 			}
 		return true;
 	}
@@ -810,21 +808,6 @@ public class Database {
 		return true;
 	}
 
-//	public boolean emplAvailToString(Business business, String emplID, int day, int timeslot, int booked)
-//	{
-//		String isBooked;
-//		if(booked == 2)
-//		{
-//			isBooked = "yes";
-//		}
-//		else
-//		{
-//			isBooked = "no";
-//		}
-//			
-//		this.emplAvailSQL = "'"+ emplID + "', " + day + ", " + timeslot + ", '" + isBooked + "', '" + business.getUsername() + "'";
-//		return true;
-//	}
 	private boolean emplAvailToString(Business business, Employee employee, AvailableTime availTime)
 	{
 		String day = availTime.getDay();
@@ -833,8 +816,8 @@ public class Database {
 		int endHour = availTime.getEndTime().getHour();
 		int endMin = availTime.getEndTime().getMinute();
 		
-		this.emplAvailSQL = "'" + employee.getEmployeeID() + "', " + business.getUsername() + "', "+ startHour + "', " + startMin 
-				+ "', " + endHour + "', " + endMin + "', " + day + "'";
+		this.emplAvailSQL = "'" + employee.getEmployeeID() + "', '" + business.getUsername() + "', "+ startHour + ", " + startMin 
+				+ ", " + endHour + ", " + endMin + ", '" + day + "'";
 		return true;
 	}
 	
@@ -848,6 +831,12 @@ public class Database {
 		int endMin = businessHour.getEndTime().getMinute();
 		
 		this.businessHourSQL = "'" + businessUname + "', " + startHour + ", " + startMin + ", " + endHour + ", " + endMin + ", '" + day + "'";
+		return true;
+	}
+	
+	private boolean bookingTypesToString(String name, String type, int time)
+	{
+		this.bookingTypeSQL = "'" + name + "', '" + type + "', " + time;
 		return true;
 	}
 	
