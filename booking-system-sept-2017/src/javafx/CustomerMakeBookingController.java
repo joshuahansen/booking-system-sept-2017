@@ -63,7 +63,7 @@ public class CustomerMakeBookingController implements Initializable{
     	
     	private final AvailableTime availTime;
     	private final SimpleStringProperty day;
-    	private final SimpleStringProperty time;
+    	private SimpleStringProperty time;
     	private final Employee employee;
     	
     	/**
@@ -84,6 +84,10 @@ public class CustomerMakeBookingController implements Initializable{
     		this.employee = employee;
     		this.employeeName = new SimpleStringProperty(employee.getName());
     		
+    	}
+    	public void setTime(LocalTime startTime, LocalTime endTime)
+    	{
+    		this.time = new SimpleStringProperty(startTime.toString() + "-" + endTime.toString());
     	}
     	
     	/**
@@ -257,7 +261,6 @@ public class CustomerMakeBookingController implements Initializable{
 							if(classType.equalsIgnoreCase(business.getBookingTypes().get(i).getBookingType()))
 							{
 								newBookingType = business.getBookingTypes().get(i);
-								System.out.println(newBookingType.getBookingType() + " " + newBookingType.getBookingLength());
 								break;
 							}
 						}
@@ -277,12 +280,12 @@ public class CustomerMakeBookingController implements Initializable{
 							else if(displayedAvailabilities.get(count).getAvailableTime().getDay().equalsIgnoreCase(allAvailabilities.get(count + ratio).getAvailableTime().getDay()) &&
 									displayedAvailabilities.get(count).getEmployee().equals(allAvailabilities.get(count + ratio).getEmployee()))
 							{
-								System.out.println(displayedAvailabilities.get(count).getAvailableTime().getDay() + "\t" + allAvailabilities.get(count + ratio).getAvailableTime().getDay());
-								System.out.println(displayedAvailabilities.get(count).getAvailableTime().getStartTime());
 								if(displayedAvailabilities.get(count).getAvailableTime().getStartTime().plusMinutes(newBookingType.getBookingLength())
 										.equals(allAvailabilities.get(count + ratio).getAvailableTime().getEndTime()))
 								{
-									System.out.println("Working");
+									//change the time displayed to the full length of booking. when lists is cleared does not return to default value
+//									displayedAvailabilities.get(count).setTime(displayedAvailabilities.get(count).getAvailableTime().getStartTime(), 
+//											displayedAvailabilities.get(count).getAvailableTime().getStartTime().plusMinutes(newBookingType.getBookingLength()));
 								}
 								else
 									displayedAvailabilities.remove(allAvailabilities.get(count));

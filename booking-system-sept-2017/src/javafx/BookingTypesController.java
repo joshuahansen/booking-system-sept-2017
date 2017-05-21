@@ -84,6 +84,12 @@ public class BookingTypesController implements Initializable {
 		    	Optional<ButtonType> result = alert.showAndWait();
 		    	if (result.get() == ButtonType.OK){
 		        	business.getBookingTypes().remove(currentBookingType);
+		        	if(selectedHours != 0)
+					{
+						selectedMins = selectedMins + (selectedHours * 60);
+					}
+					business.addBookingType(bookingName, selectedMins);
+					confirmText.setText("Booking Type " + bookingName + " of a length " + selectedMins + " was created");
 		        	session.addLog("Alert confirmed");
 		    	} else {
 		    	    // ... user chose CANCEL or closed the dialog
