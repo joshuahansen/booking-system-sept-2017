@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.MotionBlur?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,9 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@businessMenu.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@businessMenu.css" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="busiDetailOutline" layoutX="222.0" layoutY="243.0" opacity="0.6" prefHeight="219.0" prefWidth="369.0" stylesheets="@businessMenu.css">
+      <Pane fx:id="busiDetailOutline" layoutX="222.0" layoutY="112.0" opacity="0.6" prefHeight="249.0" prefWidth="369.0" stylesheets="@businessMenu.css">
          <effect>
             <InnerShadow color="#cdb8b8">
                <input>
@@ -24,38 +22,38 @@
             </InnerShadow>
          </effect>
       </Pane>
-      <GridPane alignment="center" hgap="10" layoutY="123.0" prefHeight="448.0" prefWidth="800.0" vgap="10">
+      <GridPane alignment="center" hgap="10" prefHeight="448.0" prefWidth="800.0" vgap="10">
       			<padding>
             <Insets bottom="10" left="25" right="25" top="25" />
          </padding>
       			
-            <!-- <gridLinesVisible>true</gridLinesVisible> -->
+      <!-- <gridLinesVisible>true</gridLinesVisible> -->
       			
-            <Label fx:id="busDetailsLabel" text="Business Details:" textFill="#3700ff" underline="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+      <Label fx:id="busDetailsLabel" text="Business Details:" textFill="#3700ff" underline="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
       			
-            <Label fx:id="busDetailsBusNameLabel" prefHeight="17.0" prefWidth="116.0" text="Business Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <Label fx:id="busDetailsBusNameLabel" prefHeight="17.0" prefWidth="116.0" text="Business Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
       			
-            <Text fx:id="busDetailsBusNameData" wrappingWidth="109.6878662109375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Text fx:id="busDetailsBusNameData" wrappingWidth="109.6878662109375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       					
-            <Label fx:id="busDetailsUsernameLabel" text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      <Label fx:id="busDetailsUsernameLabel" text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
       			
-            <Text fx:id="busDetailsUsernameData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Text fx:id="busDetailsUsernameData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       			
-            <Label fx:id="busDetailsFirstNameLabel" text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      <Label fx:id="busDetailsFirstNameLabel" text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       			
-            <Text fx:id="busDetailsFirstNameData" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Text fx:id="busDetailsFirstNameData" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       			
-            <Label fx:id="busDetailsLastNameLabel" text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+      <Label fx:id="busDetailsLastNameLabel" text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
       			
-            <Text fx:id="busDetailsLastNameData" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Text fx:id="busDetailsLastNameData" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       			
-            <Label fx:id="busDetailsAddressLabel" text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+      <Label fx:id="busDetailsAddressLabel" text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
       			
-            <Text fx:id="busDetailsAddressData" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Text fx:id="busDetailsAddressData" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       			
-            <Label fx:id="busDetailsPhoneLabel" text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+      <Label fx:id="busDetailsPhoneLabel" text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
       			
-            <Text fx:id="busDetailsPhoneData" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Text fx:id="busDetailsPhoneData" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
@@ -70,7 +68,5 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
-      <Button fx:id="addImageButton" layoutY="109.0" mnemonicParsing="false" onAction="#handleAddImageButtonAction" text="Add Image" />
-      <ImageView fx:id="busImageView" fitHeight="150.0" fitWidth="200.0" layoutX="154.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
