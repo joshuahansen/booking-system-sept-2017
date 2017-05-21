@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,9 +13,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@businessMenu.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="640.0" prefWidth="860.0" stylesheets="@businessMenu.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
    <children>
-      <Pane fx:id="busiDetailOutline" layoutX="222.0" layoutY="112.0" opacity="0.6" prefHeight="249.0" prefWidth="369.0" stylesheets="@businessMenu.css">
+      <Pane fx:id="busiDetailOutline" layoutX="222.0" layoutY="244.0" opacity="0.6" prefHeight="222.0" prefWidth="369.0" stylesheets="@businessMenu.css">
          <effect>
             <InnerShadow color="#cdb8b8">
                <input>
@@ -22,7 +24,7 @@
             </InnerShadow>
          </effect>
       </Pane>
-      <GridPane alignment="center" hgap="10" prefHeight="448.0" prefWidth="800.0" vgap="10">
+      <GridPane alignment="center" hgap="10" layoutX="-6.0" layoutY="126.0" prefHeight="448.0" prefWidth="800.0" vgap="10">
       			<padding>
             <Insets bottom="10" left="25" right="25" top="25" />
          </padding>
@@ -68,5 +70,7 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
+      <Button fx:id="addImageButton" layoutY="106.0" mnemonicParsing="false" onAction="#handleAddImageButton" text="Add Image" />
+      <ImageView fx:id="busImageView" fitHeight="150.0" fitWidth="325.0" layoutX="113.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

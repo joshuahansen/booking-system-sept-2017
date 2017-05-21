@@ -1,12 +1,19 @@
 package javafx;
 
+import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import main.Session;
 import users.*;
 
 /**
@@ -21,19 +28,20 @@ public class BusinessDetailsController implements Initializable {
     @FXML private Text busDetailsLastNameData;
     @FXML private Text busDetailsAddressData;
     @FXML private Text busDetailsPhoneData;
+    @FXML private Button addImageButton;
+    @FXML private ImageView busImageView;
     
-    ArrayList<Business> businesses;
-    int busPos;
-    
+    private Business business;
+    private Session session;
     /**
      * Constructor for the BusinessDetailsController
      * @param businesses Array of Businesses passed by reference to controller
      * @param busPos current user position in array passed to controller
      */
-    public BusinessDetailsController(ArrayList<Business> businesses, int busPos)
+    public BusinessDetailsController(Session session, Business business)
     {
-    	this.businesses = businesses;
-    	this.busPos = busPos;
+    	this.business = business;
+    	this.session = session;
     }
     
     /**
@@ -93,14 +101,35 @@ public class BusinessDetailsController implements Initializable {
     /**
      * Initialize values when the controller is created to current business's details
      */
+    @FXML protected void handleAddImageButton(ActionEvent event) {
+    	FileChooser fc = new FileChooser();
+  
+    	File selectedFile = fc.showOpenDialog(new Stage());
+    
+    	if(fc != null) {
+   		 fc.getExtensionFilters().addAll(
+   	                new FileChooser.ExtensionFilter("All Images", "*.*"),
+   	                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+   	                new FileChooser.ExtensionFilter("PNG", "*.png")
+   	            );
+   		if(selectedFile != null) {
+   			String filepath = selectedFile.toURI().toString();
+   			Image busImage = new Image(filepath);
+   			busImageView.setImage(busImage);
+   			
+   			}
+    	}
+    	
+    }
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		setUsername(businesses.get(busPos).getUsername());
-		setBusName(businesses.get(busPos).getBusinessName());
-		setFirstName(businesses.get(busPos).getFirstName());
-		setLastName(businesses.get(busPos).getLastName());
-		setAddress(businesses.get(busPos).getAddress());
-		setPhone(businesses.get(busPos).getContactNumber());
+		session.addLog("Load Business details");
+		setUsername(business.getUsername());
+		setBusName(business.getBusinessName());
+		setFirstName(business.getFirstName());
+		setLastName(business.getLastName());
+		setAddress(business.getAddress());
+		setPhone(business.getContactNumber());
 	}
     
 }
