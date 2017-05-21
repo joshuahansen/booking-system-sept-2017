@@ -13,8 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.text.Text;
 import main.*;
 
 public class BookingTypesController implements Initializable {
@@ -29,6 +28,7 @@ public class BookingTypesController implements Initializable {
 	@FXML ComboBox<Integer> minsCombo;
 	@FXML Button clearButton;
 	@FXML Button confirmButton;
+	@FXML Text confirmText;
 	
 	private final ObservableList<Integer> hours = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6);
 	private final ObservableList<Integer> minutes = FXCollections.observableArrayList(0, 15, 30, 45);
@@ -56,70 +56,53 @@ public class BookingTypesController implements Initializable {
 	
 	@FXML protected void confirmButtonAction(ActionEvent event)
 	{
-		//check if the booking time is within business hours.
-		//if within business hours check name of booking
-		//if name exists ask for confirmation to override current booking of that type.
 		int selectedHours = hoursCombo.getValue();
 		int selectedMins = minsCombo.getValue();
 		String bookingName = nameText.getText().toUpperCase();
-//		bookingName.toUpperCase();
 		boolean match = false; 
 		BookingType currentBookingType = null;
 		
-		for(int i = 0; i < business.getBookingTypes().size(); i++)
+		if(!bookingName.equals(""))
 		{
-			if(business.getBookingTypes().get(i).getBookingType().equalsIgnoreCase(bookingName))
+			for(int i = 0; i < business.getBookingTypes().size(); i++)
 			{
-				match = true;
-				currentBookingType = business.getBookingTypes().get(i);
-				break;
+				if(business.getBookingTypes().get(i).getBookingType().equalsIgnoreCase(bookingName))
+				{
+					match = true;
+					currentBookingType = business.getBookingTypes().get(i);
+					break;
+				}
 			}
-		}
-		if(match)
-		{
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-	    	alert.setTitle("Update Booking " + bookingName + " Confirmation");
-	    	alert.setHeaderText("Update Booking");
-	    	alert.setContentText("This booking type already exists. By selecting okay the booking " + bookingName + " will be changed to have a length of " 
-	    			+ selectedHours + " hours and " + selectedMins + " minutes.");
-	
-//	    	String exceptionText = "Booking ID: " + newSelection.getBookingId() + "\nCustomer Name: " + newSelection.getCustomerName() + 
-//	    			"\nDate: " + newSelection.getDate() + "\nEmployee: " + newSelection.getEmployeeName();
-	    			
-	    			
-//	    	Label label = new Label("The booking details are:");
-//	
-//	    	TextArea textArea = new TextArea(exceptionText);
-//	    	textArea.setEditable(false);
-//	    	textArea.setWrapText(true);
-//	
-//	    	textArea.setMaxWidth(Double.MAX_VALUE);
-//	    	textArea.setMaxHeight(Double.MAX_VALUE);
-//	    	GridPane.setVgrow(textArea, Priority.ALWAYS);
-//	    	GridPane.setHgrow(textArea, Priority.ALWAYS);
-//	
-//	    	GridPane expContent = new GridPane();
-//	    	expContent.setMaxWidth(Double.MAX_VALUE);
-//	    	expContent.add(label, 0, 0);
-//	    	expContent.add(textArea, 0, 1);
-//	    	alert.getDialogPane().setExpandableContent(expContent);
-//	    	
-	    	Optional<ButtonType> result = alert.showAndWait();
-	    	if (result.get() == ButtonType.OK){
-	        	business.getBookingTypes().remove(currentBookingType);
-	        	session.addLog("Alert confirmed");
-	    	} else {
-	    	    // ... user chose CANCEL or closed the dialog
-	    		session.addLog("alert cancled");
-	    	}
+			if(match)
+			{
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+		    	alert.setTitle("Update Booking " + bookingName + " Confirmation");
+		    	alert.setHeaderText("Update Booking");
+		    	alert.setContentText("This booking type already exists. By selecting okay the booking " + bookingName + " will be changed to have a length of " 
+		    			+ selectedHours + " hours and " + selectedMins + " minutes.");		
+		    			    	
+		    	Optional<ButtonType> result = alert.showAndWait();
+		    	if (result.get() == ButtonType.OK){
+		        	business.getBookingTypes().remove(currentBookingType);
+		        	session.addLog("Alert confirmed");
+		    	} else {
+		    	    // ... user chose CANCEL or closed the dialog
+		    		session.addLog("alert cancled");
+		    	}
+			}
+			else
+			{
+				if(selectedHours != 0)
+				{
+					selectedMins = selectedMins + (selectedHours * 60);
+				}
+				business.addBookingType(bookingName, selectedMins);
+				confirmText.setText("Booking Type" + bookingName + " of a length " + selectedMins + " was created");
+			}
 		}
 		else
 		{
-			if(selectedHours != 0)
-			{
-				selectedMins = selectedMins + (selectedHours * 60);
-			}
-			business.addBookingType(bookingName, selectedMins);
+			confirmText.setText("Please enter a name for the booking type.");
 		}
 	}
 }

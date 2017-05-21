@@ -74,7 +74,7 @@
 				GridPane.rowIndex="4"/>
 			<ComboBox fx:id="wednesdayStartMin" prefWidth="75" GridPane.columnIndex="2"
 				GridPane.rowIndex="4"/>
-			<Button fx:id="mondayStartAmPmButton" text="AM" GridPane.columnIndex="3"
+			<Button fx:id="wednesdayStartAmPmButton" text="AM" GridPane.columnIndex="3"
 				GridPane.rowIndex="4" onAction="#changeWednesdayStartAmPm"/>
 			<ComboBox fx:id="wednesdayEndHour" prefWidth="75" GridPane.columnIndex="4"
 				GridPane.rowIndex="4"/>
