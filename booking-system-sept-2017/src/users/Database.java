@@ -681,10 +681,16 @@ public class Database {
 				try{
 					String sql;
 					Statement stmt = connection.createStatement();
+					
+					System.out.println(businesses.get(busNo).getEmployees().get(empPos).availableTimes.size());
+					
 					for(int timePos = 0; timePos < businesses.get(busNo).getEmployees().get(empPos).availableTimes.size(); timePos++)
 					{
 						emplAvailToString(businesses.get(busNo), businesses.get(busNo).getEmployees().get(empPos),
 										businesses.get(busNo).getEmployees().get(empPos).availableTimes.get(timePos));
+						sql = "INSERT INTO EMPLOYEES VALUES(" + getEmplAvailSQL() +")";
+						stmt.executeUpdate(sql);
+
 //				    for(int day = 0; day < businesses.get(busNo).employees.get(i).availableTimes.length; day++)
 //				    {
 //				    	for(int timeslot = 0; timeslot < businesses.get(busNo).employees.get(i).availableTimes[day].length; timeslot++)
