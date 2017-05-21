@@ -278,28 +278,34 @@ public class Database {
 			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 9, 0, 12, 00, 'Tuesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 12, 0, 17, 30, 'Wednesday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 12, 0, 17, 00, 'Wednesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 12, 0, 17, 30, 'Thursday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 12, 0, 17, 00, 'Thursday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 17, 30, 20, 30, 'Friday')";
+			sql = "INSERT INTO EMP_AVAIL VALUES('0001', 'fit4purpose', 17, 30, 20, 00, 'Friday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Monday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 00, 'Monday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Tuesday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 00, 'Tuesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Wednesday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 00, 'Wednesday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 30, 'Thursday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 00, 'Thursday')";
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 20, 30, 'Friday')";
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 20, 00, 'Friday')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 00, 'Saturday')";
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO BUSINESS_HOURS VALUES('fit4purpose', 9, 0, 17, 00, 'Sunday')";
 			stmt.executeUpdate(sql);
 			
 			sql = "INSERT INTO BOOKINGS VALUES('001', 'CROSSFIT', 9, 0, 11, 0, 'Monday', 3, 4, 2017, 'bMarley', '0001', 'fit4purpose')";
