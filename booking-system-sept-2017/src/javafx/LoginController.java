@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -37,6 +38,7 @@ public class LoginController implements Initializable{
     @FXML private Button cancelButton;
     @FXML private Button loginButton;
     @FXML private Button confirmButton;
+    @FXML private ImageView businessLogo;
     
 //    private ArrayList<Customer> customers;
     private ArrayList<Business> businesses;
@@ -161,5 +163,14 @@ public class LoginController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		if(business.getBusinessLogo() != null)
+		{
+			businessLogo.setImage(business.getBusinessLogo());
+		}
+		else
+		{
+			Image defaultLogo = new Image("file:C:/Users/Josh/git/booking-system-sept-2017/booking-system-sept-2017/src/javafx/logoMain.png");
+			businessLogo.setImage(defaultLogo);
+		}
 	}
 }
