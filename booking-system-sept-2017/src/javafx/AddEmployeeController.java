@@ -15,7 +15,7 @@ import users.Business;
 /**
  * Controller for AddEmployee.fxml
  * Adds functionality to the page
- * @author Josh-Desktop
+ * @author SEPT Team 6
  *
  */
 public class AddEmployeeController implements Initializable{

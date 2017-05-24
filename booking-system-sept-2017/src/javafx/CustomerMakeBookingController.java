@@ -363,10 +363,19 @@ public class CustomerMakeBookingController implements Initializable{
 	public String generateBookingID()
 	{
 		String bookingID = new String();
-		int lastBooking = business.getBookings().size() - 1;
-		int nextBookingId = Integer.valueOf(business.getBookings().get(lastBooking).getBookingID());
-		nextBookingId++;
+		int nextBookingId;
+		int lastBooking;
 		
+		if(business.getBookings().size() != 0)
+		{
+			lastBooking = business.getBookings().size() - 1;
+			nextBookingId = Integer.valueOf(business.getBookings().get(lastBooking).getBookingID());
+			nextBookingId++;
+		}
+		else
+		{
+			nextBookingId = 1;
+		}
 		bookingID = String.valueOf(nextBookingId);
 		return bookingID;
 	}

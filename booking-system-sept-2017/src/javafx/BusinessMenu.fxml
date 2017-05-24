@@ -17,14 +17,14 @@
 			<BorderPane.margin>
 	             <Insets bottom="2.0" right="10.0" top="2.0" />
 	        </BorderPane.margin>
-         <Label prefHeight="28.0" prefWidth="139.0" text="Logged in as:">
+         <!--<Label prefHeight="28.0" prefWidth="139.0" text="Logged in as:">
             <font>
                <Font size="20.0" />
             </font>
             <padding>
                <Insets bottom="2.0" left="10.0" />
             </padding>
-         </Label>
+         </Label>-->
         	<Label fx:id="busMenuHeading" prefHeight="28.0" prefWidth="196.0">
             <font>
                <Font size="19.0" />

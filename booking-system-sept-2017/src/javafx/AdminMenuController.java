@@ -22,6 +22,13 @@ import main.Registration;
 import main.Session;
 import users.*;
 
+/**
+ * Administration login.
+ * Can log in as any business and has same functionality
+ * Can add a new business with business details. business will then be able to log in and add business hours and employees. 
+ * @author SEPT Team 7
+ *
+ */
 public class AdminMenuController implements  Initializable{
 	private Session session;
 //	private ArrayList<Customer> customers;
@@ -79,6 +86,10 @@ public class AdminMenuController implements  Initializable{
 		this.database = database;
 	}
 	
+	/**
+	 * Initialize admin page with tooltips for business registration
+	 * add list of businesses admin can login as
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -99,7 +110,11 @@ public class AdminMenuController implements  Initializable{
 		}
 		businessCombo.setItems(businessesComboList);
 	}
-
+	
+	/**
+	 * Log in as selected business.
+	 * @param event
+	 */
 	public void handleBusinessLogin(ActionEvent event)
 	{
 		String username = null;
@@ -152,6 +167,10 @@ public class AdminMenuController implements  Initializable{
     	}
 	}
 	
+	/**
+	 * When Logout is selected program returns to front page with 
+	 * @param event
+	 */
 	public void handleAdminLogout(ActionEvent event)
 	{
     	try {
