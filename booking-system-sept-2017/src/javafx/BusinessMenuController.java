@@ -90,6 +90,7 @@ public class BusinessMenuController implements Initializable {
     		BusinessDetailsController controller = new BusinessDetailsController(session, business);
     		loader.setController(controller);
     		businessDetails.getChildren().add(loader.load());
+		busImageView.setImage(business.getBusinessLogo());	
     		
     	}catch(IOException e)
     	{
