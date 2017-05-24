@@ -29,10 +29,11 @@
             <InnerShadow blurType="TWO_PASS_BOX" height="20.0" radius="9.5" width="20.0" />
          </effect>
       </Pane>
-      <ImageView fitHeight="182.0" fitWidth="272.0" layoutX="304.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-         <image>
+      <ImageView fx:id="businessLogo" fitHeight="182.0" fitWidth="272.0" layoutX="304.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+         <!-- <image>
             <Image url="@logoMain.png" />
-         </image></ImageView>
+         </image>-->
+      </ImageView>
       <BorderPane prefHeight="639.0" prefWidth="861.0">
          <center>
             <GridPane id="gridPaneLogin" alignment="CENTER" hgap="10" vgap="10">

@@ -3,6 +3,7 @@ package users;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import javafx.scene.image.Image;
 import main.AvailableTime;
 import main.Booking;
 import main.BookingType;
@@ -13,6 +14,7 @@ import main.BookingType;
  */
 public class Business extends User
 {
+	Image businessLogo = null;
 	/**
 	 * Name of the business object.
 	 */
@@ -144,5 +146,15 @@ public class Business extends User
 		BookingType newBookingType = new BookingType(bookingType, bookingLength);
 		bookingTypes.add(newBookingType);
 		return true;
+	}
+	
+	public void setBusinessLogo(String URL)
+	{
+		this.businessLogo = new Image(URL);
+	}
+	
+	public Image getBusinessLogo()
+	{
+		return this.businessLogo;
 	}
 }

@@ -223,8 +223,8 @@ public class BusinessMenuController implements Initializable {
 		    if(selectedFile != null) {
 		    	String filepath = selectedFile.toURI().toString();
 		    	Image busImage = new Image(filepath);
-		    	busImageView.setImage(busImage);
-		    			
+		    	business.setBusinessLogo(filepath);
+		    	busImageView.setImage(busImage);	
 		    }
 		}
 	}
