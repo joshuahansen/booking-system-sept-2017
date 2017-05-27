@@ -15,7 +15,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import main.AvailableTime;
 import main.Session;
 import users.Business;

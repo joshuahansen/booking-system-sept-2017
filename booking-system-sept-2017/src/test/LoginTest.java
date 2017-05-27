@@ -50,7 +50,6 @@ public class LoginTest
 	@Test
 	public void businessSuccessTest()
 	{
-		ArrayList<Customer> customers = new ArrayList<>();
 		ArrayList<Business> businesses = new ArrayList<>();
 		
 		Business b1 = new Business("St. George’s Hospital", "Henry", "Gray", "Blackshaw Road Melbourne", 
