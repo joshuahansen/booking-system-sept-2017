@@ -38,8 +38,8 @@ public class AddEmployeeController implements Initializable{
 
 	/**
 	 * Constructor for the AddEmployeeController class
-	 * @param businesses The array of Businesses is passed in
-	 * @param busPos the current logged in business position in the business array is pass in.
+	 * @param business business employee is being added to
+	 * @param session for system runtime logging
 	 */
 	 public AddEmployeeController(Session session, Business business)
 	    {

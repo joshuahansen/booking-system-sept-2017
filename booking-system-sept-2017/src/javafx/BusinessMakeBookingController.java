@@ -53,10 +53,9 @@ public class BusinessMakeBookingController implements Initializable{
     
     /**
      * Constructor for creating a new controller. Sets ArrayLists to local variables
-     * @param businesses Passes reference to businesses array created in BookingSystem class
-     * @param customers Passes reference to customers array created in BookingSystem class
-     * @param busPos Passes value of logging in user and sets it to local variable
-     */
+     * @param business for bookings to be made with
+	 * @param session for system runtime logging
+	 */
     public BusinessMakeBookingController(Session session, Business business)
     {
     	this.business = business;

@@ -46,9 +46,10 @@ public class LoginController implements Initializable{
     private Session session;
     
     /**
-     * Constructor for login controller
-     * @param customers Customer array passed in from driver where it was created
+     * @param session system runtime logging
      * @param businesses Business array passed in from driver where it was created
+     * @param business selected business system is loaded into
+     * @param database connected
      */
     public LoginController(Session session, ArrayList<Business> businesses, Business business, Database database)
     {

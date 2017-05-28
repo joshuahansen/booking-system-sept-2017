@@ -27,9 +27,9 @@ public class BusinessDetailsController implements Initializable {
     
     /**
      * Constructor for the BusinessDetailsController
-     * @param businesses Array of Businesses passed by reference to controller
-     * @param busPos current user position in array passed to controller
-     */
+     * @param business that is logged in
+	 * @param session for system runtime logging
+	 */
     public BusinessDetailsController(Session session, Business business)
     {
     	this.business = business;

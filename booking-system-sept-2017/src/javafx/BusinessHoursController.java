@@ -416,7 +416,7 @@ public class BusinessHoursController implements Initializable {
  	/**
  	 * Finds the available times from the given day
  	 * @param day Passes in string of day and finds matching Available time object
- 	 * @return
+ 	 * @return available time object of inputed day
  	 */
 	public AvailableTime findDay(String day)
 	{
