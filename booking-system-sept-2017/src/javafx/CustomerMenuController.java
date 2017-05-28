@@ -17,7 +17,11 @@ import javafx.stage.Stage;
 import main.Session;
 import users.*;
 
- 
+/**
+ *  Customer menu Controller. Controls all the buttons of the customer. 
+ * @author SEPT Team 6
+ *
+ */
 public class CustomerMenuController implements Initializable{
     @FXML private Button custDetailsButton;
     @FXML private Button custMakeBookingButton;
@@ -26,25 +30,32 @@ public class CustomerMenuController implements Initializable{
     
     @FXML private GridPane custMenuContent;
     
-//    private ArrayList<Customer> customers;
     private ArrayList<Business> businesses;
     private Business business;
-//    int custPos;
     private Session session;
     private Database database;
     private Customer customer;
-    
+    /**
+     * Constructor for Customer menu controller
+     * @param session for system runtime logging
+     * @param customer customer that is logged in
+     * @param businesses array of businesses
+     * @param business business that customer belongs to
+     * @param database database connection
+     */
     public CustomerMenuController(Session session, Customer customer, ArrayList<Business> businesses, Business business, Database database)
     {
-//    	this.customers = customers;
     	this.customer = customer;
     	this.businesses = businesses;
     	this.business = business;
-//    	this.custPos = custPos;
     	this.session = session;
     	this.database = database;
     }
-    //when logout is pressed load the login screen
+    /**
+     * Handle logout button action
+     * returns user to login page
+     * @param event
+     */
     @FXML protected void logoutAction(ActionEvent event)
     {
     	session.addLog("Logout Button Pressed");
@@ -69,7 +80,10 @@ public class CustomerMenuController implements Initializable{
     		session.addLog("Unable to load login scene");
     	}
     }
-    //load the customer details when the details button is pressed
+    /**
+     * load Customer details page when button is pressed
+     * @param event
+     */
     @FXML protected void detailsAction(ActionEvent event)
     { 
     	session.addLog("Details Button Pressed");
@@ -86,7 +100,10 @@ public class CustomerMenuController implements Initializable{
     		session.addLog("Unable to load Customer Details");
     	}
     }
-    //when the make booking button is pressed load and create a controller
+    /**
+     * Handle make booking button. Load and refresh make booking page
+     * @param event
+     */
     @FXML protected void makeBookingAction(ActionEvent event)
     {
     	session.addLog("Make Booking Button Pressed");
@@ -103,7 +120,10 @@ public class CustomerMenuController implements Initializable{
     		session.addLog("Unable to Make a booking");
     	}
     }
-    //when the view booking button is pressed load the fxml file and create a new controller for it.
+    /**
+     * Handle view booking button action. Load customer bookings page
+     * @param event
+     */
     @FXML protected void viewBookingsAction(ActionEvent event)
     {
     	session.addLog("View Bookings Button Pressed");
@@ -121,7 +141,9 @@ public class CustomerMenuController implements Initializable{
     		session.addLog("Unable to load bookings");
     	}
     }
-    //initialize the customer menu with the customer details loaded.
+    /**
+     * Initialize the customer menu page with the customer details page loaded
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
@@ -136,6 +158,5 @@ public class CustomerMenuController implements Initializable{
     	{
     		session.addLog("Unable to load Customer Details");
     	}
-		
 	}
 }

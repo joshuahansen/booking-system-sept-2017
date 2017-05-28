@@ -25,7 +25,7 @@ import users.*;
 /**
  * Controller for the Login.fxml.
  * Arrays are passed into controller when it is created.
- * @author Josh
+ * @author SEPT Team 6
  *
  */
 public class LoginController implements Initializable{
@@ -39,7 +39,6 @@ public class LoginController implements Initializable{
     @FXML private Button confirmButton;
     @FXML private ImageView businessLogo;
     
-//    private ArrayList<Customer> customers;
     private ArrayList<Business> businesses;
     private Business business;
     private Database database;
@@ -47,14 +46,14 @@ public class LoginController implements Initializable{
     private Session session;
     
     /**
-     * Constructor for login controller
-     * @param customers Customer array passed in from driver where it was created
+     * @param session system runtime logging
      * @param businesses Business array passed in from driver where it was created
+     * @param business selected business system is loaded into
+     * @param database connected
      */
     public LoginController(Session session, ArrayList<Business> businesses, Business business, Database database)
     {
     	this.session = session;
-//    	this.customers = customers;
     	this.businesses = businesses;
     	this.business = business;
     	this.database = database;
@@ -159,7 +158,9 @@ public class LoginController implements Initializable{
     	}
     	
     }
-
+    /**
+     * initialize logion page with business logo or default logo. 
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		if(business.getBusinessLogo() != null)

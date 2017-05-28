@@ -16,6 +16,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 import main.*;
 
+/**
+ * Booking Types Controller. Handles when a business wants to add new booking types and change the length of previous booking types.
+ * @author SEPT Team 6
+ *
+ */
 public class BookingTypesController implements Initializable {
 	Session session;
 	Business business;
@@ -33,12 +38,20 @@ public class BookingTypesController implements Initializable {
 	private final ObservableList<Integer> hours = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6);
 	private final ObservableList<Integer> minutes = FXCollections.observableArrayList(0, 15, 30, 45);
 	
+	/**
+	 * Constructor for the booking types controller
+	 * @param session passes in session for logging
+	 * @param business passes in current business for bookings to be added. 
+	 */
 	public BookingTypesController(Session session, Business business)
 	{
 		this.session = session;
 		this.business = business;
 	}
 
+	/**
+	 * initialize combo boxes with values and set initial values.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		hoursCombo.setItems(hours);
@@ -47,6 +60,10 @@ public class BookingTypesController implements Initializable {
 		minsCombo.setValue(0);
 	}
 	
+	/**
+	 * clears all fields and resets combo boxes
+	 * @param event
+	 */
 	@FXML protected void clearButtonAction(ActionEvent event)
 	{
 		nameText.setText("");
@@ -54,6 +71,11 @@ public class BookingTypesController implements Initializable {
 		minsCombo.setValue(0);
 	}
 	
+	/**
+	 * confirms the booking type values inputed by user
+	 * Has alert box if booking type already exists.
+	 * @param event
+	 */
 	@FXML protected void confirmButtonAction(ActionEvent event)
 	{
 		int selectedHours = hoursCombo.getValue();

@@ -23,7 +23,11 @@ import javafx.stage.Stage;
 import users.*;
 import main.*;
 
- 
+/**
+ * Main Business Menu controller. Has tabs for all the different business options, tabs are separate controllers and fxml files for easier changes and modifications 
+ * @author SEPT Team 6
+ *
+ */
 public class BusinessMenuController implements Initializable {
     @FXML private Button busLogout;
     @FXML private Label busMenuHeading;
@@ -40,23 +44,30 @@ public class BusinessMenuController implements Initializable {
     @FXML private ImageView busImageView;
     @FXML private Button addImageButton;
     
-//    private ArrayList<Customer> customers;
     private ArrayList<Business> businesses;
-//    private int busPos;
-    Business business;
+    private Business business;
     private Session session;
     private Database database;
     
+    /**
+     * Constructor for business menu
+     * @param session for logging system runtime
+     * @param businesses array of business
+     * @param business current logged in businesses
+     * @param database database connection for saving and retrieving data
+     */
     public BusinessMenuController(Session session, ArrayList<Business> businesses, Business business, Database database)
     {
-//    	this.customers = customers;
     	this.business = business;
     	this.businesses = businesses;
 //    	this.busPos = busPos;
     	this.session = session;
     	this.database = database;
     }
-    
+    /**
+     * Logout button. Takes user back to login page
+     * @param event
+     */
     @FXML protected void busLogoutAction(ActionEvent event)
     {
     	try {
@@ -80,7 +91,9 @@ public class BusinessMenuController implements Initializable {
     		session.addLog("Unable to load login scene");
     	}
     }
-    
+    /**
+     * Loads business details tab when business user logs in
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
@@ -99,6 +112,10 @@ public class BusinessMenuController implements Initializable {
     	}
 	}
 
+	/**
+	 * on selection make booking tab is loaded and refreshed
+	 * @param event
+	 */
 	@FXML protected void onSelectionMakeBooking(Event event)
 	{
 		try {
@@ -115,6 +132,10 @@ public class BusinessMenuController implements Initializable {
     	}
 	}
 
+	/**
+	 * on selection business details are loaded and refreshed
+	 * @param event
+	 */
 	@FXML protected void onSelectionDetails(Event event)
 	{
 		try {
@@ -131,6 +152,10 @@ public class BusinessMenuController implements Initializable {
     	}
 	}
 
+	/**
+	 * on selection view bookings tab is loaded and refreshed
+	 * @param event
+	 */
 	@FXML protected void onSelectionViewBookings(Event event)
 	{
 		try {
@@ -146,7 +171,10 @@ public class BusinessMenuController implements Initializable {
     		session.addLog("Unable to load View Bookings Tab");
     	}
 	}
-
+	/**
+	 * on selection Add employee tab loaded and refreshed 
+	 * @param event
+	 */
 	@FXML protected void onSelectionAddEmployee(Event event)
 	{
 		try {
@@ -162,7 +190,10 @@ public class BusinessMenuController implements Initializable {
     		session.addLog("Unable to load Add Employee Tab");
     	}
 	}
-
+	/**
+	 * on selection employee availabilities tab loaded and refreshed
+	 * @param event
+	 */
 	@FXML protected void onSelectionEmployeeAvailability(Event event)
 	{
 		try {
@@ -178,7 +209,10 @@ public class BusinessMenuController implements Initializable {
     		session.addLog("Unable to load Employee Availabilities Tab");
     	}
 	}
-	
+	/**
+	 * on selection business hours tabn loaded and refreshed
+	 * @param event
+	 */
 	@FXML protected void onSelectionBusinessHours(Event event)
 	{
 		try {
@@ -194,7 +228,10 @@ public class BusinessMenuController implements Initializable {
 			session.addLog("Unable to load Business Hours tab");
 		}
 	}
-	
+	/**
+	 * on selection business booking types tab loaded and refreshed
+	 * @param event
+	 */
 	@FXML protected void onSelectionBookingTypes(Event event)
 	{
 		
@@ -211,6 +248,11 @@ public class BusinessMenuController implements Initializable {
 		session.addLog("Unable to load Booking types tab");
 	}
 	}
+	/**
+	 * Handle button action for Add image. 
+	 * Business can add a custom image to the booking system allowing them to make it custom for their customers
+	 * @param event
+	 */
 	@FXML protected void handleAddImageButtonAction (Event event) {
 		FileChooser fc = new FileChooser();
 		File selectedFile = fc.showOpenDialog(new Stage());

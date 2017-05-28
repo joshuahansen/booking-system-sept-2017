@@ -22,7 +22,7 @@ import users.*;
 /**
  * BusinessMakeBookingController contains all the code used for the functionality of the BusinessMakeBooking.fxml file.
  * Any required values from previous controllers are passed in and set to local attributes to be used within the controller.
- * @author Josh
+ * @author SEPT Team 6
  *
  */
 public class BusinessMakeBookingController implements Initializable{
@@ -53,10 +53,9 @@ public class BusinessMakeBookingController implements Initializable{
     
     /**
      * Constructor for creating a new controller. Sets ArrayLists to local variables
-     * @param businesses Passes reference to businesses array created in BookingSystem class
-     * @param customers Passes reference to customers array created in BookingSystem class
-     * @param busPos Passes value of logging in user and sets it to local variable
-     */
+     * @param business for bookings to be made with
+	 * @param session for system runtime logging
+	 */
     public BusinessMakeBookingController(Session session, Business business)
     {
     	this.business = business;
@@ -65,7 +64,7 @@ public class BusinessMakeBookingController implements Initializable{
     
     /**
      * Available bookings objects for the table view. Sets values to SimpleStringProperty to be displayed in TableView
-     * @author Josh
+     * @author SEPT Team 6
      *
      */
     public static class AvailableBookingTable 
@@ -98,7 +97,11 @@ public class BusinessMakeBookingController implements Initializable{
     		this.employee = employee;
     		this.employeeName = new SimpleStringProperty(employee.getName());	
     	}
-    	
+    	/**
+    	 * Set start time and end time to available times array to be displayed
+    	 * @param startTime LocalTime object for start time passed in
+    	 * @param endTime LocalTime object for end time passed in
+    	 */
     	public void setTime(LocalTime startTime, LocalTime endTime)
     	{
     		this.time = new SimpleStringProperty(startTime.toString() + "-" + endTime.toString());
@@ -139,7 +142,10 @@ public class BusinessMakeBookingController implements Initializable{
     	{
     		return employeeName.get();
     	}
-    	
+    	/**
+    	 * Get's the employee at available at this time
+    	 * @return Employee object 
+    	 */
     	public Employee getEmployee()
     	{
     		return employee;
@@ -489,7 +495,12 @@ public class BusinessMakeBookingController implements Initializable{
 		
 		return false;
 	}
-	
+	/**
+	 * Gets the number of days to add from current day to new booking to get correct date to display
+	 * @param today LocalDate object for today
+	 * @param availTime object to get day of week
+	 * @return Integer of number of days to add
+	 */
 	public int getDaysToAdd(LocalDate today, AvailableTime availTime)
 	{
 		int dayNumber, currentDay;
@@ -513,7 +524,10 @@ public class BusinessMakeBookingController implements Initializable{
 		}
 		return addDays;
 	}
-
+	/**
+	 * Remove times that have bookings already at that time.
+	 * This keeps the list of available times current to avoid double bookings
+	 */
 	public void removeBookedTimes()
 	{
 		//remove times if there is a booking during this time
@@ -551,7 +565,12 @@ public class BusinessMakeBookingController implements Initializable{
 			}
 		}
 	}
-	
+	/**
+	 * Creates new Available Times object using employee availabilities and adds it to the displayed times
+	 * @param currentEmployee current employee to get employee availabilities
+	 * @param today LocalDate object to get correct dates for future bookings
+	 * @param smallestBooking gets the smallest booking type time in minutes
+	 */
 	public void addAvailableTime(Employee currentEmployee, LocalDate today, int smallestBooking)
 	{
 		for(int availTime = 0; availTime < currentEmployee.availableTimes.size(); availTime++)

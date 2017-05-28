@@ -11,9 +11,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Preloader for the booking system. Has loading bar and message so user knows system is loading 
+ * @author SEPT Team 6
+ *
+ */
 public class BookingSystemPreloader extends Preloader {
 	private Stage preloaderStage;
 	
+	/**
+	 * Start method to start the pre loader
+	 */
 	@Override
 	    public void start(Stage primaryStage) throws Exception {
 	       this.preloaderStage = primaryStage;
@@ -36,6 +44,9 @@ public class BookingSystemPreloader extends Preloader {
 	       primaryStage.show();
 	   }
 	 
+	/**
+	 * hides pre loader once main program has loaded.
+	 */
 	   @Override
 	   public void handleStateChangeNotification(StateChangeNotification stateChangeNotification) {
 	      if (stateChangeNotification.getType() == Type.BEFORE_START) {

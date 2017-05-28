@@ -157,7 +157,7 @@ public class Business extends User
 		bookingTypes.add(newBookingType);
 		return true;
 	}
-	
+  
 	/**
 	 * Mutator method to set the business logo image.
 	 * @param URL logo to be added.
@@ -166,7 +166,6 @@ public class Business extends User
 	{
 		this.businessLogo = new Image(URL);
 	}
-	
 	/**
 	 * Accessor method to get the business logo for the business.
 	 * @return business logo to be returned.

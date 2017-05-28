@@ -11,7 +11,7 @@ import users.*;
 
 /**
  * Controller used for displaying businesses details in business menu. 
- * @author Josh
+ * @author SEPT Team 6
  *
  */
 public class BusinessDetailsController implements Initializable {
@@ -24,11 +24,12 @@ public class BusinessDetailsController implements Initializable {
     
     private Business business;
     private Session session;
+    
     /**
      * Constructor for the BusinessDetailsController
-     * @param businesses Array of Businesses passed by reference to controller
-     * @param busPos current user position in array passed to controller
-     */
+     * @param business that is logged in
+	 * @param session for system runtime logging
+	 */
     public BusinessDetailsController(Session session, Business business)
     {
     	this.business = business;
@@ -82,7 +83,7 @@ public class BusinessDetailsController implements Initializable {
     
     /**
      * Sets phoneData Text object
-     * @param phone String phone number of business to be dsisplayed
+     * @param phone String phone number of business to be displayed
      */
     public void setPhone(String phone)
     {
@@ -102,5 +103,4 @@ public class BusinessDetailsController implements Initializable {
 		setAddress(business.getAddress());
 		setPhone(business.getContactNumber());
 	}
-    
 }

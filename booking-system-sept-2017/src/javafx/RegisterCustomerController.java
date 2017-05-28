@@ -21,6 +21,12 @@ import main.Registration;
 import main.Session;
 import users.*;
 
+/**
+ * Registration of customer controller.
+ * Allows a new customer to register to the current selected business 
+ * @author SEPT Team 6
+ *
+ */
 public class RegisterCustomerController implements Initializable{
 
     @FXML private Button confirmButton;
@@ -56,6 +62,13 @@ public class RegisterCustomerController implements Initializable{
 	private Session session;
 	private Database database;
     
+	/**
+	 * Constructor for the register customer controller
+	 * @param session for system runtime logging
+	 * @param businesses array of all businesses
+	 * @param business current selected business that customer can register to 
+	 * @param database connection
+	 */
     public RegisterCustomerController(Session session, ArrayList<Business> businesses, Business business, Database database)
     {
     	this.businesses = businesses;
@@ -63,7 +76,11 @@ public class RegisterCustomerController implements Initializable{
     	this.session = session;
     	this.database = database;
     }
-    
+    /**
+     * handle confirmation button action
+     * verifies user input and creates new user otherwise prompts user what they need to change
+     * @param event
+     */
     @FXML protected void handleConfirmButtonAction(ActionEvent event)
     {
     	session.addLog("Confirm Button Pressed");
@@ -158,7 +175,11 @@ public class RegisterCustomerController implements Initializable{
 	    	session.addLog("Unable to load login scene");
 		}
     }
-    
+    /**
+     * handle cancel button action.
+     * clears user input and reloads login page
+     * @param event
+     */
     @FXML protected void handleCancelButtonAction(ActionEvent event) 
     {
     	session.addLog("Cancle Button Pressed");
@@ -182,7 +203,9 @@ public class RegisterCustomerController implements Initializable{
     		session.addLog("Unable to load login scene");
     	}
     }
-
+    /**
+     * initialize registration page with tooltips to notify user of required data
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		session.addLog("Tooltips added to registration page");
