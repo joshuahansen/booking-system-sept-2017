@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class Session 
 {
+	/**
+	 * Session log variables.
+	 */
 	private ArrayList<String> sessionLogs;
 	private String sessionID;
 	private File sessionFolder;
@@ -19,6 +22,10 @@ public class Session
 //	Login login;
 //	Registration registration;
 	
+	/**
+	 * Constructor for session object.
+	 * @throws IOException
+	 */
 	public Session() throws IOException
 	{
 		this.sessionLogs = new ArrayList<>();
@@ -32,46 +39,82 @@ public class Session
 		this.sessionLogger = new FileWriter(sessionLog);
 	}
 	
+	/**
+	 * Accessor for session logs.
+	 * @return
+	 */
 	public ArrayList<String> getSessionLogs()
 	{
 		return this.sessionLogs;
 	}
 	
+	/**
+	 * Mutator for session logs.
+	 * @param sessionLogs
+	 */
 	public void setSessionLogs(ArrayList<String> sessionLogs)
 	{
 		this.sessionLogs = sessionLogs;
 	}
 	
+	/**
+	 * Accessor for session ID.
+	 * @return
+	 */
 	public String getSessionID()
 	{
 		return this.sessionID;
 	}
 	
+	/**
+	 * Mutator for session ID.
+	 * @param sessionID
+	 */
 	public void setSessionID(String sessionID)
 	{
 		this.sessionID = sessionID;
 	}
 	
+	/**
+	 * Accessor for session log.
+	 * @return
+	 */
 	public File getSessionLog()
 	{
 		return this.sessionLog;
 	}
 	
+	/**
+	 * Mutator for session log.
+	 * @param sessionLog
+	 */
 	public void setSessionLog(File sessionLog)
 	{
 		this.sessionLog = sessionLog;
 	}
 	
+	/**
+	 * Accessor for session logger.
+	 * @return
+	 */
 	public FileWriter getSessionLogger()
 	{
 		return this.sessionLogger;
 	}
 	
+	/**
+	 * Mutator for session logger.
+	 * @param sessionLogger
+	 */
 	public void setSessionLogger(FileWriter sessionLogger)
 	{
 		this.sessionLogger = sessionLogger;
 	}
 	
+	/**
+	 * Function to terminate session.
+	 * @throws IOException
+	 */
 	public void terminateSession() throws IOException
 	{
 		this.addLog("Session terminated.");
@@ -79,6 +122,10 @@ public class Session
 		this.sessionLogger.close();
 	}
 	
+	/**
+	 * Function to generate session ID.
+	 * @return
+	 */
 	public String generateSessionID()
 	{
 		String sessionID = new String();
@@ -98,16 +145,30 @@ public class Session
 		return sessionID;
 	}
 	
+	/**
+	 * Function to add log to array.
+	 * @param log
+	 */
 	public void addLog(String log)
 	{
 		log = this.generateSessionID() + ": " + log + "\n";
 		this.sessionLogs.add(log);
 	}
+	
+	/**
+	 * Function to write specific log to file.
+	 * @param log
+	 * @throws IOException
+	 */
 	public void writeToFile(String log) throws IOException
 	{
 		this.sessionLogger.append(log);
 	}
 	
+	/**
+	 * Function to write whole array to file.
+	 * @throws IOException
+	 */
 	public void writeWholeLog() throws IOException
 	{
 		String currentLog = new String();
@@ -130,6 +191,11 @@ public class Session
 		}
 	}
 	
+	/**
+	 * Function to remove : from session log.
+	 * @param time
+	 * @return
+	 */
 	public String parseTime(String time)
 	{
 		String parsedTime = new String();

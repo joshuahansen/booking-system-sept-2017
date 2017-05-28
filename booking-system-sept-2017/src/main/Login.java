@@ -7,57 +7,101 @@ import users.*;
 
 public class Login 
 {
+	/**
+	 * Login variables.
+	 */
 	private String username = new String();
 	private String password = new String();
 	private int userPosition = 0;
 
+	/**
+	 * Default login constructor.
+	 */
 	public Login()
 	{
 		// default constructor
 	}
 	
+	/**
+	 * Login constructor method.
+	 * @param username
+	 * @param password
+	 */
 	public Login(String username, String password)
 	{
 		this.username = username;
 		this.password = password;
 	}
 	
+	/**
+	 * Accessor for username.
+	 * @return
+	 */
 	public String getUsername()
 	{
 		return this.username;
-  }
+	}
   
+	/**
+	 * Mutator for username.
+	 * @param username
+	 */
 	public void setUsername(String username)
 	{
 		this.username = username;
 	}
 
+	/**
+	 * Accessor for password.
+	 * @return
+	 */
 	public String getPassword()
 	{
 		return this.password;
 	}
   
+	/**
+	 * Mutator for password.
+	 * @param password
+	 */
 	public void setPassword(String password)
 	{
 		this.password = password;
 	}
 	
+	/**
+	 * Accessor for user position.
+	 * @return
+	 */
 	public int getUserPosition()
 	{
 		return this.userPosition;
 	}
 	
+	/**
+	 * Mutator for user position.
+	 * @param userPosition
+	 */
 	public void setUserPosition(int userPosition)
 	{
 		this.userPosition = userPosition;
 	}
 	
+	/**
+	 * Mutator for username and password.
+	 * @param username
+	 * @param password
+	 */
 	public void setUsernamePassword(String username, String password)
 	{
 		setUsername(username);
 		setPassword(password);
 	}
 	
+	/**
+	 * IO method for username and password.
+	 * @param userInput
+	 */
 	public void getUsernamePassword(Scanner userInput)
 	{
 		System.out.println("\n--- Login ---\n");
@@ -68,6 +112,12 @@ public class Login
 		this.password = userInput.next();
 	}
 	
+	/**
+	 * Function to login the user.
+	 * @param business
+	 * @param database
+	 * @return
+	 */
 	public int login(Business business, Database database)
 	{
 		

@@ -91,30 +91,40 @@ public class Business extends User
 		return this.employees; 
 	}
 	
+	/**
+	 * Accessor method for the booking types for this business.
+	 * @return bookingTypes the booking types for this business.
+	 */
 	public ArrayList<BookingType> getBookingTypes()
 	{
 		return this.bookingTypes;
 	}
 	
+	/**
+	 * Accessor method for the business hours for this business.
+	 * @return businessHours the business hours for this business.
+	 */
 	public ArrayList<AvailableTime> getBusinessHours()
 	{
 		return this.businessHours;
 	}
 	
+	/**
+	 * Accessor method for customers of this business.
+	 * @return customers the customers of this business.
+	 */
 	public ArrayList<Customer> getCustomers()
 	{
 		return this.customers;
 	}
 	
-
 	/**
-	 * add business hours to business
-	 * @param startTime of the business hours
-	 * @param endTime of the business hours
-	 * @param day the time business hours are being added to
-	 * @return true if business hours have been added
+	 * Function to add business hours to this business.
+	 * @param startTime Opening time for the business.
+	 * @param endTime Closing time for the business.
+	 * @param day The day for the start and end times.
+	 * @return true if successful.
 	 */
-
 	public boolean addBusinessHours(LocalTime startTime, LocalTime endTime, String day)
 	{
 		AvailableTime newAvailTime = new AvailableTime(startTime, endTime, day);
@@ -136,10 +146,10 @@ public class Business extends User
 	}
 	
 	/**
-	 * add booking types to business
-	 * @param bookingType name of the booking type
-	 * @param bookingLength size of the booking length
-	 * @return true when booking is added
+	 * Function to add a type of booking to this business.
+	 * @param bookingType type of the booking to be added.
+	 * @param bookingLength length of the booking type to be added.
+	 * @return true if successful.
 	 */
 	public boolean addBookingType(String bookingType, int bookingLength)
 	{
@@ -147,17 +157,18 @@ public class Business extends User
 		bookingTypes.add(newBookingType);
 		return true;
 	}
+  
 	/**
-	 * set business logo to selected image
-	 * @param URL of the business logo
+	 * Mutator method to set the business logo image.
+	 * @param URL logo to be added.
 	 */
 	public void setBusinessLogo(String URL)
 	{
 		this.businessLogo = new Image(URL);
 	}
 	/**
-	 * get the business logo image
-	 * @return Image of business logo
+	 * Accessor method to get the business logo for the business.
+	 * @return business logo to be returned.
 	 */
 	public Image getBusinessLogo()
 	{

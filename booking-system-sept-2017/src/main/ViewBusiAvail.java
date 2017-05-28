@@ -6,13 +6,21 @@ import users.Customer;
 
 public class ViewBusiAvail {
 	
+	/**
+	 * Dimensions for table.
+	 */
 	private String[] weekDay = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 	private int TABLE_HEIGHT = 8;
 	private int TABLE_WIDTH = 5;
 	private String[][] serviceTime = new String[TABLE_HEIGHT][TABLE_WIDTH];
     private String unAvailable = "UNAVAILABLE";
     
-	
+	/**
+	 * Function to view availabilities in a table.
+	 * @param session
+	 * @param customers
+	 * @param businesses
+	 */
 	public void viewAvailabilities(Session session, ArrayList<Customer> customers, ArrayList<Business> businesses) {
 		
 		//initializes the times for each weekday.
@@ -23,6 +31,9 @@ public class ViewBusiAvail {
 		
 	}
 	
+	/**
+	 * Function to print the availabilities table.
+	 */
 	void printTable() {
 		
 		printBorder();
@@ -54,6 +65,9 @@ public class ViewBusiAvail {
 		}
 	}
 	
+	/**
+	 * Function to initialise the service table.
+	 */
 	void initServiceTable() {
 		
 		//initialises the default values for all array elements
@@ -83,6 +97,9 @@ public class ViewBusiAvail {
 		}
 	}
 	
+	/**
+	 * Function to print border for availabilities table.
+	 */
 	void printBorder() {
 		System.out.println("-----------------------------------------------------------------------");
 	}
