@@ -108,11 +108,11 @@ public class Business extends User
 	
 
 	/**
-	 * 
-	 * @param startTime
-	 * @param endTime
-	 * @param day
-	 * @return
+	 * add business hours to business
+	 * @param startTime of the business hours
+	 * @param endTime of the business hours
+	 * @param day the time business hours are being added to
+	 * @return true if business hours have been added
 	 */
 
 	public boolean addBusinessHours(LocalTime startTime, LocalTime endTime, String day)
@@ -136,10 +136,10 @@ public class Business extends User
 	}
 	
 	/**
-	 * 
-	 * @param bookingType
-	 * @param bookingLength
-	 * @return
+	 * add booking types to business
+	 * @param bookingType name of the booking type
+	 * @param bookingLength size of the booking length
+	 * @return true when booking is added
 	 */
 	public boolean addBookingType(String bookingType, int bookingLength)
 	{
@@ -147,12 +147,18 @@ public class Business extends User
 		bookingTypes.add(newBookingType);
 		return true;
 	}
-	
+	/**
+	 * set business logo to selected image
+	 * @param URL of the business logo
+	 */
 	public void setBusinessLogo(String URL)
 	{
 		this.businessLogo = new Image(URL);
 	}
-	
+	/**
+	 * get the business logo image
+	 * @return Image of business logo
+	 */
 	public Image getBusinessLogo()
 	{
 		return this.businessLogo;
