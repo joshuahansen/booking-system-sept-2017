@@ -15,7 +15,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import main.Session;
 import users.*;
-
+/**
+ * Controller to display customer bookings
+ * @author SEPT Team 6
+ *
+ */
 public class CustViewBookingsController implements Initializable{
     private Customer customer;
     private Business business;
@@ -27,14 +31,24 @@ public class CustViewBookingsController implements Initializable{
     		
     @FXML private TableView<TableViewBooking> custBookingsTable;    
     @FXML private ComboBox<String> bookingCombo = new ComboBox<String>();
-        
+    
+    /**
+     * Constructor for Customer view bookings controller
+     * @param session for system runtime logging
+     * @param customer log in customer
+     * @param business customer is making a booking with
+     */
     public CustViewBookingsController(Session session, Customer customer, Business business)
     {
     	this.customer = customer;
     	this.business = business;;
     	this.session = session;
     }
-    
+    /**
+     * Objects of bookings that are displaying in the table
+     * @author SEPT Team 6
+     *
+     */
     public static class TableViewBooking 
     {
     	private final SimpleStringProperty bookingId;
@@ -46,6 +60,16 @@ public class CustViewBookingsController implements Initializable{
     	private final SimpleStringProperty employeeName;
     	private LocalDate localDate;
     	
+    	/**
+    	 * Constructor for bookings
+    	 * @param bookingId unique booking Id
+    	 * @param sessionType booking type
+    	 * @param date of booking
+    	 * @param customerName of customer the booking is for
+    	 * @param day of the booking
+    	 * @param time of the booking
+    	 * @param employeeName the booking is with
+    	 */
     	private TableViewBooking(String bookingId, String sessionType, LocalDate date, String customerName, String day, String time, String employeeName)
     	{
     		this.bookingId = new SimpleStringProperty(bookingId);
@@ -58,48 +82,75 @@ public class CustViewBookingsController implements Initializable{
     		this.time = new SimpleStringProperty(time);
     		this.employeeName = new SimpleStringProperty(employeeName);
     	}
-    	
+    	/**
+    	 * get booking id
+    	 * @return bookingId as String
+    	 */
     	public String getBookingId()
     	{
     		return bookingId.get();
     	}
-    	
+    	/**
+    	 * get booking type
+    	 * @return sessionType as String
+    	 */
     	public String getSessionType()
     	{
     		return sessionType.get();
     	}
-    	
+    	/**
+    	 * get date of booking
+    	 * @return date as String
+    	 */
     	public String getDate()
     	{
     		return date.get();
     	}
-    	
+    	/**
+    	 * get customer name
+    	 * @return customerName as String
+    	 */
     	public String getCustomerName()
     	{
     		return customerName.get();
     	}
-    	
+    	/**
+    	 * get day of booking
+    	 * @return day as String
+    	 */
     	public String getDay()
     	{
     		return day.get();
     	}
-    	
+    	/**
+    	 * get time of booking
+    	 * @return time as String
+    	 */
     	public String getTime()
     	{
     		return time.get();
     	}
-    	
+    	/**
+    	 * get Employee name from booking
+    	 * @return employeeName as String
+    	 */
     	public String getEmployeeName()
     	{
     		return employeeName.get();
     	}
-    	
+    	/**
+    	 * get local date of the booking
+    	 * @return localDate as LocalDate
+    	 */
     	public LocalDate getLocalDate()
     	{
     		return localDate;
     	}
     }
-    
+    /**
+     * initialize table with bookings from current day.
+     * initialize combo box with past today and future booking options to sort customers bookings
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		session.addLog("Custoemr view bookings");
@@ -133,7 +184,10 @@ public class CustViewBookingsController implements Initializable{
 		bookingCombo.setItems(bookingTime);
 		bookingCombo.setValue("Today");
 	}
-	
+	/**
+	 * Handle the sorting of the bookings when the user selects an option from the drop down
+	 * @param event
+	 */
 	@FXML protected void handleSortBookings(ActionEvent event)
 	{
 		session.addLog("sort bookings");

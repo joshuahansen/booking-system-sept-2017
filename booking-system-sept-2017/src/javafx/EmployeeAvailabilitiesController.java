@@ -19,7 +19,11 @@ import main.AvailableTime;
 import main.Session;
 import users.Business;
 import users.Employee;
-
+/**
+ * Employee availabilities page. Allows business to set the availabilities of there employees within the business hours. 
+ * @author SEPT Team 6
+ *
+ */
 public class EmployeeAvailabilitiesController implements Initializable{
 
 	private Business business;
@@ -61,38 +65,19 @@ public class EmployeeAvailabilitiesController implements Initializable{
 	LocalTime midday = LocalTime.of(12, 00);
 	LocalTime evening = LocalTime.of(17, 00);
 	
-
+	/**
+	 * Constructor for the employee availabilities controller
+	 * @param session for system runtime logging
+	 * @param business that is logged in
+	 */
 	 public EmployeeAvailabilitiesController(Session session, Business business)
 	 {
 	    	this.business = business;
 	    	this.session = session;
 	 }
-	 
-//	 public void initializeButtonArray() 
-//	 { 
-//		    btn[0][0] = button1;
-//		    btn[0][1] = button2;
-//		    btn[0][2] = button3;
-//		    btn[1][0] = button4;
-//		    btn[1][1] = button5;
-//		    btn[1][2] = button6;
-//		    btn[2][0] = button7;
-//		    btn[2][1] = button8;
-//		    btn[2][2] = button9;
-//		    btn[3][0] = button10;
-//		    btn[3][1] = button11;
-//		    btn[3][2] = button12;
-//		    btn[4][0] = button13;
-//		    btn[4][1] = button14;
-//		    btn[4][2] = button15;
-//		    btn[5][0] = button16;
-//		    btn[5][1] = button17;
-//		    btn[5][2] = button18;
-//			btn[6][0] = button19;
-//			btn[6][1] = button20;
-//			btn[6][2] = button21;
-//		}
-	 
+	 /**
+	  * add employees to combo box for user to select an employee from 	 
+	  */
 	 public void addEmployeeDropdown() 
 	 {
 		 
@@ -104,6 +89,9 @@ public class EmployeeAvailabilitiesController implements Initializable{
 		 }
 	 }
 	 
+	 /**
+	  * initialize page with buttons for employee availabilities
+	  */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
@@ -115,7 +103,10 @@ public class EmployeeAvailabilitiesController implements Initializable{
 		}
 		employeeCombo.setItems(employeeList);
 	}
-	
+	/**
+	 * update buttons when employee is selected
+	 * @param event
+	 */
 	public void updateBoard(ActionEvent event) 
 	{
 		String employeeSelected = employeeCombo.getValue();
@@ -127,14 +118,21 @@ public class EmployeeAvailabilitiesController implements Initializable{
 				emplPos = count;
 			}
 	}
-
+	/**
+	 * handle action when button is pressed
+	 * @param event
+	 */
 	 @FXML
 	 protected void handleUpdateButtonAction(ActionEvent event) {
 		 	session.addLog("Availability Button pressed");
 		 	Button button = (Button) event.getSource();
 	        updateButton(business.getEmployees().get(emplPos), button);
 	 }
-	 
+	 /**
+	  * update button text when changed
+	  * @param empl employee that's times are being updated
+	  * @param but button that has been pressed
+	  */
 	 public void updateButton(Employee empl, Button but)
 	 {
 		 if(but.getText().equals("Not Availiable") || but.getText().equals(""))
@@ -738,7 +736,11 @@ public class EmployeeAvailabilitiesController implements Initializable{
 			}
 		}		 
 	 }
-	
+
+	 /**
+	  * load buttons with employee availabilities
+	  * @param empl selected employee availabilities to be displayed
+	  */
 	 public void loadButtons(Employee empl) 
 	 {
 		 for(int i = 0; i < empl.availableTimes.size(); i++)

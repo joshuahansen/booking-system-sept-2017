@@ -18,12 +18,14 @@ import main.Booking;
 import main.BookingType;
 import main.Session;
 import users.*;
-
+/**
+ * Controller for the customer make booking page. Handles displaying and updating the page with the correct information when the customer makes a booking.
+ * @author SEPT Team 6
+ *
+ */
 public class CustomerMakeBookingController implements Initializable{
-//    private ArrayList<Business> businesses;
     private Business business;
     private Customer customer;
-//    private int busPos;
     private Session session;
     private LocalTime midday = LocalTime.of(12, 00);
 	private LocalTime evening = LocalTime.of(17, 00);
@@ -46,14 +48,23 @@ public class CustomerMakeBookingController implements Initializable{
     @FXML private Label addBookingLabel;
     		
     @FXML private TableView<AvailableBookingTable> custAvailableBookingTable;    
-    
+    /**
+     * Constructor for the customer make booking controller
+     * @param session for system runtime logging
+     * @param business that the customer is making a booking with
+     * @param customer customer that is making the booking
+     */
     public CustomerMakeBookingController(Session session, Business business, Customer customer)
     {
     	this.business = business;
     	this.customer = customer;
     	this.session = session;
     }
-    
+    /**
+     * object to display that available times for bookings
+     * @author SEPT Team 6
+     *
+     */
     public static class AvailableBookingTable 
     {
     	private final SimpleStringProperty date;
@@ -85,6 +96,11 @@ public class CustomerMakeBookingController implements Initializable{
     		this.employeeName = new SimpleStringProperty(employee.getName());
     		
     	}
+    	/**
+    	 * set start time and end time of the available bookings
+    	 * @param startTime LocalTime object
+    	 * @param endTime LocalTime object
+    	 */
     	public void setTime(LocalTime startTime, LocalTime endTime)
     	{
     		this.time = new SimpleStringProperty(startTime.toString() + "-" + endTime.toString());
@@ -125,7 +141,10 @@ public class CustomerMakeBookingController implements Initializable{
     	{
     		return employeeName.get();
     	}
-    	
+    	/**
+    	 * get the employee that is available at this time
+    	 * @return employee object
+    	 */
     	public Employee getEmployee()
     	{
     		return employee;
@@ -148,7 +167,10 @@ public class CustomerMakeBookingController implements Initializable{
     		return localDate;
     	}
     }
-    
+    /**
+     * initialize the table to display all available bookings
+     * initialize combo boxes with the options to sort the available times
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		session.addLog("Initialize Make booking page");
@@ -206,7 +228,11 @@ public class CustomerMakeBookingController implements Initializable{
     	custAvailableBookingTable.setItems(allAvailabilities);
     	session.addLog("Display availabilities");
 	}
-
+	/**
+	 * Handle sort availabilities action. 
+	 * Sort the available times depending on what the user has selected with the drop down combo boxes
+	 * @param event
+	 */
 	public void handleSortAvailability(ActionEvent event)
 	{
 		session.addLog("Sort availabilities");
@@ -301,7 +327,11 @@ public class CustomerMakeBookingController implements Initializable{
 				}
 			custAvailableBookingTable.setItems(displayedAvailabilities);
 	}
-	
+	/**
+	 * Handle the make booking action button
+	 * Gets the selected booking time and create a booking with the selected values
+	 * @param event
+	 */
 	public void handleMakeBookingButtonAction(ActionEvent event)
 	{
 		session.addLog("Make Booking Button Pressed");
@@ -359,7 +389,10 @@ public class CustomerMakeBookingController implements Initializable{
 				addBookingLabel.setText("Booked with " + employee.getName() + " at " + newSelection.getTime() + " on the " + date);
 		}
 	}
-	
+	/**
+	 * generate a new booking Id for the new booking
+	 * @return String of the booking Id that was generated
+	 */
 	public String generateBookingID()
 	{
 		String bookingID = new String();
@@ -379,7 +412,12 @@ public class CustomerMakeBookingController implements Initializable{
 		bookingID = String.valueOf(nextBookingId);
 		return bookingID;
 	}
-	
+	/**
+	 * add the booking to the business
+	 * @param business business the booking was made with
+	 * @param booking object that is being added
+	 * @return true if booking was added else false
+	 */
 	public boolean addBooking(Business business, Booking booking)
 	{
 		boolean bookingFound = false;
@@ -406,7 +444,12 @@ public class CustomerMakeBookingController implements Initializable{
 			return true;
 		}
 	}
-	
+	/**
+	 * remove a booking
+	 * @param business whose booking is being removed 
+	 * @param booking that is being removed
+	 * @return return true if booking was removed
+	 */
 	public boolean removeBooking(Business business, Booking booking)
 	{
 		int numberOfBookings = business.getBookings().size();
@@ -424,7 +467,12 @@ public class CustomerMakeBookingController implements Initializable{
 		
 		return false;
 	}
-	
+	/**
+	 * get number of days to add to current date
+	 * @param today current date
+	 * @param availTime available time which date needs to be calculated for
+	 * @return integer of number of days needed to be added
+	 */
 	public int getDaysToAdd(LocalDate today, AvailableTime availTime)
 	{
 		int dayNumber, currentDay;
@@ -448,7 +496,10 @@ public class CustomerMakeBookingController implements Initializable{
 		}
 		return addDays;
 	}
-
+	/**
+	 * remove a booking time from the table
+	 * used when a new booking is made to avoid double bookings 
+	 */
 	public void removeBookedTimes()
 	{
 		//remove times if there is a booking during this time
@@ -486,7 +537,12 @@ public class CustomerMakeBookingController implements Initializable{
 			}
 		}
 	}
-	
+	/**
+	 * add a booking availabilities to be displayed
+	 * @param currentEmployee that the times are getting availabilities of
+	 * @param today todays date
+	 * @param smallestBooking smallest booking type of business
+	 */
 	public void addAvailableTime(Employee currentEmployee, LocalDate today, int smallestBooking)
 	{
 		for(int availTime = 0; availTime < currentEmployee.availableTimes.size(); availTime++)

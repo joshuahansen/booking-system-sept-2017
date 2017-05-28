@@ -20,7 +20,12 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import main.*;
 import users.*;
-
+/**
+ * Start up page allowing user to select the business they wish to make bookings for.
+ * Once logged in the system stays in selected business until closed or admin logs in and selects another business  
+ * @author SEPT Team 6
+ *
+ */
 public class SelectABusinessController implements Initializable {
 	private Session session;
 	private ArrayList<Business> businesses;
@@ -32,12 +37,22 @@ public class SelectABusinessController implements Initializable {
 	@FXML private TableView<BusinessTable> businessesTable;
 	@FXML private Label selectBusinessLabel;
 	
+	/**
+	 * Constructor for select a business controller
+	 * @param session for system runtime logging
+	 * @param businesses array of businesses
+	 * @param database database connection
+	 */
 	public SelectABusinessController(Session session, ArrayList<Business> businesses, Database database)
 	{
 		this.session = session;
 		this.businesses = businesses;
 		this.database = database;
 	}
+	
+	/**
+	 * initialize table with a list of businesses and business hours 
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		for(int busPos = 0; busPos < businesses.size(); busPos++)
@@ -48,6 +63,11 @@ public class SelectABusinessController implements Initializable {
 		businessesTable.setItems(allBusinesses);
 	}
 	
+	/**
+	 * Objects of businesses to be displayed in the table
+	 * @author SEPT Team 6
+	 *
+	 */
 	public static class BusinessTable
 	{
 		private final Business business;
@@ -60,8 +80,12 @@ public class SelectABusinessController implements Initializable {
 		private SimpleStringProperty friHours;
 		private SimpleStringProperty satHours;
 		private SimpleStringProperty sunHours;
-				
-		public BusinessTable(Business business) //String businessName, String monHours, String tueHours, String wedHours, String thuHours, String friHours, String satHours, String sunHours)
+		
+		/**
+		 * constructor for business table object
+		 * @param business current business to be added
+		 */
+		public BusinessTable(Business business)
 		{
 			this.business = business;
 			getOpenDays();
@@ -69,6 +93,9 @@ public class SelectABusinessController implements Initializable {
 			this.businessName = new SimpleStringProperty(business.getBusinessName());
 		}
 		
+		/**
+		 * get open days and business hours
+		 */
 		public void getOpenDays()
 		{
 			for(int i = 0; i < business.getBusinessHours().size(); i++)
@@ -103,7 +130,9 @@ public class SelectABusinessController implements Initializable {
 				}
 			}
 		}
-		
+		/**
+		 * get days the business is closed
+		 */
 		public void getClosedDays()
 		{
 			if(monHours == null)
@@ -142,45 +171,84 @@ public class SelectABusinessController implements Initializable {
 			}
 		}
 	
+		/**
+		 * get business
+		 * @return business being displayed
+		 */
 		public Business getBusiness()
 		{
 			return this.business;
 		}
-		
+		/**
+		 * get business name
+		 * @return business name
+		 */
 		public String getBusinessName()
 		{
 			return this.businessName.get();
 		}
+		/**
+		 * get Monday hours
+		 * @return String of Mondays hours
+		 */
 		public String getMonHours()
 		{
 			return this.monHours.get();
 		}
+		/**
+		 * get Tuesday hours
+		 * @return String of Tuesdays hours
+		 */
 		public String getTueHours()
 		{
 			return this.tueHours.get();
 		}
+		/**
+		 * get Wednesday hours
+		 * @return String of Wednesdays hours
+		 */
 		public String getWedHours()
 		{
 			return this.wedHours.get();
 		}
+		/**
+		 * get Thursday hours
+		 * @return String of Thursdays hours
+		 */
 		public String getThuHours()
 		{
 			return this.thuHours.get();
 		}
+		/**
+		 * get Fridays hours
+		 * @return String of Fridays hours
+		 */
 		public String getFriHours()
 		{
 			return this.friHours.get();
 		}
+		/**
+		 * get Saturday hours
+		 * @return String of Saturdays hours
+		 */
 		public String getSatHours()
 		{
 			return this.satHours.get();
 		}
+		/**
+		 * get Sunday hours
+		 * @return String of Sundays hours
+		 */
 		public String getSunHours()
 		{
 			return this.sunHours.get();
 		}
 	}
-	
+	/**
+	 * Handle selected button action
+	 * get selected business, load login page allowing only customers and selected business to login
+	 * @param event
+	 */
 	public void handleSelectedBusinessAction(ActionEvent event)
 	{
 		session.addLog("Select Business Button Pressed");
@@ -214,5 +282,4 @@ public class SelectABusinessController implements Initializable {
 	    	}
 		}
 	}
-
 }
