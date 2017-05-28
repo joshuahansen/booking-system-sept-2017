@@ -26,14 +26,12 @@ import users.*;
  * Administration login.
  * Can log in as any business and has same functionality
  * Can add a new business with business details. business will then be able to log in and add business hours and employees. 
- * @author SEPT Team 7
+ * @author SEPT Team 6
  *
  */
 public class AdminMenuController implements  Initializable{
 	private Session session;
-//	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
-//	private Business business;
 	private Database database;
 
 	@FXML private GridPane businessRegistration;
@@ -76,7 +74,12 @@ public class AdminMenuController implements  Initializable{
 	@FXML private Tooltip passwordTooltip;
 
 	private final ObservableList<String> businessesComboList = FXCollections.observableArrayList();
-
+/**
+ * Constructor to create new admin menu controller
+ * @param session used for system runtime logging
+ * @param businesses array off all the businesses
+ * @param database connection to database
+ */
 	public AdminMenuController(Session session, ArrayList<Business> businesses, Database database)
 	{
 //		this.customers = customers;
@@ -186,13 +189,7 @@ public class AdminMenuController implements  Initializable{
 		root = loader.load();
 		Scene scene = new Scene(root, 860, 640);        
 		scene.getStylesheets().add(getClass().getResource("bookingSystem.css").toExternalForm());
-//    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-//		LoginController controller = new LoginController(session, businesses, business, database);
-//		loader.setController(controller);
-//		
-//		root = loader.load();
-//		
-//    	Scene scene = new Scene(root, 860, 640);
+
     	stage.setScene(scene);
     	stage.show();
 		}catch(IOException e)
@@ -200,7 +197,10 @@ public class AdminMenuController implements  Initializable{
 			session.addLog("Unable to load login scene");
 		}
 	}
-	
+	/**
+	 * Confirm button checks if business details are valid and creates a new business instance.  
+	 * @param event
+	 */
 	@FXML protected void handleConfirmButtonAction(ActionEvent event)
     {
     	
@@ -301,6 +301,10 @@ public class AdminMenuController implements  Initializable{
     	}
     }
     
+	/**
+	 * Clear button clears all fields in the registration field.
+	 * @param event
+	 */
     @FXML protected void handleClearButtonAction(ActionEvent event) 
     {
     	session.addLog("Clear Button Pressed");

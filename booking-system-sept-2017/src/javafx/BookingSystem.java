@@ -18,26 +18,25 @@ import users.*;
 /**
  * Main driver of the Booking System.
  * Contains main method and also start method to load GUI
- * @author Josh
+ * @author SEPT Team 6
  *
  */
 @SuppressWarnings("restriction")
 public class BookingSystem extends Application {
 	private Database database;
-//	private ArrayList<Customer> customers;
 	private ArrayList<Business> businesses;
 	private Session session;
-	
-	
 	private Scene loginScene;
-	
+
 	public static void launchApplication(final Class<? extends Application> appClass,
 			   final Class<? extends Preloader> preloaderClass,
 			   final String[] args) {
 			}
 	
+	/**
+	 * initializes system and loads database. runs pre-loader  while database is connecting.
+	 */
 	public void init() throws Exception {
-//	  	customers = new ArrayList<>();
 		businesses = new ArrayList<>();
 		session = new Session();
 		
@@ -138,8 +137,8 @@ public class BookingSystem extends Application {
 		Thread.sleep(2000);
 	}
 	/**
-	 * Loads data from database into program
 	 * Initializes program and sets login scene to the stage.
+	 * Handles exit. writes to database
 	 */
     @Override
     public void start(Stage stage) throws Exception {

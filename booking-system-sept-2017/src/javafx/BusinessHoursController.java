@@ -16,13 +16,18 @@ import javafx.scene.text.Text;
 import main.*;
 import users.*;
 
+/**
+ * Controller for business hours page. 
+ * Allows business to update there open hours 
+ * @author SEPT Team 6
+ *
+ */
 public class BusinessHoursController implements Initializable {
 
 	private Business business;
 	private Session session;
 	
 	private final ObservableList<Integer> hours = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-//	private final String hours[] = new String[]{"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
 	private final ObservableList<Integer> minutes = FXCollections.observableArrayList(0, 15, 30, 45);	
 	@FXML ComboBox<Integer> mondayStartHour;
 	@FXML ComboBox<Integer> mondayStartMin;
@@ -85,12 +90,22 @@ public class BusinessHoursController implements Initializable {
 	@FXML Button sundayStartAmPmButton;
 	@FXML Button sundayEndAmPmButton;
 	
+	/**
+	 * Constructor for business hours controller.
+	 * @param session used for session logging
+	 * @param business current logged in business
+	 */
 	public BusinessHoursController(Session session, Business business)
 	{
 		this.business = business;
 		this.session = session;
 	}
 	
+	/**
+	 * Initializes business hours page.
+	 * Sets combo box items.
+	 * Loads current business hours for user to view and update
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		mondayStartHour.setItems(hours);
@@ -258,6 +273,10 @@ public class BusinessHoursController implements Initializable {
 			}
 	}
 
+	/**
+	 * Gets all values from the fields and updates the business hours.
+	 * @param event
+	 */
  	public void handleOpenHoursButtonAction(ActionEvent event)
 	{
 		getMondayTime();
@@ -271,6 +290,10 @@ public class BusinessHoursController implements Initializable {
 		openHoursNotify.setText("Business Hours Updated");
 	}
  	
+ 	/**
+ 	 * Generic method for changing the button text.
+ 	 * @param button passed into method to change text. 
+ 	 */
 	public void changeButtonText(Button button)
 	{
 		if(button.getText().equalsIgnoreCase("AM"))
@@ -278,63 +301,123 @@ public class BusinessHoursController implements Initializable {
 		else
 			button.setText("AM");
 	}
+	/**
+	 * Change Monday start time button text
+	 * @param event
+	 */
  	public void changeMondayStartAmPm(ActionEvent event)
  	{
  		changeButtonText(mondayStartAmPmButton);
  	}
+ 	/**
+ 	 * Change Monday end time button text
+ 	 * @param event
+ 	 */
  	public void changeMondayEndAmPm(ActionEvent event)
  	{
  		changeButtonText(mondayEndAmPmButton);
  	}
+ 	/**
+ 	 * change Tuesday start time button text
+ 	 * @param event
+ 	 */
  	public void changeTuesdayStartAmPm(ActionEvent event)
  	{
  		changeButtonText(tuesdayStartAmPmButton);
  	}
+ 	/**
+ 	 * change Tuesday end time button text
+ 	 * @param event
+ 	 */
  	public void changeTuesdayEndAmPm(ActionEvent event)
  	{
  		changeButtonText(tuesdayEndAmPmButton);
  	}
+ 	/**
+ 	 * change Wednesday start time button text
+ 	 * @param event
+ 	 */
  	public void changeWednesdayStartAmPm(ActionEvent event)
  	{
  		changeButtonText(wednesdayStartAmPmButton);
  	}
+ 	/**
+ 	 * change Wednesday end time button text
+ 	 * @param event
+ 	 */
  	public void changeWednesdayEndAmPm(ActionEvent event)
  	{
  		changeButtonText(wednesdayEndAmPmButton);
  	}
+ 	/**
+ 	 * change Thursday start time button text.
+ 	 * @param event
+ 	 */
  	public void changeThursdayStartAmPm(ActionEvent event)
  	{
  		changeButtonText(thursdayStartAmPmButton);
  	}
+ 	/**
+ 	 * change Thursday end time button text
+ 	 * @param event
+ 	 */
  	public void changeThursdayEndAmPm(ActionEvent event)
  	{
  		changeButtonText(thursdayEndAmPmButton);
  	}
+ 	/**
+ 	 * change Friday start time button text
+ 	 * @param event
+ 	 */
  	public void changeFridayStartAmPm(ActionEvent event)
  	{
  		changeButtonText(fridayStartAmPmButton);
  	}
+ 	/**
+ 	 * change Friday end time button text
+ 	 * @param event
+ 	 */
  	public void changeFridayEndAmPm(ActionEvent event)
  	{
  		changeButtonText(fridayEndAmPmButton);
  	}
+ 	/**
+ 	 * change Saturday start time button text
+ 	 * @param event
+ 	 */
  	public void changeSaturdayStartAmPm(ActionEvent event)
  	{
  		changeButtonText(saturdayStartAmPmButton);
  	}
+ 	/**
+ 	 * change Saturday end time button text
+ 	 * @param event
+ 	 */
  	public void changeSaturdayEndAmPm(ActionEvent event)
  	{
  		changeButtonText(saturdayEndAmPmButton);
  	}
+ 	/**
+ 	 * change Sunday start time button text
+ 	 * @param event
+ 	 */
  	public void changeSundayStartAmPm(ActionEvent event)
  	{
  		changeButtonText(sundayStartAmPmButton);
  	}
+ 	/**
+ 	 * change Sunday end time button text
+ 	 * @param event
+ 	 */
  	public void changeSundayEndAmPm(ActionEvent event)
  	{
  		changeButtonText(sundayEndAmPmButton);
  	}
- 	
+ 	/**
+ 	 * Finds the available times from the given day
+ 	 * @param day Passes in string of day and finds matching Available time object
+ 	 * @return
+ 	 */
 	public AvailableTime findDay(String day)
 	{
 		for(int i = 0; i < business.getBusinessHours().size(); i++)
@@ -345,6 +428,16 @@ public class BusinessHoursController implements Initializable {
 		return null;
 	}
 	
+	/**
+	 * Generic method for disabling row of business hours when closed 
+	 * @param startHour Combo box for start hours 
+	 * @param startMin Combo box for start minutes
+	 * @param startAmPm Start time Am/Pm button
+	 * @param endHour Combo box end hours
+	 * @param endMin Combo box end minutes
+	 * @param endAmPm End time Am/Pm button
+	 * @param closed Checkbox for Closed
+	 */
 	public void disableRow(ComboBox<Integer> startHour, ComboBox<Integer> startMin, Button startAmPm, ComboBox<Integer> endHour,
 			ComboBox<Integer> endMin, Button endAmPm, CheckBox closed)
 	{
@@ -367,35 +460,67 @@ public class BusinessHoursController implements Initializable {
 			endAmPm.setDisable(false);
 		}
 	}
+	/**
+	 * Disable Monday row when closed
+	 * @param event
+	 */
 	public void disableMondayRow(ActionEvent event)
 	{
 		disableRow(mondayStartHour, mondayStartMin, mondayStartAmPmButton, mondayEndHour, mondayEndMin, mondayEndAmPmButton, mondayClosed);		
 	}
+	/**
+	 * Disable Tuesday row when closed
+	 * @param event
+	 */
 	public void disableTuesdayRow(ActionEvent event)
 	{
 		disableRow(tuesdayStartHour, tuesdayStartMin, tuesdayStartAmPmButton, tuesdayEndHour, tuesdayEndMin, tuesdayEndAmPmButton, tuesdayClosed);	
 	}
+	/**
+	 * Disable Wednesday row when closed
+	 * @param event
+	 */
 	public void disableWednesdayRow(ActionEvent event)
 	{
 		disableRow(wednesdayStartHour, wednesdayStartMin, wednesdayStartAmPmButton, wednesdayEndHour, wednesdayEndMin, wednesdayEndAmPmButton, wednesdayClosed);	
 	}
+	/**
+	 * Disable Thursday row when closed
+	 * @param event
+	 */
 	public void disableThursdayRow(ActionEvent event)
 	{
 		disableRow(thursdayStartHour, thursdayStartMin, thursdayStartAmPmButton, thursdayEndHour, thursdayEndMin, thursdayEndAmPmButton, thursdayClosed);	
 	}
+	/**
+	 * Disable Friday row when closed
+	 * @param event
+	 */
 	public void disableFridayRow(ActionEvent event)
 	{
 		disableRow(fridayStartHour, fridayStartMin, fridayStartAmPmButton, fridayEndHour, fridayEndMin, fridayEndAmPmButton, fridayClosed);	
 	}
+	/**
+	 * Disable Saturday row when closed
+	 * @param event
+	 */
 	public void disableSaturdayRow(ActionEvent event)
 	{
 		disableRow(saturdayStartHour, saturdayStartMin, saturdayStartAmPmButton, saturdayEndHour, saturdayEndMin, saturdayEndAmPmButton, saturdayClosed);	
 	}
+	/**
+	 * Disable Sunday row when closed
+	 * @param event
+	 */
 	public void disableSundayRow(ActionEvent event)
 	{
 		disableRow(sundayStartHour, sundayStartMin, sundayStartAmPmButton, sundayEndHour, sundayEndMin, sundayEndAmPmButton, sundayClosed);	
 	}
 
+	/**
+	 * Get all values from Monday row and set values.
+	 * If day already has business hours, update Monday with new business hours.
+ 	 */
 	public void getMondayTime()
 	{
 		LocalTime startTime;
@@ -429,6 +554,11 @@ public class BusinessHoursController implements Initializable {
 			openHoursNotify.setText("Please select Monday start and end time hours and minutes");
 		}
 	}
+	
+	/**
+	 * Get all values from Tuesday row and set values.
+	 * If day already has business hours, update Tuesday with new business hours.
+ 	*/
 	public void getTuesdayTime()
 	{
 		LocalTime startTime;
@@ -462,6 +592,10 @@ public class BusinessHoursController implements Initializable {
 			openHoursNotify.setText("Please select Tuesday start and end time hours and minutes");
 		}
 	}
+	/**
+	 * Get all values from Wednesday row and set values.
+	 * If day already has business hours, update Wednesday with new business hours.
+ 	 */
 	public void getWednesdayTime()
 	{
 		LocalTime startTime;
@@ -495,6 +629,10 @@ public class BusinessHoursController implements Initializable {
 			openHoursNotify.setText("Please select Wednesday start and end time hours and minutes");
 		}
 	}
+	/**
+	 * Get all values from Thursday row and set values.
+	 * If day already has business hours, update Thursday with new business hours.
+ 	 */
 	public void getThursdayTime()
 	{
 		LocalTime startTime;
@@ -528,6 +666,10 @@ public class BusinessHoursController implements Initializable {
 			openHoursNotify.setText("Please select Thursday start and end time hours and minutes");
 		}
 	}
+	/**
+	 * Get all values from Friday row and set values.
+	 * If day already has business hours, update Friday with new business hours.
+ 	 */
 	public void getFridayTime()
 	{
 		LocalTime startTime;
@@ -561,6 +703,10 @@ public class BusinessHoursController implements Initializable {
 			openHoursNotify.setText("Please select Friday start and end time hours and minutes");
 		}
 	}
+	/**
+	 * Get all values from Saturday row and set values.
+	 * If day already has business hours, update Saturday with new business hours.
+ 	 */
 	public void getSaturdayTime()
 	{
 		LocalTime startTime;
@@ -594,6 +740,10 @@ public class BusinessHoursController implements Initializable {
 			openHoursNotify.setText("Please select Saturday start and end time hours and minutes");
 		}
 	}
+	/**
+	 * Get all values from Sunday row and set values.
+	 * If day already has business hours, update Sunday with new business hours.
+ 	 */
 	public void getSundayTime()
 	{
 		LocalTime startTime;
