@@ -14,6 +14,10 @@ import main.Booking;
 import main.Session;
 //database class has all methods needed for program to interact with the database
 public class Database {
+	
+	/**
+	 * Connection to database and string SQL values.
+	 */
 	private Connection connection = null;
 	private String custSQL;
 	private String emplSQL;
@@ -23,46 +27,84 @@ public class Database {
 	private String businessHourSQL;
 	private String bookingTypeSQL;
 	
+	/**
+	 * Accessor method for database connection.
+	 * @return database connection
+	 */
  	public Connection getConnection()
 	{
 		return connection;
 	}
 	
+ 	/**
+	 * Accessor method for customer SQL.
+	 * @return customer SQL
+	 */
 	public String getCustSQL()
 	{
 		return custSQL;
 	}
 	
+	/**
+	 * Accessor method for business SQL.
+	 * @return business SQL
+	 */
 	public String getBusiSQL()
 	{
 		return busiSQL;
 	}
 	
+	/**
+	 * Accessor method for employee SQL.
+	 * @return employee SQL
+	 */
 	public String getEmplSQL()
 	{
 		return emplSQL;
 	}
 	
+	/**
+	 * Accessor method for employee availability SQL.
+	 * @return employee availability SQL
+	 */
 	public String getEmplAvailSQL()
 	{
 		return emplAvailSQL;
 	}
 	
+	/**
+	 * Accessor method for booking SQL.
+	 * @return booking SQL
+	 */
 	public String getBookingSQL()
 	{
 		return bookingSQL;
 	}
 	
+	/**
+	 * Accessor method for business hours SQL.
+	 * @return business hours SQL
+	 */
 	public String getBusinessHourSQL()
 	{
 		return businessHourSQL;
 	}
+	
+	/**
+	 * Accessor method for booking type SQL.
+	 * @return booking type SQL
+	 */
 	public String getBookingTypeSQL()
 	{
 		return this.bookingTypeSQL;
 	}
-
-	//connect to the database. return false if unable to connect
+	
+	/**
+	 * Function to connect to the database on program startup.
+	 * @param session object for this program session.
+	 * @param url url for database connection.
+	 * @return true if connection successful.
+	 */
 	public boolean connectDatabase(Session session, String url)
 	{
 		try{
@@ -83,7 +125,11 @@ public class Database {
 		}
 	}
 	
-	//initialize database tables if there is no database found
+	/**
+	 * Function to initialise the database tables.
+	 * @param session database session object.
+	 * @return true if successful
+	 */
 	public boolean initDatabase(Session session)
 	{
 		session.addLog("Initialising database");
@@ -207,7 +253,11 @@ public class Database {
 		}
 	}
 	
-	//clear old database tables. return true when clears or false if unable to clear
+	/**
+	 * Function to clear old database tables.
+	 * @param session database session object.
+	 * @return true if successful
+	 */
 	public boolean clearTables(Session session)
 	{
 		session.addLog("Clearing old database tables");
@@ -239,7 +289,11 @@ public class Database {
 		}
 	}
 	
-	//populate a new database with some default values
+	/**
+	 * Function to populate a new database with some default values.
+	 * @param session database session object.
+	 * @return true if successful
+	 */
 	public boolean defaultValues(Session session)
 	{
 		session.addLog("Populating new database with default values");
@@ -351,7 +405,12 @@ public class Database {
 		}
 	}
 	
-	//read data from CUSTOMER table into customer array
+	/**
+	 * Function to read data from customer table into customer array.
+	 * @param session database session object
+	 * @param businesses business to access customers
+	 * @return true if successful
+	 */
 	public boolean readCustDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
@@ -359,8 +418,9 @@ public class Database {
 		
 		try {
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM CUSTOMERS");
-			
-			//read one row at a time adding customers to array. loop until no rows left
+		/**
+		 * Read one row at a time adding customers to array. Loop until no rows left.
+		 */
 		while(resultSet.next())		
 		{			
 			String username = resultSet.getString("CUST_UNAME");
@@ -388,13 +448,20 @@ public class Database {
 		}
 	}
 	
-	//read data from BUSINESS table into business array
+	/**
+	 * Function to read data from business table into business array.
+	 * @param session database session object.
+	 * @param businesses business to read values into.
+	 * @return true if successful
+	 */
 	public boolean readBusDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		Business newBus;
-	
-		//read one row from business table create new business object. loop until table has no new rows
+		
+		/**
+		 * Read one row from business table create new business object. Loop until table has no new rows.
+		 */
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM BUSINESSES");
 			while(resultSet.next())
@@ -417,7 +484,12 @@ public class Database {
 		}
 	}
 	
-	//read data from EMPLOYEE table into employee array
+	/**
+	 * Function to read data from employee table into employee array.
+	 * @param session database session object.
+	 * @param businesses business to get employee from.
+	 * @return true if successful
+	 */
 	public boolean readEmplDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
@@ -450,13 +522,20 @@ public class Database {
 		}
 	}
 	
-	//read data from EMP_AVAIL table into correct employee availabilities array
+	/**
+	 * Function to read data from EMP_AVAIL table into correct employee availabilities array.
+	 * @param session database session object.
+	 * @param businesses business to access employees through.
+	 * @return true if successful
+	 */
 	public boolean readAvailablityTimes(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
 		
-		/*read availability from table. match employee ID in employee array to ID from emp_avail and 
-		 * add availability to employees array*/
+		/**
+		 * Read availability from table. Match employee ID in employee array to ID from EMP_AVAIL
+		 * and add availability to employees array.
+		 */
 		try{
 			resultSet = connection.createStatement().executeQuery("SELECT * FROM EMP_AVAIL");
 			while(resultSet.next())
@@ -496,6 +575,12 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Function to read business hours from business table into business array.
+	 * @param session database session object.
+	 * @param businesses businesses to set business hours for.
+	 * @return true if successful
+	 */
 	public boolean readBusinessHoursDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
@@ -530,6 +615,12 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Function to read booking types from database into business array.
+	 * @param session database object.
+	 * @param businesses business array to access business through.
+	 * @return true if successful
+	 */
 	public boolean readBookingTypesDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
@@ -558,7 +649,12 @@ public class Database {
 		}
 	}
 	
-	
+	/**
+	 * Function to read booking values from database to bookings array.
+	 * @param session database session object.
+	 * @param businesses business array to access bookings array.
+	 * @return true if successful
+	 */
 	public boolean readBookingsDB(Session session, ArrayList<Business> businesses)
 	{
 		ResultSet resultSet = null;
@@ -622,7 +718,11 @@ public class Database {
 		}
 	}
 
-	//write whole customer array to the database
+	/**
+	 * Function to write whole customer array to database.
+	 * @param session database session object
+	 * @param businesses businesses array to access customers through.
+	 */
  	public void writeCustDB(Session session, ArrayList<Business> businesses)
 	{	
  		for(int busPos = 0; busPos < businesses.size(); busPos++)
@@ -642,6 +742,11 @@ public class Database {
  		}
 	}
  	
+ 	/**
+ 	 * Function to write businesses to database.
+ 	 * @param session database session object.
+ 	 * @param businesses array of businesses to write.
+ 	 */
  	public void writeBusinessDB(Session session, ArrayList<Business> businesses)
 	{		
 		for(int i = 0; i < businesses.size(); i++)
@@ -658,7 +763,12 @@ public class Database {
 		}
 	}
 		
-	//write employee array into database including available times array
+	/**
+ 	 * Function to write employees to database.
+ 	 * @param session database session object.
+ 	 * @param businesses array of businesses to access employees through.
+ 	 * @return true if successful
+ 	 */
 	public boolean writeEmplToDB(Session session, ArrayList<Business> businesses)
 	{
 		for(int busNo = 0; busNo < businesses.size(); busNo++)
@@ -692,7 +802,12 @@ public class Database {
 		return true;
 	}
 	
-	//write Bookings array into database
+	/**
+	 * Function to write bookings array into database.
+	 * @param session database session object.
+	 * @param businesses array of businesses to access bookings through.
+	 * @return true if successful
+	 */
 	public boolean writeBookingToDB(Session session, ArrayList<Business> businesses)
 	{
 		try{
@@ -717,6 +832,12 @@ public class Database {
 		return true;
 	}
 	
+	/**
+	 * Function to write booking types to database.
+	 * @param session database session object.
+	 * @param businesses array of businesses to access booking types through.
+	 * @return true if successful
+	 */
 	public boolean writeBookingTypeToDB(Session session, ArrayList<Business> businesses)
 	{
 		try{
@@ -744,6 +865,12 @@ public class Database {
 		return true;
 	}
 	
+	/**
+	 * Function to write business hours to database.
+	 * @param session database session object.
+	 * @param businesses array of businesses to access business hours through.
+	 * @return true if successful
+	 */
 	public boolean writeBusinessHoursToDB(Session session, ArrayList<Business> businesses)
 	{
 		try{
@@ -768,7 +895,12 @@ public class Database {
 		return true;
 	}
 	
-	//convert objects to strings for SQL commands
+	/**
+	 * Function to convert objects into strings.
+	 * @param customer customer to write to string.
+	 * @param business business to write to string.
+	 * @return true if false.
+	 */
 	public boolean custToString(Customer customer, Business business)
 	{
 		String uName = customer.getUsername();
@@ -783,7 +915,11 @@ public class Database {
 		return true;
 	}
 	
-	//convert objects to strings for SQL commands
+	/**
+	 * Function to convert objects to strings for SQL commands.
+	 * @param business business to write to string.
+	 * @return true if successful
+	 */
 		public boolean businessToString(Business business)
 		{
 			String businessName = business.getBusinessName();
@@ -798,6 +934,12 @@ public class Database {
 			return true;
 		}
 	
+		/**
+		 * Function to write employee to string.
+		 * @param business business to access employee through.
+		 * @param employee employee to write to string.
+		 * @return true if successful
+		 */
 	public boolean emplToString(Business business, Employee employee)
 	{
 		String empID = employee.getEmployeeID();
@@ -808,6 +950,13 @@ public class Database {
 		return true;
 	}
 
+	/**
+	 * Function to write employee availabilities to string.
+	 * @param business business to access employee availabilities through.
+	 * @param employee employee to access availabilities through.
+	 * @param availTime availTime to write to string.
+	 * @return true if successful
+	 */
 	private boolean emplAvailToString(Business business, Employee employee, AvailableTime availTime)
 	{
 		String day = availTime.getDay();
@@ -821,6 +970,12 @@ public class Database {
 		return true;
 	}
 	
+	/**
+	 * Function to write business hours to string.
+	 * @param business business to access hours through.
+	 * @param businessHour business hour to write to string.
+	 * @return true if successful
+	 */
 	private boolean businessHoursToString(Business business, AvailableTime businessHour)
 	{
 		String businessUname = business.getUsername();
@@ -834,12 +989,25 @@ public class Database {
 		return true;
 	}
 	
+	/**
+	 * Function to write booking types to string.
+	 * @param name name of booking type.
+	 * @param type type of booking type.
+	 * @param time time of booking type.
+	 * @return true if successful
+	 */
 	private boolean bookingTypesToString(String name, String type, int time)
 	{
 		this.bookingTypeSQL = "'" + name + "', '" + type + "', " + time;
 		return true;
 	}
 	
+	/**
+	 * Function to write bookings to string.
+	 * @param booking booking to write.
+	 * @param business business to access bookings through.
+	 * @return true if successful
+	 */
 	private boolean bookingToString(Booking booking, Business business)
 	{
 		String bookingId = booking.getBookingID();
@@ -860,7 +1028,11 @@ public class Database {
 		return true;				
 	}
 	
-	//close connection to the database
+	/**
+	 * Function to close connection at program termination.
+	 * @param session session to close.
+	 * @return true if successful
+	 */
 	public boolean closeConnection(Session session)
 	{
 		try{
@@ -874,7 +1046,12 @@ public class Database {
 		}
 	}
 	
-	//delete all records in a specified table keeping table 
+	/**
+	 * Function to delete all records
+	 * @param session database session object.
+	 * @param table table to clear.
+	 * @return true if successful
+	 */
 	public boolean deleteAllRecords(Session session, String table)
 	{
 		try{

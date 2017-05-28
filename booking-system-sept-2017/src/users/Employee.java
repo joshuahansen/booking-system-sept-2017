@@ -92,10 +92,10 @@ public class Employee
 	}
 	
 	/**
-	 * 
-	 * @param startTime
-	 * @param endTime
-	 * @param day
+	 * Mutator method to set available times for this employee.
+	 * @param startTime start time for the employee.
+	 * @param endTime end time for the employee.
+	 * @param day day of start and end times.
 	 * @return
 	 */
 	public boolean setAvailableTime(LocalTime startTime, LocalTime endTime, String day)
@@ -113,10 +113,10 @@ public class Employee
 	}
 	
 	/**
-	 * 
-	 * @param startTime
-	 * @param endTime
-	 * @param day
+	 * Removes the specified available times from this employee.
+	 * @param startTime start time to remove.
+	 * @param endTime end time to remove.
+	 * @param day day to remove.
 	 * @return
 	 */
 	public boolean removeAvailableTime(LocalTime startTime, LocalTime endTime, String day)

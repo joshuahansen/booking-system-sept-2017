@@ -91,30 +91,40 @@ public class Business extends User
 		return this.employees; 
 	}
 	
+	/**
+	 * Accessor method for the booking types for this business.
+	 * @return bookingTypes the booking types for this business.
+	 */
 	public ArrayList<BookingType> getBookingTypes()
 	{
 		return this.bookingTypes;
 	}
 	
+	/**
+	 * Accessor method for the business hours for this business.
+	 * @return businessHours the business hours for this business.
+	 */
 	public ArrayList<AvailableTime> getBusinessHours()
 	{
 		return this.businessHours;
 	}
 	
+	/**
+	 * Accessor method for customers of this business.
+	 * @return customers the customers of this business.
+	 */
 	public ArrayList<Customer> getCustomers()
 	{
 		return this.customers;
 	}
 	
-
 	/**
-	 * 
-	 * @param startTime
-	 * @param endTime
-	 * @param day
-	 * @return
+	 * Function to add business hours to this business.
+	 * @param startTime Opening time for the business.
+	 * @param endTime Closing time for the business.
+	 * @param day The day for the start and end times.
+	 * @return true if successful.
 	 */
-
 	public boolean addBusinessHours(LocalTime startTime, LocalTime endTime, String day)
 	{
 		AvailableTime newAvailTime = new AvailableTime(startTime, endTime, day);
@@ -136,10 +146,10 @@ public class Business extends User
 	}
 	
 	/**
-	 * 
-	 * @param bookingType
-	 * @param bookingLength
-	 * @return
+	 * Function to add a type of booking to this business.
+	 * @param bookingType type of the booking to be added.
+	 * @param bookingLength length of the booking type to be added.
+	 * @return true if successful.
 	 */
 	public boolean addBookingType(String bookingType, int bookingLength)
 	{
@@ -148,11 +158,19 @@ public class Business extends User
 		return true;
 	}
 	
+	/**
+	 * Mutator method to set the business logo image.
+	 * @param URL logo to be added.
+	 */
 	public void setBusinessLogo(String URL)
 	{
 		this.businessLogo = new Image(URL);
 	}
 	
+	/**
+	 * Accessor method to get the business logo for the business.
+	 * @return business logo to be returned.
+	 */
 	public Image getBusinessLogo()
 	{
 		return this.businessLogo;
